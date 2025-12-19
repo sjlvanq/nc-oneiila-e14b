@@ -8,7 +8,7 @@
 
 ### Resumen: Las 3 Reglas de Oro
 1. **Un solo cambio por commit:** Si arreglaste un bug y también cambiaste el color de un botón, haz **dos** commits diferentes.
-2. **Usa el presente imperativo:** Escribe "agregar feature" en lugar de "agregada feature" o "agregando feature". Es como darle una orden al código.
+2. **Usa el infinitivo:** Escribe "agregar feature" en lugar de "agregada feature" o "agregando feature". Es como darle una orden al código.
 3. **Estructura fija:** Usa siempre el formato `tipo: descripción`.
 
 ---
