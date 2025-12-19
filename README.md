@@ -6,6 +6,8 @@
 * Proyecto 2: ChurnInsight — Predicción de Cancelación de Clientes
 * Equipo: H12-25-L-Equipo 14-Data Science
 
-[documentación](doc/README.md)
+[Documentación](doc/README.md)
+
+[Documentación Desarrollo](doc/dev/README.md) <- Empieza aquí
 
 
