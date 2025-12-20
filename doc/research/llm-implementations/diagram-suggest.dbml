@@ -1,0 +1,91 @@
+// =============================================
+// CHURN INSIGHT - MODELO CORREGIDO
+// =============================================
+// Diseño completo con integridad referencial y datos completos
+
+Table clients {
+  id bigint [pk, increment]
+  plan varchar(50) [not null]
+  subscription_date date
+  note: 'Renombrado de fecha_alta para consistencia'
+  
+  indexes {
+    subscription_date [name: 'idx_clients_subscription_date']
+  }
+}
+
+Table users {
+  id bigint [pk, increment]
+  email varchar(100) [not null, unique]
+  name varchar(100)
+  active boolean [default: true]
+  created_at timestamp [default: `CURRENT_TIMESTAMP`]
+  
+  indexes {
+    active [name: 'idx_users_active']
+    created_at [name: 'idx_users_created_at']
+  }
+}
+
+Table roles {
+  id bigint [pk, increment]
+  name varchar(50) [not null, unique]
+}
+
+Table permissions {
+  id bigint [pk, increment]
+  name varchar(100) [not null, unique]
+}
+
+Table access_levels {
+  code varchar(20) [pk]
+  description varchar(100) [not null]
+  note: 'Tabla de referencia para niveles de acceso válidos'
+}
+
+Table user_roles {
+  user_id bigint [not null]
+  role_id bigint [not null]
+  
+  indexes {
+    (user_id, role_id) [pk]
+  }
+}
+
+Table role_permissions {
+  role_id bigint [not null]
+  permission_id bigint [not null]
+  
+  indexes {
+    (role_id, permission_id) [pk]
+  }
+}
+
+Table user_client_access {
+  user_id bigint [not null]
+  client_id bigint [not null]
+  access_level varchar(20) [not null]
+  granted_at timestamp [default: `CURRENT_TIMESTAMP`]
+  
+  indexes {
+    (user_id, client_id) [pk]
+    access_level [name: 'idx_user_client_access_level']
+  }
+}
+
+// =============================================
+// RELACIONES
+// =============================================
+
+// Relaciones para user_roles
+Ref: user_roles.user_id > users.id [delete: cascade, update: cascade]
+Ref: user_roles.role_id > roles.id [delete: cascade, update: cascade]
+
+// Relaciones para role_permissions
+Ref: role_permissions.role_id > roles.id [delete: cascade, update: cascade]
+Ref: role_permissions.permission_id > permissions.id [delete: cascade, update: cascade]
+
+// Relaciones para user_client_access
+Ref: user_client_access.user_id > users.id [delete: cascade, update: cascade]
+Ref: user_client_access.client_id > clients.id [delete: cascade, update: cascade]
+Ref: user_client_access.access_level > access_levels.code [delete: restrict, update: cascade]
