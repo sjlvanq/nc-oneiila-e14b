@@ -7,4 +7,4 @@
 
 | Nro. Sprint | Resumen |
 | --- | --- |
-| 1 | Implementación de infraestructura de seguridad stateless mediante JWT, autenticación de usuarios desde la base de datos y validación de acceso en cada petición. |
+| [01](sprints/sprint01.md) | Implementación de infraestructura de seguridad stateless mediante JWT, autenticación de usuarios desde la base de datos y validación de acceso en cada petición. |
