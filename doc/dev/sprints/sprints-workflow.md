@@ -1,5 +1,5 @@
 * [README.md principal](../../README.md)
-* [Desarrollo/README.md](../dev/README.md)
+* [Desarrollo/README.md](../README.md)
 
 ## Convenciones y documentación para desarrolladores - Proyecto ChurnCheck
 # Workflow de Git para sprints
