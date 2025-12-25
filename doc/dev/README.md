@@ -2,6 +2,7 @@
 
 ## Trabajo en el repositorio
 * [Los commits y sus mensajes](commits.md)
+* [Git workflow para sprints](sprints/sprints-workflow.md)
 
 ## Sprints
 
