@@ -25,6 +25,11 @@ git checkout -B sprint2/devA
 git checkout sprint1/basecode -- src/main/java/com/example/demo/DemoApplication.java
 ```
 
+Si estuviese en el directorio `src/main/java/com/example/demo` bastaría con:
+```shell
+git checkout sprint1/basecode -- DemoApplication.java
+```
+
 3. Realizar los cambios necesarios separándolos en distintos commits
 
 ```shell
