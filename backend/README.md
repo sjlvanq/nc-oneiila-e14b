@@ -20,7 +20,7 @@ powered by ![NoCountry](../docs/assets/nocountry-logo.png)
 ![Equipo Backend](docs/assets/churncheck-backend.png)
 *Equipo Backend*
 
---> [CONTRIBUTING.md](docs/CONTRIBUTING.md) <--
+--> [CONTRIBUTING.md](../docs/CONTRIBUTING.md) <--
 
 
 
