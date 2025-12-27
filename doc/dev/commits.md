@@ -6,10 +6,11 @@
 
 ---
 
-### Resumen: Las 3 Reglas de Oro
+### Resumen: Reglas de Oro
 1. **Un solo cambio por commit:** Si arreglaste un bug y también cambiaste el color de un botón, haz **dos** commits diferentes.
-2. **Usa el infinitivo:** Escribe "agregar feature" en lugar de "agregada feature" o "agregando feature". Es como darle una orden al código.
-3. **Estructura fija:** Usa siempre el formato `tipo: descripción`.
+2. **En inglés:** Todos los mensajes de commits estarán en inglés y comenzarán en minúsculas.
+3. **Usa el infinitivo (imperativo en inglés):** Escribe "uncomment method" en lugar de "uncommented" o "uncommenting". Es como darle una orden al código.
+4. **Estructura fija:** Usa siempre el formato `tipo: descripción`.
 
 ---
 
@@ -37,14 +38,15 @@ Todos tus commits deben seguir este formato:
 
 ### Ejemplos
 
-❌ **Malos (Evítalos):**
-* `fix: ya funciona` (¿Qué funciona?)
-* `cambios` (Muy vago y falta el tipo)
-* `feat: arregle el login y cambie el footer y borré un logo` (Demasiadas cosas juntas)
+**❌ Malos (Evítalos):**
 
-✅ **Buenos (Cópialos):**
-* `feat: conectar api de productos`
-* `fix: corregir error de tipeo en el nombre de usuario`
-* `docs: actualizar instrucciones de instalación en README.md`
-* `style: ajustar intentación en codigo.java`
+* fix: it works now (Vago y no describe la solución).
+* cambios (Falta el tipo y está en español).
+* feat: fix login and change footer and delete logo (Demasiadas responsabilidades en un solo commit).
 
+**✅ Buenos:**
+
+* feat: connect products api
+* fix: resolve typo in username field
+* docs: update installation instructions in README.md
+* style: fix indentation in auth controller
