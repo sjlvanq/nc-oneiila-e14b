@@ -1,7 +1,6 @@
 # Índice de documentación - Backend - ChurnCheck
 
-* [README.md del proyecto](../../README.md)
-* [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md)
+* [CONTRIBUTING.md](../../docs/CONTRIBUTING.md)
 
 -----
 
@@ -9,3 +8,6 @@
 * [Documentación de desarrollo - Backend](dev/README.md)
 * [Investigación - Backend](research/README.md)
 
+-----
+
+* [README.md del proyecto](../../README.md)
