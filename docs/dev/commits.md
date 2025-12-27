@@ -1,10 +1,8 @@
-# Convenciones y documentación para desarrolladores - NombreDelProyecto
-## Los commits y sus mensajes
 * [README principal](../../README.md)
-* [README documentación](../README.md)
-* [README desarrollo](README.md)
+* [CONTRIBUTING.md](../CONTRIBUTING.md)
 
----
+## Convenciones y documentación para desarrolladores - ChurnCheck
+# Los commits y sus mensajes
 
 ### Resumen: Reglas de Oro
 1. **Un solo cambio por commit:** Si arreglaste un bug y también cambiaste el color de un botón, haz **dos** commits diferentes.

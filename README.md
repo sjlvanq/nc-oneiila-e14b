@@ -1,13 +1,21 @@
-**NoCountry | Hackathon ONE II - Latam**
+
+![ORACLE + Alura Latam](docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
 
 ***Desafío intensivo de innovación para participantes de todo Latam.***
 
-# nc-oneiila-e14b
-* Proyecto 2: ChurnInsight — Predicción de Cancelación de Clientes
-* Equipo: H12-25-L-Equipo 14-Data Science
+powered by ![NoCountry](docs/assets/nocountry-logo.png)
 
-[Documentación](doc/README.md)
+----
 
-[Documentación Desarrollo](doc/dev/README.md) <- Empieza aquí
+# ChurnCheck
+## Predicción de Cancelación de Clientes
+
+* Proyecto ChurnInsight
+* **Equipo: H12-25-L-Equipo 14-Data Science**
+
+-----
+
+--> [CONTRIBUTING.md](docs/CONTRIBUTING.md) <--
 
 

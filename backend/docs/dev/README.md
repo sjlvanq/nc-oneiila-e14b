@@ -1,8 +1,7 @@
-# Convenciones y documentación para desarrolladores - NombreDelProyecto
+# Documentación de desarrollo - Backend - ChurnCheck
 
-## Trabajo en el repositorio
-* [Los commits y sus mensajes](commits.md)
-* [Git workflow para sprints](sprints/sprints-workflow.md)
+* [Documentación de desarrollo compartida](../../../docs/dev/README.md)
+* [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md)
 
 ## Sprints
 

@@ -1,4 +1,4 @@
-# Investigación - NombreDelProyecto
+# Investigación - ChurnCheck
 
 Análisis previos y pruebas de concepto realizadas antes de la implementación.
 
