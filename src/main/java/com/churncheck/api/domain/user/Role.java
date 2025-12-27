@@ -1,4 +1,4 @@
-package com.example.demo.domain.user;
+package com.churncheck.api.domain.user;
 
 import jakarta.persistence.*;
 
