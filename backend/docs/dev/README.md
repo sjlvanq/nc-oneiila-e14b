@@ -1,6 +1,5 @@
 # Documentación de desarrollo - Backend - ChurnCheck
 
-* [Documentación de desarrollo compartida](../../../docs/dev/README.md)
 * [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md)
 
 ## Sprints
