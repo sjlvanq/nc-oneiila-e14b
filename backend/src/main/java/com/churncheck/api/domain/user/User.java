@@ -32,4 +32,30 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     // getters y setters
+    
+    public Boolean getActive() {
+		return active;
+	}
+    
+    public Long getId() {
+		return id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+    
 }
