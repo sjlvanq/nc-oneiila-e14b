@@ -61,4 +61,8 @@ public class Client {
         }
     }
 
+    public void deleteClient() {
+        this.active = false;
+    }
+
 }
