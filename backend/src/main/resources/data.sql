@@ -5,8 +5,9 @@ INSERT INTO clients (plan, fecha_alta) VALUES
 
 -- Users (password: 123456)
 INSERT INTO users (email, password_hash, name, active, created_at) VALUES
-('admin@demo.com', '$2a$10$7qE9Z4zEw9nQ8q5B8oO3ru5xkR5n8k8YdE8C3n5Jp9s5yFJz5uHPe', 'Admin User', TRUE, CURRENT_TIMESTAMP),
-('analyst@demo.com', '$2a$10$7qE9Z4zEw9nQ8q5B8oO3ru5xkR5n8k8YdE8C3n5Jp9s5yFJz5uHPe', 'Analyst User', TRUE, CURRENT_TIMESTAMP);
+('hola@demo.com', '$2a$12$hjMrF2t7GElG98KX0swmKOlw6p9cZcrmUQMrRJRUO6Cm.kYId3wBm', 'Hola User', TRUE, CURRENT_TIMESTAMP),
+('admin@demo.com', '$2a$12$hjMrF2t7GElG98KX0swmKOlw6p9cZcrmUQMrRJRUO6Cm.kYId3wBm', 'Admin User', TRUE, CURRENT_TIMESTAMP),
+('analyst@demo.com', '$2a$12$hjMrF2t7GElG98KX0swmKOlw6p9cZcrmUQMrRJRUO6Cm.kYId3wBm', 'Analyst User', TRUE, CURRENT_TIMESTAMP);
 
 -- Roles
 INSERT INTO roles (name) VALUES
@@ -25,5 +26,7 @@ INSERT INTO user_client_access (user_id, client_id, access_level) VALUES
 
 -- User → Roles
 INSERT INTO user_roles (user_id, role_id) VALUES
-(1, 1), -- Admin User → ADMIN
-(2, 2); -- Analyst User → ANALYST
+(1, 1), -- Hola User → ADMIN
+(2, 1), -- Admin User → ADMIN
+(3, 2); -- Analyst User → ANALYST
+

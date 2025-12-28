@@ -22,7 +22,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String clientName;
+	private String clientName;
     private String email;
     private Boolean active;
     private Date subscriptionDate;
@@ -42,6 +42,42 @@ public class Client {
         this.age = clientCreateRequestDTO.age();
     }
 
+    public Long getId() {
+		return id;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public Date getSubscriptionDate() {
+		return subscriptionDate;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public String getPhoneRegistered() {
+		return phoneRegistered;
+	}
+
+	public String getNearCity() {
+		return nearCity;
+	}
+
+	public String getAge() {
+		return age;
+	}
+    
     public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
         if (clientUpdateRequestDTO.clientName() != null) {
             this.clientName = clientUpdateRequestDTO.clientName();
@@ -60,5 +96,7 @@ public class Client {
             this.age = clientUpdateRequestDTO.age();
         }
     }
+    
+    
 
 }

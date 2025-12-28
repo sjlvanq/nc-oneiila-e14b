@@ -5,10 +5,25 @@ spring:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     username: sa
-    password: password
+    password: ""
   h2:
     console:
       enabled: true
   sql:
     init:
       mode: always
+  jpa:
+    hibernate:
+      # Evita que Hibernate intente crear las tablas
+      ddl-auto: none 
+      # Muestra las queries en consola
+      show-sql: true 
+      # Obligatorio para que Spring ejecute data.sql después de preparar la base
+      defer-datasource-initialization: false
+  security:
+    token:
+      # TODO: Cambiar por una variable de entorno
+      secret: H12-25-L-Equipo14-DataScience
+springdoc:
+  api-docs:
+    version: OPENAPI_3_0
