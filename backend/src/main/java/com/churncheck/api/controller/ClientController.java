@@ -58,10 +58,17 @@ public class ClientController {
     }
     
     @GetMapping
-    public Page<ClientListResponseDTO> getClientList(@PageableDefault(size = 10, sort = "clientName") Pageable pageable) {
-        return clientRepository.findAllByActiveTrue(pageable).map(ClientListResponseDTO::new);
+    public ResponseEntity<Page<ClientListResponseDTO>> getClientList(@PageableDefault(size = 10, sort = "clientName") Pageable pageable) {
+        return ResponseEntity.ok(clientRepository.findAllByActiveTrue(pageable).map(ClientListResponseDTO::new));
     }
     
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
+        var client = clientRepository.getReferenceById(id);
+        return ResponseEntity.ok(new ClientResponseDTO(client));
+    }
+
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
