@@ -26,5 +26,7 @@ INSERT INTO user_client_access (user_id, client_id, access_level) VALUES
 
 -- User → Roles
 INSERT INTO user_roles (user_id, role_id) VALUES
-(1, 1), -- Admin User → ADMIN
-(2, 2); -- Analyst User → ANALYST
+(1, 1), -- Hola User → ADMIN
+(2, 1), -- Admin User → ADMIN
+(3, 2); -- Analyst User → ANALYST
+
