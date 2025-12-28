@@ -1,5 +1,7 @@
 package com.churncheck.api.controller;
 
+import java.net.URI;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +12,16 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.churncheck.api.domain.client.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.ClientRepository;
+import com.churncheck.api.domain.client.ClientResponseDTO;
 import com.churncheck.api.domain.client.Client;
-import org.springframework.web.bind.annotation.PutMapping;
 import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,8 +41,11 @@ public class ClientController {
 
     @PostMapping
     @Transactional
-    public void createClient(@RequestBody ClientCreateRequestDTO clientCreateRequestDTO) {
-        clientRepository.save(new Client(clientCreateRequestDTO));
+    public ResponseEntity<ClientResponseDTO> createClient(@RequestBody @Valid ClientCreateRequestDTO clientCreateRequestDTO, UriComponentsBuilder uriBuilder ) {
+        Client client = clientRepository.save(new Client(clientCreateRequestDTO));
+
+        URI uri = uriBuilder.path("/clients/{id}").buildAndExpand(client.getId()).toUri();
+        return ResponseEntity.created(uri).body(new ClientResponseDTO(client));
     }
 
     @PutMapping
