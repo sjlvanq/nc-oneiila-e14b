@@ -1,16 +1,19 @@
 package com.churncheck.api.domain.client;
 
-import java.util.Date;
+import jakarta.validation.constraints.NotBlank;
 
-public record ClientResponseDTO(
+public record ClientUpdateRequestDTO(
+    @NotBlank
     Long id,
+
     String clientName,
-    Date subscriptionDate,
+
     String email,
-    Boolean active,
-    String gender,
+
     String phoneRegistered,
+
     String nearCity,
+
     String age
 ) {
 

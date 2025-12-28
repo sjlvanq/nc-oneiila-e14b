@@ -22,16 +22,43 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String clientName;
     private String email;
     private Boolean active;
     private Date subscriptionDate;
+    private String gender;
+    private String phoneRegistered;
+    private String nearCity;
+    private String age;
 
     public Client (ClientCreateRequestDTO clientCreateRequestDTO) {
-        this.name = clientCreateRequestDTO.name();
+        this.clientName = clientCreateRequestDTO.clientName();
         this.email = clientCreateRequestDTO.email();
         this.active = true;
         this.subscriptionDate = clientCreateRequestDTO.subscriptionDate();
+        this.gender = clientCreateRequestDTO.gender();
+        this.phoneRegistered = clientCreateRequestDTO.phoneRegistered();
+        this.nearCity = clientCreateRequestDTO.nearCity();
+        this.age = clientCreateRequestDTO.age();
+    }
+
+    public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
+        if (clientUpdateRequestDTO.clientName() != null) {
+            this.clientName = clientUpdateRequestDTO.clientName();
+        }
+        if (clientUpdateRequestDTO.email() != null) {
+            this.email = clientUpdateRequestDTO.email();
+        }
+        
+        if (clientUpdateRequestDTO.phoneRegistered() != null) {
+            this.phoneRegistered = clientUpdateRequestDTO.phoneRegistered();
+        }
+        if (clientUpdateRequestDTO.nearCity() != null) {
+            this.nearCity = clientUpdateRequestDTO.nearCity();
+        }
+        if (clientUpdateRequestDTO.age() != null) {
+            this.age = clientUpdateRequestDTO.age();
+        }
     }
 
 }
