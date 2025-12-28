@@ -6,13 +6,24 @@ import java.util.Date;
 
 public record ClientCreateRequestDTO(
     @NotBlank
-    String name,
+    String clientName,
+
+    Date subscriptionDate,
 
     @Email
     @NotBlank
     String email,
 
-    Date subscriptionDate
+    @NotBlank
+    String gender,
+
+    @NotBlank
+    String phoneRegistered,
+
+    String nearCity,
+
+    String age
+
 ) {
     
 }
