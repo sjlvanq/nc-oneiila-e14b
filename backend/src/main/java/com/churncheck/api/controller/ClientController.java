@@ -50,9 +50,11 @@ public class ClientController {
 
     @PutMapping
     @Transactional
-    public void updateClient(@RequestBody ClientUpdateRequestDTO clientUpdateRequestDTO) {
+    public ResponseEntity<ClientResponseDTO> updateClient(@RequestBody @Valid ClientUpdateRequestDTO clientUpdateRequestDTO) {
         var client = clientRepository.getReferenceById(clientUpdateRequestDTO.id());
         client.updateClientData(clientUpdateRequestDTO);
+
+        return ResponseEntity.ok(new ClientResponseDTO(client));
     }
     
     @GetMapping
