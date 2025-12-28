@@ -16,3 +16,6 @@ spring:
     token:
       # TODO: Cambiar por una variable de entorno
       secret: H12-25-L-Equipo14-DataScience
+springdoc:
+  api-docs:
+    version: OPENAPI_3_0
