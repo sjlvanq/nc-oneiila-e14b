@@ -2,27 +2,26 @@ package com.churncheck.api.domain.client;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import java.util.Date;
+import jakarta.validation.constraints.NotNull;
 
 public record ClientCreateRequestDTO(
     @NotBlank
     String clientName,
 
-    Date subscriptionDate,
-
     @Email
     @NotBlank
-    String email,
+    String clientEmail,
+    
+    @NotNull
+    Gender gender,
 
     @NotBlank
-    String gender,
+    String clientPhone,
 
-    @NotBlank
-    String phoneRegistered,
+    Integer nearLocation,
 
-    String nearCity,
-
-    String age
+    @NotNull
+    Integer age
 
 ) {
     

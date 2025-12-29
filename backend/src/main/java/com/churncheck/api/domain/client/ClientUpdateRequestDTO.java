@@ -12,13 +12,13 @@ public record ClientUpdateRequestDTO(
     String clientName,
 
     @Email
-    String email,
+    String clientEmail,
 
-    String phoneRegistered,
+    String clientPhone,
 
-    String nearCity,
+    Integer nearLocation,
 
-    String age
+    Integer age
 ) {
 
 }
