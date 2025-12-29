@@ -1,109 +1,51 @@
 package com.churncheck.api.domain.client;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import java.util.Date;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
+@Entity
 @Table(name = "clients")
-@Entity(name = "Client")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	private String clientName;
-    private String clientEmail;
-    private Boolean active;
-    private Date subscriptionDate;
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
-    private String clientPhone;
+
+    @Column(name = "client_name")
+    private String clientName;
+
+    private String gender;
+
+    @Column(name = "near_location")
     private Integer nearLocation;
+
+    @Column(name = "partner_employee")
+    private Integer partnerEmployee;
+
+    @Column(name = "promo_friends")
+    private Integer promoFriends;
+
+    @Column(name = "client_phone")
+    private String clientPhone;
+
     private Integer age;
 
-    public Client (ClientCreateRequestDTO clientCreateRequestDTO) {
-        this.clientName = clientCreateRequestDTO.clientName();
-        this.clientEmail = clientCreateRequestDTO.clientEmail();
-        this.active = true;
-        this.subscriptionDate = new Date();
-        this.gender = clientCreateRequestDTO.gender();
-        this.clientPhone = clientCreateRequestDTO.clientPhone();
-        this.nearLocation = clientCreateRequestDTO.nearLocation();
-        this.age = clientCreateRequestDTO.age();
-    }
+    @Column(name = "contract_period")
+    private Integer contractPeriod;
 
-    public Long getId() {
-		return id;
-	}
+    @Column(name = "month_to_end_contract")
+    private Integer monthToEndContract;
 
-	public String getClientName() {
-		return clientName;
-	}
+    @Column(name = "lifetime_months")
+    private Integer lifetimeMonths;
 
-	public String getClientEmail() {
-		return clientEmail;
-	}
+    @Column(name = "avg_class_frequency_total")
+    private BigDecimal avgClassFrequencyTotal;
 
-	public Boolean getActive() {
-		return active;
-	}
+    @Column(name = "avg_class_frequency_current_month")
+    private BigDecimal avgClassFrequencyCurrentMonth;
 
-	public Date getSubscriptionDate() {
-		return subscriptionDate;
-	}
+    private Integer churn;
 
-	public Gender getGender() {
-		return gender;
-	}
-
-	public String getClientPhone() {
-		return clientPhone;
-	}
-
-	public Integer getNearLocation() {
-		return nearLocation;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-    
-    public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
-        if (clientUpdateRequestDTO.clientName() != null) {
-            this.clientName = clientUpdateRequestDTO.clientName();
-        }
-        if (clientUpdateRequestDTO.clientEmail() != null) {
-            this.clientEmail = clientUpdateRequestDTO.clientEmail();
-        }
-        
-        if (clientUpdateRequestDTO.clientPhone() != null) {
-            this.clientPhone = clientUpdateRequestDTO.clientPhone();
-        }
-        if (clientUpdateRequestDTO.nearLocation() != null) {
-            this.nearLocation = clientUpdateRequestDTO.nearLocation();
-        }
-        if (clientUpdateRequestDTO.age() != null) {
-            this.age = clientUpdateRequestDTO.age();
-        }
-    }
-    
-    
-
-    public void deleteClient() {
-        this.active = false;
-    }
-
+    // Getters y setters (pueden ser Lombok si el proyecto ya lo usa)
 }
