@@ -2,7 +2,7 @@
 # Documentación de desarrollo: H2 Console
 
 * [Backend - README.md](../README.md)
-* [Backend - Documentación de desarrollo](dev/README.md)
+* [Backend - Documentación de desarrollo](README.md)
 
 -----
 
