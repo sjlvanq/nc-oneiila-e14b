@@ -10,18 +10,18 @@ public record ClientCreateRequestDTO(
 
     @Email
     @NotBlank
-    String email,
+    String clientEmail,
     
     @NotNull
     Gender gender,
 
     @NotBlank
-    String phoneRegistered,
+    String clientPhone,
 
-    String nearCity,
+    Integer nearLocation,
 
-    @NotBlank
-    String age
+    @NotNull
+    Integer age
 
 ) {
     

@@ -5,24 +5,24 @@ import java.util.Date;
 public record ClientResponseDTO(
     Long id,
     String clientName,
-    String email,
+    String clientEmail,
     Boolean active,
     Date subscriptionDate,
     Gender gender,
-    String phoneRegistered,
-    String nearCity,
-    String age
+    String clientPhone,
+    Integer nearLocation,
+    Integer age
 ) {
     public ClientResponseDTO(Client client) {
         this(
             client.getId(), 
             client.getClientName(), 
-            client.getEmail(),
+            client.getClientEmail(),
             client.getActive(), 
             client.getSubscriptionDate(),
             client.getGender(),
-            client.getPhoneRegistered(),
-            client.getNearCity(),
+            client.getClientPhone(),
+            client.getNearLocation(),
             client.getAge());
     }
 }

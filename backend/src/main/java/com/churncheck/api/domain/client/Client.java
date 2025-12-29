@@ -25,23 +25,23 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	private String clientName;
-    private String email;
+    private String clientEmail;
     private Boolean active;
     private Date subscriptionDate;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String phoneRegistered;
-    private String nearCity;
-    private String age;
+    private String clientPhone;
+    private Integer nearLocation;
+    private Integer age;
 
     public Client (ClientCreateRequestDTO clientCreateRequestDTO) {
         this.clientName = clientCreateRequestDTO.clientName();
-        this.email = clientCreateRequestDTO.email();
+        this.clientEmail = clientCreateRequestDTO.clientEmail();
         this.active = true;
         this.subscriptionDate = new Date();
         this.gender = clientCreateRequestDTO.gender();
-        this.phoneRegistered = clientCreateRequestDTO.phoneRegistered();
-        this.nearCity = clientCreateRequestDTO.nearCity();
+        this.clientPhone = clientCreateRequestDTO.clientPhone();
+        this.nearLocation = clientCreateRequestDTO.nearLocation();
         this.age = clientCreateRequestDTO.age();
     }
 
@@ -53,8 +53,8 @@ public class Client {
 		return clientName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getClientEmail() {
+		return clientEmail;
 	}
 
 	public Boolean getActive() {
@@ -69,15 +69,15 @@ public class Client {
 		return gender;
 	}
 
-	public String getPhoneRegistered() {
-		return phoneRegistered;
+	public String getClientPhone() {
+		return clientPhone;
 	}
 
-	public String getNearCity() {
-		return nearCity;
+	public Integer getNearLocation() {
+		return nearLocation;
 	}
 
-	public String getAge() {
+	public Integer getAge() {
 		return age;
 	}
     
@@ -85,15 +85,15 @@ public class Client {
         if (clientUpdateRequestDTO.clientName() != null) {
             this.clientName = clientUpdateRequestDTO.clientName();
         }
-        if (clientUpdateRequestDTO.email() != null) {
-            this.email = clientUpdateRequestDTO.email();
+        if (clientUpdateRequestDTO.clientEmail() != null) {
+            this.clientEmail = clientUpdateRequestDTO.clientEmail();
         }
         
-        if (clientUpdateRequestDTO.phoneRegistered() != null) {
-            this.phoneRegistered = clientUpdateRequestDTO.phoneRegistered();
+        if (clientUpdateRequestDTO.clientPhone() != null) {
+            this.clientPhone = clientUpdateRequestDTO.clientPhone();
         }
-        if (clientUpdateRequestDTO.nearCity() != null) {
-            this.nearCity = clientUpdateRequestDTO.nearCity();
+        if (clientUpdateRequestDTO.nearLocation() != null) {
+            this.nearLocation = clientUpdateRequestDTO.nearLocation();
         }
         if (clientUpdateRequestDTO.age() != null) {
             this.age = clientUpdateRequestDTO.age();
