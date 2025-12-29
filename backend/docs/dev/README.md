@@ -19,5 +19,5 @@
 
 -----
 
-* [README.md del proyecto](../../README.md)
-* [CONTRIBUTING.md](../../docs/CONTRIBUTING.md)
+* [README.md del proyecto](../../../README.md)
+* [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md)
