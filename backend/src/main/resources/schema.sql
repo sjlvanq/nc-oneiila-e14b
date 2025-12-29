@@ -45,5 +45,6 @@ CREATE TABLE clients (
   lifetime_months INT,
   avg_class_frequency_total DECIMAL(10,2),
   avg_class_frequency_current_month DECIMAL(10,2),
-  churn INT
+  churn INT,
+  active BOOLEAN DEFAULT TRUE
 );
