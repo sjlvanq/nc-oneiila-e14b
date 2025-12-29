@@ -47,5 +47,23 @@ public class Client {
 
     private Integer churn;
 
-    // Getters y setters (pueden ser Lombok si el proyecto ya lo usa)
-}
+    // 🔴 CAMBIO CLAVE
+    @Column(name = "active")
+    private Boolean active;
+
+    // ========= GETTERS / SETTERS =========
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.cli
