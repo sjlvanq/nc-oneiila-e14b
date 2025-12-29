@@ -1,9 +1,23 @@
 # Documentación de desarrollo - Backend - ChurnCheck
 
-* [CONTRIBUTING.md](../../../docs/CONTRIBUTING.md)
+* [Backend - README.md](../README.md)
+
+-----
+
+## Setup y pruebas
+
+* [Consola H2](h2-console.md). Instrucciones de acceso a la consola de H2 in-memory database.
+* [Swagger UI](swagger-ui.md). Instrucciones de acceso y autenticación JWT con Swagger UI.
+
+-----
 
 ## Sprints
 
 | Nro. Sprint | Resumen |
 | --- | --- |
 | [01](sprints/sprint01.md) | Implementación de infraestructura de seguridad stateless mediante JWT, autenticación de usuarios desde la base de datos y validación de acceso en cada petición. |
+
+-----
+
+* [README.md del proyecto](../../README.md)
+* [CONTRIBUTING.md](../../docs/CONTRIBUTING.md)
