@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import java.util.Date;
 
 @Table(name = "clients")
@@ -26,7 +28,8 @@ public class Client {
     private String email;
     private Boolean active;
     private Date subscriptionDate;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private String phoneRegistered;
     private String nearCity;
     private String age;
@@ -35,7 +38,7 @@ public class Client {
         this.clientName = clientCreateRequestDTO.clientName();
         this.email = clientCreateRequestDTO.email();
         this.active = true;
-        this.subscriptionDate = clientCreateRequestDTO.subscriptionDate();
+        this.subscriptionDate = new Date();
         this.gender = clientCreateRequestDTO.gender();
         this.phoneRegistered = clientCreateRequestDTO.phoneRegistered();
         this.nearCity = clientCreateRequestDTO.nearCity();
@@ -62,7 +65,7 @@ public class Client {
 		return subscriptionDate;
 	}
 
-	public String getGender() {
+	public Gender getGender() {
 		return gender;
 	}
 
