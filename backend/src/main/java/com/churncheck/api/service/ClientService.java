@@ -20,18 +20,18 @@ public class ClientService {
     public Client createFromDto(ClientCreateRequestDTO dto) {
         Client client = new Client();
 
-        client.setClientName(dto.getClientName());
-        client.setGender(dto.getGender());
-        client.setNearLocation(dto.getNearLocation());
-        client.setPartnerEmployee(dto.getPartnerEmployee());
-        client.setPromoFriends(dto.getPromoFriends());
-        client.setClientPhone(dto.getClientPhone());
-        client.setAge(dto.getAge());
-        client.setContractPeriod(dto.getContractPeriod());
-        client.setMonthToEndContract(dto.getMonthToEndContract());
-        client.setLifetimeMonths(dto.getLifetimeMonths());
-        client.setAvgClassFrequencyTotal(dto.getAvgClassFrequencyTotal());
-        client.setAvgClassFrequencyCurrentMonth(dto.getAvgClassFrequencyCurrentMonth());
+        client.setClientName(dto.clientName());
+        client.setGender(dto.gender());
+        client.setNearLocation(dto.nearLocation());
+        client.setPartnerEmployee(dto.partnerEmployee());
+        client.setPromoFriends(dto.promoFriends());
+        client.setClientPhone(dto.clientPhone());
+        client.setAge(dto.age());
+        client.setContractPeriod(dto.contractPeriod());
+        client.setMonthToEndContract(dto.monthToEndContract());
+        client.setLifetimeMonths(dto.lifetimeMonths());
+        client.setAvgClassFrequencyTotal(dto.avgClassFrequencyTotal());
+        client.setAvgClassFrequencyCurrentMonth(dto.avgClassFrequencyCurrentMonth());
 
         // IMPORTANTE: churn NO se setea aquí (lo calcula el modelo)
         return clientRepository.save(client);
