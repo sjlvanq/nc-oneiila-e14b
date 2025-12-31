@@ -1,92 +1,65 @@
 package com.churncheck.api.domain.client;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import java.util.Date;
+import jakarta.persistence.*;
+import java.math.BigDecimal;
 
+@Entity
 @Table(name = "clients")
-@Entity(name = "Client")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Client {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	private String clientName;
-    private String clientEmail;
+
+    @Column(name = "active")
     private Boolean active;
-    private Date subscriptionDate;
+    
+    @Column(name = "client_name")
+    private String clientName;
+
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    private String clientPhone;
+
+    @Column(name = "near_location")
     private Integer nearLocation;
+
+    @Column(name = "partner_employee")
+    private Integer partnerEmployee;
+
+    @Column(name = "promo_friends")
+    private Integer promoFriends;
+
+    @Column(name = "client_phone")
+    private String clientPhone;
+
     private Integer age;
 
-    public Client (ClientCreateRequestDTO clientCreateRequestDTO) {
-        this.clientName = clientCreateRequestDTO.clientName();
-        this.clientEmail = clientCreateRequestDTO.clientEmail();
-        this.active = true;
-        this.subscriptionDate = new Date();
-        this.gender = clientCreateRequestDTO.gender();
-        this.clientPhone = clientCreateRequestDTO.clientPhone();
-        this.nearLocation = clientCreateRequestDTO.nearLocation();
-        this.age = clientCreateRequestDTO.age();
+    @Column(name = "contract_period")
+    private Integer contractPeriod;
+
+    @Column(name = "month_to_end_contract")
+    private Integer monthToEndContract;
+
+    @Column(name = "lifetime_months")
+    private Integer lifetimeMonths;
+
+    @Column(name = "avg_class_frequency_total")
+    private BigDecimal avgClassFrequencyTotal;
+
+    @Column(name = "avg_class_frequency_current_month")
+    private BigDecimal avgClassFrequencyCurrentMonth;
+
+    private Integer churn;
+    
+    public Client() {}
+    
+    public Client(ClientCreateRequestDTO clientCreateRequest) {
+    	
     }
-
-    public Long getId() {
-		return id;
-	}
-
-	public String getClientName() {
-		return clientName;
-	}
-
-	public String getClientEmail() {
-		return clientEmail;
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public Date getSubscriptionDate() {
-		return subscriptionDate;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public String getClientPhone() {
-		return clientPhone;
-	}
-
-	public Integer getNearLocation() {
-		return nearLocation;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
     
     public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
         if (clientUpdateRequestDTO.clientName() != null) {
             this.clientName = clientUpdateRequestDTO.clientName();
-        }
-        if (clientUpdateRequestDTO.clientEmail() != null) {
-            this.clientEmail = clientUpdateRequestDTO.clientEmail();
         }
         
         if (clientUpdateRequestDTO.clientPhone() != null) {
@@ -100,10 +73,130 @@ public class Client {
         }
     }
     
-    
-
     public void deleteClient() {
         this.active = false;
     }
+
+    // Getters y setters
+    
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Integer getNearLocation() {
+		return nearLocation;
+	}
+
+	public void setNearLocation(Integer nearLocation) {
+		this.nearLocation = nearLocation;
+	}
+
+	public Integer getPartnerEmployee() {
+		return partnerEmployee;
+	}
+
+	public void setPartnerEmployee(Integer partnerEmployee) {
+		this.partnerEmployee = partnerEmployee;
+	}
+
+	public Integer getPromoFriends() {
+		return promoFriends;
+	}
+
+	public void setPromoFriends(Integer promoFriends) {
+		this.promoFriends = promoFriends;
+	}
+
+	public String getClientPhone() {
+		return clientPhone;
+	}
+
+	public void setClientPhone(String clientPhone) {
+		this.clientPhone = clientPhone;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getContractPeriod() {
+		return contractPeriod;
+	}
+
+	public void setContractPeriod(Integer contractPeriod) {
+		this.contractPeriod = contractPeriod;
+	}
+
+	public Integer getMonthToEndContract() {
+		return monthToEndContract;
+	}
+
+	public void setMonthToEndContract(Integer monthToEndContract) {
+		this.monthToEndContract = monthToEndContract;
+	}
+
+	public Integer getLifetimeMonths() {
+		return lifetimeMonths;
+	}
+
+	public void setLifetimeMonths(Integer lifetimeMonths) {
+		this.lifetimeMonths = lifetimeMonths;
+	}
+
+	public BigDecimal getAvgClassFrequencyTotal() {
+		return avgClassFrequencyTotal;
+	}
+
+	public void setAvgClassFrequencyTotal(BigDecimal avgClassFrequencyTotal) {
+		this.avgClassFrequencyTotal = avgClassFrequencyTotal;
+	}
+
+	public BigDecimal getAvgClassFrequencyCurrentMonth() {
+		return avgClassFrequencyCurrentMonth;
+	}
+
+	public void setAvgClassFrequencyCurrentMonth(BigDecimal avgClassFrequencyCurrentMonth) {
+		this.avgClassFrequencyCurrentMonth = avgClassFrequencyCurrentMonth;
+	}
+
+	public Integer getChurn() {
+		return churn;
+	}
+
+	public void setChurn(Integer churn) {
+		this.churn = churn;
+	}
 
 }

@@ -1,28 +1,18 @@
 package com.churncheck.api.domain.client;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
-public record ClientCreateRequestDTO(
-    @NotBlank
+public record ClientCreateRequestDTO (
     String clientName,
-
-    @Email
-    @NotBlank
-    String clientEmail,
-    
-    @NotNull
     Gender gender,
-
-    @NotBlank
-    String clientPhone,
-
     Integer nearLocation,
-
-    @NotNull
-    Integer age
-
-) {
-    
+    Integer partnerEmployee,
+    Integer promoFriends,
+    String clientPhone,
+    Integer age,
+    Integer contractPeriod,
+    Integer monthToEndContract,
+    Integer lifetimeMonths,
+    BigDecimal avgClassFrequencyTotal,
+    BigDecimal avgClassFrequencyCurrentMonth) {
 }

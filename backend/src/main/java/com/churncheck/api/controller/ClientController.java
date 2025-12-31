@@ -39,6 +39,7 @@ public class ClientController {
     @Autowired
     private ClientRepository clientRepository;
 
+    // TODO: Revisar. No funciona.
     @PostMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> createClient(@RequestBody @Valid ClientCreateRequestDTO clientCreateRequestDTO, UriComponentsBuilder uriBuilder ) {
