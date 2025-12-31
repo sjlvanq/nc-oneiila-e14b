@@ -1,0 +1,24 @@
+root = true
+
+# Reglas globales
+[*]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[backend/**.java]
+indent_size = 4
+
+[backend/**.yaml]
+indent_size = 2
+
+# Ejemplos de uso
+
+# [datascience/**.py]
+# indent_size = 4
+# ...otras opciones que sobreescriban las globales
+
+# [datascience/**.py]
+# indent_size = 4
