@@ -1,0 +1,8 @@
+# Para test del RestClient sobre un servidor real con endpoint simulado
+external:
+  prediction:
+    host: "https://lode.uno"
+    port: 443
+    endpoint: "/churncheck.php"
+    timeout: 5000
+    retries: 3
