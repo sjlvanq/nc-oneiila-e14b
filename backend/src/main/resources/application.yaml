@@ -31,7 +31,7 @@ external:
   prediction:
     host: "http://microservicio-del-modelo"
     port: 8001
-    enpoint: "/endpoint-de-prediccion"
+    endpoint: "/endpoint-de-prediccion"
     timeout: 5000
     retries: 3
 
