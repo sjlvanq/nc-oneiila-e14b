@@ -1,13 +1,16 @@
 package com.churncheck.api.infra.clients;
 
 import com.churncheck.api.infra.clients.dto.PredictionRequestDTO;
+
 //import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+// Reemplazar por domain.client.dto.PredictionResponseDTO cuando esté disponible
 final record PredictionResponseDTO(
         Double probabilidad, String prevision) {}
 
@@ -18,14 +21,23 @@ public class PredictionClient {
     
     @Value("${external.prediction.endpoint}")
     private String endpoint;
+    @Value("${external.prediction.timeout")
+    private int timeout;
 
     public PredictionClient(RestClient.Builder restClientBuilder, 
                             @Value("${external.prediction.host}") String host,
                             @Value("${external.prediction.port}") int port) {
+        
         String baseUrl = String.format("%s:%d", host, port);
+        
+        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+        requestFactory.setConnectionRequestTimeout(timeout);
+        requestFactory.setReadTimeout(timeout);
+        
         //System.out.println("baseUrl: "+baseUrl);
         this.restClient = restClientBuilder
                 .baseUrl(baseUrl)
+                .requestFactory(requestFactory)
                 .build();
     }
 
