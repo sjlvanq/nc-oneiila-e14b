@@ -12,7 +12,7 @@ public class Client {
     private Long id;
 
     @Column(name = "active")
-    private Boolean active;
+    private Boolean active = true;
     
     @Column(name = "client_name")
     private String clientName;

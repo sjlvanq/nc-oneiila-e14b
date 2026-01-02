@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public record ClientCreateRequestDTO (
     String clientName,
+    Boolean active,
     Gender gender,
     Integer nearLocation,
     Integer partnerEmployee,
