@@ -10,16 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.churncheck.api.domain.client.ClientCreateRequestDTO;
-import com.churncheck.api.domain.client.ClientRepository;
 import com.churncheck.api.domain.client.ClientResponseDTO;
-import com.churncheck.api.domain.client.Client;
 import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
+import com.churncheck.api.service.ClientService;
 
 import jakarta.validation.Valid;
 
@@ -36,45 +34,46 @@ import com.churncheck.api.domain.client.ClientListResponseDTO;
 public class ClientController {
     
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientService clientService;
+
+    public ClientController(ClientService clientService){
+        this.clientService = clientService;
+    }
 
     // TODO: Revisar. No funciona.
     @PostMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> createClient(@RequestBody @Valid ClientCreateRequestDTO clientCreateRequestDTO, UriComponentsBuilder uriBuilder ) {
-        Client client = clientRepository.save(new Client(clientCreateRequestDTO));
+        ClientResponseDTO client = clientService.createFromDto(clientCreateRequestDTO);
 
-        URI uri = uriBuilder.path("/clients/{id}").buildAndExpand(client.getId()).toUri();
-        return ResponseEntity.created(uri).body(new ClientResponseDTO(client));
+        URI uri = uriBuilder.path("/clients/{id}").buildAndExpand(client.id()).toUri();
+        return ResponseEntity.created(uri).body(client);
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> updateClient(@RequestBody @Valid ClientUpdateRequestDTO clientUpdateRequestDTO) {
-        var client = clientRepository.getReferenceById(clientUpdateRequestDTO.id());
-        client.updateClientData(clientUpdateRequestDTO);
+        ClientResponseDTO client = clientService.updateClient(clientUpdateRequestDTO);
 
-        return ResponseEntity.ok(new ClientResponseDTO(client));
+        return ResponseEntity.ok(client);
     }
     
     @GetMapping
-    public ResponseEntity<Page<ClientListResponseDTO>> getClientList(@PageableDefault(size = 10, sort = "clientName") Pageable pageable) {
-        return ResponseEntity.ok(clientRepository.findAllByActiveTrue(pageable).map(ClientListResponseDTO::new));
+    public ResponseEntity<Page<ClientListResponseDTO>> getClientList(@PageableDefault(size = 10, sort = "id") Pageable pageable) {
+        return ResponseEntity.ok(clientService.findAllByActiveTrue(pageable));
     }
     
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
-        var client = clientRepository.getReferenceById(id);
-        return ResponseEntity.ok(new ClientResponseDTO(client));
+        ClientResponseDTO client = clientService.findById(id);
+        return ResponseEntity.ok(client);
     }
 
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
-        var client = clientRepository.getReferenceById(id);
-        client.deleteClient();
+        clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }
 }
