@@ -1,5 +1,6 @@
 package com.churncheck.api.infra.clients;
 
+import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
 import com.churncheck.api.infra.clients.dto.PredictionRequestDTO;
 
 //import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
@@ -9,10 +10,6 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
-
-// Reemplazar por domain.client.dto.PredictionResponseDTO cuando esté disponible
-final record PredictionResponseDTO(
-        Double probabilidad, String prevision) {}
 
 @Component
 public class PredictionClient {
