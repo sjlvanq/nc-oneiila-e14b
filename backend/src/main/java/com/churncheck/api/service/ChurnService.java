@@ -35,19 +35,23 @@ public class ChurnService {
 
     private PredictionRequestDTO mapToPredictionRequest(Client client) {
 
-        byte gender =
-            client.getGender() == Gender.MALE ? (byte) 0 :
-            client.getGender() == Gender.FEMALE ? (byte) 1 : (byte) 0;
+        Integer gender =
+            client.getGender() == Gender.MALE ? (Integer) 0 :
+            client.getGender() == Gender.FEMALE ? (Integer) 1 : (Integer) 0;
 
         byte hasPhone = client.getClientPhone() != null ? (byte) 1 : (byte) 0;
 
         return new PredictionRequestDTO(
             gender,
-            hasPhone,
             client.getNearLocation().byteValue(),
             client.getPartnerEmployee().byteValue(),
             client.getPromoFriends().byteValue(),
+            hasPhone,
+            // Integer contractPeriod,
+            // Byte groupVisits,
             client.getAge(),
+            // Double avgAdditionalChargesTotal,
+            // Integer monthToEndContract,
             client.getLifetimeMonths(),
             client.getAvgClassFrequencyTotal().doubleValue(),
             client.getAvgClassFrequencyCurrentMonth().doubleValue()
