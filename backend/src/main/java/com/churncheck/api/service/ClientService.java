@@ -25,6 +25,7 @@ public class ClientService {
         Client client = new Client();
 
         client.setClientName(dto.clientName());
+        client.setActive(dto.active() != null ? dto.active() : true);
         client.setGender(dto.gender());
         client.setNearLocation(dto.nearLocation());
         client.setPartnerEmployee(dto.partnerEmployee());
