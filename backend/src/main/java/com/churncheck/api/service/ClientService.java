@@ -6,6 +6,8 @@ import com.churncheck.api.domain.client.ClientListResponseDTO;
 import com.churncheck.api.domain.client.ClientRepository;
 import com.churncheck.api.domain.client.ClientResponseDTO;
 import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
+import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,9 +17,11 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final ChurnService churnService;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, ChurnService churnService) {
         this.clientRepository = clientRepository;
+        this.churnService = churnService;
     }
 
     // Crear cliente desde DTO (alineado al gym churn dataset)
@@ -63,5 +67,12 @@ public class ClientService {
         Client client = clientRepository.getReferenceById(id);
         client.deleteClient();
         clientRepository.save(client);
+    }
+
+    public ClientFullResponseDTO predictChurn(Long clientId){
+    	Client client = clientRepository.findById(clientId).orElseThrow();
+    	PredictionResponseDTO prediction = churnService.predict(client);
+
+        return new ClientFullResponseDTO(client, prediction);
     }
 }

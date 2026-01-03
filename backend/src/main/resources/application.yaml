@@ -1,6 +1,8 @@
 spring:
   application:
     name: demo
+  profiles:
+    active: integration
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -29,3 +31,11 @@ spring:
 springdoc:
   api-docs:
     version: OPENAPI_3_0
+external:
+  prediction:
+    host: "http://microservicio-del-modelo"
+    port: 8001
+    endpoint: "/endpoint-de-prediccion"
+    timeout: 5000
+    retries: 3
+

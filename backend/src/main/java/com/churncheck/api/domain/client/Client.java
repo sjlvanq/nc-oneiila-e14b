@@ -1,7 +1,6 @@
 package com.churncheck.api.domain.client;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "clients")
@@ -16,7 +15,12 @@ public class Client {
     
     @Column(name = "client_name")
     private String clientName;
+    
+    @Column(name = "client_phone")
+    private String clientPhone;
 
+    private Integer age;
+    
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
@@ -29,14 +33,9 @@ public class Client {
     @Column(name = "promo_friends")
     private Integer promoFriends;
 
-    @Column(name = "client_phone")
-    private String clientPhone;
-
-    private Integer age;
-
     @Column(name = "contract_period")
     private Integer contractPeriod;
-
+    
     @Column(name = "month_to_end_contract")
     private Integer monthToEndContract;
 
@@ -44,12 +43,16 @@ public class Client {
     private Integer lifetimeMonths;
 
     @Column(name = "avg_class_frequency_total")
-    private BigDecimal avgClassFrequencyTotal;
+    private Double avgClassFrequencyTotal;
 
     @Column(name = "avg_class_frequency_current_month")
-    private BigDecimal avgClassFrequencyCurrentMonth;
+    private Double avgClassFrequencyCurrentMonth;
 
-    private Integer churn;
+    @Column(name = "group_visit")
+    private Boolean groupVisit;
+    
+    @Column(name = "avg_additional_charges_total")
+    private Double avgAdditionalChargesTotal;
     
     public Client() {}
     
@@ -175,28 +178,28 @@ public class Client {
 		this.lifetimeMonths = lifetimeMonths;
 	}
 
-	public BigDecimal getAvgClassFrequencyTotal() {
+	public Double getAvgClassFrequencyTotal() {
 		return avgClassFrequencyTotal;
 	}
 
-	public void setAvgClassFrequencyTotal(BigDecimal avgClassFrequencyTotal) {
-		this.avgClassFrequencyTotal = avgClassFrequencyTotal;
+	public void setAvgClassFrequencyTotal(Double double1) {
+		this.avgClassFrequencyTotal = double1;
 	}
 
-	public BigDecimal getAvgClassFrequencyCurrentMonth() {
+	public Double getAvgClassFrequencyCurrentMonth() {
 		return avgClassFrequencyCurrentMonth;
 	}
 
-	public void setAvgClassFrequencyCurrentMonth(BigDecimal avgClassFrequencyCurrentMonth) {
+	public void setAvgClassFrequencyCurrentMonth(Double avgClassFrequencyCurrentMonth) {
 		this.avgClassFrequencyCurrentMonth = avgClassFrequencyCurrentMonth;
 	}
 
-	public Integer getChurn() {
-		return churn;
+	public Double getAvgAdditionalChargesTotal() {
+		return this.avgAdditionalChargesTotal;
 	}
-
-	public void setChurn(Integer churn) {
-		this.churn = churn;
+	
+	public Boolean getGroupVisit() {
+		return this.groupVisit;
 	}
 
 }
