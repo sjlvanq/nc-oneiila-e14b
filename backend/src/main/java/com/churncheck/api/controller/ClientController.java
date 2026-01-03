@@ -40,7 +40,6 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-    // TODO: Revisar. No funciona.
     @PostMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> createClient(@RequestBody @Valid ClientCreateRequestDTO clientCreateRequestDTO, UriComponentsBuilder uriBuilder ) {
