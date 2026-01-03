@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.churncheck.api.domain.client.ClientCreateRequestDTO;
-import com.churncheck.api.domain.client.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.ClientResponseDTO;
 import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.service.ClientService;
 
 import jakarta.validation.Valid;
