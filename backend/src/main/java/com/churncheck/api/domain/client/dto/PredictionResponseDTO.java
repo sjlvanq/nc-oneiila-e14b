@@ -1,6 +1,9 @@
 package com.churncheck.api.domain.client.dto;
 
+import java.time.Instant;
+
 public record PredictionResponseDTO(
-        int prediction,
-        double probability
+	    Integer churn,
+	    Double probability,
+	    Instant timestamp
 ) {}

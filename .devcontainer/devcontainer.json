@@ -1,43 +1,51 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/java
 {
-    "name": "Java",
-    // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-    "image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
+  "name": "Java",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/java:1-21-bullseye",
 
-    "features": {
-        "ghcr.io/devcontainers/features/java:1": {
-            "version": "none",
-            "installMaven": "true",
-            "installGradle": "false"
-        },
-        "ghcr.io/devcontainers/features/git:1": {
-            "ppa": true,
-            "version": "latest"
-        }
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "none",
+      "installMaven": "true",
+      "installGradle": "false"
     },
-    "customizations": {
-        "vscode": {
-            "extensions": [
-                "vmware.vscode-boot-dev-pack",
-                "EchoAPI.echoapi-for-vscode",
-                "DavidAnson.vscode-markdownlint",
-                "PKief.material-icon-theme",
-                "oderwat.indent-rainbow",
-                "usernamehw.errorlens"
-            ]
-        }
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": true,
+      "version": "latest"
     },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24",
+      "nodeInstallMethod": "nvm",
+      "nvmInstallPath": "/usr/local/share/nvm"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vmware.vscode-boot-dev-pack",
+        "EchoAPI.echoapi-for-vscode",
+        "DavidAnson.vscode-markdownlint",
+        "PKief.material-icon-theme",
+        "oderwat.indent-rainbow",
+        "usernamehw.errorlens",
+        "MermaidChart.vscode-mermaid-chart",
+        "dbdiagram.dbdiagram-vscode",
+        "DBCode.dbcode"
+      ]
+    }
+  },
 
-    // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    "forwardPorts": [8080]
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [8080],
 
-    // Use 'postCreateCommand' to run commands after the container is created.
-    // "postCreateCommand": "java -version",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "corepack enable pnpm"
 
-    // Configure tool-specific properties.
-    // "customizations": {},
+  // Configure tool-specific properties.
+  // "customizations": {},
 
-    // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-    // "remoteUser": "root"
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
 }

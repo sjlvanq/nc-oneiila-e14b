@@ -24,25 +24,28 @@ INSERT INTO clients (
     partner_employee,
     promo_friends,
     client_phone,
-    age,
     contract_period,
+    group_visit,
+    age,
+    avg_additional_charges_total,
     month_to_end_contract,
     lifetime_months,
     avg_class_frequency_total,
     avg_class_frequency_current_month,
     churn
-) VALUES
--- Loyal client
-('John Doe', 'MALE', 1, 1, 1, '5551234567', 32, 12, 10, 8, 3.50, 3.60, 0),
-
--- High risk client
-('Jane Smith', 'FEMALE', 0, 0, 0, '5559876543', 24, 1, 1, 1, 1.20, 0.20, 1),
-
--- Stable senior client
-('Robert Brown', 'MALE', 1, 0, 0, '5554443332', 45, 6, 3, 12, 2.10, 2.00, 0),
-
--- Partner employee
-('Alice Johnson', 'FEMALE', 1, 1, 0, '5551112223', 29, 12, 11, 2, 2.80, 2.90, 0),
-
--- Disengaged client
-('Michael Wilson', 'MALE', 0, 0, 1, '5556667778', 30, 1, 1, 3, 1.50, 0.00, 1);
+) VALUES 
+-- Cliente 1: Perfil de retención alta (vives cerca, contrato largo)
+(
+    'John Doe', 'MALE', 1, 1, 1, '555-0101', 12, TRUE, 32, 
+    255.45, 12, 18, 3.5, 3.4, 0
+),
+-- Cliente 2: Perfil de alto riesgo de Churn (contrato mensual, baja frecuencia)
+(
+    'Jane Smith', 'FEMALE', 0, 0, 0, '555-0202', 1, FALSE, 24, 
+    12.30, 1, 1, 0.8, 0.1, 1
+),
+-- Cliente 3: Perfil intermedio
+(
+    'Mike Ross', 'MALE', 1, 0, 1, '555-0303', 6, TRUE, 28, 
+    102.00, 6, 2, 2.1, 2.0, 0
+);
