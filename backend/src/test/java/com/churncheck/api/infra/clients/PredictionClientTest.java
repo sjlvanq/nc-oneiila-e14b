@@ -35,8 +35,9 @@ public class PredictionClientTest {
         );
         var response = predictionClient.predict(request);
         assertNotNull(response);
-        assertNotNull(response.prevision());
-        assertNotNull(response.probabilidad());
+        assertNotNull(response.churn());
+        assertNotNull(response.probability());
+        assertNotNull(response.timestamp());
         System.out.println("El servidor responde: "+response.toString());
     }
     

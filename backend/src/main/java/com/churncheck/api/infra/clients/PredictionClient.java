@@ -18,7 +18,7 @@ public class PredictionClient {
     
     @Value("${external.prediction.endpoint}")
     private String endpoint;
-    @Value("${external.prediction.timeout")
+    @Value("${external.prediction.timeout}")
     private int timeout;
 
     public PredictionClient(RestClient.Builder restClientBuilder, 
