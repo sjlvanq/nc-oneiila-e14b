@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.churncheck.api.domain.client.ClientCreateRequestDTO;
+import com.churncheck.api.domain.client.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.ClientResponseDTO;
 import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
 import com.churncheck.api.service.ClientService;
@@ -74,5 +75,17 @@ public class ClientController {
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // prediction endpoint
+
+    @GetMapping("/{id}/prediction")
+    public ResponseEntity<ClientFullResponseDTO> getClientPrediction(@PathVariable Long id){
+        try {
+            ClientFullResponseDTO prediction = clientService.predictChurn(id);
+            return ResponseEntity.ok(prediction);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
