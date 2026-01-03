@@ -6,11 +6,8 @@ import com.churncheck.api.domain.client.ClientListResponseDTO;
 import com.churncheck.api.domain.client.ClientRepository;
 import com.churncheck.api.domain.client.ClientResponseDTO;
 import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
-import com.churncheck.api.domain.client.ClientFullResponseDTO;
-import com.churncheck.api.domain.client.dto.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
-import com.churncheck.api.domain.client.dto.ClientMapper;
-import com.churncheck.api.infra.external.PredictionClient;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,11 +17,11 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final PredictionClient predictionClient;
+    private final ChurnService churnService;
 
-    public ClientService(ClientRepository clientRepository, PredictionClient predictionClient) {
+    public ClientService(ClientRepository clientRepository, ChurnService churnService) {
         this.clientRepository = clientRepository;
-        this.predictionClient = predictionClient;
+        this.churnService = churnService;
     }
 
     // Crear cliente desde DTO (alineado al gym churn dataset)
@@ -73,22 +70,9 @@ public class ClientService {
     }
 
     public ClientFullResponseDTO predictChurn(Long clientId){
+    	Client client = clientRepository.findById(clientId).orElseThrow();
+    	PredictionResponseDTO prediction = churnService.predict(client);
 
-        Client client = clientRepository.getReferenceById(clientId);
-
-        PredictionRequestDTO requestDTO = ClientMapper.toPredictionRequestDTO(client);
-
-        PredictionResponseDTO prediction = predictionClient.predict(requestDTO);
-
-        return new ClientFullResponseDTO(
-            client.getId(),
-            client.getClientName(),
-            client.getClientPhone(),     
-            prediction.prediction(),      
-            prediction.probability(),      
-            prediction.timestamp(),        
-            prediction.modelVersion(),
-            null     // processingTimeMs opcional
-        );
+        return new ClientFullResponseDTO(client, prediction);
     }
 }

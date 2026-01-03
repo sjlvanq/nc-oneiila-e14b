@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.churncheck.api.domain.client.Client;
 import com.churncheck.api.domain.client.ClientRepository;
 import com.churncheck.api.domain.client.Gender;
-import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
 import com.churncheck.api.infra.clients.PredictionClient;
 import com.churncheck.api.infra.clients.dto.PredictionRequestDTO;
@@ -13,24 +12,17 @@ import com.churncheck.api.infra.clients.dto.PredictionRequestDTO;
 @Service
 public class ChurnService {
 
-    private final ClientRepository clientRepository;
     private final PredictionClient predictionClient;
 
     public ChurnService(ClientRepository clientRepository,
                         PredictionClient predictionClient) {
-        this.clientRepository = clientRepository;
         this.predictionClient = predictionClient;
     }
 
-    public ClientFullResponseDTO predict(Long clientId) {
-
-        Client client = clientRepository.findById(clientId)
-                .orElseThrow(() -> new RuntimeException("Client not found"));
-
+    public PredictionResponseDTO predict(Client client) {
         PredictionRequestDTO request = mapToPredictionRequest(client);
         PredictionResponseDTO response = predictionClient.predict(request);
-
-        return new ClientFullResponseDTO(client, response);
+        return response;
     }
 
     private PredictionRequestDTO mapToPredictionRequest(Client client) {
@@ -40,6 +32,7 @@ public class ChurnService {
             client.getGender() == Gender.FEMALE ?  1 :  0;
 
         byte hasPhone = client.getClientPhone() != null ? (byte) 1 : (byte) 0;
+        byte hasGroupVisit = client.getGroupVisit() != null ? (byte) 1 : (byte) 0;
         
         // Sugerencia en 65820dcdfb98b80a7331e0b43c27a4bfa134ab3f:
         // client.getGender() != null ? client.getGender().toString() : "UNKNOWN",
@@ -52,8 +45,8 @@ public class ChurnService {
         client.getPartnerEmployee().byteValue(),         // Byte
         client.getPromoFriends().byteValue(),            // Byte
         hasPhone,                                        // Byte
-        client.getContractPeriod().byteValue(),          // Byte
-        client.getGroupVisits().byteValue(),             // Byte
+        client.getContractPeriod(),				          // Integer
+        hasGroupVisit,             						// Byte
         client.getAge(),                                 // Integer
         client.getAvgAdditionalChargesTotal(),            // Double
         client.getMonthToEndContract(),                   // Integer
