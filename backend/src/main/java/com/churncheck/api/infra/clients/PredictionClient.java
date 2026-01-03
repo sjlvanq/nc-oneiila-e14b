@@ -37,9 +37,11 @@ public class PredictionClient {
                 .requestFactory(requestFactory)
                 .build();
     }
-
+    
     public PredictionResponseDTO predict(PredictionRequestDTO requestBody) {
-        return restClient.post()
+        // Desestimado bloque try/catch sugerido en c52b1a577857a2c06171c5ebdcf8caf672be9b9a
+        // en pos de futura implementación de manejador global de excepciones
+    	return restClient.post()
                 .uri(endpoint)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(requestBody)

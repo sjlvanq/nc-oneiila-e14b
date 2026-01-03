@@ -41,6 +41,11 @@ public class ChurnService {
 
         byte hasPhone = client.getClientPhone() != null ? (byte) 1 : (byte) 0;
         
+        // Sugerencia en 65820dcdfb98b80a7331e0b43c27a4bfa134ab3f:
+        // client.getGender() != null ? client.getGender().toString() : "UNKNOWN",
+        // client.getAvgClassFrequencyTotal() != null ? client.getAvgClassFrequencyTotal().doubleValue() : 0.0,
+        // client.getAvgClassFrequencyCurrentMonth() != null ? client.getAvgClassFrequencyCurrentMonth().doubleValue() : 0.0
+        
         return new PredictionRequestDTO(
         gender,                                         // Integer
         client.getNearLocation().byteValue(),            // Byte
