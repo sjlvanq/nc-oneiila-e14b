@@ -16,7 +16,7 @@ Este documento describe las variables del dataset entregado para las pruebas de 
 | **avgAdditionalChargesTotal** | Float | Promedio de gastos adicionales en el centro (cafetería, masajes, etc.) **0.15 a 552.33** |
 | **monthToEndContract** | Integer | Meses restantes hasta la finalización del contrato. 1 a 12 |
 | **lifetime** | Integer | Tiempo (en meses) desde que el cliente se unió por primera vez. 0 a 31 |
-| **avgClassFrequencyTotal** | Float | Frecuencia media de visitas por semana desde el inicio. |*0.00 a 6.02** |
+| **avgClassFrequencyTotal** | Float | Frecuencia media de visitas por semana desde el inicio. **0.00 a 6.02** |
 | **avgClassFrequencyCurrentMonth** | Float | Frecuencia media de visitas por semana en el último mes.**0.00 a 6.15** |
 
 ---
