@@ -204,3 +204,24 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+##### DATA SCIENCE & PYTHON #####
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+.env
+
+# Data & Large files (Evitar saturar el repo)
+*.csv
+*.xlsx
+*.sqlite
