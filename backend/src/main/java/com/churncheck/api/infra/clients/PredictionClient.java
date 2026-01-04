@@ -1,9 +1,8 @@
 package com.churncheck.api.infra.clients;
 
 import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
-import com.churncheck.api.infra.clients.dto.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.PredictionRequestDTO;
 
-//import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.HttpStatusCode;
