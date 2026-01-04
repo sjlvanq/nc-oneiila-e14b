@@ -1,0 +1,16 @@
+{
+    "idClient": "int64",
+    "gender": "int64",
+    "nearLocation": "int64",
+    "partner": "int64",
+    "promoFriends": "int64",
+    "phone": "int64",
+    "contractPeriod": "int64",
+    "groupVisits": "int64",
+    "age": "int64",
+    "avgAdditionalChargesTotal": "float64",
+    "monthToEndContract": "int64",
+    "lifetime": "int64",
+    "avgClassFrequencyTotal": "float64",
+    "avgClassFrequencyCurrentMonth": "float64"
+}
