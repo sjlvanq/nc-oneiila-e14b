@@ -13,10 +13,10 @@
 
 ## Sprints
 
-| Nro. Sprint | Resumen |
-| --- | --- |
-| [01](sprints/sprint01.md) | Implementación de infraestructura de seguridad stateless mediante JWT, autenticación de usuarios desde la base de datos y validación de acceso en cada petición. |
-| [02](sprints/sprint02.md) | Consulta de cliente en BD por DNI, integración mediante RestClient con microservicio de predicción de Churn y orquestación en capa de servicio. |
+| Nro. Sprint | Plan | Resumen | Notas de implementación |
+| --- | --- | --- | --- |
+| 1 | [Plan-s01](sprints/sprint01.md) | Implementación de infraestructura de seguridad stateless mediante JWT, autenticación de usuarios desde la base de datos y validación de acceso en cada petición. | [Impl.](sprints/sprint01-end.md) |
+| 2 | [Plan-s02](sprints/sprint02.md) / [Plan-s02-ext](sprints/sprint02-details.md) | Consulta de cliente en BD ~~por DNI~~, integración mediante RestClient con microservicio de predicción de Churn y orquestación en capa de servicio. | [Impl.](sprints/sprint02-end.md) |
 
 -----
 
