@@ -9,13 +9,13 @@ public class ClientPredictionMapper {
     public PredictionRequestDTO toPredictionRequest(Client client) {
         return new PredictionRequestDTO(
             client.getAge(),
-            client.getNearLocation(),
-            client.getPartnerEmployee(),
             client.getContractPeriod(),
             client.getMonthToEndContract(),
-            client.getLifetimeMonths(),
+            client.getLifetime(),
+            client.getGroupVisit(),
             client.getAvgClassFrequencyTotal(),
-            client.getAvgClassFrequencyCurrentMonth()
+            client.getAvgClassFrequencyCurrentMonth(),
+            client.getAvgAdditionalChargesTotal()
         );
     }
     

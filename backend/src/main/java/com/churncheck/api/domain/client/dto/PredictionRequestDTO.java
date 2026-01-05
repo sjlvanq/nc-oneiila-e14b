@@ -1,14 +1,16 @@
 package com.churncheck.api.domain.client.dto;
 
+import java.math.BigDecimal;
+
 public record PredictionRequestDTO(
     Integer age,
-    Integer nearLocation,
-    Integer partnerEmployee,
     Integer contractPeriod,
     Integer monthToEndContract,
-    Integer lifetimeMonths,
-    Double avgClassFrequencyTotal,
-    Double avgClassFrequencyCurrentMonth
+    Integer lifetime,
+    Integer groupVisits,
+    BigDecimal avgClassFrequencyTotal,
+    BigDecimal avgClassFrequencyCurrentMonth,
+    BigDecimal avgAdditionalChargesTotal
 ) {
     
 }
