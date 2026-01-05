@@ -8,6 +8,7 @@ import com.churncheck.api.domain.client.ClientResponseDTO;
 import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
+import com.churncheck.api.domain.client.DomainException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,25 +27,24 @@ public class ClientService {
 
     // Crear cliente desde DTO (alineado al gym churn dataset)
     public ClientResponseDTO createFromDto(ClientCreateRequestDTO dto) {
-        Client client = new Client();
-
-        client.setClientName(dto.clientName());
-        client.setActive(dto.active() != null ? dto.active() : true);
-        client.setGender(dto.gender());
-        client.setNearLocation(dto.nearLocation());
-        client.setPartnerEmployee(dto.partnerEmployee());
-        client.setPromoFriends(dto.promoFriends());
-        client.setClientPhone(dto.clientPhone());
-        client.setAge(dto.age());
-        client.setContractPeriod(dto.contractPeriod());
-        client.setMonthToEndContract(dto.monthToEndContract());
-        client.setLifetimeMonths(dto.lifetimeMonths());
-        client.setAvgClassFrequencyTotal(dto.avgClassFrequencyTotal());
-        client.setAvgClassFrequencyCurrentMonth(dto.avgClassFrequencyCurrentMonth());
-
-        // IMPORTANTE: churn NO se setea aquí (lo calcula el modelo)
+        // ✅ Creación delegada a la entidad
+        Client client = Client.createFromDto(dto);
+        
+        // ✅ Validaciones adicionales del service (cross-entity)
+        validateBusinessRules(client);
+        
+        // ✅ Persistencia delegada al repository
         Client savedClient = clientRepository.save(client);
         return new ClientResponseDTO(savedClient);
+    }
+    
+    // Validaciones de negocio que involucran múltiples entidades
+    private void validateBusinessRules(Client client) {
+        // Reglas que involucran múltiples entidades o recursos externos
+        // Por ahora, validación simple - se puede expandir en el futuro
+        if (client.getClientPhone() == null || client.getClientPhone().trim().isEmpty()) {
+            throw new DomainException("Client phone cannot be empty");
+        }
     }
 
     public ClientResponseDTO updateClient(ClientUpdateRequestDTO clientUpdateRequestDTO){
