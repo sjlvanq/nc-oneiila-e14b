@@ -3,54 +3,68 @@ package com.churncheck.api.infra.clients;
 import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
 import com.churncheck.api.domain.client.dto.PredictionRequestDTO;
 
-import org.springframework.beans.factory.annotation.Value;
+import java.util.logging.Logger;
+
+import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Component
 public class PredictionClient {
 
-    private final RestClient restClient;
-    
-    @Value("${external.prediction.endpoint}")
-    private String endpoint;
-    @Value("${external.prediction.timeout}")
-    private int timeout;
+    private static final Logger logger = Logger.getLogger(PredictionClient.class.getName());
 
-    public PredictionClient(RestClient.Builder restClientBuilder, 
-                            @Value("${external.prediction.host}") String host,
-                            @Value("${external.prediction.port}") int port) {
+    private final RestClient restClient;
+    private final PredictionProperties properties;
+
+    public PredictionClient(RestClient.Builder restClientBuilder, PredictionProperties properties) {
+        this.properties = properties;
         
-        String baseUrl = String.format("%s:%d", host, port);
-        
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setConnectionRequestTimeout(timeout);
-        requestFactory.setReadTimeout(timeout);
-        
-        //System.out.println("baseUrl: "+baseUrl);
         this.restClient = restClientBuilder
-                .baseUrl(baseUrl)
-                .requestFactory(requestFactory)
+                .baseUrl(properties.getBaseUrl())
+                .defaultHeaders(headers -> {
+                    headers.setContentType(MediaType.APPLICATION_JSON);
+                    if (properties.apiKey() != null && !properties.apiKey().isEmpty()) {
+                        headers.set("API-Key", properties.apiKey());
+                    }
+                })
+                .requestFactory(createRequestFactory())
                 .build();
     }
     
-    public PredictionResponseDTO predict(PredictionRequestDTO requestBody) {
-        // Desestimado bloque try/catch sugerido en c52b1a577857a2c06171c5ebdcf8caf672be9b9a
-        // en pos de futura implementación de manejador global de excepciones
-    	return restClient.post()
-                .uri(endpoint)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(requestBody)
-                .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-                    throw new RuntimeException("is4xxClientError");
-                })
-                .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
-                    throw new RuntimeException("is5xxServerError");
-                })
-                .body(PredictionResponseDTO.class);
+    private HttpComponentsClientHttpRequestFactory createRequestFactory() {
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setConnectionRequestTimeout(properties.connectionTimeout());
+        factory.setReadTimeout(properties.readTimeout());
+        return factory;
+    }
+    
+    public PredictionResponseDTO predict(PredictionRequestDTO request) {
+        logger.info("Sending prediction request to ML service: " + properties.getBaseUrl());
+        
+        try {
+            return restClient.post()
+                    .uri(properties.endpoint())
+                    .body(request)
+                    .retrieve()
+                    .onStatus(HttpStatusCode::is4xxClientError, (req, response) -> {
+                        int statusCode = response.getStatusCode().value();
+                        String message = String.format("Client error: %d - Failed to get prediction", statusCode);
+                        logger.severe(message);
+                        throw new PredictionClientException(message, statusCode);
+                    })
+                    .onStatus(HttpStatusCode::is5xxServerError, (req, response) -> {
+                        int statusCode = response.getStatusCode().value();
+                        String message = String.format("Server error: %d - ML service unavailable", statusCode);
+                        logger.severe(message);
+                        throw new PredictionServerException(message, statusCode);
+                    })
+                    .body(PredictionResponseDTO.class);
+        } catch (Exception e) {
+            logger.severe("Failed to get prediction from ML service: " + e.getMessage());
+            throw new PredictionException("Failed to get prediction", e);
+        }
     }
 }
