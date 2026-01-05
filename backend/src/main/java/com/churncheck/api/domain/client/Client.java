@@ -1,5 +1,7 @@
 package com.churncheck.api.domain.client;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -39,25 +41,70 @@ public class Client {
     @Column(name = "month_to_end_contract")
     private Integer monthToEndContract;
 
-    @Column(name = "lifetime_months")
-    private Integer lifetimeMonths;
+    @Column(name = "lifetime")
+    private Integer lifetime;
 
     @Column(name = "avg_class_frequency_total")
-    private Double avgClassFrequencyTotal;
+    private BigDecimal avgClassFrequencyTotal;
 
     @Column(name = "avg_class_frequency_current_month")
-    private Double avgClassFrequencyCurrentMonth;
+    private BigDecimal avgClassFrequencyCurrentMonth;
 
     @Column(name = "group_visit")
-    private Boolean groupVisit;
+    private Integer groupVisit;
     
     @Column(name = "avg_additional_charges_total")
-    private Double avgAdditionalChargesTotal;
+    private BigDecimal avgAdditionalChargesTotal;
     
     public Client() {}
     
-    public Client(ClientCreateRequestDTO clientCreateRequest) {
-    	
+    // Factory Method - creación controlada
+    public static Client createFromDto(ClientCreateRequestDTO dto) {
+        Client client = new Client();
+        
+        // Validaciones de negocio en la entidad
+        client.validateInitialData(dto);
+        
+        // Asignación controlada
+        client.clientName = dto.clientName();
+        client.clientPhone = dto.clientPhone();
+        client.age = dto.age();
+        client.gender = dto.gender();
+        client.nearLocation = dto.nearLocation();
+        client.partnerEmployee = dto.partnerEmployee();
+        client.promoFriends = dto.promoFriends();
+        client.contractPeriod = dto.contractPeriod();
+        client.monthToEndContract = dto.monthToEndContract();
+        client.lifetime = dto.lifetime();
+        client.groupVisit = dto.groupVisit();
+        client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
+        client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
+        client.avgAdditionalChargesTotal = dto.avgAdditionalChargesTotal();
+        client.active = dto.active() != null ? dto.active() : true;
+        
+        return client;
+    }
+    
+    // Validaciones del dominio
+    private void validateInitialData(ClientCreateRequestDTO dto) {
+        if (dto.clientName() == null || dto.clientName().trim().isEmpty()) {
+            throw new DomainException("Client name is required");
+        }
+        if (dto.clientPhone() == null || dto.clientPhone().trim().isEmpty()) {
+            throw new DomainException("Client phone is required");
+        }
+        if (dto.age() != null && (dto.age() < 16 || dto.age() > 100)) {
+            throw new DomainException("Age must be between 16 and 100");
+        }
+        if (dto.avgClassFrequencyTotal() != null && dto.avgClassFrequencyTotal().compareTo(BigDecimal.ZERO) < 0) {
+            throw new DomainException("Average frequency cannot be negative");
+        }
+        if (dto.avgClassFrequencyCurrentMonth() != null && dto.avgClassFrequencyCurrentMonth().compareTo(BigDecimal.ZERO) < 0) {
+            throw new DomainException("Current month frequency cannot be negative");
+        }
+        if (dto.avgAdditionalChargesTotal() != null && dto.avgAdditionalChargesTotal().compareTo(BigDecimal.ZERO) < 0) {
+            throw new DomainException("Additional charges cannot be negative");
+        }
     }
     
     public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
@@ -170,36 +217,40 @@ public class Client {
 		this.monthToEndContract = monthToEndContract;
 	}
 
-	public Integer getLifetimeMonths() {
-		return lifetimeMonths;
+	public Integer getLifetime() {
+		return lifetime;
 	}
 
-	public void setLifetimeMonths(Integer lifetimeMonths) {
-		this.lifetimeMonths = lifetimeMonths;
+	public void setLifetime(Integer lifetime) {
+		this.lifetime = lifetime;
 	}
 
-	public Double getAvgClassFrequencyTotal() {
+	public BigDecimal getAvgClassFrequencyTotal() {
 		return avgClassFrequencyTotal;
 	}
 
-	public void setAvgClassFrequencyTotal(Double double1) {
-		this.avgClassFrequencyTotal = double1;
+	public void setAvgClassFrequencyTotal(BigDecimal avgClassFrequencyTotal) {
+		this.avgClassFrequencyTotal = avgClassFrequencyTotal;
 	}
 
-	public Double getAvgClassFrequencyCurrentMonth() {
+	public BigDecimal getAvgClassFrequencyCurrentMonth() {
 		return avgClassFrequencyCurrentMonth;
 	}
 
-	public void setAvgClassFrequencyCurrentMonth(Double avgClassFrequencyCurrentMonth) {
+	public void setAvgClassFrequencyCurrentMonth(BigDecimal avgClassFrequencyCurrentMonth) {
 		this.avgClassFrequencyCurrentMonth = avgClassFrequencyCurrentMonth;
 	}
 
-	public Double getAvgAdditionalChargesTotal() {
+	public BigDecimal getAvgAdditionalChargesTotal() {
 		return this.avgAdditionalChargesTotal;
 	}
 	
-	public Boolean getGroupVisit() {
+	public Integer getGroupVisit() {
 		return this.groupVisit;
+	}
+	
+	public void setGroupVisit(Integer groupVisit) {
+		this.groupVisit = groupVisit;
 	}
 
 }
