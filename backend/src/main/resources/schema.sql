@@ -27,14 +27,13 @@ CREATE TABLE clients (
   promo_friends INT,
   client_phone VARCHAR(15),
   contract_period INT,
-  group_visit BOOLEAN,
+  group_visit INT,
   age INT,
   avg_additional_charges_total DECIMAL(10,2),
   month_to_end_contract INT,
-  lifetime_months INT,
+  lifetime INT,
   avg_class_frequency_total DECIMAL(10,2),
   avg_class_frequency_current_month DECIMAL(10,2),
-  churn INT,
   active BOOLEAN DEFAULT TRUE
 );
 

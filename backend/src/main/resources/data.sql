@@ -18,6 +18,7 @@ INSERT INTO user_roles (user_id, role_id) VALUES
 -- Clients
 
 INSERT INTO clients (
+    id,
     client_name,
     gender,
     near_location,
@@ -29,23 +30,28 @@ INSERT INTO clients (
     age,
     avg_additional_charges_total,
     month_to_end_contract,
-    lifetime_months,
+    lifetime,
     avg_class_frequency_total,
     avg_class_frequency_current_month,
-    churn
+    active
 ) VALUES 
 -- Cliente 1: Perfil de retención alta (vives cerca, contrato largo)
 (
-    'John Doe', 'MALE', 1, 1, 1, '555-0101', 12, TRUE, 32, 
-    255.45, 12, 18, 3.5, 3.4, 0
+    1, 'John Doe', 'MALE', 1, 1, 1, '555-0101', 12, 1, 32, 
+    255.45, 12, 18, 3.5, 3.4, TRUE
 ),
 -- Cliente 2: Perfil de alto riesgo de Churn (contrato mensual, baja frecuencia)
 (
-    'Jane Smith', 'FEMALE', 0, 0, 0, '555-0202', 1, FALSE, 24, 
-    12.30, 1, 1, 0.8, 0.1, 1
+    2, 'Jane Smith', 'FEMALE', 0, 0, 0, '555-0202', 1, 0, 24, 
+    12.30, 1, 1, 0.8, 0.1, TRUE
 ),
 -- Cliente 3: Perfil intermedio
 (
-    'Mike Ross', 'MALE', 1, 0, 1, '555-0303', 6, TRUE, 28, 
-    102.00, 6, 2, 2.1, 2.0, 0
+    3, 'Mike Ross', 'MALE', 1, 0, 1, '555-0303', 6, 1, 28, 
+    102.00, 6, 2, 2.1, 2.0, TRUE
+),
+-- Cliente 4: Nuevo cliente para pruebas
+(
+    4, 'María García López', 'FEMALE', 1, 0, 1,
+    '555-0404', 12, 1, 27, 255.45, 6, 18, 3.2, 4.1, TRUE
 );
