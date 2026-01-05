@@ -47,9 +47,9 @@ public record PredictionRequestDTO(
 No olvidar el @Valid en los parámetros de los controladores
 
 
-### Recomendación Técnica
+## Recomendación Técnica
 
-Para que los entregables sean 100% efectivos, sugiero que el **Dev B** y el **Dev C** acuerden el formato del `ErrorResponseDTO` en la primera hora del Día 1. Un formato estándar recomendado sería:
+Para que los entregables sean 100% efectivos, se recomienda que el **Dev B** y el **Dev C** acuerden el formato del `ErrorResponseDTO` en la primera hora del Día 1. A modo de ejemplo:
 
 ```json
 {
