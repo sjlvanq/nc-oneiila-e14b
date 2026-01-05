@@ -6,12 +6,15 @@ package com.churncheck.api.infra.clients;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.churncheck.api.infra.clients.dto.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
 
 /**
  * TEST DE INTEGRACIÓN
@@ -31,9 +34,15 @@ public class PredictionClientTest {
     void shouldReturnPredictionSuccessfully() {
         // Nota: este servidor no discrimina contenido del request
         var request = new PredictionRequestDTO(
-            1, (byte)1, (byte)0, (byte)1, (byte)1, 12, (byte)0, 30, 150.5, 6, 24, 2.5, 3.0
+            30, 1, 0, 12, 6, 
+            new BigDecimal("24.0"), 
+            new BigDecimal("2.5"), 
+            new BigDecimal("3.0")
         );
-        var response = predictionClient.predict(request);
+        
+        // ✅ El método predict ahora devuelve PredictionResponseDTO
+        PredictionResponseDTO response = predictionClient.predict(request);
+        
         assertNotNull(response);
         assertNotNull(response.churn());
         assertNotNull(response.probability());
