@@ -15,4 +15,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     Optional<Client> findById(Long id);
 
     Page<Client> findAllByActiveTrue(Pageable pageable);
+    
+    // Validación de negocio - teléfono único
+    boolean existsByClientPhone(String clientPhone);
 }
