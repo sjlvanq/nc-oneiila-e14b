@@ -31,11 +31,16 @@ spring:
 springdoc:
   api-docs:
     version: OPENAPI_3_0
+
+# Configuración del servicio de predicción ML
 external:
   prediction:
-    host: "http://microservicio-del-modelo"
-    port: 8001
-    endpoint: "/endpoint-de-prediccion"
-    timeout: 5000
-    retries: 3
+    host: "https://mock.echoapi.com"
+    port: 443
+    endpoint: "/mock/590aa3d9c002000/predict"
+    api-key: "mock-api-key-12345"
+    connect-timeout: 5000
+    connection-timeout: 5000
+    read-timeout: 10000
+    max-retries: 3
 
