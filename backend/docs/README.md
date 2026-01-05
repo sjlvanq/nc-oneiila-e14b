@@ -7,6 +7,8 @@
 * [Backend - Documentación de desarrollo](dev/README.md)
 * [Backend - Investigación](research/README.md)
 
+<img src="assets/churncheck-backend-dev.png" width="320" height="320" alt="Equipo Backend en Acción">
+
 -----
 
 * [README.md del proyecto](../../README.md)
