@@ -1,6 +1,5 @@
 {
-    "prediction": 1,
-    "probability": 0.87,
-    "status": "High Risk",
+    "churn": 1,
+    "probability": 0.87,    
     "timestamp": "2026-01-04"
 }

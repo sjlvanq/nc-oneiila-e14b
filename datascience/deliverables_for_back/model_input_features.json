@@ -1,5 +1,4 @@
 {
-    "idClient": "int64",
     "gender": "int64",
     "nearLocation": "int64",
     "partner": "int64",
