@@ -9,7 +9,7 @@ public record ClientFullResponseDTO(
         Long id,
         String clientName,
         String clientPhone,
-        String churn,
+        Byte churn,
         Double probability,
         Instant timestamp
 ) {
