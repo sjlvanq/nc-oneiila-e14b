@@ -32,7 +32,7 @@ CREATE TABLE clients (
   near_location BOOLEAN,
   partner_id BIGINT,
   promo_friends BOOLEAN,
-  created_at DATE,
+  registration_date DATE,
   contract_start_date DATE,
   contract_period INT,
   group_visit BOOLEAN,

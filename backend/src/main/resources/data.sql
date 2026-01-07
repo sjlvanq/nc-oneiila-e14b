@@ -30,7 +30,7 @@ INSERT INTO clients (
     near_location,
     partner_id,
     promo_friends,
-    created_at,
+    registration_date,
     contract_start_date,
     contract_period,
     group_visit,
