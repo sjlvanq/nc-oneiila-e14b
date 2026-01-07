@@ -1,7 +1,6 @@
 package com.churncheck.api.infra.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,8 +18,8 @@ public class AuthUserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return new AuthUser(
-        		userRepository.findByEmailWithRoles(email)
-        			.orElseThrow(()->new BadCredentialsException("User email not found in system")));
+                userRepository.findByEmailWithRoles(email)
+                .orElseThrow(()-> new UsernameNotFoundException("UsernameNotFoundException")));
     }
 
 	public void validateAccess(AuthUser user) {
