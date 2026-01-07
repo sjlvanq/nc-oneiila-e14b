@@ -256,4 +256,16 @@ public class Client {
 		this.groupVisit = groupVisit;
 	}
 
+	public Integer getPartner() {
+		return this.partnerEmployee;
+	}
+
+	public String getclientPhone() {
+		return this.clientPhone;
+	}
+
+	public Integer getGroupVisits() {
+		return this.groupVisit;
+	}
+
 }
