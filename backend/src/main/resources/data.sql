@@ -15,43 +15,47 @@ INSERT INTO user_roles (user_id, role_id) VALUES
 (2, 1), -- Admin User → ADMIN
 (3, 2); -- Analyst User → ANALYST
 
+-- Partners
+INSERT INTO partners (name) VALUES 
+('Gym Corp International'),
+('Wellness Solutions');
+
 -- Clients
 
 INSERT INTO clients (
-    id,
     client_name,
-    gender,
-    near_location,
-    partner_employee,
-    promo_friends,
     client_phone,
+    gender,
+    age,
+    near_location,
+    partner_id,
+    promo_friends,
+    registration_date,
+    contract_start_date,
     contract_period,
     group_visit,
-    age,
     avg_additional_charges_total,
-    month_to_end_contract,
-    lifetime,
     avg_class_frequency_total,
     avg_class_frequency_current_month,
     active
 ) VALUES 
--- Cliente 1: Perfil de retención alta (vives cerca, contrato largo)
+-- Cliente 1: Perfil de retención alta
 (
-    1, 'John Doe', 'MALE', 1, 1, 1, '555-0101', 12, 1, 32, 
-    255.45, 12, 18, 3.5, 3.4, TRUE
+    'John Doe', '555-0101', 'MALE', 32, 1, 1, 1,
+    '2024-01-01', '2024-01-01', 12, 1, 255.45, 3.5, 3.4, 1
 ),
--- Cliente 2: Perfil de alto riesgo de Churn (contrato mensual, baja frecuencia)
+-- Cliente 2: Perfil de alto riesgo de Churn
 (
-    2, 'Jane Smith', 'FEMALE', 0, 0, 0, '555-0202', 1, 0, 24, 
-    12.30, 1, 1, 0.8, 0.1, TRUE
+    'Jane Smith', '555-0202', 'FEMALE', 24, 0, NULL, 0, 
+    '2025-12-01', '2025-12-01', 1, 0, 12.30, 0.8, 0.1, 1
 ),
 -- Cliente 3: Perfil intermedio
 (
-    3, 'Mike Ross', 'MALE', 1, 0, 1, '555-0303', 6, 1, 28, 
-    102.00, 6, 2, 2.1, 2.0, TRUE
+    'Mike Ross', '555-0303', 'MALE', 28, 1, 2, 1, 
+    '2025-11-15', '2025-11-15', 6, 1, 102.00, 2.1, 2.0, 1
 ),
 -- Cliente 4: Nuevo cliente para pruebas
 (
-    4, 'María García López', 'FEMALE', 1, 0, 1,
-    '555-0404', 12, 1, 27, 255.45, 6, 18, 3.2, 4.1, TRUE
+    'María García López', '555-0404', 'FEMALE', 27, 1, 1, 1, 
+    '2024-06-01', '2024-06-01', 12, 1, 255.45, 3.2, 4.1, 1
 );

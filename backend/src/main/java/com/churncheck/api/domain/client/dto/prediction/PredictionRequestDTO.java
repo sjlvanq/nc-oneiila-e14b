@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public record PredictionRequestDTO(
 	Integer gender,
-	Integer nearLocation,
-	Integer partner,
-	Integer promoFriends,
-	Integer phone,
+	Byte nearLocation,
+	Byte partner,
+	Byte promoFriends,
+	Byte phone,
     Integer contractPeriod,
-    Integer groupVisits,
+    Byte groupVisits,
     Integer age,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "0.00")
     BigDecimal avgAdditionalChargesTotal,

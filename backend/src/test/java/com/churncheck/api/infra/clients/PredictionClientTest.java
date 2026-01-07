@@ -34,7 +34,7 @@ public class PredictionClientTest {
     void shouldReturnPredictionSuccessfully() {
         // Nota: este servidor no discrimina contenido del request
         var request = new PredictionRequestDTO(
-            1, 1, 1, 0, 1, 12, 1, 30, 
+            1, (byte) 1, (byte) 1, (byte) 0, (byte) 1, 12, (byte) 1, 30, 
             new BigDecimal("24.0"), 
             6, 10,
             new BigDecimal("2.5"), 

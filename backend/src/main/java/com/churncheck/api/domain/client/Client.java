@@ -1,68 +1,83 @@
 package com.churncheck.api.domain.client;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
 
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.partner.Partner;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clients")
 public class Client {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
     @Column(name = "active")
     private Boolean active = true;
     
-    @Column(name = "client_name")
-    private String clientName;
-    
-    @Column(name = "client_phone")
-    private String clientPhone;
-
     private Integer age;
-    
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
 
-    @Column(name = "near_location")
-    private Integer nearLocation;
+    @Column(name = "avg_additional_charges_total")
+    private BigDecimal avgAdditionalChargesTotal;
 
-    @Column(name = "partner_employee")
-    private Integer partnerEmployee;
-
-    @Column(name = "promo_friends")
-    private Integer promoFriends;
-
-    @Column(name = "contract_period")
-    private Integer contractPeriod;
-    
-    @Column(name = "month_to_end_contract")
-    private Integer monthToEndContract;
-
-    @Column(name = "lifetime")
-    private Integer lifetime;
+    @Column(name = "avg_class_frequency_current_month")
+    private BigDecimal avgClassFrequencyCurrentMonth;    
 
     @Column(name = "avg_class_frequency_total")
     private BigDecimal avgClassFrequencyTotal;
 
-    @Column(name = "avg_class_frequency_current_month")
-    private BigDecimal avgClassFrequencyCurrentMonth;
+    @Column(name = "client_name")
+    private String clientName;
+
+    @Column(name = "client_phone")
+    private String clientPhone;
+
+    @Column(name = "contract_period")
+    private Integer contractPeriod;
+    
+    @Column(name = "contract_start_date")
+    private LocalDate contractStartDate;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(name = "group_visit")
-    private Integer groupVisit;
+    private Boolean groupVisits;
+       
+    @Column(name = "near_location")
+    private Boolean nearLocation;
     
-    @Column(name = "avg_additional_charges_total")
-    private BigDecimal avgAdditionalChargesTotal;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "partner_id")
+    private Partner partner;
     
+    @Column(name = "promo_friends")
+    private Boolean promoFriends;
+    
+    
+    @Column(name = "registration_date")
+    private Instant registrationDate;
+
     public Client() {}
-    
+
     // Factory Method - creación controlada
-    public static Client createFromDto(ClientCreateRequestDTO dto) {
+    public static Client createFromDto(ClientCreateRequestDTO dto, Partner partner) {
         Client client = new Client();
         
         // Validaciones de negocio en la entidad
@@ -74,21 +89,159 @@ public class Client {
         client.age = dto.age();
         client.gender = dto.gender();
         client.nearLocation = dto.nearLocation();
-        client.partnerEmployee = dto.partnerEmployee();
+        client.partner = partner;
         client.promoFriends = dto.promoFriends();
         client.contractPeriod = dto.contractPeriod();
-        client.monthToEndContract = dto.monthToEndContract();
-        client.lifetime = dto.lifetime();
-        client.groupVisit = dto.groupVisit();
+        client.groupVisits = dto.groupVisits();
         client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
         client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
         client.avgAdditionalChargesTotal = dto.avgAdditionalChargesTotal();
         client.active = dto.active() != null ? dto.active() : true;
         
+        client.registrationDate = Instant.now();
+        client.contractStartDate = LocalDate.now();
+        
         return client;
     }
     
-    // Validaciones del dominio
+    public void deleteClient() {
+        this.active = false;
+    }
+    
+    public Boolean getActive() {
+		return active;
+	}
+    
+    public Integer getAge() {
+		return age;
+	}
+    
+    public BigDecimal getAvgAdditionalChargesTotal() {
+		return this.avgAdditionalChargesTotal;
+	}
+    
+    public BigDecimal getAvgClassFrequencyCurrentMonth() {
+		return avgClassFrequencyCurrentMonth;
+	}
+   
+	public BigDecimal getAvgClassFrequencyTotal() {
+		return avgClassFrequencyTotal;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public String getclientPhone() {
+		return this.clientPhone;
+	}
+
+	public String getClientPhone() {
+		return clientPhone;
+	}
+
+	public Integer getContractPeriod() {
+		return contractPeriod;
+	}
+
+	public LocalDate getContractStartDate() {
+        return contractStartDate;
+    }
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public Boolean getGroupVisits() {
+		return this.groupVisits;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Boolean getNearLocation() {
+		return nearLocation;
+	}
+
+	public Partner getPartner() {
+		return this.partner;
+	}
+
+	public Boolean getPromoFriends() {
+		return promoFriends;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public void setAvgClassFrequencyCurrentMonth(BigDecimal avgClassFrequencyCurrentMonth) {
+		this.avgClassFrequencyCurrentMonth = avgClassFrequencyCurrentMonth;
+	}
+
+	public void setAvgClassFrequencyTotal(BigDecimal avgClassFrequencyTotal) {
+		this.avgClassFrequencyTotal = avgClassFrequencyTotal;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public void setClientPhone(String clientPhone) {
+		this.clientPhone = clientPhone;
+	}
+
+	public void setContractPeriod(Integer contractPeriod) {
+		this.contractPeriod = contractPeriod;
+	}
+
+	public void setContractStartDate(LocalDate contractStartDate) {
+        this.contractStartDate = contractStartDate;
+    }
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public void setGroupVisit(Boolean groupVisits) {
+		this.groupVisits = groupVisits;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public void setNearLocation(Boolean nearLocation) {
+		this.nearLocation = nearLocation;
+	}
+
+	public void setPromoFriends(Boolean promoFriends) {
+		this.promoFriends = promoFriends;
+	}
+
+	public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
+        if (clientUpdateRequestDTO.clientName() != null) {
+            this.clientName = clientUpdateRequestDTO.clientName();
+        }
+        
+        if (clientUpdateRequestDTO.clientPhone() != null) {
+            this.clientPhone = clientUpdateRequestDTO.clientPhone();
+        }
+        if (clientUpdateRequestDTO.nearLocation() != null) {
+            this.nearLocation = clientUpdateRequestDTO.nearLocation();
+        }
+        if (clientUpdateRequestDTO.age() != null) {
+            this.age = clientUpdateRequestDTO.age();
+        }
+    }
+
+	// Validaciones del dominio
+    // TODO: Quitar cuando se implementen validaciones y manejo global de excepciones
     private void validateInitialData(ClientCreateRequestDTO dto) {
         if (dto.clientName() == null || dto.clientName().trim().isEmpty()) {
             throw new DomainException("Client name is required");
@@ -109,163 +262,5 @@ public class Client {
             throw new DomainException("Additional charges cannot be negative");
         }
     }
-    
-    public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
-        if (clientUpdateRequestDTO.clientName() != null) {
-            this.clientName = clientUpdateRequestDTO.clientName();
-        }
-        
-        if (clientUpdateRequestDTO.clientPhone() != null) {
-            this.clientPhone = clientUpdateRequestDTO.clientPhone();
-        }
-        if (clientUpdateRequestDTO.nearLocation() != null) {
-            this.nearLocation = clientUpdateRequestDTO.nearLocation();
-        }
-        if (clientUpdateRequestDTO.age() != null) {
-            this.age = clientUpdateRequestDTO.age();
-        }
-    }
-    
-    public void deleteClient() {
-        this.active = false;
-    }
-
-    // Getters y setters
-    
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-
-	public String getClientName() {
-		return clientName;
-	}
-
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
-	public Integer getNearLocation() {
-		return nearLocation;
-	}
-
-	public void setNearLocation(Integer nearLocation) {
-		this.nearLocation = nearLocation;
-	}
-
-	public Integer getPartnerEmployee() {
-		return partnerEmployee;
-	}
-
-	public void setPartnerEmployee(Integer partnerEmployee) {
-		this.partnerEmployee = partnerEmployee;
-	}
-
-	public Integer getPromoFriends() {
-		return promoFriends;
-	}
-
-	public void setPromoFriends(Integer promoFriends) {
-		this.promoFriends = promoFriends;
-	}
-
-	public String getClientPhone() {
-		return clientPhone;
-	}
-
-	public void setClientPhone(String clientPhone) {
-		this.clientPhone = clientPhone;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getContractPeriod() {
-		return contractPeriod;
-	}
-
-	public void setContractPeriod(Integer contractPeriod) {
-		this.contractPeriod = contractPeriod;
-	}
-
-	public Integer getMonthToEndContract() {
-		return monthToEndContract;
-	}
-
-	public void setMonthToEndContract(Integer monthToEndContract) {
-		this.monthToEndContract = monthToEndContract;
-	}
-
-	public Integer getLifetime() {
-		return lifetime;
-	}
-
-	public void setLifetime(Integer lifetime) {
-		this.lifetime = lifetime;
-	}
-
-	public BigDecimal getAvgClassFrequencyTotal() {
-		return avgClassFrequencyTotal;
-	}
-
-	public void setAvgClassFrequencyTotal(BigDecimal avgClassFrequencyTotal) {
-		this.avgClassFrequencyTotal = avgClassFrequencyTotal;
-	}
-
-	public BigDecimal getAvgClassFrequencyCurrentMonth() {
-		return avgClassFrequencyCurrentMonth;
-	}
-
-	public void setAvgClassFrequencyCurrentMonth(BigDecimal avgClassFrequencyCurrentMonth) {
-		this.avgClassFrequencyCurrentMonth = avgClassFrequencyCurrentMonth;
-	}
-
-	public BigDecimal getAvgAdditionalChargesTotal() {
-		return this.avgAdditionalChargesTotal;
-	}
-	
-	public Integer getGroupVisit() {
-		return this.groupVisit;
-	}
-	
-	public void setGroupVisit(Integer groupVisit) {
-		this.groupVisit = groupVisit;
-	}
-
-	public Integer getPartner() {
-		return this.partnerEmployee;
-	}
-
-	public String getclientPhone() {
-		return this.clientPhone;
-	}
-
-	public Integer getGroupVisits() {
-		return this.groupVisit;
-	}
 
 }

@@ -8,27 +8,41 @@ import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
+import com.churncheck.api.domain.partner.Partner;
+import com.churncheck.api.domain.partner.PartnerRepository;
 import com.churncheck.api.domain.client.DomainException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final ChurnService churnService;
+    private final PartnerRepository partnerRepository;
+    private final ChurnService churnService;    
 
-    public ClientService(ClientRepository clientRepository, ChurnService churnService) {
+    public ClientService(
+            ClientRepository clientRepository, 
+            PartnerRepository partnerRepository,
+            ChurnService churnService) {
         this.clientRepository = clientRepository;
+        this.partnerRepository = partnerRepository;
         this.churnService = churnService;
     }
 
     // Crear cliente desde DTO (alineado al gym churn dataset)
     public ClientResponseDTO createFromDto(ClientCreateRequestDTO dto) {
         // ✅ Creación delegada a la entidad
-        Client client = Client.createFromDto(dto);
+        Partner partner = null;
+        if (dto.partnerId() != null) {
+            partner = partnerRepository.findById(dto.partnerId())                    
+                .orElseThrow(() -> new EntityNotFoundException("Partner not found"));
+        }
+        Client client = Client.createFromDto(dto, partner);
         
         // ✅ Validaciones adicionales del service (cross-entity)
         validateBusinessRules(client);

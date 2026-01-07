@@ -9,7 +9,7 @@ public record ClientListResponseDTO(
     Boolean active,
     Gender gender,
     String clientPhone,
-    Integer nearLocation,
+    Boolean nearLocation,
     Integer age
 ) {
     public ClientListResponseDTO(Client client) {
