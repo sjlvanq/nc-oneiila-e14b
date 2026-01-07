@@ -13,8 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.churncheck.api.domain.client.dto.PredictionRequestDTO;
-import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
+import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 
 /**
  * TEST DE INTEGRACIÓN

@@ -1,6 +1,8 @@
-package com.churncheck.api.domain.client;
+package com.churncheck.api.domain.client.dto;
 
 import java.math.BigDecimal;
+
+import com.churncheck.api.domain.client.Gender;
 
 public record ClientCreateRequestDTO (
     String clientName,

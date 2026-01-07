@@ -2,6 +2,9 @@ package com.churncheck.api.domain.client;
 
 import java.math.BigDecimal;
 
+import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
+import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+
 import jakarta.persistence.*;
 
 @Entity

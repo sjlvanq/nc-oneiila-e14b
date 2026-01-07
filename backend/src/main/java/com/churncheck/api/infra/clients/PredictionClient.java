@@ -1,7 +1,7 @@
 package com.churncheck.api.infra.clients;
 
-import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
-import com.churncheck.api.domain.client.dto.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 
 import java.util.logging.Logger;
 

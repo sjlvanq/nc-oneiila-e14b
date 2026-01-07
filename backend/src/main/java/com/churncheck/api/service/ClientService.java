@@ -1,13 +1,13 @@
 package com.churncheck.api.service;
 
 import com.churncheck.api.domain.client.Client;
-import com.churncheck.api.domain.client.ClientCreateRequestDTO;
-import com.churncheck.api.domain.client.ClientListResponseDTO;
 import com.churncheck.api.domain.client.ClientRepository;
-import com.churncheck.api.domain.client.ClientResponseDTO;
-import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
-import com.churncheck.api.domain.client.dto.PredictionResponseDTO;
+import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
+import com.churncheck.api.domain.client.dto.ClientResponseDTO;
+import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 import com.churncheck.api.domain.client.DomainException;
 
 import org.springframework.data.domain.Page;

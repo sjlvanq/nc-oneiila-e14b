@@ -1,4 +1,7 @@
-package com.churncheck.api.domain.client;
+package com.churncheck.api.domain.client.dto;
+
+import com.churncheck.api.domain.client.Client;
+import com.churncheck.api.domain.client.Gender;
 
 public record ClientListResponseDTO(
     Long id,

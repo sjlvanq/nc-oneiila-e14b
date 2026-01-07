@@ -1,4 +1,4 @@
-package com.churncheck.api.domain.client;
+package com.churncheck.api.domain.client.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

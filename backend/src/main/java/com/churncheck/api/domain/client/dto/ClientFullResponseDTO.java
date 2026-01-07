@@ -3,6 +3,7 @@ package com.churncheck.api.domain.client.dto;
 import java.time.Instant;
 
 import com.churncheck.api.domain.client.Client;
+import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 
 public record ClientFullResponseDTO(
         Long id,

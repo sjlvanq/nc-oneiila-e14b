@@ -1,4 +1,4 @@
-package com.churncheck.api.domain.client.dto;
+package com.churncheck.api.domain.client.dto.prediction;
 
 import java.math.BigDecimal;
 

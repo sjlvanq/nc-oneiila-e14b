@@ -14,10 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.churncheck.api.domain.client.ClientCreateRequestDTO;
-import com.churncheck.api.domain.client.ClientResponseDTO;
-import com.churncheck.api.domain.client.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
+import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
+import com.churncheck.api.domain.client.dto.ClientResponseDTO;
+import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.service.ClientService;
 
 import jakarta.validation.Valid;
@@ -25,7 +26,6 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.churncheck.api.domain.client.ClientListResponseDTO;
 
 
 
