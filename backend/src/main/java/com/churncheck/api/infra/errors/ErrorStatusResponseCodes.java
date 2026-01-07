@@ -1,0 +1,13 @@
+package com.churncheck.api.infra.errors;
+
+public enum ErrorStatusResponseCodes {
+	BAD_CREDENTIALS_401,
+	BAD_PATHVARIABLE_400,
+	BAD_REQUEST_400,
+	CONFLICT_409,
+	FORBIDDEN_403,
+	LOCKED_423, 
+	MALFORMED_400,
+	NOT_FOUND_404, 
+	UNAUTHORIZED_401
+}
