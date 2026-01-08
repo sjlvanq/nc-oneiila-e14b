@@ -24,7 +24,7 @@ public class ClientPredictionMapper {
         Byte isPromoFriends = (byte) (client.getPromoFriends() ? 1 : 0);
         
         LocalDate today = LocalDate.now();
-        Integer lifetime = (int) ChronoUnit.MONTHS.between(client.getContractStartDate(), today);
+        Integer lifetime = (int) ChronoUnit.MONTHS.between(client.getRegistrationDate(), today);
         LocalDate endContractDate = client.getContractStartDate().plusMonths(client.getContractPeriod());
         Integer monthsToEndContract = Period.between(today, endContractDate).getMonths();
         

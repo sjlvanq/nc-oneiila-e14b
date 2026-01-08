@@ -172,6 +172,10 @@ public class Client {
 		return promoFriends;
 	}
 
+    public Instant getRegistrationDate() {
+        return registrationDate;
+    }
+
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
