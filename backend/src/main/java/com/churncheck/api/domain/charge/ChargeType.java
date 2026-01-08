@@ -14,6 +14,6 @@ public class ChargeType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "charge_type_name")
-    private String name;
+    @Column(name = "description")
+    private String description;
 }
