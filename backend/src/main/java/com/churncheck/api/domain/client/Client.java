@@ -1,6 +1,8 @@
 package com.churncheck.api.domain.client;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
 
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
@@ -40,12 +42,6 @@ public class Client {
     @Column(name = "contract_period")
     private Integer contractPeriod;
     
-    @Column(name = "month_to_end_contract")
-    private Integer monthToEndContract;
-
-    @Column(name = "lifetime")
-    private Integer lifetime;
-
     @Column(name = "avg_class_frequency_total")
     private BigDecimal avgClassFrequencyTotal;
 
@@ -58,6 +54,24 @@ public class Client {
     @Column(name = "avg_additional_charges_total")
     private BigDecimal avgAdditionalChargesTotal;
     
+    @Column(name = "active")
+    private Boolean active = true;
+    
+    @Column(name = "registration_date")
+    private Instant registrationDate;
+    
+    @Column(name = "contract_start_date")
+    private LocalDate contractStartDate;
+    
+    
+    public LocalDate getContractStartDate() {
+        return contractStartDate;
+    }
+
+    public void setContractStartDate(LocalDate contractStartDate) {
+        this.contractStartDate = contractStartDate;
+    }
+
     public Client() {}
     
     // Factory Method - creación controlada
@@ -76,13 +90,14 @@ public class Client {
         client.partner = partner;
         client.promoFriends = dto.promoFriends();
         client.contractPeriod = dto.contractPeriod();
-        client.monthToEndContract = dto.monthToEndContract();
-        client.lifetime = dto.lifetime();
         client.groupVisits = dto.groupVisits();
         client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
         client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
         client.avgAdditionalChargesTotal = dto.avgAdditionalChargesTotal();
         client.active = dto.active() != null ? dto.active() : true;
+        
+        client.registrationDate = Instant.now();
+        client.contractStartDate = LocalDate.now();
         
         return client;
     }
@@ -202,22 +217,6 @@ public class Client {
 
 	public void setContractPeriod(Integer contractPeriod) {
 		this.contractPeriod = contractPeriod;
-	}
-
-	public Integer getMonthToEndContract() {
-		return monthToEndContract;
-	}
-
-	public void setMonthToEndContract(Integer monthToEndContract) {
-		this.monthToEndContract = monthToEndContract;
-	}
-
-	public Integer getLifetime() {
-		return lifetime;
-	}
-
-	public void setLifetime(Integer lifetime) {
-		this.lifetime = lifetime;
 	}
 
 	public BigDecimal getAvgClassFrequencyTotal() {
