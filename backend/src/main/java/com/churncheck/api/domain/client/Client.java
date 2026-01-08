@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.partner.Partner;
 
 import jakarta.persistence.*;
 
@@ -29,8 +30,9 @@ public class Client {
     @Column(name = "near_location")
     private Boolean nearLocation;
 
-    @Column(name = "partner_employee")
-    private Integer partnerEmployee;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "partner_id")
+    private Partner partner;
 
     @Column(name = "promo_friends")
     private Boolean promoFriends;
@@ -59,7 +61,7 @@ public class Client {
     public Client() {}
     
     // Factory Method - creación controlada
-    public static Client createFromDto(ClientCreateRequestDTO dto) {
+    public static Client createFromDto(ClientCreateRequestDTO dto, Partner partner) {
         Client client = new Client();
         
         // Validaciones de negocio en la entidad
@@ -71,7 +73,7 @@ public class Client {
         client.age = dto.age();
         client.gender = dto.gender();
         client.nearLocation = dto.nearLocation();
-        client.partnerEmployee = dto.partnerEmployee();
+        client.partner = partner;
         client.promoFriends = dto.promoFriends();
         client.contractPeriod = dto.contractPeriod();
         client.monthToEndContract = dto.monthToEndContract();
@@ -170,14 +172,6 @@ public class Client {
 		this.nearLocation = nearLocation;
 	}
 
-	public Integer getPartnerEmployee() {
-		return partnerEmployee;
-	}
-
-	public void setPartnerEmployee(Integer partnerEmployee) {
-		this.partnerEmployee = partnerEmployee;
-	}
-
 	public Boolean getPromoFriends() {
 		return promoFriends;
 	}
@@ -246,16 +240,12 @@ public class Client {
 		return this.avgAdditionalChargesTotal;
 	}
 	
-	public Integer getGroupVisit() {
-		return this.groupVisit;
-	}
-	
 	public void setGroupVisit(Boolean groupVisits) {
 		this.groupVisits = groupVisits;
 	}
 
-	public Integer getPartner() {
-		return this.partnerEmployee;
+	public Partner getPartner() {
+		return this.partner;
 	}
 
 	public String getclientPhone() {
