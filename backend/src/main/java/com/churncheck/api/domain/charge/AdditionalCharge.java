@@ -3,7 +3,8 @@ package com.churncheck.api.domain.charge;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import ch.qos.logback.core.net.server.Client;
+import com.churncheck.api.domain.client.Client;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
