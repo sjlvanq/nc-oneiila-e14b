@@ -3,7 +3,10 @@ package com.churncheck.api.domain.client;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.churncheck.api.domain.charge.AdditionalCharge;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.domain.partner.Partner;
@@ -18,6 +21,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,7 +34,10 @@ public class Client {
     
     @Column(name = "active")
     private Boolean active = true;
-    
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    private List<AdditionalCharge> additionalCharges = new ArrayList<>();
+
     private Integer age;
 
     @Column(name = "avg_additional_charges_total")
@@ -111,6 +118,10 @@ public class Client {
     public Boolean getActive() {
 		return active;
 	}
+    
+    public List<AdditionalCharge> getAdditionalCharges() {
+        return additionalCharges;
+    }
     
     public Integer getAge() {
 		return age;
