@@ -49,7 +49,6 @@ CREATE TABLE clients (
   contract_start_date DATE,
   contract_period INT,
   group_visit BOOLEAN,
-  avg_additional_charges_total DECIMAL(10,2), -- A eliminar
   avg_class_frequency_total DECIMAL(10,2),
   avg_class_frequency_current_month DECIMAL(10,2),
   active BOOLEAN DEFAULT TRUE

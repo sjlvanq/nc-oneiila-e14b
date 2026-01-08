@@ -40,9 +40,6 @@ public class Client {
 
     private Integer age;
 
-    @Column(name = "avg_additional_charges_total")
-    private BigDecimal avgAdditionalChargesTotal;
-
     @Column(name = "avg_class_frequency_current_month")
     private BigDecimal avgClassFrequencyCurrentMonth;    
 
@@ -102,7 +99,6 @@ public class Client {
         client.groupVisits = dto.groupVisits();
         client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
         client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
-        client.avgAdditionalChargesTotal = dto.avgAdditionalChargesTotal();
         client.active = dto.active() != null ? dto.active() : true;
         
         client.registrationDate = Instant.now();
@@ -125,10 +121,6 @@ public class Client {
     
     public Integer getAge() {
 		return age;
-	}
-    
-    public BigDecimal getAvgAdditionalChargesTotal() {
-		return this.avgAdditionalChargesTotal;
 	}
     
     public BigDecimal getAvgClassFrequencyCurrentMonth() {
@@ -272,9 +264,6 @@ public class Client {
         }
         if (dto.avgClassFrequencyCurrentMonth() != null && dto.avgClassFrequencyCurrentMonth().compareTo(BigDecimal.ZERO) < 0) {
             throw new DomainException("Current month frequency cannot be negative");
-        }
-        if (dto.avgAdditionalChargesTotal() != null && dto.avgAdditionalChargesTotal().compareTo(BigDecimal.ZERO) < 0) {
-            throw new DomainException("Additional charges cannot be negative");
         }
     }
 
