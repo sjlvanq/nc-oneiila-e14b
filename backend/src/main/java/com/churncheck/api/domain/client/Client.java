@@ -3,7 +3,10 @@ package com.churncheck.api.domain.client;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.churncheck.api.domain.charge.AdditionalCharge;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.domain.partner.Partner;
@@ -18,6 +21,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,11 +34,11 @@ public class Client {
     
     @Column(name = "active")
     private Boolean active = true;
-    
-    private Integer age;
 
-    @Column(name = "avg_additional_charges_total")
-    private BigDecimal avgAdditionalChargesTotal;
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    private List<AdditionalCharge> additionalCharges = new ArrayList<>();
+
+    private Integer age;
 
     @Column(name = "avg_class_frequency_current_month")
     private BigDecimal avgClassFrequencyCurrentMonth;    
@@ -95,7 +99,6 @@ public class Client {
         client.groupVisits = dto.groupVisits();
         client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
         client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
-        client.avgAdditionalChargesTotal = dto.avgAdditionalChargesTotal();
         client.active = dto.active() != null ? dto.active() : true;
         
         client.registrationDate = Instant.now();
@@ -112,12 +115,12 @@ public class Client {
 		return active;
 	}
     
+    public List<AdditionalCharge> getAdditionalCharges() {
+        return additionalCharges;
+    }
+    
     public Integer getAge() {
 		return age;
-	}
-    
-    public BigDecimal getAvgAdditionalChargesTotal() {
-		return this.avgAdditionalChargesTotal;
 	}
     
     public BigDecimal getAvgClassFrequencyCurrentMonth() {
@@ -261,9 +264,6 @@ public class Client {
         }
         if (dto.avgClassFrequencyCurrentMonth() != null && dto.avgClassFrequencyCurrentMonth().compareTo(BigDecimal.ZERO) < 0) {
             throw new DomainException("Current month frequency cannot be negative");
-        }
-        if (dto.avgAdditionalChargesTotal() != null && dto.avgAdditionalChargesTotal().compareTo(BigDecimal.ZERO) < 0) {
-            throw new DomainException("Additional charges cannot be negative");
         }
     }
 

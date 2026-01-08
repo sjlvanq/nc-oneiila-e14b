@@ -1,11 +1,18 @@
 package com.churncheck.api.domain.client;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.churncheck.api.domain.charge.AdditionalCharge;
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 
 @Component
@@ -24,7 +31,25 @@ public class ClientPredictionMapper {
         Byte isPromoFriends = (byte) (client.getPromoFriends() ? 1 : 0);
         
         LocalDate today = LocalDate.now();
-        Integer lifetime = (int) ChronoUnit.MONTHS.between(client.getRegistrationDate(), today);
+        LocalDate registrationDate = client.getRegistrationDate()
+                .atZone(ZoneId.systemDefault()).toLocalDate();
+        Integer lifetime = (int) ChronoUnit.MONTHS.between(registrationDate, today);
+        
+        Map<YearMonth, java.util.List<AdditionalCharge>> chargesByMonth = client.getAdditionalCharges()
+                .stream()
+                .collect(Collectors.groupingBy(charge -> 
+                        YearMonth.from(charge.getChargeDate())));
+        
+        BigDecimal sumOfMonthlyAverages = chargesByMonth.values().stream()
+                .map(monthlyList -> {
+                    BigDecimal monthlyTotal = monthlyList.stream()
+                            .map(AdditionalCharge::getAmount)
+                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                    return monthlyTotal.divide(
+                            BigDecimal.valueOf(monthlyList.size()), 2, RoundingMode.HALF_UP);
+                })
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        
         LocalDate endContractDate = client.getContractStartDate().plusMonths(client.getContractPeriod());
         Integer monthsToEndContract = Period.between(today, endContractDate).getMonths();
         
@@ -37,7 +62,7 @@ public class ClientPredictionMapper {
                 client.getContractPeriod(),
                 isGroupVisits,
                 client.getAge(),
-                client.getAvgAdditionalChargesTotal(),
+                sumOfMonthlyAverages,
                 monthsToEndContract,
                 lifetime,
                 client.getAvgClassFrequencyTotal(),

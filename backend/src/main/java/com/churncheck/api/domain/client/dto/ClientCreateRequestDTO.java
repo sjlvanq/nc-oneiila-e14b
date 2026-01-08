@@ -16,6 +16,5 @@ public record ClientCreateRequestDTO (
     Integer contractPeriod,
     Boolean groupVisits,
     BigDecimal avgClassFrequencyTotal,
-    BigDecimal avgClassFrequencyCurrentMonth,
-    BigDecimal avgAdditionalChargesTotal) {
-}
+    BigDecimal avgClassFrequencyCurrentMonth
+) {}
