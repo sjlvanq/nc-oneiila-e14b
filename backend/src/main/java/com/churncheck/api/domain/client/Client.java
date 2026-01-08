@@ -15,28 +15,25 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "active")
-    private Boolean active = true;
-    
     @Column(name = "client_name")
     private String clientName;
     
     @Column(name = "client_phone")
     private String clientPhone;
 
-    private Integer age;
-    
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    private Integer age;    
+
     @Column(name = "near_location")
-    private Integer nearLocation;
+    private Boolean nearLocation;
 
     @Column(name = "partner_employee")
     private Integer partnerEmployee;
 
     @Column(name = "promo_friends")
-    private Integer promoFriends;
+    private Boolean promoFriends;
 
     @Column(name = "contract_period")
     private Integer contractPeriod;
@@ -54,7 +51,7 @@ public class Client {
     private BigDecimal avgClassFrequencyCurrentMonth;
 
     @Column(name = "group_visit")
-    private Integer groupVisit;
+    private Boolean groupVisits;
     
     @Column(name = "avg_additional_charges_total")
     private BigDecimal avgAdditionalChargesTotal;
@@ -79,7 +76,7 @@ public class Client {
         client.contractPeriod = dto.contractPeriod();
         client.monthToEndContract = dto.monthToEndContract();
         client.lifetime = dto.lifetime();
-        client.groupVisit = dto.groupVisit();
+        client.groupVisits = dto.groupVisits();
         client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
         client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
         client.avgAdditionalChargesTotal = dto.avgAdditionalChargesTotal();
@@ -89,6 +86,7 @@ public class Client {
     }
     
     // Validaciones del dominio
+    // TODO: Quitar cuando se implementen validaciones y manejo global de excepciones
     private void validateInitialData(ClientCreateRequestDTO dto) {
         if (dto.clientName() == null || dto.clientName().trim().isEmpty()) {
             throw new DomainException("Client name is required");
@@ -164,11 +162,11 @@ public class Client {
 		this.gender = gender;
 	}
 
-	public Integer getNearLocation() {
+	public Boolean getNearLocation() {
 		return nearLocation;
 	}
 
-	public void setNearLocation(Integer nearLocation) {
+	public void setNearLocation(Boolean nearLocation) {
 		this.nearLocation = nearLocation;
 	}
 
@@ -180,11 +178,11 @@ public class Client {
 		this.partnerEmployee = partnerEmployee;
 	}
 
-	public Integer getPromoFriends() {
+	public Boolean getPromoFriends() {
 		return promoFriends;
 	}
 
-	public void setPromoFriends(Integer promoFriends) {
+	public void setPromoFriends(Boolean promoFriends) {
 		this.promoFriends = promoFriends;
 	}
 
@@ -252,8 +250,8 @@ public class Client {
 		return this.groupVisit;
 	}
 	
-	public void setGroupVisit(Integer groupVisit) {
-		this.groupVisit = groupVisit;
+	public void setGroupVisit(Boolean groupVisits) {
+		this.groupVisits = groupVisits;
 	}
 
 	public Integer getPartner() {
@@ -264,8 +262,8 @@ public class Client {
 		return this.clientPhone;
 	}
 
-	public Integer getGroupVisits() {
-		return this.groupVisit;
+	public Boolean getGroupVisits() {
+		return this.groupVisits;
 	}
 
 }
