@@ -3,7 +3,6 @@ package com.churncheck.api.domain.client;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -19,42 +18,56 @@ import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 public class ClientPredictionMapper {
 
     public PredictionRequestDTO toPredictionRequest(Client client) {
-    	Integer gender =
-                client.getGender() == Gender.MALE ?  0 :
-                client.getGender() == Gender.FEMALE ?  1 :  0;
-    	
+
+        Integer gender =
+                client.getGender() == Gender.MALE ? 0 :
+                client.getGender() == Gender.FEMALE ? 1 : 0;
+
         Byte hasPhone = (byte) (client.getClientPhone() != null ? 1 : 0);
         Byte hasPartner = (byte) (client.getPartner() != null ? 1 : 0);
-        
-        Byte isNearLocation = (byte) (client.getNearLocation() ? 1 : 0);
-        Byte isGroupVisits = (byte) (client.getGroupVisits() ? 1 : 0);
-        Byte isPromoFriends = (byte) (client.getPromoFriends() ? 1 : 0);
-        
+
+        Byte isNearLocation = (byte) (Boolean.TRUE.equals(client.getNearLocation()) ? 1 : 0);
+        Byte isGroupVisits = (byte) (Boolean.TRUE.equals(client.getGroupVisits()) ? 1 : 0);
+        Byte isPromoFriends = (byte) (Boolean.TRUE.equals(client.getPromoFriends()) ? 1 : 0);
+
         LocalDate today = LocalDate.now();
         LocalDate registrationDate = client.getRegistrationDate()
-                .atZone(ZoneId.systemDefault()).toLocalDate();
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
         Integer lifetime = (int) ChronoUnit.MONTHS.between(registrationDate, today);
-        
-        Map<YearMonth, java.util.List<AdditionalCharge>> chargesByMonth = client.getAdditionalCharges()
-                .stream()
-                .collect(Collectors.groupingBy(charge -> 
-                        YearMonth.from(charge.getChargeDate())));
-        
+        lifetime = Math.max(0, Math.min(lifetime, 31)); // Protección según DS
+
+        Map<YearMonth, java.util.List<AdditionalCharge>> chargesByMonth =
+                client.getAdditionalCharges()
+                        .stream()
+                        .collect(Collectors.groupingBy(
+                                charge -> YearMonth.from(charge.getChargeDate())
+                        ));
+
         BigDecimal sumOfMonthlyAverages = chargesByMonth.values().stream()
                 .map(monthlyList -> {
                     BigDecimal monthlyTotal = monthlyList.stream()
                             .map(AdditionalCharge::getAmount)
                             .reduce(BigDecimal.ZERO, BigDecimal::add);
+
                     return monthlyTotal.divide(
-                            BigDecimal.valueOf(monthlyList.size()), 2, RoundingMode.HALF_UP);
+                            BigDecimal.valueOf(monthlyList.size()),
+                            2,
+                            RoundingMode.HALF_UP
+                    );
                 })
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        
-        LocalDate endContractDate = client.getContractStartDate().plusMonths(client.getContractPeriod());
-        Integer monthsToEndContract = Period.between(today, endContractDate).getMonths();
-        
+
+        LocalDate endContractDate =
+                client.getContractStartDate().plusMonths(client.getContractPeriod());
+
+        Integer monthsToEndContract =
+                (int) ChronoUnit.MONTHS.between(today, endContractDate);
+        monthsToEndContract = Math.max(0, monthsToEndContract); // Corrección crítica
+
         return new PredictionRequestDTO(
-        		gender,
+                gender,
                 isNearLocation,
                 hasPartner,
                 isPromoFriends,
@@ -69,5 +82,4 @@ public class ClientPredictionMapper {
                 client.getAvgClassFrequencyCurrentMonth()
         );
     }
-    
 }
