@@ -27,13 +27,18 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
-
-
+@Tag(
+    name = "Clients",
+    description = "Client management and churn prediction endpoints"
+)
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
-    
 
     private final ClientService clientService;
 
@@ -41,6 +46,12 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+
+   @Operation(summary = "Create client")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "201", description = "Client created successfully"),
+    @ApiResponse(responseCode = "400", description = "Validation error")
+})
     @PostMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> createClient(@RequestBody @Valid ClientCreateRequestDTO clientCreateRequestDTO, UriComponentsBuilder uriBuilder ) {
@@ -50,6 +61,14 @@ public class ClientController {
         return ResponseEntity.created(uri).body(client);
     }
 
+    
+    @Operation(summary = "Update client")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Client updated successfully"),
+    @ApiResponse(responseCode = "400", description = "Validation error")
+})
+
+    
     @PutMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> updateClient(@RequestBody @Valid ClientUpdateRequestDTO clientUpdateRequestDTO) {
@@ -57,12 +76,20 @@ public class ClientController {
 
         return ResponseEntity.ok(client);
     }
-    
+
+   @Operation(summary = "List active clients")
+@ApiResponse(responseCode = "200", description = "Clients retrieved successfully")
+
     @GetMapping
     public ResponseEntity<Page<ClientListResponseDTO>> getClientList(@PageableDefault(size = 10, sort = "id") Pageable pageable) {
         return ResponseEntity.ok(clientService.findAllByActiveTrue(pageable));
     }
-    
+  @Operation(summary = "Get client by ID")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Client found"),
+    @ApiResponse(responseCode = "404", description = "Client not found")
+})
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
@@ -77,8 +104,12 @@ public class ClientController {
         return ResponseEntity.noContent().build();
     }
 
-    // prediction endpoint
-
+    @Operation(summary = "Get churn prediction for client")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Prediction generated"),
+    @ApiResponse(responseCode = "400", description = "Invalid client or prediction error")
+})
+    
     @GetMapping("/{id}/prediction")
     public ResponseEntity<ClientFullResponseDTO> getClientPrediction(@PathVariable Long id){
         try {
