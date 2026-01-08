@@ -6,3 +6,7 @@ external:
     endpoint: "/churncheck.php"
     timeout: 5000
     retries: 3
+
+logging:
+  level:
+    web: DEBUG
