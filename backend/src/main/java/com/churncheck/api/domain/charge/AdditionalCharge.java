@@ -29,4 +29,12 @@ public class AdditionalCharge {
     @ManyToOne
     @JoinColumn(name = "charge_type_id")
     private ChargeType chargeType;
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public LocalDate getChargeDate() {
+        return chargeDate;
+    }
 }
