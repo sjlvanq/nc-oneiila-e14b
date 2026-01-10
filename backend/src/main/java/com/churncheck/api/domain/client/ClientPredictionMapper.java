@@ -36,8 +36,7 @@ public class ClientPredictionMapper {
                 .toLocalDate();
 
         Integer lifetime = (int) ChronoUnit.MONTHS.between(registrationDate, today);
-        lifetime = Math.max(0, Math.min(lifetime, 31)); // Protección según DS
-
+    
         Map<YearMonth, java.util.List<AdditionalCharge>> chargesByMonth =
                 client.getAdditionalCharges()
                         .stream()
@@ -64,7 +63,6 @@ public class ClientPredictionMapper {
 
         Integer monthsToEndContract =
                 (int) ChronoUnit.MONTHS.between(today, endContractDate);
-        monthsToEndContract = Math.max(0, monthsToEndContract); // Corrección crítica
 
         return new PredictionRequestDTO(
                 gender,
