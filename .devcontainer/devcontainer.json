@@ -32,7 +32,8 @@
         "usernamehw.errorlens",
         "MermaidChart.vscode-mermaid-chart",
         "dbdiagram.dbdiagram-vscode",
-        "DBCode.dbcode"
+        "DBCode.dbcode",
+        "vscjava.vscode-java-pack"
       ]
     }
   },
