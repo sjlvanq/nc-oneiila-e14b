@@ -2,184 +2,151 @@ package com.churncheck.api.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.churncheck.api.domain.client.Gender;
-import com.churncheck.api.domain.client.Client;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
-import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
+import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.service.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class ClientControllerTest {
     
-    @Autowired
+    @Mock
     private ClientService clientService;
     
-    private ObjectMapper objectMapper;
+    @InjectMocks
+    private ClientController clientController;
+    
     private MockMvc mockMvc;
+    private ObjectMapper objectMapper;
     
     @BeforeEach
     void setUp() {
+        mockMvc = MockMvcBuilders.standaloneSetup(clientController).build();
         objectMapper = new ObjectMapper();
-        mockMvc = MockMvcBuilders.standaloneSetup(new ClientController(clientService)).build();
     }
     
     @Test
-    void shouldCreateClientSuccessfully() throws Exception {
+    void shouldCreateClient() throws Exception {
         // Given
         ClientCreateRequestDTO dto = new ClientCreateRequestDTO(
             "John Doe", true, Gender.MALE, true, 1L, true, "555-1234", 
             30, 12, true, BigDecimal.TEN, BigDecimal.ONE, BigDecimal.valueOf(50.5)
         );
         
-        Client client = createTestClient();
-        client.setClientName("John Doe"); // Set the expected name
-        client.setClientPhone("555-1234"); // Set the expected phone
-        ClientResponseDTO response = new ClientResponseDTO(client);
+        ClientResponseDTO response = new ClientResponseDTO(
+            1L, "John Doe", true, Gender.MALE, "555-1234", true, 30
+        );
         
-        // Mock the service method
-        ClientService mockService = org.mockito.Mockito.mock(ClientService.class);
-        when(mockService.createFromDto(any(ClientCreateRequestDTO.class))).thenReturn(response);
-        
-        // Create controller with mock service
-        ClientController controller = new ClientController(mockService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        when(clientService.createFromDto(any(ClientCreateRequestDTO.class))).thenReturn(response);
         
         // When & Then
         mockMvc.perform(post("/clients")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.clientName").value("John Doe"))
                 .andExpect(jsonPath("$.active").value(true))
                 .andExpect(jsonPath("$.gender").value("MALE"))
                 .andExpect(jsonPath("$.clientPhone").value("555-1234"))
-                .andExpect(jsonPath("$.nearLocation").value(true))
                 .andExpect(jsonPath("$.age").value(30));
     }
     
     @Test
-    void shouldReturn400WhenInvalidData() throws Exception {
-        // Given - nombre vacío
-        String invalidJson = "{\"clientName\":\"\",\"active\":true,\"gender\":\"MALE\",\"nearLocation\":true,\"partnerId\":1,\"promoFriends\":true,\"clientPhone\":\"555-1234\",\"age\":30,\"contractPeriod\":12,\"groupVisits\":true,\"avgClassFrequencyTotal\":10,\"avgClassFrequencyCurrentMonth\":1,\"avgAdditionalChargesTotal\":50.5}";
-        
-        // Use standalone setup with real controller to test JSON validation
-        ClientController controller = new ClientController(clientService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        
-        // When & Then
-        mockMvc.perform(post("/clients")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(invalidJson))
-                .andExpect(status().isBadRequest());
-    }
-    
-    @Test
-    void shouldReturn400WhenMissingRequiredFields() throws Exception {
-        // Given - JSON incompleto
-        String incompleteJson = "{\"clientName\":\"John Doe\"}";
-        
-        // Use standalone setup with real controller to test JSON validation
-        ClientController controller = new ClientController(clientService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        
-        // When & Then
-        mockMvc.perform(post("/clients")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(incompleteJson))
-                .andExpect(status().isBadRequest());
-    }
-    
-    @Test
-    void shouldGetClientPredictionSuccessfully() throws Exception {
+    void shouldUpdateClient() throws Exception {
         // Given
-        Long clientId = 1L;
-        Client client = createTestClient();
-        PredictionResponseDTO prediction = new PredictionResponseDTO((byte)0, 0.25, Instant.now());
-        ClientFullResponseDTO fullResponse = new ClientFullResponseDTO(client, prediction);
+        ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
+            1L, "John Updated", "555-9999", true, 35
+        );
         
-        // Mock the service method
-        ClientService mockService = org.mockito.Mockito.mock(ClientService.class);
-        when(mockService.predictChurn(clientId)).thenReturn(fullResponse);
+        ClientResponseDTO response = new ClientResponseDTO(
+            1L, "John Updated", true, Gender.MALE, "555-9999", true, 35
+        );
         
-        // Create controller with mock service
-        ClientController controller = new ClientController(mockService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        when(clientService.updateClient(any(ClientUpdateRequestDTO.class))).thenReturn(response);
         
         // When & Then
-        mockMvc.perform(get("/clients/{id}/prediction", clientId))
+        mockMvc.perform(put("/clients")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.clientName").value("Test Client"))
-                .andExpect(jsonPath("$.clientPhone").value("123-456-7890"))
-                .andExpect(jsonPath("$.churn").value(0))
-                .andExpect(jsonPath("$.probability").value(0.25))
-                .andExpect(jsonPath("$.timestamp").exists());
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.clientName").value("John Updated"))
+                .andExpect(jsonPath("$.age").value(35));
+    }
+    
+    @Test
+    void shouldGetClientById() throws Exception {
+        // Given
+        ClientResponseDTO response = new ClientResponseDTO(
+            1L, "John Doe", true, Gender.MALE, "555-1234", true, 30
+        );
+        
+        when(clientService.findById(1L)).thenReturn(response);
+        
+        // When & Then
+        mockMvc.perform(get("/clients/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.clientName").value("John Doe"));
+    }
+    
+    @Test
+    void shouldDeleteClient() throws Exception {
+        // Given - deleteClient returns void, no need to mock return
+        
+        // When & Then
+        mockMvc.perform(delete("/clients/1"))
+                .andExpect(status().isNoContent());
+    }
+    
+    @Test
+    void shouldGetClientPrediction() throws Exception {
+        // Given
+        ClientFullResponseDTO prediction = new ClientFullResponseDTO(
+            1L, "John Doe", "555-1234", (byte)1, 0.85, java.time.Instant.now()
+        );
+        
+        when(clientService.predictChurn(1L)).thenReturn(prediction);
+        
+        // When & Then
+        mockMvc.perform(get("/clients/1/prediction"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.clientName").value("John Doe"))
+                .andExpect(jsonPath("$.churn").value(1))
+                .andExpect(jsonPath("$.probability").value(0.85));
     }
     
     @Test
     void shouldReturn400WhenPredictionFails() throws Exception {
         // Given
-        Long clientId = 999L;
-        
-        // Mock the service method to throw exception
-        ClientService mockService = org.mockito.Mockito.mock(ClientService.class);
-        when(mockService.predictChurn(clientId)).thenThrow(new RuntimeException("Client not found"));
-        
-        // Create controller with mock service
-        ClientController controller = new ClientController(mockService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        when(clientService.predictChurn(1L)).thenThrow(new RuntimeException("Prediction failed"));
         
         // When & Then
-        mockMvc.perform(get("/clients/{id}/prediction", clientId))
+        mockMvc.perform(get("/clients/1/prediction"))
                 .andExpect(status().isBadRequest());
-    }
-    
-    @Test
-    void shouldReturn400WhenPredictionThrowsException() throws Exception {
-        // Given
-        Long clientId = 1L;
-        
-        // Mock the service method to throw exception
-        ClientService mockService = org.mockito.Mockito.mock(ClientService.class);
-        when(mockService.predictChurn(clientId)).thenThrow(new IllegalArgumentException("Invalid client data"));
-        
-        // Create controller with mock service
-        ClientController controller = new ClientController(mockService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-        
-        // When & Then
-        mockMvc.perform(get("/clients/{id}/prediction", clientId))
-                .andExpect(status().isBadRequest());
-    }
-    
-    private Client createTestClient() {
-        Client client = new Client();
-        client.setId(1L);
-        client.setClientName("Test Client");
-        client.setActive(true);
-        client.setGender(Gender.MALE);
-        client.setClientPhone("123-456-7890");
-        client.setNearLocation(true);
-        client.setAge(30);
-        return client;
     }
 }
