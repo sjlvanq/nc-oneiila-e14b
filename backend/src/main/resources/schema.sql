@@ -13,33 +13,33 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE user_roles (
-  user_id BIGINT,
-  role_id BIGINT,
+  user_id BIGINT NOT NULL,
+  role_id BIGINT NOT NULL,
   PRIMARY KEY (user_id, role_id)
 );
 
 CREATE TABLE partners (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100)
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE table charge_types(
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(50)
+  name VARCHAR(50) UNIQUE NOT NULL
 );
 
 CREATE TABLE additional_charges (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  client_id BIGINT,
-  charge_type_id BIGINT,
-  amount DECIMAL(10,2),
-  charge_date DATE DEFAULT CURRENT_TIMESTAMP
+  client_id BIGINT NOT NULL,
+  charge_type_id BIGINT NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  charge_date DATE DEFAULT CURRENT_DATE
 );
 
 CREATE TABLE clients (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  partner_id BIGINT,
-  name VARCHAR(100),
+  partner_id BIGINT, --Nullable
+  name VARCHAR(100) NOT NULL,
   phone VARCHAR(15),
   gender VARCHAR(10),
   age INT,
