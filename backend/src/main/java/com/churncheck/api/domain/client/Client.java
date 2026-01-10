@@ -46,10 +46,10 @@ public class Client {
     @Column(name = "avg_class_frequency_total")
     private BigDecimal avgClassFrequencyTotal;
 
-    @Column(name = "client_name")
+    @Column(name = "name")
     private String clientName;
 
-    @Column(name = "client_phone")
+    @Column(name = "phone")
     private String clientPhone;
 
     @Column(name = "contract_period")

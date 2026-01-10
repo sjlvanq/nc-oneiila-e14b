@@ -25,7 +25,7 @@ CREATE TABLE partners (
 
 CREATE table charge_types(
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
-  description VARCHAR(50)
+  name VARCHAR(50)
 );
 
 CREATE TABLE additional_charges (
@@ -39,8 +39,8 @@ CREATE TABLE additional_charges (
 CREATE TABLE clients (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   partner_id BIGINT,
-  client_name VARCHAR(100),
-  client_phone VARCHAR(15),
+  name VARCHAR(100),
+  phone VARCHAR(15),
   gender VARCHAR(10),
   age INT,
   near_location BOOLEAN,

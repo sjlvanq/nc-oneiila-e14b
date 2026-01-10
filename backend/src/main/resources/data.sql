@@ -21,14 +21,14 @@ INSERT INTO partners (name) VALUES
 ('Wellness Solutions');
 
 -- Charge_types
-INSERT INTO charge_types (description) VALUES
+INSERT INTO charge_types (name) VALUES
 ('Massage Therapy'),
 ('Dietary supplements');
 
 -- Clients
 INSERT INTO clients (
-    client_name,
-    client_phone,
+    name,
+    phone,
     gender,
     age,
     near_location,
