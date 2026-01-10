@@ -63,7 +63,7 @@ public class Client {
 
     @Column(name = "group_visit")
     private Boolean groupVisits;
-       
+    
     @Column(name = "near_location")
     private Boolean nearLocation;
     

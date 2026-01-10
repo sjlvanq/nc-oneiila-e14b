@@ -1,19 +1,19 @@
- package com.churncheck.api.controller;
+package com.churncheck.api.controller;
 
- import org.springframework.http.ResponseEntity;
- import org.springframework.security.authentication.AuthenticationManager;
- import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
- import org.springframework.security.core.Authentication;
- import org.springframework.web.bind.annotation.PostMapping;
- import org.springframework.web.bind.annotation.RequestBody;
- import org.springframework.web.bind.annotation.RequestMapping;
- import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
- import com.churncheck.api.infra.security.AuthUser;
- import com.churncheck.api.infra.security.AuthUserService;
- import com.churncheck.api.infra.security.LoginRequestDTO;
- import com.churncheck.api.infra.security.TokenDTO;
- import com.churncheck.api.infra.security.TokenService;
+import com.churncheck.api.infra.security.AuthUser;
+import com.churncheck.api.infra.security.AuthUserService;
+import com.churncheck.api.infra.security.LoginRequestDTO;
+import com.churncheck.api.infra.security.TokenDTO;
+import com.churncheck.api.infra.security.TokenService;
 
  import jakarta.validation.Valid;
  import io.swagger.v3.oas.annotations.Operation;
@@ -26,9 +26,9 @@
     description = "Endpoints for authentication and JWT token generation"
 )
 
- @RestController
- @RequestMapping("/login")
- public class AuthController {
+@RestController
+@RequestMapping("/login")
+public class AuthController {
 
  	private final TokenService tokenService;
  	private final AuthenticationManager authenticationManager;
