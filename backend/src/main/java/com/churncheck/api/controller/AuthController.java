@@ -16,8 +16,15 @@
  import com.churncheck.api.infra.security.TokenService;
 
  import jakarta.validation.Valid;
+ import io.swagger.v3.oas.annotations.Operation;
+ import io.swagger.v3.oas.annotations.responses.ApiResponse;
+ import io.swagger.v3.oas.annotations.responses.ApiResponses;
+ import io.swagger.v3.oas.annotations.tags.Tag;
 
- //@Tag(name = "Authentication", description = "Authentication and token handling")
+ @Tag(
+    name = "Authentication",
+    description = "Endpoints for authentication and JWT token generation"
+)
 
  @RestController
  @RequestMapping("/login")
@@ -32,12 +39,16 @@
  		this.authenticationManager = authenticationManager;
  		this.authUserService = authUserService;
  	}
+ @Operation(
+    summary = "User login",
+    description = "Authenticates a user using email and password and returns a JWT token"
+)
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Authentication successful"),
+    @ApiResponse(responseCode = "400", description = "Validation error"),
+    @ApiResponse(responseCode = "401", description = "Invalid credentials")
+})
 
- 	// TODO: Swagger Doc
- 	// // io.swagger.v3.oas.annotations...
- 	// @Operation()
- 	// @ApiResponses({})
-	
  	@PostMapping
  	public ResponseEntity<TokenDTO> login(@Valid @RequestBody LoginRequestDTO authData) {
  		UsernamePasswordAuthenticationToken authToken =
