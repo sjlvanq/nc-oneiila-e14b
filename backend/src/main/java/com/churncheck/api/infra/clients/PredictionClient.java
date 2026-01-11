@@ -49,6 +49,10 @@ public class PredictionClient {
         return factory;
     }
     
+    public RestClient getRestClient() {
+        return restClient;
+    }
+    
     public PredictionResponseDTO predict(PredictionRequestDTO request) {
 
     Set<ConstraintViolation<PredictionRequestDTO>> violations =
