@@ -93,7 +93,7 @@ class IntegrationTest {
         
         // Then: Login rechazado
         assertNotNull(loginException);
-        assertEquals(HttpStatus.FORBIDDEN, loginException.getStatusCode());
+        assertEquals(HttpStatus.UNAUTHORIZED, loginException.getStatusCode());
     }
         
     private String createURL(String path) {
