@@ -36,6 +36,24 @@ CREATE TABLE additional_charges (
   charge_date DATE DEFAULT CURRENT_DATE
 );
 
+CREATE TABLE attendance (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  client_id BIGINT NOT NULL,
+  checked_in_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE group_activities (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE group_activity_attendance (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  client_id BIGINT NOT NULL,
+  group_activity_id BIGINT NOT NULL,
+  attendance_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE clients (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   partner_id BIGINT, --Nullable
@@ -49,8 +67,6 @@ CREATE TABLE clients (
   contract_start_date DATE,
   contract_period INT,
   group_visit BOOLEAN,
-  avg_class_frequency_total DECIMAL(10,2),
-  avg_class_frequency_current_month DECIMAL(10,2),
   active BOOLEAN DEFAULT TRUE
 );
 
@@ -78,3 +94,17 @@ ALTER TABLE additional_charges
 ADD CONSTRAINT fk_additional_charges_clients
 FOREIGN KEY (client_id) REFERENCES clients(id);
 
+-- Relación entre attendance y clients
+ALTER TABLE attendance
+ADD CONSTRAINT fk_attendance_client
+FOREIGN KEY (client_id) REFERENCES clients(id);
+
+-- Relación entre group_activity_attendance y clients
+ALTER TABLE group_activity_attendance
+ADD CONSTRAINT fk_gaa_client
+FOREIGN KEY (client_id) REFERENCES clients(id);
+
+-- Relación entre group_activity_attendance y group_activities
+ALTER TABLE group_activity_attendance
+ADD CONSTRAINT fk_gaa_activity
+FOREIGN KEY (group_activity_id) REFERENCES group_activities(id);

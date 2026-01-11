@@ -1,11 +1,11 @@
 package com.churncheck.api.domain.client;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.churncheck.api.domain.attendance.Attendance;
 import com.churncheck.api.domain.charge.AdditionalCharge;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
@@ -37,15 +37,12 @@ public class Client {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<AdditionalCharge> additionalCharges = new ArrayList<>();
-
+    
     private Integer age;
 
-    @Column(name = "avg_class_frequency_current_month")
-    private BigDecimal avgClassFrequencyCurrentMonth;    
-
-    @Column(name = "avg_class_frequency_total")
-    private BigDecimal avgClassFrequencyTotal;
-
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    private List<Attendance> attendances = new ArrayList<>();
+    
     @Column(name = "name")
     private String clientName;
 
@@ -97,8 +94,6 @@ public class Client {
         client.promoFriends = dto.promoFriends();
         client.contractPeriod = dto.contractPeriod();
         client.groupVisits = dto.groupVisits();
-        client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
-        client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
         client.active = dto.active() != null ? dto.active() : true;
         
         client.registrationDate = Instant.now();
@@ -123,13 +118,9 @@ public class Client {
 		return age;
 	}
     
-    public BigDecimal getAvgClassFrequencyCurrentMonth() {
-		return avgClassFrequencyCurrentMonth;
-	}
-   
-	public BigDecimal getAvgClassFrequencyTotal() {
-		return avgClassFrequencyTotal;
-	}
+    public List<Attendance> getAttendances() {
+        return attendances;
+    }
 
 	public String getClientName() {
 		return clientName;
@@ -185,14 +176,6 @@ public class Client {
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}
-
-	public void setAvgClassFrequencyCurrentMonth(BigDecimal avgClassFrequencyCurrentMonth) {
-		this.avgClassFrequencyCurrentMonth = avgClassFrequencyCurrentMonth;
-	}
-
-	public void setAvgClassFrequencyTotal(BigDecimal avgClassFrequencyTotal) {
-		this.avgClassFrequencyTotal = avgClassFrequencyTotal;
 	}
 
 	public void setClientName(String clientName) {
@@ -258,12 +241,6 @@ public class Client {
         }
         if (dto.age() != null && (dto.age() < 16 || dto.age() > 100)) {
             throw new DomainException("Age must be between 16 and 100");
-        }
-        if (dto.avgClassFrequencyTotal() != null && dto.avgClassFrequencyTotal().compareTo(BigDecimal.ZERO) < 0) {
-            throw new DomainException("Average frequency cannot be negative");
-        }
-        if (dto.avgClassFrequencyCurrentMonth() != null && dto.avgClassFrequencyCurrentMonth().compareTo(BigDecimal.ZERO) < 0) {
-            throw new DomainException("Current month frequency cannot be negative");
         }
     }
 

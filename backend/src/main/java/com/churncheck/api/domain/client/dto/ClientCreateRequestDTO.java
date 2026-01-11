@@ -1,7 +1,5 @@
 package com.churncheck.api.domain.client.dto;
 
-import java.math.BigDecimal;
-
 import com.churncheck.api.domain.client.Gender;
 
 public record ClientCreateRequestDTO (
@@ -14,7 +12,5 @@ public record ClientCreateRequestDTO (
     String clientPhone,
     Integer age,
     Integer contractPeriod,
-    Boolean groupVisits,
-    BigDecimal avgClassFrequencyTotal,
-    BigDecimal avgClassFrequencyCurrentMonth
+    Boolean groupVisits
 ) {}
