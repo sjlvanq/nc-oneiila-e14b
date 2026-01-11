@@ -2,6 +2,7 @@ package com.churncheck.api.infra.errors;
 
 import java.util.List;
 
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -73,4 +74,14 @@ public class GlobalExceptionHandler {
                         String.join(" ", "La entidad solicitada no existe")));
                         //ex.getMessage()));
     }
+    
+    @ExceptionHandler(org.springframework.dao.InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleInvalidDataAccess(InvalidDataAccessApiUsageException ex) {
+        String errorMessage = "Error en los parámetros de consulta: " + ex.getMostSpecificCause().getMessage();       
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorStatusResponseDTO(
+                        ErrorStatusResponseCodes.INVALID_QUERY_PARAMETER_400,
+                        errorMessage));
+    }
+    
 }

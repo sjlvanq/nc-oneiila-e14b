@@ -6,6 +6,7 @@ public enum ErrorStatusResponseCodes {
 	BAD_REQUEST_400("Bad Request", 400),
 	CONFLICT_409("Conflict", 409),
 	FORBIDDEN_403("Forbidden", 403),
+	INVALID_QUERY_PARAMETER_400("Invalid Query Parameter", 400),
 	LOCKED_423("Locked", 423),
 	MALFORMED_400("Malformed", 400),
 	NOT_FOUND_404("Not Found", 404),
