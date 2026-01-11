@@ -2,6 +2,7 @@ package com.churncheck.api.infra.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,6 +16,15 @@ import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleAccessDenied(AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(
+                new ErrorStatusResponseDTO(
+                        ErrorStatusResponseCodes.FORBIDDEN_403,
+                        "Acceso denegado"));
+    }
+    
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorStatusResponseDTO> handleAccessDenied(UsernameNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(

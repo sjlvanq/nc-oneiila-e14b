@@ -24,6 +24,9 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
  public class SecurityConfig {
      @Autowired
      private SecurityFilter securityFilter;
+     
+     @Autowired
+     private CustomAuthenticationEntryPoint authEntryPoint;
 
  	@Bean
  	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -42,6 +45,7 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
  						.anyRequest().authenticated()
  				)
 
+ 				.exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
  				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
  				.build();
  	}
