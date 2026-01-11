@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
+import jakarta.validation.Validator;
 
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 
@@ -33,6 +34,9 @@ class PredictionClientErrorScenariosTest {
     @Mock
     private PredictionProperties properties;
     
+    @Mock
+    private Validator validator;
+    
     private PredictionClient predictionClient;
     
     @BeforeEach
@@ -48,7 +52,7 @@ class PredictionClientErrorScenariosTest {
         when(restClientBuilder.requestFactory(any())).thenReturn(restClientBuilder);
         when(restClientBuilder.build()).thenReturn(restClient);
         
-        predictionClient = new PredictionClient(restClientBuilder, properties);
+        predictionClient = new PredictionClient(restClientBuilder, properties, validator);
     }
     
     @Test
