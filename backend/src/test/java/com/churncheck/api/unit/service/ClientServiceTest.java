@@ -64,9 +64,8 @@ class ClientServiceTest {
             20, 
             12, 
             true, 
-            BigDecimal.TEN, 
-            BigDecimal.ONE, 
-            BigDecimal.valueOf(50.5)
+            new BigDecimal("2.5"), 
+            new BigDecimal("3.0")
         );
 
         Client savedClient = createTestClient();
@@ -97,9 +96,8 @@ class ClientServiceTest {
             25, 
             24, 
             true, 
-            BigDecimal.valueOf(15.5), 
-            BigDecimal.valueOf(2.5), 
-            BigDecimal.valueOf(75.0)
+            new BigDecimal("1.5"), 
+            new BigDecimal("2.0")
         );
 
         Client savedClient = createTestClient();
@@ -148,9 +146,8 @@ class ClientServiceTest {
             20, 
             12, 
             true, 
-            BigDecimal.TEN, 
-            BigDecimal.ONE, 
-            BigDecimal.valueOf(50.5)
+            new BigDecimal("2.5"), 
+            new BigDecimal("3.0")
         );
 
         // When (Act) & Then (Assert)
