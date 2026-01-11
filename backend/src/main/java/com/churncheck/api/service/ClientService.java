@@ -10,7 +10,6 @@ import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 import com.churncheck.api.domain.partner.Partner;
 import com.churncheck.api.domain.partner.PartnerRepository;
-import com.churncheck.api.domain.client.DomainException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,31 +35,16 @@ public class ClientService {
 
     // Crear cliente desde DTO (alineado al gym churn dataset)
     public ClientResponseDTO createFromDto(ClientCreateRequestDTO dto) {
-        // ✅ Creación delegada a la entidad
         Partner partner = null;
         if (dto.partnerId() != null) {
             partner = partnerRepository.findById(dto.partnerId())                    
                 .orElseThrow(() -> new EntityNotFoundException("Partner not found"));
         }
         Client client = Client.createFromDto(dto, partner);
-        
-        // ✅ Validaciones adicionales del service (cross-entity)
-        validateBusinessRules(client);
-        
-        // ✅ Persistencia delegada al repository
         Client savedClient = clientRepository.save(client);
         return new ClientResponseDTO(savedClient);
     }
     
-    // Validaciones de negocio que involucran múltiples entidades
-    private void validateBusinessRules(Client client) {
-        // Reglas que involucran múltiples entidades o recursos externos
-        // Por ahora, validación simple - se puede expandir en el futuro
-        if (client.getClientPhone() == null || client.getClientPhone().trim().isEmpty()) {
-            throw new DomainException("Client phone cannot be empty");
-        }
-    }
-
     public ClientResponseDTO updateClient(ClientUpdateRequestDTO clientUpdateRequestDTO){
         Client client = clientRepository.getReferenceById(clientUpdateRequestDTO.id());
         client.updateClientData(clientUpdateRequestDTO);

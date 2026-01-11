@@ -21,12 +21,15 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true)
 
-public class SecurityConfig {
-	@Autowired
-	private SecurityFilter securityFilter;
+ public class SecurityConfig {
+     @Autowired
+     private SecurityFilter securityFilter;
+     
+     @Autowired
+     private CustomAuthenticationEntryPoint authEntryPoint;
 
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+     @Bean
+     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
 				.csrf(c -> c.disable())
 				// .formLogin(form -> form.disable())
@@ -46,9 +49,10 @@ public class SecurityConfig {
 						.permitAll()
 						.anyRequest().authenticated())
 
-				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-				.build();
-	}
+ 				.exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
+ 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+ 				.build();
+ 	}
 
 	@Bean
 	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)

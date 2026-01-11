@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 public record ClientUpdateRequestDTO(
 
     @NotNull
+    @Min(1)
     Long id,
 
     @Size(min = 3, max = 100)

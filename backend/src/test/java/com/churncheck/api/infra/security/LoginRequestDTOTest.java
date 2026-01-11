@@ -48,7 +48,7 @@ class LoginRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("email"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("Email"));
     }
     
     @Test
@@ -62,7 +62,7 @@ class LoginRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("blank"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("NotBlank"));
     }
     
     @Test
@@ -76,7 +76,7 @@ class LoginRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("blank"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("NotBlank"));
     }
     
     @Test
@@ -90,7 +90,7 @@ class LoginRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("blank"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("NotBlank"));
     }
     
     @Test
@@ -104,7 +104,7 @@ class LoginRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("blank"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("NotBlank"));
     }
     
     @Test
@@ -118,7 +118,7 @@ class LoginRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("email"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("Email"));
     }
     
     @Test
@@ -132,6 +132,6 @@ class LoginRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("email"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("Email"));
     }
 }

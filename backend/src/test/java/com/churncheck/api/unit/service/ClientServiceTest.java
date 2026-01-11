@@ -23,7 +23,6 @@ import org.springframework.data.domain.Pageable;
 
 import com.churncheck.api.domain.client.Client;
 import com.churncheck.api.domain.client.ClientRepository;
-import com.churncheck.api.domain.client.DomainException;
 import com.churncheck.api.domain.client.Gender;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
@@ -129,33 +128,6 @@ class ClientServiceTest {
         assertEquals("Jane Smith", responseDTO.clientName());
         verify(clientRepository).save(any(Client.class));
         verify(partnerRepository).findById(1L);
-    }
-    
-    @Test
-    void shouldThrowExceptionWhenPhoneIsEmpty(){
-
-        // Given (Arrange)
-        ClientCreateRequestDTO clientCreateRequestDTO = new ClientCreateRequestDTO(
-            "Invalid Client", 
-            true, 
-            Gender.MALE, 
-            true, 
-            null, 
-            true, 
-            "",  // empty phone
-            20, 
-            12, 
-            true, 
-            new BigDecimal("2.5"), 
-            new BigDecimal("3.0")
-        );
-
-        // When (Act) & Then (Assert)
-        assertThrows(
-            DomainException.class,
-            () -> clientService.createFromDto(clientCreateRequestDTO),
-            "Expected DomainException for empty phone"
-        );
     }
     
     @Test

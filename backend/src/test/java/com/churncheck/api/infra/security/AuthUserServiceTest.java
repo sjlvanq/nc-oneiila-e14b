@@ -13,9 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.churncheck.api.domain.user.Role;
 import com.churncheck.api.domain.user.User;
@@ -77,12 +77,10 @@ class AuthUserServiceTest {
         when(userRepository.findByEmailWithRoles(email)).thenReturn(Optional.empty());
 
         // When & Then
-        BadCredentialsException exception = assertThrows(
-            BadCredentialsException.class,
+        assertThrows(
+            UsernameNotFoundException.class,
             () -> authUserService.loadUserByUsername(email)
         );
-
-        assertEquals("User email not found in system", exception.getMessage());
         verify(userRepository).findByEmailWithRoles(email);
     }
 

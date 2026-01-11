@@ -23,7 +23,6 @@ import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.service.ClientService;
-import com.churncheck.api.domain.client.DomainException;
 
 import jakarta.validation.Valid;
 
@@ -122,11 +121,5 @@ public class ClientController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
-    }
-    
-    @ExceptionHandler(DomainException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<String> handleDomainException(DomainException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }
