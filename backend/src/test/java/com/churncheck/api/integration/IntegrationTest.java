@@ -59,7 +59,7 @@ class IntegrationTest {
             restTemplate.postForEntity(createURL("/clients"), new ClientCreateRequestDTO(
                 "Test", true, Gender.MALE, true, 1L, true, 
                 "555-1234", 30, 12, true, 
-                BigDecimal.TEN, BigDecimal.ONE, BigDecimal.valueOf(50.5)), String.class);
+                new BigDecimal("2.5"), new BigDecimal("3.0")), String.class);
         } catch (org.springframework.web.client.HttpClientErrorException e) {
             exception2 = e;
         }
