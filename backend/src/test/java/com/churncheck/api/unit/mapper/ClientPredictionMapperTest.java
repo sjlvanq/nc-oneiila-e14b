@@ -135,6 +135,14 @@ class ClientPredictionMapperTest {
         client.setGroupVisit(true);
         client.setAge(30);
         client.setContractStartDate(LocalDate.now().minusMonths(6));
+        // Establecer registrationDate para que el mapper funcione correctamente
+        try {
+            java.lang.reflect.Field registrationDateField = client.getClass().getDeclaredField("registrationDate");
+            registrationDateField.setAccessible(true);
+            registrationDateField.set(client, java.time.Instant.now().minus(180, java.time.temporal.ChronoUnit.DAYS));
+        } catch (Exception e) {
+            throw new RuntimeException("Error setting registrationDate", e);
+        }
         // Nota: No hay setter público para avgAdditionalChargesTotal
         client.setAvgClassFrequencyTotal(new BigDecimal("2.5"));
         client.setAvgClassFrequencyCurrentMonth(new BigDecimal("3.0"));
