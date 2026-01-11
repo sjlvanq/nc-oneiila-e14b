@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestClient;
+import jakarta.validation.Validation;
 
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
@@ -14,6 +15,7 @@ class PredictionClientTest {
     
     private RestClient.Builder restClientBuilder;
     private PredictionProperties properties;
+    private jakarta.validation.Validator validator;
     
     @BeforeEach
     void setUp() {
@@ -22,12 +24,13 @@ class PredictionClientTest {
             "https://mock.echoapi.com", 443, "/mock/590aa3d9c002000/predict",
             "mock-api-key-12345", 5000, 5000, 10000, 3
         );
+        validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
     
     @Test
     void shouldCreateClientSuccessfully() {
         // When
-        PredictionClient client = new PredictionClient(restClientBuilder, properties);
+        PredictionClient client = new PredictionClient(restClientBuilder, properties, validator);
         
         // Then
         assertNotNull(client);
