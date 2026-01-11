@@ -52,7 +52,7 @@ class ClientUpdateRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertEquals("must not be null", violations.iterator().next().getMessage());
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("NotNull"));
     }
     
     @Test
@@ -68,7 +68,7 @@ class ClientUpdateRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("size"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("Size"));
     }
     
     @Test
@@ -85,7 +85,7 @@ class ClientUpdateRequestDTOTest {
         
         // Then
         assertEquals(1, violations.size());
-        assertTrue(violations.iterator().next().getMessage().contains("size"));
+        assertTrue(violations.iterator().next().getMessageTemplate().contains("Size"));
     }
     
     @Test
