@@ -51,8 +51,18 @@ class ClientControllerTest {
     void shouldCreateClient() throws Exception {
         // Given
         ClientCreateRequestDTO dto = new ClientCreateRequestDTO(
-            "John Doe", true, Gender.MALE, true, 1L, true, "555-1234", 
-            30, 12, true, BigDecimal.TEN, BigDecimal.ONE, BigDecimal.valueOf(50.5)
+            "John Doe",                    // clientName
+            true,                          // active
+            Gender.MALE,                   // gender
+            true,                          // nearLocation
+            1L,                            // partnerId
+            true,                          // promoFriends
+            "555-1234",                    // clientPhone
+            30,                            // age
+            12,                            // contractPeriod
+            true,                          // groupVisits
+            new BigDecimal("2.5"),         // avgClassFrequencyTotal (<= 6.02)
+            new BigDecimal("3.0")          // avgClassFrequencyCurrentMonth (<= 6.15)
         );
         
         ClientResponseDTO response = new ClientResponseDTO(
