@@ -32,6 +32,7 @@ public record ClientCreateRequestDTO (
     @NotNull
     Boolean promoFriends,
 
+    @NotBlank
     String clientPhone,
 
     @NotNull
