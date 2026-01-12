@@ -16,6 +16,16 @@ powered by ![NoCountry](docs/assets/nocountry-logo.png)
 
 -----
 
---> [CONTRIBUTING.md](docs/CONTRIBUTING.md) <--
+### Profundización Técnica
+
+Para conocer los detalles específicos de cada área, accede a los módulos de documentación:
+
+* [Hoja de Ruta y Desarrollo Backend](backend/README.md)
+* [Ecosistema Analítico y Modelado DS](datascience/README.md)
+* [Aprovisionamiento e Infraestructura Cloud](docs/cloud-infra-setup.md)
+
+-----
+
+[CONTRIBUTING.md](docs/CONTRIBUTING.md)
 
 
