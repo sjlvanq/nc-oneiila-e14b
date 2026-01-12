@@ -222,22 +222,6 @@ class ClientPredictionMapperTest {
         assertEquals(0, result.gender(), "OTHER gender should map to 0");
     }
 
-    @Test
-    void shouldMapAverageClassFrequenciesCorrectly(){
-        // Given
-        Client client = createTestClient(Gender.MALE, "123-456-7890");
-        client.setAvgClassFrequencyTotal(new BigDecimal("2.5"));
-        client.setAvgClassFrequencyCurrentMonth(new BigDecimal("3.0"));
-        
-        // When
-        PredictionRequestDTO result = mapper.toPredictionRequest(client);
-        
-        // Then
-        assertNotNull(result);
-        assertEquals(new BigDecimal("2.5"), result.avgClassFrequencyTotal());
-        assertEquals(new BigDecimal("3.0"), result.avgClassFrequencyCurrentMonth());
-    }
-
     private Client createTestClient(Gender gender, String phone) {
         Client client = new Client();
         client.setId(1L);
@@ -250,8 +234,6 @@ class ClientPredictionMapperTest {
         client.setAge(30);
         setContractStartDate(client, LocalDate.now().minusMonths(6));
         setRegistrationDate(client, LocalDate.now().minusMonths(6));
-        client.setAvgClassFrequencyTotal(new BigDecimal("2.5"));
-        client.setAvgClassFrequencyCurrentMonth(new BigDecimal("3.0"));
         client.setActive(true);
         return client;
     }

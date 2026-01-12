@@ -8,7 +8,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -59,12 +59,10 @@ class ClientServiceTest {
             true, 
             null,  // partnerId = null to avoid searching for partner
             true, 
-            "555-1234", 
-            20, 
+            "555-1234",
+            LocalDate.of(2000, 1, 1),
             12, 
-            true, 
-            new BigDecimal("2.5"), 
-            new BigDecimal("3.0")
+            true
         );
 
         Client savedClient = createTestClient();
@@ -92,11 +90,9 @@ class ClientServiceTest {
             1L,
             true, 
             "555-5678", 
-            25, 
+            LocalDate.of(2000, 1, 1),
             24, 
-            true, 
-            new BigDecimal("1.5"), 
-            new BigDecimal("2.0")
+            true
         );
 
         Client savedClient = createTestClient();
@@ -134,7 +130,7 @@ class ClientServiceTest {
     void shouldUpdateClientSuccessfully() {
         // Given
         ClientUpdateRequestDTO updateDTO = new ClientUpdateRequestDTO(
-            1L, "Updated Name", "555-9999", true, 25
+            1L, "Updated Name", "555-9999", true, LocalDate.of(2000, 1, 1)
         );
         
         Client existingClient = createTestClient();
@@ -267,8 +263,6 @@ class ClientServiceTest {
         client.setGroupVisit(true);
         client.setAge(20);
         client.setContractStartDate(java.time.LocalDate.now().minusMonths(6));
-        client.setAvgClassFrequencyTotal(BigDecimal.TEN);
-        client.setAvgClassFrequencyCurrentMonth(BigDecimal.ONE);
         client.setActive(true);
         return client;
     }

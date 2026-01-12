@@ -1,11 +1,13 @@
 package com.churncheck.api.domain.client;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Formula;
+
+import com.churncheck.api.domain.attendance.Attendance;
 import com.churncheck.api.domain.charge.AdditionalCharge;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
@@ -37,19 +39,20 @@ public class Client {
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<AdditionalCharge> additionalCharges = new ArrayList<>();
-
+    
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+    
+    @Formula("TIMESTAMPDIFF(YEAR, birth_date, CURDATE())")
     private Integer age;
 
-    @Column(name = "avg_class_frequency_current_month")
-    private BigDecimal avgClassFrequencyCurrentMonth;    
-
-    @Column(name = "avg_class_frequency_total")
-    private BigDecimal avgClassFrequencyTotal;
-
-    @Column(name = "client_name")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
+    private List<Attendance> attendances = new ArrayList<>();
+    
+    @Column(name = "name")
     private String clientName;
 
-    @Column(name = "client_phone")
+    @Column(name = "phone")
     private String clientPhone;
 
     @Column(name = "contract_period")
@@ -84,15 +87,13 @@ public class Client {
         Client client = new Client();
         client.clientName = dto.clientName();
         client.clientPhone = dto.clientPhone();
-        client.age = dto.age();
+        client.birthDate = dto.birthDate();
         client.gender = dto.gender();
         client.nearLocation = dto.nearLocation();
         client.partner = partner;
         client.promoFriends = dto.promoFriends();
         client.contractPeriod = dto.contractPeriod();
         client.groupVisits = dto.groupVisits();
-        client.avgClassFrequencyTotal = dto.avgClassFrequencyTotal();
-        client.avgClassFrequencyCurrentMonth = dto.avgClassFrequencyCurrentMonth();
         client.active = dto.active() != null ? dto.active() : true;
         
         client.registrationDate = Instant.now();
@@ -117,13 +118,9 @@ public class Client {
 		return age;
 	}
     
-    public BigDecimal getAvgClassFrequencyCurrentMonth() {
-		return avgClassFrequencyCurrentMonth;
-	}
-   
-	public BigDecimal getAvgClassFrequencyTotal() {
-		return avgClassFrequencyTotal;
-	}
+    public List<Attendance> getAttendances() {
+        return attendances;
+    }
 
 	public String getClientName() {
 		return clientName;
@@ -181,12 +178,12 @@ public class Client {
 		this.age = age;
 	}
 
-	public void setAvgClassFrequencyCurrentMonth(BigDecimal avgClassFrequencyCurrentMonth) {
-		this.avgClassFrequencyCurrentMonth = avgClassFrequencyCurrentMonth;
+	public LocalDate getBirthDate() {
+	    return birthDate;
 	}
 
-	public void setAvgClassFrequencyTotal(BigDecimal avgClassFrequencyTotal) {
-		this.avgClassFrequencyTotal = avgClassFrequencyTotal;
+	public void setBirthDate(LocalDate birthDate) {
+	    this.birthDate = birthDate;
 	}
 
 	public void setClientName(String clientName) {
@@ -236,9 +233,8 @@ public class Client {
         if (clientUpdateRequestDTO.nearLocation() != null) {
             this.nearLocation = clientUpdateRequestDTO.nearLocation();
         }
-        if (clientUpdateRequestDTO.age() != null) {
-            this.age = clientUpdateRequestDTO.age();
+        if (clientUpdateRequestDTO.birthDate() != null) {
+            this.birthDate = clientUpdateRequestDTO.birthDate();
         }
     }
-
 }

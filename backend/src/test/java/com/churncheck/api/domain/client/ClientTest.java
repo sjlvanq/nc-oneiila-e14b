@@ -57,8 +57,6 @@ class ClientTest {
         assertDoesNotThrow(() -> client.getContractPeriod());
         assertDoesNotThrow(() -> client.getGroupVisits());
         assertDoesNotThrow(() -> client.getNearLocation());
-        assertDoesNotThrow(() -> client.getAvgClassFrequencyTotal());
-        assertDoesNotThrow(() -> client.getAvgClassFrequencyCurrentMonth());
         assertDoesNotThrow(() -> client.getContractStartDate());
         assertDoesNotThrow(() -> client.getRegistrationDate());
         assertDoesNotThrow(() -> client.getAdditionalCharges());

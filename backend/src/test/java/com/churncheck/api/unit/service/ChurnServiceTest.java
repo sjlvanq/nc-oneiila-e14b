@@ -153,8 +153,6 @@ class ChurnServiceTest {
         client.setGroupVisit(true);
         client.setAge(30);
         client.setContractStartDate(LocalDate.now().minusMonths(6));
-        client.setAvgClassFrequencyTotal(new BigDecimal("2.5"));
-        client.setAvgClassFrequencyCurrentMonth(new BigDecimal("3.0"));
         client.setActive(true);
         return client;
     }

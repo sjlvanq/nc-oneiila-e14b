@@ -15,7 +15,8 @@ powered by ![NoCountry](../docs/assets/nocountry-logo.png)
 
 -----
 
-[Documentación Backend](docs/README.md)
+* [Documentación Backend](docs/README.md)
+* [Referencia de API (Autogenerado)](docs/specs/api-reference.md)
 
 ![Equipo Backend](docs/assets/churncheck-backend.png)
 *Equipo Backend*
