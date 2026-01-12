@@ -2,45 +2,54 @@ package com.churncheck.api.controller;
 
 import java.net.URI;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.http.HttpStatus;
 
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.service.ClientService;
 
-import jakarta.validation.Valid;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @Tag(
     name = "Clients",
     description = "Client management and churn prediction endpoints"
 )
+
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "401", description = "Missing or invalid JWT token",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+        /*
+        ,
+        @ApiResponse(responseCode = "403", description = "Access denied. Insufficient permissions",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+        */
+    })
+
 @RestController
-@RequestMapping("/clients")
+@RequestMapping(value = "/clients", produces = "application/json")
 public class ClientController {
 
     private final ClientService clientService;
@@ -50,11 +59,13 @@ public class ClientController {
     }
 
 
-   @Operation(summary = "Create client")
-@ApiResponses(value = {
-    @ApiResponse(responseCode = "201", description = "Client created successfully"),
-    @ApiResponse(responseCode = "400", description = "Validation error")
-})
+    @Operation(summary = "Create client")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Client created successfully",
+            content = @Content(schema = @Schema(implementation = ClientResponseDTO.class))),
+        @ApiResponse(responseCode = "400", description = "Validation error",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+    })
     @PostMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> createClient(@RequestBody @Valid ClientCreateRequestDTO clientCreateRequestDTO, UriComponentsBuilder uriBuilder ) {
@@ -66,12 +77,13 @@ public class ClientController {
 
     
     @Operation(summary = "Update client")
-@ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Client updated successfully"),
-    @ApiResponse(responseCode = "400", description = "Validation error")
-})
-
-    
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Client updated successfully"),
+        @ApiResponse(responseCode = "400", description = "Validation error",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Client not found",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+    })
     @PutMapping
     @Transactional
     public ResponseEntity<ClientResponseDTO> updateClient(@RequestBody @Valid ClientUpdateRequestDTO clientUpdateRequestDTO) {
@@ -80,26 +92,37 @@ public class ClientController {
         return ResponseEntity.ok(client);
     }
 
-   @Operation(summary = "List active clients")
-@ApiResponse(responseCode = "200", description = "Clients retrieved successfully")
-
+    @Operation(summary = "List active clients")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Clients retrieved successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid pagination or sorting parameters",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+    })
     @GetMapping
     public ResponseEntity<Page<ClientListResponseDTO>> getClientList(@PageableDefault(size = 10, sort = "id") Pageable pageable) {
         return ResponseEntity.ok(clientService.findAllByActiveTrue(pageable));
     }
-  @Operation(summary = "Get client by ID")
-@ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Client found"),
-    @ApiResponse(responseCode = "404", description = "Client not found")
-})
-
-
+    
+    @Operation(summary = "Get client by ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Client found"),
+        @ApiResponse(responseCode = "400", description = "Invalid ID format provided",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Client not found with the given ID",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+    })
     @GetMapping("/{id}")
     public ResponseEntity<ClientResponseDTO> getClientById(@PathVariable Long id) {
         ClientResponseDTO client = clientService.findById(id);
         return ResponseEntity.ok(client);
     }
 
+    @Operation(summary = "Delete client")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Client deactivated successfully"),
+        @ApiResponse(responseCode = "404", description = "Client not found",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+    })
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
@@ -108,11 +131,13 @@ public class ClientController {
     }
 
     @Operation(summary = "Get churn prediction for client")
-@ApiResponses(value = {
-    @ApiResponse(responseCode = "200", description = "Prediction generated"),
-    @ApiResponse(responseCode = "400", description = "Invalid client or prediction error")
-})
-    
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Prediction generated successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid client or prediction error",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
+        @ApiResponse(responseCode = "404", description = "Client not found",
+            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+    })
     @GetMapping("/{id}/prediction")
     public ResponseEntity<ClientFullResponseDTO> getClientPrediction(@PathVariable Long id){
         try {

@@ -9,22 +9,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.infra.security.AuthUser;
 import com.churncheck.api.infra.security.AuthUserService;
 import com.churncheck.api.infra.security.LoginRequestDTO;
 import com.churncheck.api.infra.security.TokenDTO;
 import com.churncheck.api.infra.security.TokenService;
 
-import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @Tag(name = "Authentication", description = "Endpoints for authentication and JWT token generation")
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping(value = "/login", produces = "application/json")
 public class AuthController {
 
 	private final TokenService tokenService;
@@ -41,8 +44,10 @@ public class AuthController {
 	@Operation(summary = "User login", description = "Authenticates a user using email and password and returns a JWT token")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Authentication successful"),
-			@ApiResponse(responseCode = "400", description = "Validation error"),
-			@ApiResponse(responseCode = "401", description = "Invalid credentials")
+			@ApiResponse(responseCode = "400", description = "Validation error",
+	                content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
+	        @ApiResponse(responseCode = "401", description = "Invalid credentials",
+                content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
 	})
 
 	@PostMapping
