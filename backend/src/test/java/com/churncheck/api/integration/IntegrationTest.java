@@ -70,15 +70,15 @@ class IntegrationTest {
             exception3 = e;
         }
         
-        // Then: Verificar que todos retornen 403 (Forbidden)
+        // Then
         assertNotNull(exception1);
-        assertEquals(HttpStatus.FORBIDDEN, exception1.getStatusCode());
+        assertEquals(HttpStatus.UNAUTHORIZED, exception1.getStatusCode());
         
         assertNotNull(exception2);
-        assertEquals(HttpStatus.FORBIDDEN, exception2.getStatusCode());
+        assertEquals(HttpStatus.UNAUTHORIZED, exception2.getStatusCode());
         
         assertNotNull(exception3);
-        assertEquals(HttpStatus.FORBIDDEN, exception3.getStatusCode());
+        assertEquals(HttpStatus.UNAUTHORIZED, exception3.getStatusCode());
         
         // Given: Credenciales inválidas
         LoginRequestDTO loginRequest = new LoginRequestDTO("nonexistent@example.com", "wrongpassword");
