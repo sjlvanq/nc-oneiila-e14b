@@ -3,6 +3,7 @@ package com.churncheck.api.domain.client.dto;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class ClientUpdateRequestDTOTest {
     void shouldValidateCorrectData() {
         // Given
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            1L, "Valid Name", "555-1234", true, 30
+            1L, "Valid Name", "555-1234", true, LocalDate.of(2000, 1, 1)
         );
         
         // When
@@ -43,7 +44,7 @@ class ClientUpdateRequestDTOTest {
     void shouldRejectNullId() {
         // Given
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            null, "Valid Name", "555-1234", true, 30
+            null, "Valid Name", "555-1234", true, LocalDate.of(2000, 1, 1)
         );
         
         // When
@@ -59,7 +60,7 @@ class ClientUpdateRequestDTOTest {
     void shouldRejectShortName() {
         // Given
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            1L, "AB", "555-1234", true, 30
+            1L, "AB", "555-1234", true, LocalDate.of(2000, 1, 1)
         );
         
         // When
@@ -76,7 +77,7 @@ class ClientUpdateRequestDTOTest {
         // Given
         String longName = "a".repeat(101); // 101 characters
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            1L, longName, "555-1234", true, 30
+            1L, longName, "555-1234", true, LocalDate.of(2000, 1, 1)
         );
         
         // When
@@ -92,7 +93,7 @@ class ClientUpdateRequestDTOTest {
     void shouldAcceptNullName() {
         // Given
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            1L, null, "555-1234", true, 30
+            1L, null, "555-1234", true, LocalDate.of(2000, 1, 1)
         );
         
         // When
@@ -107,7 +108,7 @@ class ClientUpdateRequestDTOTest {
     void shouldAcceptNullPhone() {
         // Given
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            1L, "Valid Name", null, true, 30
+            1L, "Valid Name", null, true, LocalDate.of(2000, 1, 1)
         );
         
         // When
@@ -122,7 +123,7 @@ class ClientUpdateRequestDTOTest {
     void shouldAcceptNullNearLocation() {
         // Given
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            1L, "Valid Name", "555-1234", null, 30
+            1L, "Valid Name", "555-1234", null, LocalDate.of(2000, 1, 1)
         );
         
         // When

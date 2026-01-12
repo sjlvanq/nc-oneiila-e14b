@@ -1,5 +1,8 @@
 package com.churncheck.api.domain.client.dto;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 import com.churncheck.api.domain.client.Client;
 import com.churncheck.api.domain.client.Gender;
 
@@ -20,6 +23,8 @@ public record ClientResponseDTO(
             client.getGender(),
             client.getClientPhone(),
             client.getNearLocation(),
-            client.getAge());
+            client.getAge() != null ? client.getAge() : 
+                Period.between(client.getBirthDate(), LocalDate.now()).getYears()
+        );
     }
 }

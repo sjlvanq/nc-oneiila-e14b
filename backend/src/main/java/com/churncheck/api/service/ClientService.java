@@ -22,7 +22,7 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final PartnerRepository partnerRepository;
-    private final ChurnService churnService;    
+    private final ChurnService churnService;
 
     public ClientService(
             ClientRepository clientRepository, 

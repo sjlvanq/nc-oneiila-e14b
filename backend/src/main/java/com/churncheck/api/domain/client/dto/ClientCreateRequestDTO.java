@@ -1,9 +1,13 @@
 package com.churncheck.api.domain.client.dto;
 
-import com.churncheck.api.domain.client.Gender;
+import java.time.LocalDate;
+import java.time.Period;
 
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import com.churncheck.api.domain.client.Gender;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -34,9 +38,8 @@ public record ClientCreateRequestDTO (
     String clientPhone,
 
     @NotNull
-    @Min(18)
-    @Max(41)
-    Integer age,
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    LocalDate birthDate,
 
     @NotNull
     @Min(1)
@@ -45,4 +48,12 @@ public record ClientCreateRequestDTO (
 
     @NotNull
     Boolean groupVisits
-) {}
+) {
+    @JsonIgnore
+    @AssertTrue(message = "La edad debe estar entre 18 y 41 años")
+    public boolean isAgeValid() {
+        if (birthDate == null) return false;
+        int age = Period.between(birthDate, LocalDate.now()).getYears();
+        return age >= 18 && age <= 41;
+    }    
+}

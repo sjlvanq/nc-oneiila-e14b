@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +28,8 @@ import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.service.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @ExtendWith(MockitoExtension.class)
 class ClientControllerTest {
@@ -43,6 +47,8 @@ class ClientControllerTest {
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(clientController).build();
         objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule()); // Habilita LocalDate para formato "yyyy-MM-dd"
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
     
     @Test
@@ -56,7 +62,7 @@ class ClientControllerTest {
             1L,                            // partnerId
             true,                          // promoFriends
             "555-1234",                    // clientPhone
-            30,                            // age
+            LocalDate.of(2000, 1, 1),      // birthDate
             12,                            // contractPeriod
             true                           // groupVisits
         );
@@ -84,7 +90,7 @@ class ClientControllerTest {
     void shouldUpdateClient() throws Exception {
         // Given
         ClientUpdateRequestDTO dto = new ClientUpdateRequestDTO(
-            1L, "John Updated", "555-9999", true, 35
+            1L, "John Updated", "555-9999", true, LocalDate.of(2000, 1, 1)
         );
         
         ClientResponseDTO response = new ClientResponseDTO(

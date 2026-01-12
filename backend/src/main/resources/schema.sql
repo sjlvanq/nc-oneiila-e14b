@@ -60,7 +60,7 @@ CREATE TABLE clients (
   name VARCHAR(100) NOT NULL,
   phone VARCHAR(15),
   gender VARCHAR(10),
-  age INT,
+  birth_date DATE,
   near_location BOOLEAN,
   promo_friends BOOLEAN,
   registration_date DATE,

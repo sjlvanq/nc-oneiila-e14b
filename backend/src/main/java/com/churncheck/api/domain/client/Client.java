@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Formula;
+
 import com.churncheck.api.domain.attendance.Attendance;
 import com.churncheck.api.domain.charge.AdditionalCharge;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
@@ -38,6 +40,10 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<AdditionalCharge> additionalCharges = new ArrayList<>();
     
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+    
+    @Formula("TIMESTAMPDIFF(YEAR, birth_date, CURDATE())")
     private Integer age;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
@@ -81,7 +87,7 @@ public class Client {
         Client client = new Client();
         client.clientName = dto.clientName();
         client.clientPhone = dto.clientPhone();
-        client.age = dto.age();
+        client.birthDate = dto.birthDate();
         client.gender = dto.gender();
         client.nearLocation = dto.nearLocation();
         client.partner = partner;
@@ -172,6 +178,14 @@ public class Client {
 		this.age = age;
 	}
 
+	public LocalDate getBirthDate() {
+	    return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+	    this.birthDate = birthDate;
+	}
+
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
 	}
@@ -219,8 +233,8 @@ public class Client {
         if (clientUpdateRequestDTO.nearLocation() != null) {
             this.nearLocation = clientUpdateRequestDTO.nearLocation();
         }
-        if (clientUpdateRequestDTO.age() != null) {
-            this.age = clientUpdateRequestDTO.age();
+        if (clientUpdateRequestDTO.birthDate() != null) {
+            this.birthDate = clientUpdateRequestDTO.birthDate();
         }
     }
 }

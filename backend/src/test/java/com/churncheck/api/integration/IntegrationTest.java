@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,7 @@ class IntegrationTest {
         try {
             restTemplate.postForEntity(createURL("/clients"), new ClientCreateRequestDTO(
                 "Test", true, Gender.MALE, true, 1L, true, 
-                "555-1234", 30, 12, true
-                //, new BigDecimal("2.5"), new BigDecimal("3.0")
-                ), String.class);
+                "555-1234", LocalDate.of(2000, 1, 1), 12, true), String.class);
         } catch (org.springframework.web.client.HttpClientErrorException e) {
             exception2 = e;
         }
