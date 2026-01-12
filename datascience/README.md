@@ -47,3 +47,9 @@ Ejecutar el ciclo de vida completo de ciencia de datos —desde la ingesta cruda
 ## 🚀 Instalación
 ```bash
 pip install -r requirements.txt
+
+---
+
+##  Equipo de Data Science
+
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/22040dfd-06a4-4e00-bc55-dcfb39d862c6" />
