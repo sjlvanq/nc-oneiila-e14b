@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public record ClientCreateRequestDTO (
 
@@ -50,6 +51,7 @@ public record ClientCreateRequestDTO (
     Boolean groupVisits
 ) {
     @JsonIgnore
+    @Schema(hidden = true)
     @AssertTrue(message = "La edad debe estar entre 18 y 41 años")
     public boolean isAgeValid() {
         if (birthDate == null) return false;
