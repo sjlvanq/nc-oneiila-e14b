@@ -1,8 +1,12 @@
 package com.churncheck.api.infra.clients;
 
+import jakarta.validation.Validator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import java.util.Set;
+
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
-
 import java.util.logging.Logger;
 
 import org.springframework.http.MediaType;
@@ -18,10 +22,14 @@ public class PredictionClient {
 
     private final RestClient restClient;
     private final PredictionProperties properties;
+    private final Validator validator;
 
-    public PredictionClient(RestClient.Builder restClientBuilder, PredictionProperties properties) {
-        this.properties = properties;
-        
+   public PredictionClient(RestClient.Builder restClientBuilder,
+                        PredictionProperties properties,
+                        Validator validator) {
+    this.properties = properties;
+    this.validator = validator;
+
         this.restClient = restClientBuilder
                 .baseUrl(properties.getBaseUrl())
                 .defaultHeaders(headers -> {
@@ -41,9 +49,21 @@ public class PredictionClient {
         return factory;
     }
     
+    public RestClient getRestClient() {
+        return restClient;
+    }
+    
     public PredictionResponseDTO predict(PredictionRequestDTO request) {
-        logger.info("Sending prediction request to ML service: " + properties.getBaseUrl());
-        
+
+    Set<ConstraintViolation<PredictionRequestDTO>> violations =
+            validator.validate(request);
+
+    if (!violations.isEmpty()) {
+        throw new ConstraintViolationException("Invalid prediction request", violations);
+    }
+
+    logger.info("Sending prediction request to ML service: " + properties.getBaseUrl());
+    
         try {
             return restClient.post()
                     .uri(properties.endpoint())

@@ -60,7 +60,7 @@ public class Client {
 
     @Column(name = "group_visit")
     private Boolean groupVisits;
-       
+    
     @Column(name = "near_location")
     private Boolean nearLocation;
     
@@ -77,14 +77,8 @@ public class Client {
 
     public Client() {}
 
-    // Factory Method - creación controlada
     public static Client createFromDto(ClientCreateRequestDTO dto, Partner partner) {
         Client client = new Client();
-        
-        // Validaciones de negocio en la entidad
-        client.validateInitialData(dto);
-        
-        // Asignación controlada
         client.clientName = dto.clientName();
         client.clientPhone = dto.clientPhone();
         client.age = dto.age();
@@ -229,19 +223,4 @@ public class Client {
             this.age = clientUpdateRequestDTO.age();
         }
     }
-
-	// Validaciones del dominio
-    // TODO: Quitar cuando se implementen validaciones y manejo global de excepciones
-    private void validateInitialData(ClientCreateRequestDTO dto) {
-        if (dto.clientName() == null || dto.clientName().trim().isEmpty()) {
-            throw new DomainException("Client name is required");
-        }
-        if (dto.clientPhone() == null || dto.clientPhone().trim().isEmpty()) {
-            throw new DomainException("Client phone is required");
-        }
-        if (dto.age() != null && (dto.age() < 16 || dto.age() > 100)) {
-            throw new DomainException("Age must be between 16 and 100");
-        }
-    }
-
 }
