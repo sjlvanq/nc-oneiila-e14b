@@ -1,6 +1,7 @@
 package com.churncheck.api.infra.errors;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
@@ -15,14 +16,18 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.infra.errors.dto.ErrorStatusResponseFieldDTO;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger logger = Logger.getLogger(GlobalExceptionHandler.class.getName());
     
     @ExceptionHandler({ 
         AuthenticationException.class, 
@@ -90,4 +95,49 @@ public class GlobalExceptionHandler {
                         errorMessage));
     }
     
+    // --- PredictionClient
+       
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleResponseStatusException(ResponseStatusException ex) {
+        ErrorStatusResponseCodes code;
+        
+        // Mapeo lógico basado en el status capturado
+        if (ex.getStatusCode().equals(HttpStatus.BAD_GATEWAY)) {
+            code = ErrorStatusResponseCodes.BAD_GATEWAY_502;
+        } else if (ex.getStatusCode().equals(HttpStatus.SERVICE_UNAVAILABLE)) {
+            code = ErrorStatusResponseCodes.SERVICE_UNAVAILABLE_503;
+        } else if (ex.getStatusCode().equals(HttpStatus.GATEWAY_TIMEOUT)) {
+            code = ErrorStatusResponseCodes.GATEWAY_TIMEOUT_504;
+        } else {
+            code = ErrorStatusResponseCodes.INTERNAL_SERVER_ERROR_500;
+        }
+        return ResponseEntity.status(ex.getStatusCode()).body(
+                new ErrorStatusResponseDTO(code, ex.getReason()));
+    }
+    
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleConstraintViolation(ConstraintViolationException ex) {
+        List<ErrorStatusResponseFieldDTO> errors = ex.getConstraintViolations().stream()
+                .map(violation -> new ErrorStatusResponseFieldDTO(
+                        violation.getPropertyPath().toString(),
+                        violation.getMessage()))
+                .toList();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorStatusResponseDTO(
+                        ErrorStatusResponseCodes.BAD_REQUEST_400,
+                        "Validation error in the submitted data",
+                        errors));
+    }
+    
+    // --- Catch-all
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleAllUncaughtException(Exception ex) {
+        logger.severe("Unknown error occurred: " + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ErrorStatusResponseDTO(
+                        ErrorStatusResponseCodes.INTERNAL_SERVER_ERROR_500,
+                        "An unexpected internal server error occurred"));
+    }
 }

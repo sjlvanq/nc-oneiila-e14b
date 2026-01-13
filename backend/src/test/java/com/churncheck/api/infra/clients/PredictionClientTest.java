@@ -108,7 +108,7 @@ class PredictionClientTest {
         );
         
         assertNotNull(exception);
-        assertTrue(exception.getMessage().contains("Invalid prediction request"));
+        assertTrue(exception.getMessage().contains("Solicitud de predicción inválida"));
         assertFalse(exception.getConstraintViolations().isEmpty());
     }
     
@@ -129,7 +129,7 @@ class PredictionClientTest {
         );
         
         assertNotNull(exception);
-        assertTrue(exception.getMessage().contains("Invalid prediction request"));
+        assertTrue(exception.getMessage().contains("Solicitud de predicción inválida"));
     }
     
     @Test
@@ -149,7 +149,7 @@ class PredictionClientTest {
         );
         
         assertNotNull(exception);
-        assertTrue(exception.getMessage().contains("Invalid prediction request"));
+        assertTrue(exception.getMessage().contains("Solicitud de predicción inválida"));
     }
     
     @Test
@@ -169,7 +169,7 @@ class PredictionClientTest {
         );
         
         assertNotNull(exception);
-        assertTrue(exception.getMessage().contains("Invalid prediction request"));
+        assertTrue(exception.getMessage().contains("Solicitud de predicción inválida"));
     }
     
     @Test
