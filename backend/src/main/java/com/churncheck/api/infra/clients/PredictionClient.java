@@ -11,9 +11,11 @@ import java.util.logging.Logger;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
 
 @Component
 public class PredictionClient {
@@ -59,7 +61,7 @@ public class PredictionClient {
             validator.validate(request);
 
     if (!violations.isEmpty()) {
-        throw new ConstraintViolationException("Invalid prediction request", violations);
+        throw new ConstraintViolationException("Solicitud de predicción inválida", violations);
     }
 
     logger.info("Sending prediction request to ML service: " + properties.getBaseUrl());
@@ -73,18 +75,20 @@ public class PredictionClient {
                         int statusCode = response.getStatusCode().value();
                         String message = String.format("Client error: %d - Failed to get prediction", statusCode);
                         logger.severe(message);
-                        throw new PredictionClientException(message, statusCode);
+                        throw new ResponseStatusException(response.getStatusCode(), "Error de cliente en servicio ML");
                     })
                     .onStatus(HttpStatusCode::is5xxServerError, (req, response) -> {
                         int statusCode = response.getStatusCode().value();
                         String message = String.format("Server error: %d - ML service unavailable", statusCode);
                         logger.severe(message);
-                        throw new PredictionServerException(message, statusCode);
+                        throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "El servicio de ML no está disponible");
                     })
                     .body(PredictionResponseDTO.class);
+        } catch (ResponseStatusException e) {
+            throw e;
         } catch (Exception e) {
-            logger.severe("Failed to get prediction from ML service: " + e.getMessage());
-            throw new PredictionException("Failed to get prediction", e);
+            logger.severe("Error inesperado: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Error de comunicación con el servicio de predicción", e);
         }
     }
 }

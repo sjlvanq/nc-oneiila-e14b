@@ -15,8 +15,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.server.ResponseStatusException;
+
 import jakarta.validation.Validator;
 
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
@@ -58,61 +61,59 @@ class PredictionClientErrorScenariosTest {
     @Test
     void shouldHandle400BadRequest() {
         // Given
+        String expectedReason = "Client error: 400 - Failed to get prediction";
         when(restClient.post())
-                .thenThrow(new PredictionClientException("Client error: 400 - Failed to get prediction", 400));
+                .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, expectedReason));
         
         // When & Then
-        PredictionException exception = assertThrows(PredictionException.class, () -> 
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals("Failed to get prediction", exception.getMessage());
-        assertNotNull(exception.getCause());
-        assertEquals(PredictionClientException.class, exception.getCause().getClass());
+        assertEquals(expectedReason, exception.getReason());
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
     
     @Test
     void shouldHandle500InternalServerError() {
         // Given
+        String expectedReason = "Server error: 500 - ML service unavailable";
         when(restClient.post())
-                .thenThrow(new PredictionServerException("Server error: 500 - ML service unavailable", 500));
+                .thenThrow(new ResponseStatusException(HttpStatus.BAD_GATEWAY, expectedReason));
         
         // When & Then
-        PredictionException exception = assertThrows(PredictionException.class, () -> 
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals("Failed to get prediction", exception.getMessage());
-        assertNotNull(exception.getCause());
-        assertEquals(PredictionServerException.class, exception.getCause().getClass());
+        assertEquals(expectedReason, exception.getReason());
+        assertEquals(HttpStatus.BAD_GATEWAY, exception.getStatusCode());
     }
     
     @Test
-    void shouldHandleTimeout() {
+    void shouldHandleTimeoutOrConnectionError() {
         // Given
         when(restClient.post())
                 .thenThrow(new ResourceAccessException("Request timeout"));
         
         // When & Then
-        PredictionException exception = assertThrows(PredictionException.class, () -> 
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals("Failed to get prediction", exception.getMessage());
-        assertNotNull(exception.getCause());
-        assertEquals(ResourceAccessException.class, exception.getCause().getClass());
+        assertEquals(HttpStatus.SERVICE_UNAVAILABLE, exception.getStatusCode());
+        assertEquals("Error de comunicación con el servicio de predicción", exception.getReason());
     }
     
     @Test
-    void shouldHandleGenericException() {
+    void shouldHandleGenericRuntimeException() {
         // Given
         when(restClient.post())
                 .thenThrow(new RuntimeException("Unexpected error"));
         
         // When & Then
-        PredictionException exception = assertThrows(PredictionException.class, () -> 
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals("Failed to get prediction", exception.getMessage());
-        assertNotNull(exception.getCause());
-        assertEquals(RuntimeException.class, exception.getCause().getClass());
+        assertEquals(HttpStatus.SERVICE_UNAVAILABLE, exception.getStatusCode());
+        assertEquals("Error de comunicación con el servicio de predicción", exception.getReason());
     }
     
     @Test
