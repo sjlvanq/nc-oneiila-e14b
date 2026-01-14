@@ -23,6 +23,8 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Validator;
 
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
+import com.churncheck.api.infra.external.PredictionClient;
+import com.churncheck.api.infra.external.PredictionProperties;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
