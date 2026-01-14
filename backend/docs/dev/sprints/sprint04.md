@@ -14,7 +14,7 @@ El objetivo de este sprint es consolidar la madurez operativa del sistema median
 | --- | --- | --- |
 | **Dev A (Infra)** | **Despliegue y CI/CD** | Configurar el entorno en la instancia OCI (Java 17, H2 en modo file). Implementar pipeline de GitHub Actions para compilación, pruebas y despliegue automático. Configurar variables de entorno y secrets. Documentar procedimientos de despliegue y rollback. |
 | **Dev B (Lógica)** | **Caché de Predicciones** | Extender la entidad `Client` con campos `last_prediction_churn`, `last_prediction_probability` y `last_prediction_timestamp`. Modificar `ChurnService` para guardar y consultar caché antes de llamar al microservicio. Implementar lógica de invalidación por TTL (24 horas). |
-| **Dev C (API)** | **Endpoints Analíticos** | Crear `StatisticsController` con endpoints para estadísticas globales y por cliente. Diseñar queries agregadas en repositorios nuevos (`AdditionalChargeRepository`, `AttendanceRepository`) y extender `ClientRepository`. Documentar en Swagger con ejemplos de respuesta. |
+| **Dev C (API)** | **Endpoints Analíticos** | *En revisión*. |
 
 ---
 
@@ -24,32 +24,6 @@ El objetivo de este sprint es consolidar la madurez operativa del sistema median
 | --- | --- |
 | **Dev A (Infra)** | **Monitoreo Básico:** Configurar logs estructurados (Logback) y habilitar endpoint `/actuator/health` de Spring Boot Actuator para health checks. Configurar script de backup automático de la base de datos H2. |
 | **Dev B (Lógica)** | **Invalidación Manual de Caché:** Añadir endpoint `DELETE /clients/{id}/prediction-cache` para forzar recalculación de predicción. |
-| **Dev C (API)** | **Exportación de Reportes:** Endpoint `GET /statistics/report` que devuelva un CSV con estadísticas generales para análisis externo. |
-
----
-
-## Estadísticas Propuestas
-
-### Estadísticas Globales (`GET /statistics/global`)
-
-- Total de clientes activos
-- Total de clientes con predicción de churn
-- Tasa promedio de churn (%)
-- Promedio de edad de clientes
-- Distribución por género (conteo MALE/FEMALE)
-- Ingresos totales por cargos adicionales (último mes)
-- Promedio de visitas por cliente (último mes)
-- Tasa de renovación de contratos (contratos que finalizan en <30 días)
-
-### Estadísticas por Cliente (`GET /statistics/clients/{id}`)
-
-- Probabilidad de churn (última predicción)
-- Antigüedad en meses
-- Frecuencia de visitas (total y mes actual)
-- Gasto total en cargos adicionales
-- Gasto promedio mensual
-- Meses restantes de contrato
-- Tendencia de asistencia (comparación últimos 3 meses: "increasing", "stable", "decreasing")
 
 ---
 
@@ -59,23 +33,11 @@ El objetivo de este sprint es consolidar la madurez operativa del sistema median
 │   └── com
 │       └── churncheck
 │           └── api
-│               ├── controller
-│               │   └── StatisticsController.java          [+ devC]
 │               ├── domain
-│               │   ├── attendance
-│               │   │   └── AttendanceRepository.java      [+ devC]
-│               │   ├── charge
-│               │   │   └── AdditionalChargeRepository.java [+ devC]
 │               │   └── client
-│               │       ├── Client.java                    [* devB] -> Nuevos campos de caché
-│               │       ├── ClientRepository.java          [* devC] -> Nuevas queries
-│               │       └── dto
-│               │           ├── GlobalStatisticsDTO.java   [+ devC]
-│               │           ├── ClientStatisticsDTO.java   [+ devC]
-│               │           └── AttendanceTrendDTO.java    [+ devC]
+│               │       └── Client.java                    [* devB] -> Nuevos campos de caché
 │               └── service
-│                   ├── ChurnService.java                  [* devB] -> Lógica de caché
-│                   └── StatisticsService.java             [+ devC]
+│                   └── ChurnService.java                  [* devB] -> Lógica de caché
 │
 ├── resources
 │   └── application-production.yaml                        [+ devA]
@@ -130,16 +92,6 @@ Los siguientes secrets deben configurarse en el repositorio de GitHub:
 
 ## Recomendación Técnica
 
-### Orden de Implementación Sugerido
-
-**Día 1-3 (Dev B):** Implementar caché de predicciones. Esto desbloquea optimización inmediata y permite que Dev C trabaje con datos de predicción en cache.
-
-**Día 2-4 (Dev C):** Diseñar y crear repositorios, queries y estadísticas. Puede trabajar en paralelo con Dev B.
-
-**Día 3-6 (Dev A):** Preparar OCI, configurar CI/CD y realizar despliegue de prueba. Requiere coordinación con ambos devs para validar que el código desplegado funcione correctamente.
-
-**Día 7:** Testing integrado en OCI, validación de estadísticas con datos reales y despliegue final a producción.
-
 ### Consideraciones de H2 en Producción
 
 - **Modo File:** Usar `jdbc:h2:file:/opt/churncheck/data/churncheck;AUTO_SERVER=TRUE` para persistencia.
@@ -171,12 +123,10 @@ Los siguientes secrets deben configurarse en el repositorio de GitHub:
 
 * **Caché de Predicciones (Dev B):** Reduce hasta 90% las llamadas al microservicio ML para clientes consultados frecuentemente. El TTL de 24 horas balancea frescura de datos con carga del sistema. La invalidación manual permite recálculo bajo demanda.
 
-* **Estadísticas (Dev C):** Los endpoints analíticos permiten dashboards en frontend sin consultas pesadas repetidas. Las queries agregadas (`COUNT`, `AVG`, `SUM`) son eficientes en H2 y aprovechan índices existentes en `active` y `gender`.
-
 * **Despliegue OCI (Dev A):** El pipeline de GitHub Actions elimina despliegues manuales propensos a errores humanos. El servicio systemd garantiza reinicio automático ante fallos. H2 en modo file mantiene persistencia entre reinicios sin necesidad de servidor de BD separado.
 
 * **Ventajas de H2:** Simplicidad operativa (un solo archivo `.mv.db`), backups triviales (copiar archivo), sin costo adicional de infraestructura, compatible con perfiles de desarrollo (in-memory) y producción (file).
 
 ---
 
-Todo listo para el sprint más operativo. Consulta `sprint04-details.md` para instrucciones detalladas de implementación.
+Consulta [sprint04-details.md](sprint04-details.md) para instrucciones detalladas de implementación.

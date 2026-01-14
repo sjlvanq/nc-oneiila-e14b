@@ -19,7 +19,7 @@
 | 2 | [Plan-s02](sprints/sprint02.md) / [Plan-s02-ext](sprints/sprint02-details.md) | Consulta de cliente en BD ~~por DNI~~, integración mediante RestClient con microservicio de predicción de Churn y orquestación en capa de servicio. | [Impl.](sprints/sprint02-end.md) |
 | Extra | N/A | **Refactorización Core**: Migración de datos estáticos a transaccionales. | [Detalles](sprints/refactor-model-details.md) |
 | 3 | [Plan-s03](sprints/sprint03.md) | Testing robusto, manejo global de errores y documentación técnica completa. | [Imp.](sprints/sprint03-end.md) |
-| 4 | [Plan-s04](sprints/sprint04.md) / [Plan-s04-ext](sprints/sprint04-details.md) | Optimización mediante caché de predicciones, implementación de endpoints analíticos y automatización del despliegue (CI/CD) en OCI. | *En desarrollo* |
+| 4 | [Plan-s04](sprints/sprint04.md) / [Plan-s04-ext](sprints/sprint04-details.md) | Optimización mediante caché de predicciones, implementación de endpoints analíticos y automatización del despliegue (CI/CD) en OCI. | *En revisión / En desarrollo* |
 
 -----
 
