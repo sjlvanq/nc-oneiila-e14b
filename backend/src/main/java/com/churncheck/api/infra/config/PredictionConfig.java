@@ -1,9 +1,9 @@
 package com.churncheck.api.infra.config;
 
-import com.churncheck.api.infra.clients.PredictionProperties;
-
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+
+import com.churncheck.api.infra.external.PredictionProperties;
 
 @Configuration
 @EnableConfigurationProperties(PredictionProperties.class)
