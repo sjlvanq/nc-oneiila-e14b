@@ -28,7 +28,7 @@ churn_api_project/
 │   └── metadata.json        # Metadatos del modelo
 ├── Dockerfile              # Configuración de Docker
 ├── requirements.txt        # Dependencias de Python
-└── Readme.md              # Este archivo
+└── README.md              # Este archivo
 ```
 
 ## Requisitos
