@@ -67,7 +67,10 @@ CREATE TABLE clients (
   contract_start_date DATE,
   contract_period INT,
   group_visit BOOLEAN,
-  active BOOLEAN DEFAULT TRUE
+  active BOOLEAN DEFAULT TRUE,
+  last_prediction_churn TINYINT,
+  last_prediction_probability DECIMAL(1, 2),
+  last_prediction_timestamp TIMESTAMP
 );
 
 -- Relaciones user_roles
