@@ -1,0 +1,26 @@
+{
+  "model_name": "churn_xgb_prod_v2_blindado",
+  "threshold": 0.7058224818304378,
+  "positive_class_label": "Churn (1)",
+  "input_contract": [
+    "gender",
+    "nearLocation",
+    "partner",
+    "promoFriends",
+    "phone",
+    "contractPeriod",
+    "groupVisits",
+    "age",
+    "avgAdditionalChargesTotal",
+    "monthToEndContract",
+    "lifetime",
+    "avgClassFrequencyTotal",
+    "avgClassFrequencyCurrentMonth"
+  ],
+  "metrics": {
+    "roc_auc": 0.9865549993582338,
+    "f1": 0.9261083743842364,
+    "precision": 0.9690721649484536,
+    "recall": 0.8867924528301887
+  }
+}
