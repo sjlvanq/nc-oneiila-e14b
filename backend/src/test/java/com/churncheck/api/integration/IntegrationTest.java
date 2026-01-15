@@ -20,12 +20,16 @@ import org.springframework.web.client.RestTemplate;
 import com.churncheck.api.domain.client.Gender;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.infra.security.LoginRequestDTO;
+import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.ApiApplication;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = {ApiApplication.class, TestConfig.class})
 @TestPropertySource(properties = {
     "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1",
-    "spring.jpa.hibernate.ddl-auto=create-drop"
+    "spring.jpa.hibernate.ddl-auto=create-drop",
+    "external.prediction.connect-timeout=4000",
+    "external.prediction.connection-timeout=4000",
+    "external.prediction.read-timeout=4000"
 })
 class IntegrationTest {
     
@@ -43,19 +47,18 @@ class IntegrationTest {
     
     @Test
     void shouldProtectEndpointsWithoutAuthentication() {
-        // Given: Sin autenticación
+        // When & Then: Todos los endpoints protegidos deben retornar 401
         
-        // When & Then: Todos los endpoints protegidos deben retornar 403
+        // Test 1: GET /clients sin autenticación
         org.springframework.web.client.HttpClientErrorException exception1 = null;
-        org.springframework.web.client.HttpClientErrorException exception2 = null;
-        org.springframework.web.client.HttpClientErrorException exception3 = null;
-        
         try {
             restTemplate.getForEntity(createURL("/clients"), String.class);
-        } catch (org.springframework.web.client.HttpClientErrorException e) {
-            exception1 = e;
+        } catch (org.springframework.web.client.HttpStatusCodeException e) {
+            exception1 = (org.springframework.web.client.HttpClientErrorException) e;
         }
         
+        // Test 2: POST /clients sin autenticación
+        org.springframework.web.client.HttpClientErrorException exception2 = null;
         try {
             restTemplate.postForEntity(createURL("/clients"), new ClientCreateRequestDTO(
                 "Test", true, Gender.MALE, true, 1L, true, 
@@ -64,13 +67,15 @@ class IntegrationTest {
             exception2 = e;
         }
         
+        // Test 3: GET /clients/1/prediction sin autenticación
+        org.springframework.web.client.HttpClientErrorException exception3 = null;
         try {
             restTemplate.getForEntity(createURL("/clients/1/prediction"), String.class);
         } catch (org.springframework.web.client.HttpClientErrorException e) {
             exception3 = e;
         }
         
-        // Then
+        // Then: Verificar que todos retornan 401 UNAUTHORIZED
         assertNotNull(exception1);
         assertEquals(HttpStatus.UNAUTHORIZED, exception1.getStatusCode());
         
@@ -80,10 +85,9 @@ class IntegrationTest {
         assertNotNull(exception3);
         assertEquals(HttpStatus.UNAUTHORIZED, exception3.getStatusCode());
         
-        // Given: Credenciales inválidas
+        // Test 4: Credenciales inválidas
         LoginRequestDTO loginRequest = new LoginRequestDTO("nonexistent@example.com", "wrongpassword");
         
-        // When: Intentar login
         org.springframework.web.client.HttpClientErrorException loginException = null;
         try {
             restTemplate.postForEntity(createURL("/login"), loginRequest, String.class);
@@ -91,7 +95,7 @@ class IntegrationTest {
             loginException = e;
         }
         
-        // Then: Login rechazado
+        // Then: Login rechazado debe retornar 401
         assertNotNull(loginException);
         assertEquals(HttpStatus.UNAUTHORIZED, loginException.getStatusCode());
     }

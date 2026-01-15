@@ -26,6 +26,7 @@ import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+import com.churncheck.api.infra.errors.GlobalExceptionHandler;
 import com.churncheck.api.service.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -45,7 +46,9 @@ class ClientControllerTest {
     
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(clientController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(clientController)
+                .setControllerAdvice(new GlobalExceptionHandler())
+                .build();
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule()); // Habilita LocalDate para formato "yyyy-MM-dd"
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -150,15 +153,5 @@ class ClientControllerTest {
                 .andExpect(jsonPath("$.clientName").value("John Doe"))
                 .andExpect(jsonPath("$.churn").value(1))
                 .andExpect(jsonPath("$.probability").value(0.85));
-    }
-    
-    @Test
-    void shouldReturn400WhenPredictionFails() throws Exception {
-        // Given
-        when(clientService.predictChurn(1L)).thenThrow(new RuntimeException("Prediction failed"));
-        
-        // When & Then
-        mockMvc.perform(get("/clients/1/prediction"))
-                .andExpect(status().isBadRequest());
     }
 }

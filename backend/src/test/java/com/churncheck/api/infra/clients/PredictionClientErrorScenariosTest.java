@@ -15,16 +15,17 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.server.ResponseStatusException;
-
-import jakarta.validation.Validator;
 
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
+import com.churncheck.api.infra.errors.exceptions.MLServiceBadRequestException;
+import com.churncheck.api.infra.errors.exceptions.MLServiceTimeoutException;
+import com.churncheck.api.infra.errors.exceptions.MLServiceUnavailableException;
 import com.churncheck.api.infra.external.PredictionClient;
 import com.churncheck.api.infra.external.PredictionProperties;
+
+import jakarta.validation.Validator;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -50,6 +51,7 @@ class PredictionClientErrorScenariosTest {
         when(properties.endpoint()).thenReturn("/churncheck.php");
         when(properties.apiKey()).thenReturn("mock-api-key-12345");
         when(properties.connectionTimeout()).thenReturn(5000);
+        when(properties.connectTimeout()).thenReturn(5000);
         when(properties.readTimeout()).thenReturn(10000);
         
         when(restClientBuilder.baseUrl(any(String.class))).thenReturn(restClientBuilder);
@@ -61,61 +63,90 @@ class PredictionClientErrorScenariosTest {
     }
     
     @Test
-    void shouldHandle400BadRequest() {
+    void shouldHandleTimeoutException() {
         // Given
-        String expectedReason = "Client error: 400 - Failed to get prediction";
         when(restClient.post())
-                .thenThrow(new ResponseStatusException(HttpStatus.BAD_REQUEST, expectedReason));
+                .thenThrow(new ResourceAccessException("Connect timed out"));
         
         // When & Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
+        MLServiceTimeoutException exception = assertThrows(MLServiceTimeoutException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals(expectedReason, exception.getReason());
-        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        assertEquals("No se pudo conectar al servicio de ML", exception.getMessage());
     }
     
     @Test
-    void shouldHandle500InternalServerError() {
+    void shouldHandleMLServiceUnavailable() {
         // Given
-        String expectedReason = "Server error: 500 - ML service unavailable";
         when(restClient.post())
-                .thenThrow(new ResponseStatusException(HttpStatus.BAD_GATEWAY, expectedReason));
+                .thenThrow(new RuntimeException("Service unavailable"));
         
         // When & Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
+        MLServiceUnavailableException exception = assertThrows(MLServiceUnavailableException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals(expectedReason, exception.getReason());
-        assertEquals(HttpStatus.BAD_GATEWAY, exception.getStatusCode());
+        assertEquals("Error de comunicación con el servicio de predicción", exception.getMessage());
     }
     
     @Test
-    void shouldHandleTimeoutOrConnectionError() {
+    void shouldHandleMLServiceBadRequestOn4xxError() {
         // Given
         when(restClient.post())
-                .thenThrow(new ResourceAccessException("Request timeout"));
+                .thenThrow(new org.springframework.web.client.HttpClientErrorException(
+                    org.springframework.http.HttpStatus.BAD_REQUEST, "Bad Request"));
         
         // When & Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
+        MLServiceBadRequestException exception = assertThrows(MLServiceBadRequestException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals(HttpStatus.SERVICE_UNAVAILABLE, exception.getStatusCode());
-        assertEquals("Error de comunicación con el servicio de predicción", exception.getReason());
+        assertEquals("Error de cliente en servicio ML", exception.getMessage());
     }
     
     @Test
-    void shouldHandleGenericRuntimeException() {
+    void shouldHandleMLServiceUnavailableOn5xxError() {
         // Given
         when(restClient.post())
-                .thenThrow(new RuntimeException("Unexpected error"));
+                .thenThrow(new org.springframework.web.client.HttpServerErrorException(
+                    org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error"));
         
         // When & Then
-        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> 
+        MLServiceUnavailableException exception = assertThrows(MLServiceUnavailableException.class, () -> 
                 predictionClient.predict(createTestRequest()));
         
-        assertEquals(HttpStatus.SERVICE_UNAVAILABLE, exception.getStatusCode());
-        assertEquals("Error de comunicación con el servicio de predicción", exception.getReason());
+        assertEquals("El servicio de ML respondió con error", exception.getMessage());
+    }
+    
+    @Test
+    void shouldHandleConnectionRefused() {
+        // Given
+        when(restClient.post())
+                .thenThrow(new ResourceAccessException("Connection refused"));
+        
+        // When & Then
+        MLServiceTimeoutException exception = assertThrows(MLServiceTimeoutException.class, () -> 
+                predictionClient.predict(createTestRequest()));
+        
+        assertEquals("No se pudo conectar al servicio de ML", exception.getMessage());
+    }
+    
+    @Test
+    void shouldHandleNullResponseFromMLService() {
+        // Given
+        RestClient.RequestBodyUriSpec requestBodyUriSpec = org.mockito.Mockito.mock(RestClient.RequestBodyUriSpec.class);
+        RestClient.RequestBodySpec requestBodySpec = org.mockito.Mockito.mock(RestClient.RequestBodySpec.class);
+        RestClient.ResponseSpec responseSpec = org.mockito.Mockito.mock(RestClient.ResponseSpec.class);
+        
+        when(restClient.post()).thenReturn(requestBodyUriSpec);
+        when(requestBodyUriSpec.uri(any(String.class))).thenReturn(requestBodySpec);
+        when(requestBodySpec.body(any())).thenReturn(requestBodySpec);
+        when(requestBodySpec.retrieve()).thenReturn(responseSpec);
+        when(responseSpec.body(any(Class.class))).thenReturn(null);
+        
+        // When & Then
+        MLServiceUnavailableException exception = assertThrows(MLServiceUnavailableException.class, () -> 
+                predictionClient.predict(createTestRequest()));
+        
+        assertEquals("Error de comunicación con el servicio de predicción", exception.getMessage());
     }
     
     @Test

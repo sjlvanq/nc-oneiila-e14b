@@ -9,7 +9,6 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.util.Timeout;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
@@ -17,10 +16,12 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
+import com.churncheck.api.infra.errors.exceptions.MLServiceBadRequestException;
+import com.churncheck.api.infra.errors.exceptions.MLServiceTimeoutException;
+import com.churncheck.api.infra.errors.exceptions.MLServiceUnavailableException;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -82,52 +83,44 @@ public class PredictionClient {
 
     logger.info("Sending prediction request to ML service: " + properties.getBaseUrl());
     
-        try {
-            PredictionResponseDTO clientResponse = restClient.post()
-                    .uri(properties.endpoint())
-                    .body(request)
-                    .retrieve()
-                    .onStatus(HttpStatusCode::is4xxClientError, (req, response) -> {
-                        int statusCode = response.getStatusCode().value();
-                        String message = String.format("Client error: %d - Failed to get prediction", statusCode);
-                        logger.severe(message);
-                        throw new ResponseStatusException(response.getStatusCode(), "Error de cliente en servicio ML");
-                    })
-                    .onStatus(HttpStatusCode::is5xxServerError, (req, response) -> {
-                        int statusCode = response.getStatusCode().value();
-                        String message = String.format("Server error: %d - ML service unavailable", statusCode);
-                        logger.severe(message);
-                        throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "El servicio de ML no está disponible");
-                    })
-                    .body(PredictionResponseDTO.class);
-            
-            if (clientResponse == null) {
-                throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "El servicio de ML respondió sin contenido");
-            }
-            return clientResponse;
+    try {
+        PredictionResponseDTO clientResponse = restClient.post()
+                .uri(properties.endpoint())
+                .body(request)
+                .retrieve()
+                .body(PredictionResponseDTO.class);
 
-        } catch (RestClientResponseException e) {
-            // error con código HTTP desde el servicio ML -> propagar con mensaje claro
-            HttpStatus mapped = HttpStatus.resolve(e.getStatusCode().value());
-            if (mapped == null) mapped = HttpStatus.BAD_GATEWAY;
-
-            if (mapped.is4xxClientError()) {
-                throw new ResponseStatusException(mapped, "Error de cliente en servicio ML", e);
-            } else {
-                throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "El servicio de ML respondió con error", e);
-            }
-        } catch (ResourceAccessException e) {
-            // timeouts / host inaccesible
-            logger.severe("No se pudo conectar al servicio de ML: " + e.getMessage());
-            throw new ResponseStatusException(HttpStatus.GATEWAY_TIMEOUT, "No se pudo conectar al servicio de ML", e);
-        } catch (RestClientException e) {
-            logger.severe("Error de comunicación con servicio de ML: " + e.getMessage());
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Error de comunicación con el servicio de predicción", e);
-        } catch (ResponseStatusException e) {
-            throw e;
-        } catch (Exception e) {
-            logger.severe("Error inesperado: " + e.getMessage());
-            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Error de comunicación con el servicio de predicción", e);
+        if (clientResponse == null) {
+            throw new MLServiceUnavailableException("El servicio de ML respondió sin contenido");
         }
+        return clientResponse;
+
+    } catch (RestClientResponseException e) {
+        // Ahora SÍ se ejecutará este bloque
+        int statusCode = e.getStatusCode().value();
+        logger.severe(String.format("ML service error: %d - %s", statusCode, e.getMessage()));
+
+        HttpStatus mapped = HttpStatus.resolve(statusCode);
+        if (mapped == null)
+            mapped = HttpStatus.BAD_GATEWAY;
+
+        if (mapped.is4xxClientError()) {
+            throw new MLServiceBadRequestException("Error de cliente en servicio ML", e);
+        } else {
+            throw new MLServiceUnavailableException("El servicio de ML respondió con error", e);
+        }
+    } catch (ResourceAccessException e) {
+        logger.severe("ResourceAccessException caught - About to throw MLServiceTimeoutException");
+        logger.severe("No se pudo conectar al servicio de ML: " + e.getMessage());
+        MLServiceTimeoutException exception = new MLServiceTimeoutException("No se pudo conectar al servicio de ML", e);
+        logger.severe("MLServiceTimeoutException created: " + exception.getClass().getName());
+        throw exception;
+    } catch (RestClientException e) {
+        logger.severe("Error de comunicación con servicio de ML: " + e.getMessage());
+        throw new MLServiceUnavailableException("Error de comunicación con el servicio de predicción", e);
+    } catch (Exception e) {
+        logger.severe("Error inesperado: " + e.getMessage());
+        throw new MLServiceUnavailableException("Error de comunicación con el servicio de predicción", e);
+    }
     }
 }
