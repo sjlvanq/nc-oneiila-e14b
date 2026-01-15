@@ -1,4 +1,4 @@
-package com.churncheck.api.infra.clients;
+package com.churncheck.api.infra.external;
 
 import static org.junit.jupiter.api.Assertions.*;
 

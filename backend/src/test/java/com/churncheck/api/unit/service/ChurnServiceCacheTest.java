@@ -19,7 +19,7 @@ import com.churncheck.api.domain.client.ClientPredictionMapper;
 import com.churncheck.api.domain.client.ClientRepository;
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
-import com.churncheck.api.infra.clients.PredictionClient;
+import com.churncheck.api.infra.external.PredictionClient;
 import com.churncheck.api.service.ChurnService;
 
 @ExtendWith(MockitoExtension.class)
