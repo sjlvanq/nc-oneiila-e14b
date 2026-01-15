@@ -4,8 +4,9 @@ external:
     host: "http://40.233.25.25"
     port: 8000
     endpoint: "/predict"
-    timeout: 5000
-    retries: 3
+    connect-timeout: 4000
+    connection-timeout: 4000
+    read-timeout: 4000
 
 logging:
   level:

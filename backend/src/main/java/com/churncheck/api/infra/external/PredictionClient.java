@@ -1,24 +1,31 @@
 package com.churncheck.api.infra.external;
 
-import jakarta.validation.Validator;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import java.util.Set;
-
-import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
-import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 import java.util.logging.Logger;
 
-import org.springframework.http.MediaType;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.apache.hc.client5.http.classic.HttpClient;
+import org.apache.hc.client5.http.config.RequestConfig;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
+import org.apache.hc.core5.util.Timeout;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.http.MediaType;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.server.ResponseStatusException;
+
+import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
+
 
 @Component
 public class PredictionClient {
@@ -48,10 +55,16 @@ public class PredictionClient {
     }
     
     private HttpComponentsClientHttpRequestFactory createRequestFactory() {
-        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
-        factory.setConnectionRequestTimeout(properties.connectionTimeout());
-        factory.setReadTimeout(properties.readTimeout());
-        return factory;
+        @SuppressWarnings("deprecation")
+        RequestConfig requestConfig = RequestConfig.custom()
+                .setConnectTimeout(Timeout.ofMilliseconds(properties.connectTimeout()))
+                .setResponseTimeout(Timeout.ofMilliseconds(properties.readTimeout()))
+                .setConnectionRequestTimeout(Timeout.ofMilliseconds(properties.connectionTimeout())).build();
+
+        HttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(requestConfig)
+                .setConnectionManager(new PoolingHttpClientConnectionManager()).disableAutomaticRetries().build();
+
+        return new HttpComponentsClientHttpRequestFactory(httpClient);
     }
     
     public RestClient getRestClient() {
@@ -70,7 +83,7 @@ public class PredictionClient {
     logger.info("Sending prediction request to ML service: " + properties.getBaseUrl());
     
         try {
-            return restClient.post()
+            PredictionResponseDTO clientResponse = restClient.post()
                     .uri(properties.endpoint())
                     .body(request)
                     .retrieve()
@@ -88,10 +101,10 @@ public class PredictionClient {
                     })
                     .body(PredictionResponseDTO.class);
             
-            if (response == null) {
+            if (clientResponse == null) {
                 throw new ResponseStatusException(HttpStatus.BAD_GATEWAY, "El servicio de ML respondió sin contenido");
             }
-            return response;
+            return clientResponse;
 
         } catch (RestClientResponseException e) {
             // error con código HTTP desde el servicio ML -> propagar con mensaje claro
