@@ -9,6 +9,14 @@ external:
     connection-timeout: 5000
     read-timeout: 5000
 
+# Configuración del Agente Python Local
+agent:
+  python:
+    endpoint: http://172.17.0.1:8000  # Agente corriendo local (base URL)
+    timeout: 30000
+    max-retries: 3
+
 logging:
   level:
     web: DEBUG
+
