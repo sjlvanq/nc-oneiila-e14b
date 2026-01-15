@@ -48,6 +48,9 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 						.requestMatchers("/api/stats").permitAll()
 						.requestMatchers("/clients/high-risk").permitAll()
 						.requestMatchers("/clients/**").authenticated()
+						.requestMatchers("/chat/**").authenticated()  // ← Esto está protegiendo los endpoints de chat
+						.requestMatchers(HttpMethod.POST, "/chat/conversations").authenticated()
+						.requestMatchers(HttpMethod.POST, "/chat/conversations/**").authenticated()
 						.requestMatchers("/swagger/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs",
 								"/v3/api-docs/**")
 						.permitAll()
