@@ -14,6 +14,9 @@ indent_size = 4
 [backend/**.yaml]
 indent_size = 2
 
+[backend/**.xml]
+indent_size = 4
+
 # Ejemplos de uso
 
 # [datascience/**.py]

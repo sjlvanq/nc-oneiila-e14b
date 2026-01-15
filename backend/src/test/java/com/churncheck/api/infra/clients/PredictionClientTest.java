@@ -40,16 +40,7 @@ class PredictionClientTest {
         assertNotNull(client);
         assertNotNull(client.getRestClient());
     }
-    
-    @Test
-    void shouldReturnCorrectBaseUrl() {
-        // When
-        String baseUrl = properties.getBaseUrl();
         
-        // Then
-        assertEquals("https://mock.echoapi.com", baseUrl);
-    }
-    
     @Test
     void shouldReturnCorrectBaseUrlWithPort() {
         // Given

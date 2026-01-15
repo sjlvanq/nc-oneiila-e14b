@@ -140,11 +140,7 @@ public class ClientController {
     })
     @GetMapping("/{id}/prediction")
     public ResponseEntity<ClientFullResponseDTO> getClientPrediction(@PathVariable Long id){
-        try {
-            ClientFullResponseDTO prediction = clientService.predictChurn(id);
-            return ResponseEntity.ok(prediction);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        ClientFullResponseDTO prediction = clientService.predictChurn(id);
+        return ResponseEntity.ok(prediction);
     }
 }

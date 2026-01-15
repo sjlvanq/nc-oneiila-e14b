@@ -2,10 +2,11 @@
 external:
   prediction:
     host: "https://lode.uno"
-    port: 443
+    port: 80
     endpoint: "/churncheck.php"
-    timeout: 5000
-    retries: 3
+    connect-timeout: 4000
+    connection-timeout: 4000
+    read-timeout: 4000
 
 logging:
   level:

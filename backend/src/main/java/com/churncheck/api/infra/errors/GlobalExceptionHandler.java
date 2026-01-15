@@ -16,13 +16,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.infra.errors.dto.ErrorStatusResponseFieldDTO;
+import com.churncheck.api.infra.errors.exceptions.MLServiceBadRequestException;
+import com.churncheck.api.infra.errors.exceptions.MLServiceTimeoutException;
+import com.churncheck.api.infra.errors.exceptions.MLServiceUnavailableException;
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -97,44 +98,36 @@ public class GlobalExceptionHandler {
     
     // --- PredictionClient
        
-    @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<ErrorStatusResponseDTO> handleResponseStatusException(ResponseStatusException ex) {
-        ErrorStatusResponseCodes code;
-        
-        // Mapeo lógico basado en el status capturado
-        if (ex.getStatusCode().equals(HttpStatus.BAD_GATEWAY)) {
-            code = ErrorStatusResponseCodes.BAD_GATEWAY_502;
-        } else if (ex.getStatusCode().equals(HttpStatus.SERVICE_UNAVAILABLE)) {
-            code = ErrorStatusResponseCodes.SERVICE_UNAVAILABLE_503;
-        } else if (ex.getStatusCode().equals(HttpStatus.GATEWAY_TIMEOUT)) {
-            code = ErrorStatusResponseCodes.GATEWAY_TIMEOUT_504;
-        } else {
-            code = ErrorStatusResponseCodes.INTERNAL_SERVER_ERROR_500;
-        }
-        return ResponseEntity.status(ex.getStatusCode()).body(
-                new ErrorStatusResponseDTO(code, ex.getReason()));
+    @ExceptionHandler(MLServiceTimeoutException.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleMLServiceTimeout(MLServiceTimeoutException ex) {
+        return ResponseEntity.status(HttpStatus.GATEWAY_TIMEOUT).body(
+                new ErrorStatusResponseDTO(
+                        ErrorStatusResponseCodes.GATEWAY_TIMEOUT_504,
+                        ex.getMessage()));
     }
-    
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorStatusResponseDTO> handleConstraintViolation(ConstraintViolationException ex) {
-        List<ErrorStatusResponseFieldDTO> errors = ex.getConstraintViolations().stream()
-                .map(violation -> new ErrorStatusResponseFieldDTO(
-                        violation.getPropertyPath().toString(),
-                        violation.getMessage()))
-                .toList();
 
+    @ExceptionHandler(MLServiceUnavailableException.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleMLServiceUnavailable(MLServiceUnavailableException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(
+                new ErrorStatusResponseDTO(
+                        ErrorStatusResponseCodes.BAD_GATEWAY_502,
+                        ex.getMessage()));
+    }
+
+    @ExceptionHandler(MLServiceBadRequestException.class)
+    public ResponseEntity<ErrorStatusResponseDTO> handleMLServiceBadRequest(MLServiceBadRequestException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorStatusResponseDTO(
                         ErrorStatusResponseCodes.BAD_REQUEST_400,
-                        "Validation error in the submitted data",
-                        errors));
+                        ex.getMessage()));
     }
     
     // --- Catch-all
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorStatusResponseDTO> handleAllUncaughtException(Exception ex) {
-        logger.severe("Unknown error occurred: " + ex.getMessage());
+        logger.severe("CATCH-ALL triggered for: " + ex.getClass().getName());
+        ex.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                 new ErrorStatusResponseDTO(
                         ErrorStatusResponseCodes.INTERNAL_SERVER_ERROR_500,
