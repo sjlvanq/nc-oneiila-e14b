@@ -1,16 +1,45 @@
-# React + Vite
+![ORACLE + Alura Latam](../docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+***Desafío intensivo de innovación para participantes de todo Latam.***
 
-Currently, two official plugins are available:
+powered by ![NoCountry](../docs/assets/nocountry-logo.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+----
 
-## React Compiler
+# ChurnCheck - Frontend
+## Predicción de Cancelación de Clientes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Proyecto ChurnInsight
+* **Equipo: H12-25-L-Equipo 14-Data Science**
 
-## Expanding the ESLint configuration
+-----
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* [Documentación Frontend](docs/README.md)
+
+![Equipo Frontend](docs/assets/churncheck-frontend.png)
+*Equipo Frontend*
+
+-----
+
+### Ejecución del entorno de desarrollo
+
+```
+# Instalar las dependencias
+npm install
+
+# Iniciar el servidor
+npm run dev
+
+# Para acceso desde otros dispositivos en la red:
+# npm run dev -- --host
+```
+
+-----
+
+[README de Vite](VITE-README.md)
+
+[CONTRIBUTING.md](../docs/CONTRIBUTING.md)
+
+
+

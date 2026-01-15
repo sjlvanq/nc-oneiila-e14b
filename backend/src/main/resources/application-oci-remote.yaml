@@ -1,0 +1,12 @@
+# Para test del RestClient sobre un servidor real con endpoint simulado
+external:
+  prediction:
+    host: "http://40.233.25.25"
+    port: 8000
+    endpoint: "/predict"
+    timeout: 5000
+    retries: 3
+
+logging:
+  level:
+    web: DEBUG
