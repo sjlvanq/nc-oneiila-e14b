@@ -33,22 +33,22 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @Column(name = "active")
     private Boolean active = true;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<AdditionalCharge> additionalCharges = new ArrayList<>();
-    
+
     @Column(name = "birth_date")
     private LocalDate birthDate;
-    
+
     @Formula("TIMESTAMPDIFF(YEAR, birth_date, CURDATE())")
     private Integer age;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<Attendance> attendances = new ArrayList<>();
-    
+
     @Column(name = "name")
     private String clientName;
 
@@ -57,7 +57,7 @@ public class Client {
 
     @Column(name = "contract_period")
     private Integer contractPeriod;
-    
+
     @Column(name = "contract_start_date")
     private LocalDate contractStartDate;
 
@@ -66,22 +66,31 @@ public class Client {
 
     @Column(name = "group_visit")
     private Boolean groupVisits;
-    
+
     @Column(name = "near_location")
     private Boolean nearLocation;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "partner_id")
     private Partner partner;
-    
+
     @Column(name = "promo_friends")
     private Boolean promoFriends;
-    
-    
+
     @Column(name = "registration_date")
     private Instant registrationDate;
 
-    public Client() {}
+    @Column(name = "last_prediction_churn")
+    private Byte lastPredictionChurn;
+
+    @Column(name = "last_prediction_probability")
+    private Double lastPredictionProbability;
+
+    @Column(name = "last_prediction_timestamp")
+    private Instant lastPredictionTimestamp;
+
+    public Client() {
+    }
 
     public static Client createFromDto(ClientCreateRequestDTO dto, Partner partner) {
         Client client = new Client();
@@ -95,138 +104,162 @@ public class Client {
         client.contractPeriod = dto.contractPeriod();
         client.groupVisits = dto.groupVisits();
         client.active = dto.active() != null ? dto.active() : true;
-        
+
         client.registrationDate = Instant.now();
         client.contractStartDate = LocalDate.now();
-        
+
         return client;
     }
-    
+
     public void deleteClient() {
         this.active = false;
     }
-    
+
     public Boolean getActive() {
-		return active;
-	}
-    
+        return active;
+    }
+
     public List<AdditionalCharge> getAdditionalCharges() {
         return additionalCharges;
     }
-    
+
     public Integer getAge() {
-		return age;
-	}
-    
+        return age;
+    }
+
     public List<Attendance> getAttendances() {
         return attendances;
     }
 
-	public String getClientName() {
-		return clientName;
-	}
+    public String getClientName() {
+        return clientName;
+    }
 
-	public String getclientPhone() {
-		return this.clientPhone;
-	}
+    public String getclientPhone() {
+        return this.clientPhone;
+    }
 
-	public String getClientPhone() {
-		return clientPhone;
-	}
+    public String getClientPhone() {
+        return clientPhone;
+    }
 
-	public Integer getContractPeriod() {
-		return contractPeriod;
-	}
+    public Integer getContractPeriod() {
+        return contractPeriod;
+    }
 
-	public LocalDate getContractStartDate() {
+    public LocalDate getContractStartDate() {
         return contractStartDate;
     }
 
-	public Gender getGender() {
-		return gender;
-	}
+    public Gender getGender() {
+        return gender;
+    }
 
-	public Boolean getGroupVisits() {
-		return this.groupVisits;
-	}
+    public Boolean getGroupVisits() {
+        return this.groupVisits;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Boolean getNearLocation() {
-		return nearLocation;
-	}
+    public Boolean getNearLocation() {
+        return nearLocation;
+    }
 
-	public Partner getPartner() {
-		return this.partner;
-	}
+    public Partner getPartner() {
+        return this.partner;
+    }
 
-	public Boolean getPromoFriends() {
-		return promoFriends;
-	}
+    public Boolean getPromoFriends() {
+        return promoFriends;
+    }
 
+    public Byte getLastPredictionChurn() { 
+        return lastPredictionChurn; 
+    }
+
+    public Double getLastPredictionProbability() { 
+        return lastPredictionProbability; 
+    }
+
+    public Instant getLastPredictionTimestamp() { 
+        return lastPredictionTimestamp; 
+    }
+    
     public Instant getRegistrationDate() {
         return registrationDate;
     }
 
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 
-	public void setAge(Integer age) {
-		this.age = age;
-	}
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
-	public LocalDate getBirthDate() {
-	    return birthDate;
-	}
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
 
-	public void setBirthDate(LocalDate birthDate) {
-	    this.birthDate = birthDate;
-	}
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
 
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
 
-	public void setClientPhone(String clientPhone) {
-		this.clientPhone = clientPhone;
-	}
+    public void setClientPhone(String clientPhone) {
+        this.clientPhone = clientPhone;
+    }
 
-	public void setContractPeriod(Integer contractPeriod) {
-		this.contractPeriod = contractPeriod;
-	}
+    public void setContractPeriod(Integer contractPeriod) {
+        this.contractPeriod = contractPeriod;
+    }
 
-	public void setContractStartDate(LocalDate contractStartDate) {
+    public void setContractStartDate(LocalDate contractStartDate) {
         this.contractStartDate = contractStartDate;
     }
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
 
-	public void setGroupVisit(Boolean groupVisits) {
-		this.groupVisits = groupVisits;
-	}
+    public void setGroupVisit(Boolean groupVisits) {
+        this.groupVisits = groupVisits;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public void setNearLocation(Boolean nearLocation) {
-		this.nearLocation = nearLocation;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setPromoFriends(Boolean promoFriends) {
-		this.promoFriends = promoFriends;
-	}
+    public void setNearLocation(Boolean nearLocation) {
+        this.nearLocation = nearLocation;
+    }
 
-	public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
+    public void setPromoFriends(Boolean promoFriends) {
+        this.promoFriends = promoFriends;
+    }
+
+    public void setLastPredictionChurn(Byte churn) { 
+        this.lastPredictionChurn = churn; 
+    }
+
+    public void setLastPredictionProbability(Double probability) { 
+        this.lastPredictionProbability = probability; 
+    }
+
+    public void setLastPredictionTimestamp(Instant timestamp) { 
+        this.lastPredictionTimestamp = timestamp; 
+    }
+
+    public void updateClientData(ClientUpdateRequestDTO clientUpdateRequestDTO) {
         if (clientUpdateRequestDTO.clientName() != null) {
             this.clientName = clientUpdateRequestDTO.clientName();
         }
-        
+
         if (clientUpdateRequestDTO.clientPhone() != null) {
             this.clientPhone = clientUpdateRequestDTO.clientPhone();
         }
