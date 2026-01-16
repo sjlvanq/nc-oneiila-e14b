@@ -2,8 +2,8 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { SampleComponent1 } from './components/SampleComponent1'
 import { SampleGetComponent1 } from './components/SampleGetComponent1'
+import { SamplePostComponent1 } from './components/SamplePostComponent1'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +22,10 @@ function App() {
       
       <div className="card">
         <SampleGetComponent1 />
+      </div>
+
+      <div className="card">
+        <SamplePostComponent1 />
       </div>
 
       <div className="card">
