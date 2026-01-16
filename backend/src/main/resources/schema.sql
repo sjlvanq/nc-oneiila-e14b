@@ -69,7 +69,7 @@ CREATE TABLE clients (
   group_visit BOOLEAN,
   active BOOLEAN DEFAULT TRUE,
   last_prediction_churn TINYINT,
-  last_prediction_probability DECIMAL(1, 2),
+  last_prediction_probability DECIMAL(4, 3),
   last_prediction_timestamp TIMESTAMP
 );
 
