@@ -3,7 +3,6 @@ package com.churncheck.api.integration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import com.churncheck.api.domain.client.Gender;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.infra.security.LoginRequestDTO;
-import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.ApiApplication;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = {ApiApplication.class, TestConfig.class})
