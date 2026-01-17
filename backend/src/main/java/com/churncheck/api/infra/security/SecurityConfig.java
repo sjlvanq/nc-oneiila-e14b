@@ -22,15 +22,15 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true)
 
- public class SecurityConfig {
-     @Autowired
-     private SecurityFilter securityFilter;
-     
-     @Autowired
-     private CustomAuthenticationEntryPoint authEntryPoint;
+public class SecurityConfig {
+	@Autowired
+	private SecurityFilter securityFilter;
 
-     @Bean
-     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	@Autowired
+	private CustomAuthenticationEntryPoint authEntryPoint;
+
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
 				.cors(Customizer.withDefaults())
 				.csrf(c -> c.disable())
@@ -51,10 +51,10 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 						.permitAll()
 						.anyRequest().authenticated())
 
- 				.exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
- 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
- 				.build();
- 	}
+				.exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
+				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+				.build();
+	}
 
 	@Bean
 	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
