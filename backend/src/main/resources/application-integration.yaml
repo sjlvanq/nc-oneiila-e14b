@@ -1,12 +1,14 @@
 # Para test del RestClient sobre un servidor real con endpoint simulado
 external:
   prediction:
-    host: "https://lode.uno"
+    host: "https://mock.echoapi.com"
     port: 443
-    endpoint: "/churncheck.php"
+    endpoint: "/mock/590aa3d9c002000/predict"
+    api-key: "mock-api-key-12345"
     connect-timeout: 4000
     connection-timeout: 4000
     read-timeout: 4000
+    max-retries: 3
 
 logging:
   level:
