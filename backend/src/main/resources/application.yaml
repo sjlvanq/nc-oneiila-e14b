@@ -1,13 +1,17 @@
 spring:
   application:
-    name: demo
+    name: churncheck-api
   profiles:
-    active: integration
+    active: ${SPRING_PROFILES_ACTIVE:integration}
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: ""
+    # url: jdbc:h2:mem:testdb
+    url: ${DATABASE_URL}
+    # driverClassName: org.h2.Driver
+    driverClassName: ${DB_DRIVER}
+    # username: sa
+    username: ${DB_USERNAME}
+    # password: ""
+    password: ${DB_PASSWORD}
   h2:
     console:
       enabled: true
@@ -27,7 +31,7 @@ spring:
   security:
     token:
       # TODO: Cambiar por una variable de entorno
-      secret: H12-25-L-Equipo14-DataScience
+      secret: ${JWT_SECRET}
 springdoc:
   api-docs:
     version: OPENAPI_3_0
@@ -35,10 +39,13 @@ springdoc:
 # Configuración del servicio de predicción ML
 external:
   prediction:
-    host: "https://mock.echoapi.com"
+    # host: "https://mock.echoapi.com"
+    host: ${ML_SERVICE_HOST}
     port: 443
-    endpoint: "/mock/590aa3d9c002000/predict"
-    api-key: "mock-api-key-12345"
+    # endpoint: "/mock/590aa3d9c002000/predict"
+    endpoint: ${ML_SERVICE_ENDPOINT}
+    # api-key: "mock-api-key-12345"
+    api-key: ${ML_API_KEY}
     connect-timeout: 5000
     connection-timeout: 5000
     read-timeout: 10000
