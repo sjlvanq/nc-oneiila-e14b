@@ -1,0 +1,52 @@
+# Configuración de Producción
+spring:
+  application:
+    name: churncheck-api
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: ${DB_DRIVER}
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      show-sql: false
+    defer-datasource-initialization: false
+  security:
+    token:
+      secret: ${JWT_SECRET}
+  sql:
+    init:
+      mode: always
+
+# Configuración del servicio de predicción ML
+external:
+  prediction:
+    host: ${ML_SERVICE_HOST}
+    port: 443
+    endpoint: ${ML_SERVICE_ENDPOINT}
+    api-key: ${ML_API_KEY}
+    connect-timeout: 10000
+    connection-timeout: 10000
+    read-timeout: 30000
+    max-retries: 3
+
+# Logging para producción
+logging:
+  level:
+    root: INFO
+    com.churncheck: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "/var/log/churncheck/application.log"
+
+# Documentación
+springdoc:
+  api-docs:
+    enabled: false
