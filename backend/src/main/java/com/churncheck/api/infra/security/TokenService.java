@@ -14,7 +14,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 @Service
 public class TokenService {
 
-    @Value("${spring.security.token.secret:valor_por_defecto_solo_entorno_dev}")
+    @Value("${spring.security.token.secret}")
     private String secret;
 
 	//https://github.com/auth0/java-jwt
