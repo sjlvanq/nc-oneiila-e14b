@@ -2,6 +2,7 @@ package com.churncheck.api.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -29,6 +30,9 @@ class ChurnServiceTest {
 
     @Mock
     private com.churncheck.api.domain.client.ClientPredictionMapper mapper;
+
+    @Mock
+    private com.churncheck.api.domain.client.ClientRepository clientRepository;
 
     @InjectMocks
     private ChurnService churnService;
@@ -94,6 +98,7 @@ class ChurnServiceTest {
         
         when(mapper.toPredictionRequest(client)).thenReturn(expectedRequest);
         when(predictionClient.predict(expectedRequest)).thenReturn(expectedResponse);
+        when(clientRepository.save(any(Client.class))).thenReturn(client);
         
         // When (Act)
         PredictionResponseDTO result = churnService.predict(client);
