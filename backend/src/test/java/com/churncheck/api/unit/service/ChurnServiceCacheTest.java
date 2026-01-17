@@ -99,11 +99,12 @@ class ChurnServiceCacheTest {
         when(clientRepository.save(any())).thenReturn(client);
 
         // When
-        PredictionResponseDTO
-    result = churnService.predict(client);
+        PredictionResponseDTO result = churnService.predict(client);
 
         // Then: Debe llamar al microservicio
         verify(predictionClient, times(1)).predict(any());
         verify(clientRepository, times(1)).save(client);
+        assertEquals((byte) 1, result.churn());
+        assertEquals(0.75, result.probability());
     }
 }
