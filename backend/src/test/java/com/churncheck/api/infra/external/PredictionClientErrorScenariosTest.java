@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -19,11 +20,10 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
 
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
+import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 import com.churncheck.api.infra.errors.exceptions.MLServiceBadRequestException;
 import com.churncheck.api.infra.errors.exceptions.MLServiceTimeoutException;
 import com.churncheck.api.infra.errors.exceptions.MLServiceUnavailableException;
-import com.churncheck.api.infra.external.PredictionClient;
-import com.churncheck.api.infra.external.PredictionProperties;
 
 import jakarta.validation.Validator;
 
@@ -140,7 +140,7 @@ class PredictionClientErrorScenariosTest {
         when(requestBodyUriSpec.uri(any(String.class))).thenReturn(requestBodySpec);
         when(requestBodySpec.body(any())).thenReturn(requestBodySpec);
         when(requestBodySpec.retrieve()).thenReturn(responseSpec);
-        when(responseSpec.body(any(Class.class))).thenReturn(null);
+        when(responseSpec.body(eq(PredictionResponseDTO.class))).thenReturn(null);
         
         // When & Then
         MLServiceUnavailableException exception = assertThrows(MLServiceUnavailableException.class, () -> 
