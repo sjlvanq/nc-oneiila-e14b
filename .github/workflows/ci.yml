@@ -38,6 +38,11 @@ jobs:
         name: Maven Tests
         path: backend/target/surefire-reports/*.xml
         reporter: java-junit
+        list-suites: all
+        list-tests: all
+        max-annotations: 15
+        fail-on-error: true
+        fail-on-empty: true
         
     - name: Build JAR
       working-directory: ./backend
