@@ -27,8 +27,7 @@ import com.churncheck.api.infra.security.LoginRequestDTO;
     "spring.sql.init.mode=always",
     "external.prediction.connect-timeout=4000",
     "external.prediction.connection-timeout=4000",
-    "external.prediction.read-timeout=4000",
-    "server.port=0"
+    "external.prediction.read-timeout=4000"
 })
 class IntegrationTest {
     
