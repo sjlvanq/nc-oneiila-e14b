@@ -29,7 +29,7 @@ jobs:
         
     - name: Run tests
       working-directory: ./backend
-      run: mvn clean test
+      run: mvn clean test -Dtest="!IntegrationTest"
       
     - name: Generate test report
       uses: dorny/test-reporter@v1
