@@ -490,3 +490,620 @@ INSERT INTO attendance (client_id, checked_in_at) VALUES
 (4, '2025-05-12 19:00:00'), (4, '2025-05-14 07:45:00'), (4, '2025-05-16 08:30:00'), (4, '2025-05-19 19:15:00'),
 (4, '2025-05-21 07:30:00'), (4, '2025-05-23 08:00:00'), (4, '2025-05-26 19:30:00'), (4, '2025-05-28 07:45:00'),
 (4, '2025-05-30 18:15:00');
+
+-- =====================================================
+-- NUEVOS CLIENTES (5-19) - Datos para predicción ML
+-- =====================================================
+
+-- Cliente 5: Perfil joven, alto riesgo
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Alex Thompson', '555-0505', 'MALE', '2007-06-15', 0, NULL, 0, 
+ '2025-10-01', '2025-10-01', 1, 0, 1);
+
+-- Cliente 6: Perfil adulto, bajo riesgo
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Sarah Johnson', '555-0606', 'FEMALE', '1985-03-20', 1, 1, 1, 
+ '2024-02-15', '2024-02-15', 12, 1, 1);
+
+-- Cliente 7: Perfil medio, empleado partner
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Carlos Rodriguez', '555-0707', 'MALE', '1992-11-08', 1, 2, 0, 
+ '2024-08-10', '2024-08-10', 6, 1, 1);
+
+-- Cliente 8: Perfil joven, nuevo cliente
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Emma Wilson', '555-0808', 'FEMALE', '2006-09-12', 0, NULL, 1, 
+ '2025-11-20', '2025-11-20', 1, 0, 1);
+
+-- Cliente 9: Perfil estable, contrato largo
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('David Martinez', '555-0909', 'MALE', '1988-04-25', 1, 1, 0, 
+ '2023-12-01', '2023-12-01', 12, 1, 1);
+
+-- Cliente 10: Perfil riesgo medio, sin teléfono
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Lisa Chen', NULL, 'FEMALE', '1995-07-30', 0, NULL, 0, 
+ '2025-09-05', '2025-09-05', 6, 1, 1);
+
+-- Cliente 11: Perfil alto engagement
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Robert Taylor', '555-1111', 'MALE', '1990-02-18', 1, 2, 1, 
+ '2024-05-12', '2024-05-12', 12, 1, 1);
+
+-- Cliente 12: Perfil joven, promo amigos
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Maria Garcia', '555-1212', 'FEMALE', '2005-12-03', 1, 1, 1, 
+ '2025-08-15', '2025-08-15', 6, 0, 1);
+
+-- Cliente 13: Perfil adulto, bajo engagement
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('James Anderson', '555-1313', 'MALE', '1984-08-14', 0, NULL, 0, 
+ '2024-11-20', '2024-11-20', 1, 0, 1);
+
+-- Cliente 14: Perfil medio, partner employee
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Jennifer White', '555-1414', 'FEMALE', '1993-05-22', 1, 2, 0, 
+ '2025-01-10', '2025-01-10', 12, 1, 1);
+
+-- Cliente 15: Perfil nuevo, potencial churn
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Michael Brown', '555-1515', 'MALE', '2007-01-28', 0, NULL, 0, 
+ '2025-12-15', '2025-12-15', 1, 0, 1);
+
+-- Cliente 16: Perfil estable, alto gasto
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Amanda Davis', '555-1616', 'FEMALE', '1989-10-07', 1, 1, 1, 
+ '2023-09-18', '2023-09-18', 12, 1, 1);
+
+-- Cliente 17: Perfil joven, sin partner
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Kevin Miller', '555-1717', 'MALE', '2006-03-12', 0, NULL, 0, 
+ '2025-07-22', '2025-07-22', 6, 1, 1);
+
+-- Cliente 18: Perfil adulto, contrato corto
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Susan Lee', '555-1818', 'FEMALE', '1987-06-25', 1, 1, 0, 
+ '2025-04-08', '2025-04-08', 1, 0, 1);
+
+-- Cliente 19: Perfil medio, nuevo registro
+INSERT INTO clients (
+    name, phone, gender, birth_date, near_location, partner_id, promo_friends,
+    registration_date, contract_start_date, contract_period, group_visit, active
+) VALUES 
+('Thomas Harris', '555-1919', 'MALE', '1994-09-16', 0, NULL, 1, 
+ '2026-01-05', '2026-01-05', 6, 1, 1);
+
+-- =====================================================
+-- CARGOS ADICIONALES para nuevos clientes
+-- =====================================================
+
+-- Cliente 5: Alex Thompson - Bajo gasto
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(5, 2, 15.50, '2025-10-15'),
+(5, 2, 22.00, '2025-11-05');
+
+-- Cliente 6: Sarah Johnson - Alto gasto regular
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(6, 1, 80.00, '2024-03-10'),
+(6, 2, 45.25, '2024-04-15'),
+(6, 1, 75.50, '2024-05-20'),
+(6, 2, 38.75, '2024-06-12'),
+(6, 1, 90.00, '2024-07-18'),
+(6, 2, 52.30, '2024-08-22'),
+(6, 1, 85.25, '2024-09-25'),
+(6, 2, 41.60, '2024-10-30'),
+(6, 1, 95.00, '2024-11-15'),
+(6, 2, 48.90, '2024-12-20'),
+(6, 1, 88.75, '2025-01-10'),
+(6, 2, 55.20, '2025-02-14'),
+(6, 1, 92.50, '2025-03-18'),
+(6, 2, 43.80, '2025-04-22'),
+(6, 1, 87.00, '2025-05-28');
+
+-- Cliente 7: Carlos Rodriguez - Gasto moderado
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(7, 1, 65.00, '2024-09-15'),
+(7, 2, 32.50, '2024-10-20'),
+(7, 1, 58.75, '2024-11-25'),
+(7, 2, 28.90, '2024-12-30'),
+(7, 1, 62.00, '2025-01-15'),
+(7, 2, 35.40, '2025-02-18');
+
+-- Cliente 8: Emma Wilson - Bajo gasto esporádico
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(8, 2, 18.75, '2025-12-05'),
+(8, 1, 45.00, '2025-12-28');
+
+-- Cliente 9: David Martinez - Gasto alto y consistente
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(9, 1, 120.00, '2023-12-15'),
+(9, 2, 65.50, '2024-01-20'),
+(9, 1, 110.25, '2024-02-25'),
+(9, 2, 58.90, '2024-03-30'),
+(9, 1, 115.00, '2024-04-15'),
+(9, 2, 62.30, '2024-05-20'),
+(9, 1, 125.50, '2024-06-25'),
+(9, 2, 70.00, '2024-07-30'),
+(9, 1, 118.75, '2024-08-15'),
+(9, 2, 55.25, '2024-09-20'),
+(9, 1, 122.00, '2024-10-25'),
+(9, 2, 68.40, '2024-11-30'),
+(9, 1, 130.00, '2025-01-10'),
+(9, 2, 72.60, '2025-02-14'),
+(9, 1, 126.25, '2025-03-18');
+
+-- Cliente 10: Lisa Chen - Sin teléfono, gasto moderado
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(10, 2, 25.50, '2025-09-20'),
+(10, 1, 55.00, '2025-10-25'),
+(10, 2, 30.75, '2025-11-30'),
+(10, 1, 48.90, '2025-12-15');
+
+-- Cliente 11: Robert Taylor - Gasto variado
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(11, 1, 75.00, '2024-06-15'),
+(11, 2, 42.50, '2024-07-20'),
+(11, 1, 68.75, '2024-08-25'),
+(11, 2, 38.90, '2024-09-30'),
+(11, 1, 72.00, '2024-10-15'),
+(11, 2, 45.30, '2024-11-20'),
+(11, 1, 78.50, '2024-12-25'),
+(11, 2, 40.60, '2025-01-10'),
+(11, 1, 82.00, '2025-02-14'),
+(11, 2, 48.80, '2025-03-18'),
+(11, 1, 76.25, '2025-04-22');
+
+-- Cliente 12: Maria Garcia - Gasto bajo
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(12, 2, 20.50, '2025-09-20'),
+(12, 1, 35.00, '2025-10-25'),
+(12, 2, 18.75, '2025-11-30'),
+(12, 1, 42.90, '2025-12-15');
+
+-- Cliente 13: James Anderson - Muy bajo gasto
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(13, 2, 12.50, '2024-12-15'),
+(13, 1, 25.00, '2025-01-20');
+
+-- Cliente 14: Jennifer White - Gasto moderado alto
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(14, 1, 85.00, '2025-02-15'),
+(14, 2, 48.50, '2025-03-20'),
+(14, 1, 78.75, '2025-04-25'),
+(14, 2, 52.90, '2025-05-30'),
+(14, 1, 82.00, '2025-06-15'),
+(14, 2, 45.30, '2025-07-20'),
+(14, 1, 88.50, '2025-08-25'),
+(14, 2, 50.60, '2025-09-30'),
+(14, 1, 86.00, '2025-10-15'),
+(14, 2, 47.80, '2025-11-20'),
+(14, 1, 90.25, '2025-12-25');
+
+-- Cliente 15: Michael Brown - Sin gasto (alto riesgo)
+-- (Sin registros de additional_charges - indicador de churn)
+
+-- Cliente 16: Amanda Davis - Gasto premium
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(16, 1, 150.00, '2023-10-15'),
+(16, 2, 85.50, '2023-11-20'),
+(16, 1, 145.25, '2023-12-25'),
+(16, 2, 78.90, '2024-01-30'),
+(16, 1, 155.00, '2024-02-15'),
+(16, 2, 92.30, '2024-03-20'),
+(16, 1, 148.50, '2024-04-25'),
+(16, 2, 88.60, '2024-05-30'),
+(16, 1, 160.00, '2024-06-15'),
+(16, 2, 95.25, '2024-07-20'),
+(16, 1, 152.00, '2024-08-25'),
+(16, 2, 90.40, '2024-09-30'),
+(16, 1, 165.50, '2024-10-15'),
+(16, 2, 98.80, '2024-11-20'),
+(16, 1, 158.25, '2024-12-25'),
+(16, 2, 86.60, '2025-01-10'),
+(16, 1, 162.00, '2025-02-14'),
+(16, 2, 102.80, '2025-03-18'),
+(16, 1, 170.00, '2025-04-22');
+
+-- Cliente 17: Kevin Miller - Gasto moderado
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(17, 2, 28.50, '2025-08-20'),
+(17, 1, 55.00, '2025-09-25'),
+(17, 2, 32.75, '2025-10-30'),
+(17, 1, 48.90, '2025-11-15'),
+(17, 2, 26.60, '2025-12-20');
+
+-- Cliente 18: Susan Lee - Gasto bajo
+INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) VALUES
+(18, 2, 22.50, '2025-05-15'),
+(18, 1, 38.00, '2025-06-20');
+
+-- Cliente 19: Thomas Harris - Nuevo cliente
+-- (Sin registros aún - cliente muy reciente)
+
+-- =====================================================
+-- ASISTENCIA para nuevos clientes (rangos ML: 0.00-6.15 visitas/semana)
+-- =====================================================
+
+-- Cliente 5: Alex Thompson - Baja frecuencia (alto riesgo)
+-- Registrado: 2025-10-01 (3.3 meses = ~14.3 semanas)
+-- avg_class_frequency_total: 0.3 visitas/semana → ~4 visitas totales
+-- avg_class_frequency_current_month: 0.1 visitas/semana → ~0 visitas en enero 2026
+
+-- Octubre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(5, '2025-10-05 10:00:00'),
+(5, '2025-10-20 18:30:00');
+
+-- Noviembre 2025 - 1 visita
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(5, '2025-11-15 09:30:00');
+
+-- Diciembre 2025 - 1 visita
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(5, '2025-12-10 17:45:00');
+
+-- Enero 2026 - 0 visitas (alto riesgo churn)
+
+-- Cliente 6: Sarah Johnson - Alta frecuencia (bajo riesgo)
+-- Registrada: 2024-02-15 (11 meses = ~47.7 semanas)
+-- avg_class_frequency_total: 3.8 visitas/semana → ~181 visitas totales
+-- avg_class_frequency_current_month: 3.5 visitas/semana → ~5 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 5 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(6, '2026-01-02 07:00:00'),
+(6, '2026-01-03 18:00:00'),
+(6, '2026-01-05 09:30:00'),
+(6, '2026-01-07 17:30:00'),
+(6, '2026-01-09 08:15:00');
+
+-- Diciembre 2025 - 16 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(6, '2025-12-01 07:30:00'), (6, '2025-12-03 17:45:00'), (6, '2025-12-05 08:00:00'), (6, '2025-12-07 18:15:00'),
+(6, '2025-12-09 07:15:00'), (6, '2025-12-11 18:30:00'), (6, '2025-12-13 09:00:00'), (6, '2025-12-15 17:00:00'),
+(6, '2025-12-17 08:30:00'), (6, '2025-12-19 18:45:00'), (6, '2025-12-21 07:45:00'), (6, '2025-12-23 17:15:00'),
+(6, '2025-12-25 09:30:00'), (6, '2025-12-27 18:00:00'), (6, '2025-12-29 08:15:00'), (6, '2025-12-31 17:30:00');
+
+-- Noviembre 2025 - 15 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(6, '2025-11-02 07:00:00'), (6, '2025-11-04 18:15:00'), (6, '2025-11-06 08:30:00'), (6, '2025-11-08 17:45:00'),
+(6, '2025-11-10 07:15:00'), (6, '2025-11-12 18:30:00'), (6, '2025-11-14 09:00:00'), (6, '2025-11-16 17:00:00'),
+(6, '2025-11-18 08:45:00'), (6, '2025-11-20 18:00:00'), (6, '2025-11-22 07:30:00'), (6, '2025-11-24 17:15:00'),
+(6, '2025-11-26 09:15:00'), (6, '2025-11-28 18:45:00'), (6, '2025-11-30 08:00:00');
+
+-- Cliente 7: Carlos Rodriguez - Frecuencia media
+-- Registrado: 2024-08-10 (5 meses = ~21.7 semanas)
+-- avg_class_frequency_total: 2.2 visitas/semana → ~48 visitas totales
+-- avg_class_frequency_current_month: 2.0 visitas/semana → ~3 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(7, '2026-01-03 10:30:00'),
+(7, '2026-01-06 19:00:00'),
+(7, '2026-01-08 08:45:00');
+
+-- Diciembre 2025 - 9 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(7, '2025-12-02 10:00:00'), (7, '2025-12-05 18:30:00'), (7, '2025-12-09 09:15:00'), (7, '2025-12-12 19:15:00'),
+(7, '2025-12-16 10:30:00'), (7, '2025-12-19 18:00:00'), (7, '2025-12-23 09:45:00'), (7, '2025-12-26 17:30:00'),
+(7, '2025-12-30 10:15:00');
+
+-- Noviembre 2025 - 8 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(7, '2025-11-03 10:15:00'), (7, '2025-11-07 18:45:00'), (7, '2025-11-11 09:30:00'), (7, '2025-11-14 19:00:00'),
+(7, '2025-11-18 10:00:00'), (7, '2025-11-21 18:15:00'), (7, '2025-11-25 09:00:00'), (7, '2025-11-28 17:45:00');
+
+-- Octubre 2024 - 9 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(7, '2024-10-15 10:30:00'), (7, '2024-10-18 19:15:00'), (7, '2024-10-22 09:45:00'), (7, '2024-10-25 18:00:00'),
+(7, '2024-10-29 10:15:00'), (7, '2024-11-01 19:30:00'), (7, '2024-11-05 09:00:00'), (7, '2024-11-08 17:45:00'),
+(7, '2024-11-12 10:30:00');
+
+-- Cliente 8: Emma Wilson - Baja frecuencia (alto riesgo)
+-- Registrada: 2025-11-20 (1.6 meses = ~7 semanas)
+-- avg_class_frequency_total: 0.4 visitas/semana → ~3 visitas totales
+-- avg_class_frequency_current_month: 0.3 visitas/semana → ~0 visitas en enero 2026
+
+-- Diciembre 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(8, '2025-12-05 11:00:00'),
+(8, '2025-12-18 16:30:00'),
+(8, '2025-12-28 10:15:00');
+
+-- Enero 2026 - 0 visitas (alto riesgo)
+
+-- Cliente 9: David Martinez - Muy alta frecuencia (muy bajo riesgo)
+-- Registrado: 2023-12-01 (13 meses = ~56.5 semanas)
+-- avg_class_frequency_total: 4.2 visitas/semana → ~237 visitas totales
+-- avg_class_frequency_current_month: 4.0 visitas/semana → ~6 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(9, '2026-01-01 06:30:00'),
+(9, '2026-01-02 17:45:00'),
+(9, '2026-01-04 08:00:00'),
+(9, '2026-01-06 18:15:00'),
+(9, '2026-01-08 07:30:00'),
+(9, '2026-01-09 19:00:00');
+
+-- Diciembre 2025 - 18 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(9, '2025-12-01 06:45:00'), (9, '2025-12-02 18:00:00'), (9, '2025-12-03 07:15:00'), (9, '2025-12-04 17:30:00'),
+(9, '2025-12-05 08:30:00'), (9, '2025-12-06 19:15:00'), (9, '2025-12-07 07:00:00'), (9, '2025-12-08 18:45:00'),
+(9, '2025-12-09 09:00:00'), (9, '2025-12-10 17:15:00'), (9, '2025-12-11 08:30:00'), (9, '2025-12-12 19:30:00'),
+(9, '2025-12-13 07:45:00'), (9, '2025-12-14 18:00:00'), (9, '2025-12-15 09:15:00'), (9, '2025-12-16 17:45:00'),
+(9, '2025-12-17 08:00:00'), (9, '2025-12-18 19:15:00');
+
+-- Cliente 10: Lisa Chen - Frecuencia media
+-- Registrada: 2025-09-05 (4.2 meses = ~18.2 semanas)
+-- avg_class_frequency_total: 1.8 visitas/semana → ~33 visitas totales
+-- avg_class_frequency_current_month: 1.5 visitas/semana → ~2 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(10, '2026-01-04 12:00:00'),
+(10, '2026-01-07 17:30:00');
+
+-- Diciembre 2025 - 7 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(10, '2025-12-02 12:15:00'), (10, '2025-12-06 17:45:00'), (10, '2025-12-10 11:30:00'), (10, '2025-12-14 18:00:00'),
+(10, '2025-12-18 12:30:00'), (10, '2025-12-22 17:15:00'), (10, '2025-12-26 11:45:00');
+
+-- Noviembre 2025 - 8 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(10, '2025-11-03 12:00:00'), (10, '2025-11-07 17:30:00'), (10, '2025-11-11 11:15:00'), (10, '2025-11-15 18:15:00'),
+(10, '2025-11-19 12:30:00'), (10, '2025-11-23 17:00:00'), (10, '2025-11-27 11:45:00'), (10, '2025-11-30 18:30:00');
+
+-- Octubre 2025 - 8 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(10, '2025-10-05 12:15:00'), (10, '2025-10-09 17:45:00'), (10, '2025-10-13 11:30:00'), (10, '2025-10-17 18:00:00'),
+(10, '2025-10-21 12:00:00'), (10, '2025-10-25 17:15:00'), (10, '2025-10-29 11:45:00'), (10, '2025-11-02 18:30:00');
+
+-- Septiembre 2025 - 8 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(10, '2025-09-08 12:30:00'), (10, '2025-09-12 17:00:00'), (10, '2025-09-16 11:15:00'), (10, '2025-09-20 18:15:00'),
+(10, '2025-09-24 12:45:00'), (10, '2025-09-28 17:30:00');
+
+-- Cliente 11: Robert Taylor - Alta frecuencia
+-- Registrado: 2024-05-12 (8 meses = ~34.7 semanas)
+-- avg_class_frequency_total: 3.0 visitas/semana → ~104 visitas totales
+-- avg_class_frequency_current_month: 2.8 visitas/semana → ~4 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(11, '2026-01-02 09:00:00'),
+(11, '2026-01-04 18:30:00'),
+(11, '2026-01-07 07:45:00'),
+(11, '2026-01-09 19:15:00');
+
+-- Diciembre 2025 - 12 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(11, '2025-12-01 09:15:00'), (11, '2025-12-03 18:45:00'), (11, '2025-12-05 08:00:00'), (11, '2025-12-07 19:30:00'),
+(11, '2025-12-09 07:30:00'), (11, '2025-12-11 18:15:00'), (11, '2025-12-13 09:45:00'), (11, '2025-12-15 17:00:00'),
+(11, '2025-12-17 08:30:00'), (11, '2025-12-19 19:00:00'), (11, '2025-12-21 07:15:00'), (11, '2025-12-23 17:45:00');
+
+-- Cliente 12: Maria Garcia - Baja frecuencia
+-- Registrada: 2025-08-15 (4.8 meses = ~20.8 semanas)
+-- avg_class_frequency_total: 0.8 visitas/semana → ~17 visitas totales
+-- avg_class_frequency_current_month: 0.5 visitas/semana → ~1 visita en enero 2026
+
+-- Enero 2026 (hasta 10) - 1 visita
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(12, '2026-01-05 10:30:00');
+
+-- Diciembre 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(12, '2025-12-08 11:00:00'),
+(12, '2025-12-18 16:45:00'),
+(12, '2025-12-28 10:15:00');
+
+-- Noviembre 2025 - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(12, '2025-11-05 11:30:00'),
+(12, '2025-11-15 17:00:00'),
+(12, '2025-11-20 10:45:00'),
+(12, '2025-11-25 16:30:00');
+
+-- Octubre 2025 - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(12, '2025-10-02 11:15:00'),
+(12, '2025-10-12 17:15:00'),
+(12, '2025-10-18 10:30:00'),
+(12, '2025-10-28 16:45:00');
+
+-- Septiembre 2025 - 5 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(12, '2025-09-03 11:00:00'),
+(12, '2025-09-10 17:30:00'),
+(12, '2025-09-17 10:45:00'),
+(12, '2025-09-24 16:15:00'),
+(12, '2025-09-30 11:30:00');
+
+-- Cliente 13: James Anderson - Muy baja frecuencia (muy alto riesgo)
+-- Registrado: 2024-11-20 (1.6 meses = ~7 semanas)
+-- avg_class_frequency_total: 0.2 visitas/semana → ~1 visita total
+-- avg_class_frequency_current_month: 0.0 visitas/semana → 0 visitas en enero 2026
+
+-- Diciembre 2025 - 1 visita
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(13, '2025-12-15 14:00:00');
+
+-- Enero 2026 - 0 visitas (muy alto riesgo churn)
+
+-- Cliente 14: Jennifer White - Frecuencia media-alta
+-- Registrada: 2025-01-10 (12 meses = ~52 semanas)
+-- avg_class_frequency_total: 2.5 visitas/semana → ~130 visitas totales
+-- avg_class_frequency_current_month: 2.8 visitas/semana → ~4 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(14, '2026-01-01 08:30:00'),
+(14, '2026-01-03 19:00:00'),
+(14, '2026-01-06 07:15:00'),
+(14, '2026-01-08 18:30:00');
+
+-- Diciembre 2025 - 11 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(14, '2025-12-02 08:45:00'), (14, '2025-12-04 19:15:00'), (14, '2025-12-06 07:30:00'), (14, '2025-12-08 18:00:00'),
+(14, '2025-12-10 09:15:00'), (14, '2025-12-12 17:45:00'), (14, '2025-12-14 08:00:00'), (14, '2025-12-16 19:30:00'),
+(14, '2025-12-18 07:15:00'), (14, '2025-12-20 18:45:00'), (14, '2025-12-22 09:00:00');
+
+-- Cliente 15: Michael Brown - Sin asistencia (altísimo riesgo)
+-- Registrado: 2025-12-15 (3.7 semanas)
+-- avg_class_frequency_total: 0.0 visitas/semana → 0 visitas totales
+-- avg_class_frequency_current_month: 0.0 visitas/semana → 0 visitas en enero 2026
+
+-- (Sin registros de asistencia - cliente nunca asistió)
+
+-- Cliente 16: Amanda Davis - Frecuencia premium
+-- Registrada: 2023-09-18 (15.7 meses = ~68 semanas)
+-- avg_class_frequency_total: 4.5 visitas/semana → ~306 visitas totales
+-- avg_class_frequency_current_month: 4.2 visitas/semana → ~6 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(16, '2026-01-01 06:00:00'),
+(16, '2026-01-02 17:15:00'),
+(16, '2026-01-03 07:30:00'),
+(16, '2026-01-04 19:00:00'),
+(16, '2026-01-05 06:45:00'),
+(16, '2026-01-06 17:30:00');
+
+-- Cliente 17: Kevin Miller - Frecuencia media
+-- Registrado: 2025-07-22 (5.6 meses = ~24.3 semanas)
+-- avg_class_frequency_total: 1.5 visitas/semana → ~36 visitas totales
+-- avg_class_frequency_current_month: 1.2 visitas/semana → ~2 visitas en enero 2026
+
+-- Enero 2026 (hasta 10) - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(17, '2026-01-04 09:30:00'),
+(17, '2026-01-08 18:15:00');
+
+-- Diciembre 2025 - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(17, '2025-12-02 09:45:00'), (17, '2025-12-06 18:30:00'), (17, '2025-12-10 08:00:00'), (17, '2025-12-14 17:45:00'),
+(17, '2025-12-18 09:15:00'), (17, '2025-12-22 18:00:00');
+
+-- Noviembre 2025 - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(17, '2025-11-04 10:00:00'), (17, '2025-11-08 17:30:00'), (17, '2025-11-12 08:15:00'), (17, '2025-11-16 19:15:00'),
+(17, '2025-11-20 09:30:00'), (17, '2025-11-24 17:45:00');
+
+-- Octubre 2025 - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(17, '2025-10-02 10:15:00'), (17, '2025-10-06 18:00:00'), (17, '2025-10-10 08:30:00'), (17, '2025-10-14 17:15:00'),
+(17, '2025-10-18 09:45:00'), (17, '2025-10-22 18:30:00');
+
+-- Septiembre 2025 - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(17, '2025-09-03 10:00:00'), (17, '2025-09-07 17:45:00'), (17, '2025-09-11 08:15:00'), (17, '2025-09-15 19:00:00'),
+(17, '2025-09-19 09:30:00'), (17, '2025-09-23 17:15:00');
+
+-- Agosto 2025 - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(17, '2025-08-05 10:30:00'), (17, '2025-08-09 18:15:00'), (17, '2025-08-13 08:00:00'), (17, '2025-08-17 19:30:00'),
+(17, '2025-08-21 09:45:00'), (17, '2025-08-25 17:00:00');
+
+-- Cliente 18: Susan Lee - Baja frecuencia
+-- Registrada: 2025-04-08 (9 meses = ~39 semanas)
+-- avg_class_frequency_total: 0.6 visitas/semana → ~23 visitas totales
+-- avg_class_frequency_current_month: 0.3 visitas/semana → ~0 visitas en enero 2026
+
+-- Diciembre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-12-05 13:00:00'),
+(18, '2025-12-19 15:30:00');
+
+-- Noviembre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-11-08 13:15:00'),
+(18, '2025-11-22 15:45:00');
+
+-- Octubre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-10-06 13:30:00'),
+(18, '2025-10-20 15:15:00');
+
+-- Septiembre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-09-04 13:00:00'),
+(18, '2025-09-18 16:00:00');
+
+-- Agosto 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-08-07 13:45:00'),
+(18, '2025-08-14 15:30:00'),
+(18, '2025-08-21 13:15:00');
+
+-- Julio 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-07-02 13:00:00'),
+(18, '2025-07-16 16:15:00'),
+(18, '2025-07-30 13:30:00');
+
+-- Junio 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-06-04 13:45:00'),
+(18, '2025-06-18 15:00:00'),
+(18, '2025-06-25 13:15:00');
+
+-- Mayo 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-05-07 14:00:00'),
+(18, '2025-05-14 15:45:00'),
+(18, '2025-05-21 13:30:00');
+
+-- Abril 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(18, '2025-04-09 13:15:00'),
+(18, '2025-04-16 16:00:00'),
+(18, '2025-04-23 14:30:00');
+
+-- Cliente 19: Thomas Harris - Cliente muy nuevo
+-- Registrado: 2026-01-05 (5 días)
+-- avg_class_frequency_total: 0.0 visitas/semana → 0 visitas totales
+-- avg_class_frequency_current_month: 0.0 visitas/semana → 0 visitas en enero 2026
+
+-- (Sin registros de asistencia - cliente se registró hace 5 días)
