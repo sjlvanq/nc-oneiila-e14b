@@ -13,6 +13,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     // Buscar cliente por Id (para Sprint 2)
     Optional<Client> findById(Long id);
+    
+    Optional<Client> findByDni(String dni);
 
     Page<Client> findAllByActiveTrue(Pageable pageable);
     
