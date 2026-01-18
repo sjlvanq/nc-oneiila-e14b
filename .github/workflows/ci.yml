@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: dev-backend
     
     steps:
     - name: Checkout code
@@ -46,6 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     if: github.ref == 'refs/heads/backend/prod/v1.0'
+    environment: dev-backend
     
     steps:
     - name: Checkout code
