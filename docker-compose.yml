@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  backend:
+  churncheck-api:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: churncheck-backend
+    container_name: churncheck-api
     mem_limit: 512m
     ports:
       - "8080:8080"
@@ -17,7 +17,7 @@ services:
       DB_PASSWORD: ""
       
       # JWT
-      JWT_SECRET: mySecretKey123456789012345678901234567890
+      JWT_SECRET: c2lOJfwL7f2qyG39yoylfsuAUHdm7qxZUoOqPhe6930GkZp1fCkFhkyx4RRU5Mfuyk3y5VkqPyQrgGHts4I/0Q==
       
       # Perfil de Spring
       SPRING_PROFILES_ACTIVE: integration
@@ -26,18 +26,9 @@ services:
       ML_SERVICE_HOST: "https://mock.echoapi.com"
       ML_SERVICE_ENDPOINT: "/mock/590aa3d9c002000/predict"
       ML_API_KEY: "mock-api-key-12345"
-      
-      # H2 Console
-      H2_CONSOLE_ENABLED: "true"
     restart: unless-stopped
-    volumes:
-      - h2_data:/data
     networks:
       - churncheck-network
-
-volumes:
-  h2_data:
-    driver: local
 
 networks:
   churncheck-network:
