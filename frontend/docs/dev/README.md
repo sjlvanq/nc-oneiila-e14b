@@ -4,6 +4,14 @@
 
 -----
 
+## Arquitectura y Guías Técnicas
+
+* [Documentación de Consumo de API](consumo-api.md)
+* [Gestión de Autenticación (JWT)](auth-jwt.md)
+* [Backend - Referencia de API (Autogenerado)](../../backend/docs/specs/api-reference.md)
+
+-----
+
 ## Setup y pruebas
 
 ### Ejecución del entorno de desarrollo
