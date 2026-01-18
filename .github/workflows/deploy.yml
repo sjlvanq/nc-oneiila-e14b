@@ -1,0 +1,79 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ backend/prod/v1.0 ]
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+    branches: [ backend/prod/v1.0 ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'dev-backend'
+        type: choice
+        options:
+        - dev-backend
+        - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev-backend
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Deploy to server
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.PROD_HOST }}
+        username: ${{ secrets.PROD_USER }}
+        key: ${{ secrets.PROD_SSH_KEY }}
+        script: |
+          cd /opt/churncheck
+          
+          # Exportar secrets como variables de entorno
+          export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}"
+          export JWT_SECRET="${{ secrets.JWT_SECRET }}"
+          export ML_API_KEY="${{ secrets.ML_API_KEY }}"
+          export ML_SERVICE_HOST="${{ secrets.ML_SERVICE_HOST }}"
+          export ML_SERVICE_ENDPOINT="${{ secrets.ML_SERVICE_ENDPOINT }}"
+          
+          # Crear archivo .env para H2 (base de datos en memoria)
+          cat > .env << EOF
+          JWT_SECRET=$JWT_SECRET
+          ML_API_KEY=$ML_API_KEY
+          ML_SERVICE_HOST=$ML_SERVICE_HOST
+          ML_SERVICE_ENDPOINT=$ML_SERVICE_ENDPOINT
+          SPRING_PROFILES_ACTIVE=integration
+          DATABASE_URL=jdbc:h2:mem:churncheckdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+          DB_DRIVER=org.h2.Driver
+          DB_USERNAME=sa
+          DB_PASSWORD=""
+          EOF
+          
+          # Pull de la nueva imagen
+          docker pull ${{ secrets.DOCKER_USERNAME }}/churncheck-api:${{ github.sha }}
+          
+          # Detener servicios antiguos
+          docker-compose down
+          
+          # Iniciar servicios nuevos
+          docker-compose up -d
+          
+          # Esperar a que el servicio esté listo
+          sleep 30
+          
+          # Verificar que el servicio esté corriendo
+          docker-compose ps
+          
+          # Limpiar imágenes antiguas
+          docker image prune -f
+          
+          echo "Deploy completed successfully!"
