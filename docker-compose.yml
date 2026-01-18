@@ -1,8 +1,6 @@
 services:
   churncheck-api:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: ${DOCKER_USERNAME:-churncheck}/churncheck-api:${GITHUB_SHA:-latest}
     container_name: churncheck-api
     mem_limit: 512m
     ports:
@@ -15,15 +13,15 @@ services:
       DB_PASSWORD: ""
       
       # JWT
-      JWT_SECRET: c2lOJfwL7f2qyG39yoylfsuAUHdm7qxZUoOqPhe6930GkZp1fCkFhkyx4RRU5Mfuyk3y5VkqPyQrgGHts4I/0Q==
+      JWT_SECRET: ${JWT_SECRET}
       
       # Perfil de Spring
       SPRING_PROFILES_ACTIVE: integration
       
-      # Servicio ML (valores por defecto)
-      ML_SERVICE_HOST: "https://mock.echoapi.com"
-      ML_SERVICE_ENDPOINT: "/mock/590aa3d9c002000/predict"
-      ML_API_KEY: "mock-api-key-12345"
+      # Servicio ML
+      ML_SERVICE_HOST: ${ML_SERVICE_HOST}
+      ML_SERVICE_ENDPOINT: ${ML_SERVICE_ENDPOINT}
+      ML_API_KEY: ${ML_API_KEY}
     restart: unless-stopped
     networks:
       - churncheck-network
