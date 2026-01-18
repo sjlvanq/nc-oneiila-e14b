@@ -27,6 +27,7 @@ INSERT INTO charge_types (name) VALUES
 
 -- Clients
 INSERT INTO clients (
+    dni,  
     name,
     phone,
     gender,
@@ -42,22 +43,22 @@ INSERT INTO clients (
 ) VALUES 
 -- Cliente 1: Perfil de retención alta
 (
-    'John Doe', '555-0101', 'MALE', '1994-01-01', 1, 1, 1,
+    'DNI-1001','John Doe', '555-0101', 'MALE', '1994-01-01', 1, 1, 1,
     '2024-01-01', '2024-01-01', 12, 1, 1
 ),
 -- Cliente 2: Perfil de alto riesgo de Churn
 (
-    'Jane Smith', '555-0202', 'FEMALE', '2002-01-01', 0, NULL, 0, 
+    'DNI-1002','Jane Smith', '555-0202', 'FEMALE', '2002-01-01', 0, NULL, 0, 
     '2025-12-01', '2025-12-01', 1, 0, 1
 ),
 -- Cliente 3: Perfil intermedio
 (
-    'Mike Ross', '555-0303', 'MALE', '1998-01-01', 1, 2, 1, 
+    'DNI-1003','Mike Ross', '555-0303', 'MALE', '1998-01-01', 1, 2, 1, 
     '2025-11-15', '2025-11-15', 6, 1, 1
 ),
 -- Cliente 4: Nuevo cliente para pruebas
 (
-    'María García López', '555-0404', 'FEMALE', '1999-01-01', 1, 1, 1, 
+    'DNI-1004','María García López', '555-0404', 'FEMALE', '1999-01-01', 1, 1, 1, 
     '2024-06-01', '2024-06-01', 12, 1, 1
 );
 
