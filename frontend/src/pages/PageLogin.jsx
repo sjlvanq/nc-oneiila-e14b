@@ -1,10 +1,16 @@
 import Login from '../components/Login'
+import styles from './PageLogin.module.css';
+import logo from './img/logo-churncheck.png'
 
 export default function PageLogin(){
     return (
-        <div>
-            <h1>Login</h1>
-            <Login />
+        <div className={styles.loginWrapper}>
+            <div className={styles.loginCard}>
+                <img src={logo} className={styles.loginCardLogo} alt="ChurnCheck Logo" />
+                <h2>Qué bueno verte de nuevo</h2>
+                <Login />
+            </div>
+            
         </div>
     )
 }
