@@ -1,12 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-dom";
+
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './routes/ProtectedRoute';
+
 import Inicio from './pages/Inicio';
-import Perfil from './pages/Perfil';
 import PageLogin from './pages/PageLogin';
+import PageDashboard from './pages/PageDashboard';
+
 import Navbar from './layouts/Navbar';
 
 function Layout() {
@@ -30,12 +32,22 @@ const router = createBrowserRouter([
     element: <Layout />, // El Layout envuelve a los hijos
     children: [
       {
-        path: "/", // Ruta cuando estás en el inicio
+        path: "/", // Login e Inicio desprotegidas
         element: <Inicio />,
       },
       {
-        path: "perfil", // Ruta para /perfil
-        element: <Perfil />,
+        path: "login",
+        element: <PageLogin />,
+      },
+      // Protegidas
+      {
+        element: <ProtectedRoute />, 
+        children: [
+          {
+            path: "dashboard",
+            element: <PageDashboard />,
+          },
+        ],
       },
       {
         path: "login", // Ruta para /login
@@ -50,8 +62,8 @@ const router = createBrowserRouter([
 // 3. Aplicación principal
 export default function App() {
   return (
-    <>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </>
+    </AuthProvider>
   );
 }
