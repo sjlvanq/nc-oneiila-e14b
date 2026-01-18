@@ -22,3 +22,6 @@ const { token, isAuthenticated, login, logout } = useAuth();
 ## Rutas Protegidas
 
 Para proteger una vista, se debe registrar dentro del grupo de `ProtectedRoute` en `src/App.jsx`. Esto impide el acceso vía URL a usuarios no autenticados.
+
+-----
+[Volver a Documentación interna de Frontend](README.md)

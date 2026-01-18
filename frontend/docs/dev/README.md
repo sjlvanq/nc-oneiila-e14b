@@ -1,6 +1,7 @@
 # Documentación de desarrollo - Frontend - ChurnCheck
 
-* [Frontend - README.md](../README.md)
+* [Frontend - README.md](../../README.md)
+* [Frontend - Documentación de desarrollo - README.md](../README.md)
 
 -----
 
