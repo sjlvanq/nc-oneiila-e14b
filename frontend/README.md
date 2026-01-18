@@ -15,7 +15,7 @@ powered by ![NoCountry](../docs/assets/nocountry-logo.png)
 
 -----
 
-* [Documentación Frontend](docs/README.md)
+* [Documentación de desarrollo](docs/README.md)
 
 ![Equipo Frontend](docs/assets/churncheck-frontend.png)
 *Equipo Frontend*

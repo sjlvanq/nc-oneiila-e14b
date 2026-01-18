@@ -32,4 +32,4 @@ Contamos con lógica automatizada en `src/interceptors/`:
 > **Regla:** Nunca añadas el header `Authorization` manualmente en tus componentes.
 
 -----
-[Volver a Documentación interna de Frontend](README.md)
+[Volver a Documentación interna de Frontend](../README.md)
