@@ -19,15 +19,16 @@ import org.springframework.web.client.RestTemplate;
 import com.churncheck.api.domain.client.Gender;
 import com.churncheck.api.domain.client.dto.ClientCreateRequestDTO;
 import com.churncheck.api.infra.security.LoginRequestDTO;
-import com.churncheck.api.ApiApplication;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = {ApiApplication.class, TestConfig.class})
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-    "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1",
+    "spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
     "spring.jpa.hibernate.ddl-auto=create-drop",
+    "spring.sql.init.mode=always",
     "external.prediction.connect-timeout=4000",
     "external.prediction.connection-timeout=4000",
-    "external.prediction.read-timeout=4000"
+    "external.prediction.read-timeout=4000",
+    "server.port=0"
 })
 class IntegrationTest {
     
