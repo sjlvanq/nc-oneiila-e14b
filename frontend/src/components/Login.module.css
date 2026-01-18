@@ -19,6 +19,7 @@
         transform: translateY(0%);
     }
 }
+
 .error{
     color:red;
     animation: errorShow 1s ease;
