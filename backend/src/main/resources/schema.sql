@@ -57,6 +57,7 @@ CREATE TABLE group_activity_attendance (
 CREATE TABLE clients (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   partner_id BIGINT, --Nullable
+  dni VARCHAR(15) UNIQUE NOT NULL,
   name VARCHAR(100) NOT NULL,
   phone VARCHAR(15),
   gender VARCHAR(10),
