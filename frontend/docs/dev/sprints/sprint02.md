@@ -1,4 +1,4 @@
-#Frontend - Sprint 2
+# Frontend - Sprint 2
 Inicio: 2026-01-20 | Fin: 2026-01-22
 
 # Resumen
@@ -23,9 +23,12 @@ Este sprint se enfoca en la transición hacia la funcionalidad operativa de la p
  * Visualización: Mostrar el resultado de la predicción (probabilidad de abandono).
 3. Navegación y Acceso (Dev 4)
  * Navbar: Migrar los estilos temporales a Navbar.module.css para asegurar aislamiento de estilos.
- * Renderizado Condicional: * En la Home: El botón de acción debe alternar entre "Iniciar Sesión" (público) e "Ir al Dashboard" (si ya hay sesión activa).
+ * Renderizado Condicional: 
+    * En la Home: El botón de acción debe alternar entre "Iniciar Sesión" (público) e "Ir al Dashboard" (si ya hay sesión activa).
 
-Nuevos archivos y modificaciones
+## Nuevos archivos y modificaciones
+
+```
 ├── src
 │   ├── components
 │   │   ├── layout
@@ -38,14 +41,15 @@ Nuevos archivos y modificaciones
 │   └── pages
 │       └── DashboardPage.jsx              [* Dev 2, Dev 3] -> Integración de Stats y Churn
 │
-├── backend
-│   └── ...         [+ Dev 1
+└── backend
+    └── ...         [+ Dev 1
 
+```
 
 Entregables Técnicos
  * Métricas en Vivo: Dashboard mostrando datos reales de la base de datos (Clientes totales, activos y edad promedio).
  * Buscador de Churn: Herramienta funcional para predecir el abandono de un cliente específico mediante su DNI.
- * Sistema de Navegación: Navbar profesional con respuesta dinámica al estado de autenticación del usuario.
+ * Sistema de Navegación: Navbar con respuesta dinámica al estado de autenticación del usuario.
 Análisis de Riesgos
  * Acoplamiento en Dashboard: Dev 2 y Dev 3 trabajarán sobre la misma página (DashboardPage.jsx). Se requiere coordinación o uso de ramas separadas para evitar conflictos de fusión.
  * Cálculo de Promedios: Se recomienda que el Backend maneje el redondeo de la edad promedio a un decimal para simplificar la visualización en el Frontend.
