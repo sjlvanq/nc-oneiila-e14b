@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reportes Ejecutivos | ChurnCheck</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body{
+      margin:0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background:#f4f6f9;
+      color:#1f2937;
+    }
+
+    /* ====== LAYOUT ====== */
+    .layout{
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* ====== SIDEBAR ====== */
+    .sidebar{
+      width:240px;
+      background:#0f172a;
+      color:#fff;
+      padding:20px;
+    }
+
+    .sidebar h2{
+      margin:0 0 30px;
+      font-size:20px;
+    }
+
+    .menu a{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 15px;
+      margin-bottom:6px;
+      border-radius:8px;
+      text-decoration:none;
+      color:#cbd5f5;
+      font-size:14px;
+    }
+
+    .menu a.active,
+    .menu a:hover{
+      background:#1e293b;
+      color:#fff;
+    }
+
+    /* ====== CONTENT ====== */
+    .content{
+      flex:1;
+      padding:30px;
+    }
+
+    h1{
+      margin-top:0;
+      margin-bottom:25px;
+    }
+
+    /* ====== KPI CARDS ====== */
+    .kpis{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      margin-bottom:30px;
+    }
+
+    .kpi{
+      background:#fff;
+      border-radius:14px;
+      padding:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,.05);
+    }
+
+    .kpi span{
+      font-size:13px;
+      color:#6b7280;
+    }
+
+    .kpi h3{
+      margin:10px 0 5px;
+      font-size:26px;
+    }
+
+    .kpi small{
+      color:#16a34a;
+      font-weight:600;
+    }
+
+    /* ====== GRID ====== */
+    .grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:25px;
+      margin-bottom:30px;
+    }
+
+    .card{
+      background:#fff;
+      border-radius:14px;
+      padding:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,.05);
+    }
+
+    .card h3{
+      margin-top:0;
+      margin-bottom:15px;
+    }
+
+    /* ====== STATES ====== */
+    .states{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .state{
+      padding:14px;
+      border-radius:10px;
+      background:#f8fafc;
+      display:flex;
+      justify-content:space-between;
+      font-weight:600;
+    }
+
+    /* ====== TABLE ====== */
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+    }
+
+    th,td{
+      padding:12px;
+      border-bottom:1px solid #e5e7eb;
+      text-align:left;
+      font-size:14px;
+    }
+
+    th{
+      color:#6b7280;
+      font-weight:600;
+    }
+
+    tr:hover{
+      background:#f9fafb;
+    }
+
+    .badge{
+      padding:5px 10px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:600;
+      color:#fff;
+    }
+
+    .alto{background:#ef4444;}
+    .medio{background:#f59e0b;}
+    .bajo{background:#22c55e;}
+
+    .btn{
+      padding:6px 12px;
+      border-radius:6px;
+      background:#2563eb;
+      color:#fff;
+      text-decoration:none;
+      font-size:13px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:15px;
+    }
+
+    .export{
+      background:#111827;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <h2>ChurnCheck</h2>
+    <nav class="menu">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="clientes.html">Clientes</a>
+      <a href="riesgo.html">Riesgo</a>
+      <a href="retencion.html">Retención</a>
+      <a href="reportes.html" class="active">Reportes</a>
+      <a href="index.html">Salir</a>
+    </nav>
+  </aside>
+
+  <!-- ===== CONTENT ===== -->
+  <main class="content">
+
+    <h1>Reportes Ejecutivos</h1>
+
+    <!-- KPI -->
+    <section class="kpis">
+      <div class="kpi">
+        <span>Clientes Totales</span>
+        <h3>1,240</h3>
+        <small>+4.2%</small>
+      </div>
+      <div class="kpi">
+        <span>Activos</span>
+        <h3>1,096</h3>
+        <small>+2.1%</small>
+      </div>
+      <div class="kpi">
+        <span>En Riesgo</span>
+        <h3>96</h3>
+        <small>-1.8%</small>
+      </div>
+      <div class="kpi">
+        <span>Churn</span>
+        <h3>48</h3>
+        <small>-3.4%</small>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="grid">
+      <div class="card">
+        <h3>Distribución por Edad</h3>
+        <canvas id="edadChart"></canvas>
+      </div>
+
+      <div class="card">
+        <h3>Estado de Clientes</h3>
+        <div class="states">
+          <div class="state"><span>Activos</span><span>88%</span></div>
+          <div class="state"><span>Riesgo</span><span>8%</span></div>
+          <div class="state"><span>Churn</span><span>4%</span></div>
+          <div class="state"><span>Recuperados</span><span>12%</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABLE -->
+    <section class="card">
+      <h3>Detalle de Clientes Críticos</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>DNI</th>
+            <th>Riesgo</th>
+            <th>Acción</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Carlos Méndez</td>
+            <td>87654321</td>
+            <td><span class="badge alto">ALTO</span></td>
+            <td>Contacto + Incentivo</td>
+            <td>Seguimiento</td>
+            <td><a class="btn" href="perfil.html?id=87654321">Ver ficha</a></td>
+          </tr>
+          <tr>
+            <td>Ana López</td>
+            <td>12345678</td>
+            <td><span class="badge medio">MEDIO</span></td>
+            <td>Descuento</td>
+            <td>Exitoso</td>
+            <td><a class="btn" href="perfil.html?id=12345678">Ver ficha</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="actions">
+        <button class="btn export">Exportar PDF</button>
+        <button class="btn export">Exportar Excel</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  new Chart(document.getElementById('edadChart'),{
+    type:'doughnut',
+    data:{
+      labels:['18-25','26-40','41-55','55+'],
+      datasets:[{
+        data:[25,40,22,13],
+        backgroundColor:['#22c55e','#3b82f6','#f59e0b','#ef4444']
+      }]
+    },
+    options:{
+      plugins:{legend:{position:'bottom'}}
+    }
+  });
+</script>
+
+</body>
+</html>

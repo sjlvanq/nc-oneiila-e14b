@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | ChurnCheck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #f4f6f9;
+      overflow: hidden;
+    }
+
+    /* FONDO CON MARCA DE AGUA */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("img/logo-churncheck.png") center no-repeat;
+      background-size: 420px;
+      opacity: 0.04;
+      z-index: 0;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 72px;
+      background: linear-gradient(90deg, #0a1430, #020617);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      z-index: 10;
+    }
+
+    header img {
+      height: 48px;
+    }
+
+    /* CONTENEDOR LOGIN */
+    .login-wrapper {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      padding-top: 72px;
+    }
+
+    .login-card {
+      background: white;
+      width: 100%;
+      max-width: 420px;
+      padding: 32px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .login-card img {
+      width: 140px;
+      margin-bottom: 16px;
+    }
+
+    .login-card h2 {
+      margin-bottom: 24px;
+      color: #111827;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+    }
+
+    .login-card button {
+      width: 100%;
+      padding: 14px;
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-card button:hover {
+      background: #16a34a;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* FOOTER */
+    footer {
+      position: fixed;
+      bottom: 16px;
+      width: 100%;
+      text-align: center;
+      color: #6b7280;
+      font-size: 14px;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <img src="img/logo-churncheck.png" alt="ChurnCheck Logo">
+  </header>
+
+  <!-- LOGIN -->
+  <div class="login-wrapper">
+    <div class="login-card">
+      <img src="img/logo-churncheck.png" alt="Logo ChurnCheck">
+      <h2>Qué bueno verte de nuevo</h2>
+
+      <input type="email" placeholder="Correo electrónico">
+      <input type="password" placeholder="Contraseña">
+
+      <button onclick="window.location.href='dashboard.html'">
+        Entrar
+      </button>
+
+      <a href="index.html" class="back-link">← Volver</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © ChurnCheck
+  </footer>
+
+</body>
+</html>

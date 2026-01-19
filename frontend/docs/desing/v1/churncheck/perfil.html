@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil del Cliente | ChurnCheck</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+    }
+
+    header {
+      background: linear-gradient(90deg, #0f172a, #020617);
+      padding: 14px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 14px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.08);
+      margin-bottom: 25px;
+    }
+
+    .perfil-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .perfil-img {
+      text-align: center;
+    }
+
+    .perfil-img img {
+      width: 160px;
+      border-radius: 50%;
+      border: 5px solid #22c55e;
+    }
+
+    .estado {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .alto { background: #ef4444; }
+    .medio { background: #f59e0b; }
+    .bajo { background: #22c55e; }
+
+    .datos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .dato {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .alerta {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .acciones button {
+      background: #22c55e;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+
+    .acciones button:hover {
+      opacity: 0.9;
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    @media(max-width: 900px) {
+      .perfil-grid, .charts {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="img/logo-churncheck.png" alt="ChurnCheck">
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="riesgo.html">Riesgo</a>
+    <a href="retencion.html">Retención</a>
+    <a href="reportes.html">Reportes</a>
+    <a href="index.html">Salir</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- PERFIL -->
+  <div class="card perfil-grid">
+    <div class="perfil-img">
+      <img src="img/woman.jpg" alt="Cliente">
+    </div>
+
+    <div>
+      <h2 id="nombre">Carlos Méndez</h2>
+      <span id="estado" class="estado alto">RIESGO ALTO</span>
+
+      <div class="datos">
+        <div class="dato"><strong>DNI:</strong> <span id="dni">87654321</span></div>
+        <div class="dato"><strong>Edad:</strong> 42 años</div>
+        <div class="dato"><strong>Sexo:</strong> Masculino</div>
+        <div class="dato"><strong>Estatura:</strong> 1.74 m</div>
+        <div class="dato"><strong>Peso:</strong> 92 kg</div>
+        <div class="dato"><strong>Contrato vence:</strong> 20/02/2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALERTA IA -->
+  <div class="card alerta">
+    ⚠️ Predicción IA: Alto riesgo de abandono (87%)  
+    Motivo principal: baja asistencia + contrato próximo a vencer.
+  </div>
+
+  <!-- GRÁFICOS -->
+  <div class="card charts">
+    <div>
+      <h3>Asistencia últimos 6 meses</h3>
+      <canvas id="asistenciaChart"></canvas>
+    </div>
+
+    <div>
+      <h3>Riesgo por factores</h3>
+      <canvas id="riesgoChart"></canvas>
+    </div>
+  </div>
+
+  <!-- ACCIONES -->
+  <div class="card acciones">
+    <h3>Acciones de Retención</h3>
+    <button onclick="accion('Llamada personalizada')">📞 Llamada</button>
+    <button onclick="accion('Correo motivacional')">📧 Correo</button>
+    <button onclick="accion('Descuento 20%')">🎁 Descuento</button>
+    <button onclick="volver()">⬅ Volver</button>
+  </div>
+
+</div>
+
+<footer>
+  © ChurnCheck
+</footer>
+
+<script>
+  // Simulación gráfica
+  new Chart(document.getElementById('asistenciaChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Ago','Sep','Oct','Nov','Dic','Ene'],
+      datasets: [{
+        label: '% Asistencia',
+        data: [55, 48, 42, 38, 35, 32],
+        backgroundColor: '#22c55e'
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false }},
+      scales: { y: { beginAtZero: true, max: 100 } }
+    }
+  });
+
+  new Chart(document.getElementById('riesgoChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Asistencia', 'Contrato', 'Edad', 'Uso'],
+      datasets: [{
+        data: [40, 30, 15, 15],
+        backgroundColor: ['#ef4444','#f59e0b','#3b82f6','#22c55e']
+      }]
+    }
+  });
+
+  function accion(tipo) {
+    alert('Acción registrada: ' + tipo);
+  }
+
+  function volver() {
+    history.back();
+  }
+</script>
+
+</body>
+</html>

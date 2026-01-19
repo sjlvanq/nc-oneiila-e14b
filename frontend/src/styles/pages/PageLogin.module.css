@@ -1,35 +1,39 @@
-.loginWrapper{
-    height: 100%;
+.loginWrapper {
+    min-height: calc(100vh - 72px);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     z-index: 1;
-    /* padding-top: 72px; */
 }
-.loginCard{
+
+.loginCard {
     background: white;
     width: 100%;
     max-width: 70%;
     padding: 2em 3em;
     border-radius: 1em;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    text-align: center; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    text-align: center;
     animation: show 1s ease;
 }
+
 @keyframes show {
-    from{
+    from {
         opacity: 0;
     }
-    to{
+
+    to {
         opacity: 1;
     }
 }
-.loginCardLogo{
+
+.loginCardLogo {
     width: 11em;
     /* margin-bottom: 16px; */
 }
-.loginCard h2{
+
+.loginCard h2 {
     /* margin-bottom: 24px; */
     color: #111827;
 }

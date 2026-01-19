@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import styles from './Inicio.module.css';
+import styles from '@/styles/pages/Home.module.css';
 
-export default function Inicio(){
+export default function Inicio() {
     return (
         <div>
             <section className={styles.hero}>

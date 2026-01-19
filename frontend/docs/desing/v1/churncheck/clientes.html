@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Clientes | ChurnCheck</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f3f4f6;
+}
+
+/* HEADER */
+header {
+  height: 72px;
+  background: linear-gradient(90deg, #0a1430, #020617);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 36px;
+}
+
+header img {
+  height: 50px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 26px;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* CONTENEDOR */
+.container {
+  padding: 40px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* BUSCADOR */
+.search-box {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  margin-bottom: 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+
+.search-box button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #22c55e;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* TABLA */
+.table-container {
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #f9fafb;
+}
+
+th, td {
+  padding: 16px;
+  text-align: left;
+}
+
+th {
+  font-size: 14px;
+  color: #374151;
+}
+
+tr:not(:last-child) {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.estado {
+  font-weight: bold;
+}
+
+.activo {
+  color: #16a34a;
+}
+
+.riesgo {
+  color: #f59e0b;
+}
+
+.critico {
+  color: #dc2626;
+}
+
+.ver {
+  color: #7c3aed;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.ver:hover {
+  text-decoration: underline;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #6b7280;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="img/logo-churncheck.png" alt="ChurnCheck">
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html">Salir</a>
+  </nav>
+</header>
+
+<div class="container">
+
+  <h1>Clientes del gimnasio</h1>
+
+  <!-- BUSCADOR -->
+  <div class="search-box">
+    <input type="text" placeholder="Buscar cliente por DNI o nombre">
+    <button>Buscar</button>
+  </div>
+
+  <!-- TABLA -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Plan</th>
+          <th>Asistencia</th>
+          <th>Estado</th>
+          <th>Perfil</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr>
+          <td>Ana López</td>
+          <td>12345678</td>
+          <td>Premium</td>
+          <td>2 días/semana</td>
+          <td class="estado riesgo">Riesgo</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+        <tr>
+          <td>Carlos Méndez</td>
+          <td>87654321</td>
+          <td>Básico</td>
+          <td>1 día/semana</td>
+          <td class="estado critico">Crítico</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+        <tr>
+          <td>María González</td>
+          <td>11223344</td>
+          <td>Premium</td>
+          <td>4 días/semana</td>
+          <td class="estado activo">Activo</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+        <tr>
+          <td>José Ramírez</td>
+          <td>99887766</td>
+          <td>Intermedio</td>
+          <td>3 días/semana</td>
+          <td class="estado activo">Activo</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+        <tr>
+          <td>Laura Pérez</td>
+          <td>44556677</td>
+          <td>Básico</td>
+          <td>1 día/semana</td>
+          <td class="estado riesgo">Riesgo</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+        <tr>
+          <td>Andrés Torres</td>
+          <td>55667788</td>
+          <td>Premium</td>
+          <td>5 días/semana</td>
+          <td class="estado activo">Activo</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+        <tr>
+          <td>Sofía Martínez</td>
+          <td>66778899</td>
+          <td>Intermedio</td>
+          <td>2 días/semana</td>
+          <td class="estado riesgo">Riesgo</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+        <tr>
+          <td>David Flores</td>
+          <td>77889900</td>
+          <td>Básico</td>
+          <td>0 días/semana</td>
+          <td class="estado critico">Crítico</td>
+          <td><a class="ver" href="perfil.html">Ver</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  © ChurnCheck
+</footer>
+
+</body>
+</html>

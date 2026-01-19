@@ -4,81 +4,81 @@ import { useNavigate } from 'react-router-dom';
 import api from '@/services/api';
 import { useAuth } from '@/contexts/AuthContext';
 
-import styles from './Login.module.css';
+import styles from '@/styles/components/Login.module.css';
 
 export default function Login() {
-	const { login, isAuthenticated } = useAuth();
-	const navigate = useNavigate();
+    const { login, isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
-	useEffect(() => {
+    useEffect(() => {
         if (isAuthenticated) {
             navigate('/dashboard');
         }
     }, [isAuthenticated, navigate]);
 
-	// Estados del formulario
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+    // States for the form
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-	// Estados de control visual
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState('');
-	const [response, setResponse] = useState(null);
+    // States for visual control
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [response, setResponse] = useState(null);
 
-	// Función que se comunica con el backend
-	const getToken = async (e) => {
-		e.preventDefault(); // Evita que la página se recargue
+    // Function to communicate with the backend
+    const getToken = async (e) => {
+        e.preventDefault(); // Prevent page reload
 
-		const postBody = {
-			email: username,
-			password: password
-		};
+        const postBody = {
+            email: username,
+            password: password
+        };
 
-		try {
-			setError('');
-			setResponse(null);
-			setLoading(true);
+        try {
+            setError('');
+            setResponse(null);
+            setLoading(true);
 
-			const response = await api.post('/login', postBody);
-			const data = response.data;
+            const response = await api.post('/login', postBody);
+            const data = response.data;
 
-			// Axios lanza un error (cae al catch) si el status no es 2xx
-			if (data.token) {
-				login(data.token);
-				navigate('/dashboard');
-			}
+            // Axios throws an error (goes to catch) if the status is not 2xx
+            if (data.token) {
+                login(data.token);
+                navigate('/dashboard');
+            }
 
-		} catch (error) {
-			if (error.response) {
-            	setError(error.response.data.message || 'Error en las credenciales');
+        } catch (error) {
+            if (error.response) {
+                setError(error.response.data.message || 'Error en las credenciales');
                 setResponse(error.response.data);
             } else {
                 setError("Sin conexión con el Backend");
             }
         } finally {
-			setLoading(false);
-		}
-	};
+            setLoading(false);
+        }
+    };
 
-	// Función auxiliar para mostrar errores por campo
-	const getFieldError = (fieldName) => {
-		if (!response || !response.fields) return null;
-		const fieldError = response.fields.find(f => f.field === fieldName);
-		return fieldError ? fieldError.message : null;
-	};
+    // Function to show errors by field
+    const getFieldError = (fieldName) => {
+        if (!response || !response.fields) return null;
+        const fieldError = response.fields.find(f => f.field === fieldName);
+        return fieldError ? fieldError.message : null;
+    };
 
-	return (
-		<div className={styles.card}>
+    return (
+        <div className={styles.card}>
             <div className={styles.cardMessage}>
-                {/* Muestra el token si existe */}
+                {/* Show token if exists */}
                 {/* {token && <p className={styles.success}>{token}</p>} */}
 
-                {/* Mensajes de estado */}
+                {/* Messages */}
                 {loading && <p className={styles.info}>Solicitando acceso...</p>}
-                {error && <p className={styles.error}>{error}</p>}            
+                {error && <p className={styles.error}>{error}</p>}
             </div>
-			{/* Formulario */}
-            <form>
+            {/* Form */}
+            <form onSubmit={getToken}>
                 <div className={styles.cardInput}>
                     <label htmlFor="username">
                         Nombre de usuario:
@@ -107,11 +107,11 @@ export default function Login() {
                     </p>
                 </div>
                 <div className={styles.cardButton}>
-                    <button type="button" onClick={getToken} disabled={loading}>
+                    <button type="submit" disabled={loading}>
                         Entrar
                     </button>
                 </div>
             </form>
-		</div>
-	);
+        </div>
+    );
 }
