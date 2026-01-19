@@ -5,41 +5,27 @@ import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 
+import MainLayout from './layouts/MainLayout';
+
 import Inicio from './pages/Home';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
 
-import Navbar from './layouts/Navbar';
-
-function Layout() {
-  return (
-    <>
-      <Navbar />
-
-      <main>
-        <Outlet />
-      </main>
-    </>
-  );
-}
-
-
-
-// 1. Definimos las rutas
+// Define the routes
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />, // El Layout envuelve a los hijos
+    element: <MainLayout />,
     children: [
       {
-        path: "/", // Login e Inicio desprotegidas
+        path: "/", // Login and Home are public
         element: <Inicio />,
       },
       {
         path: "login",
         element: <PageLogin />,
       },
-      // Protegidas
+      // Protected Routes
       {
         element: <ProtectedRoute />,
         children: [
@@ -50,7 +36,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "login", // Ruta para /login
+        path: "login", // Login is public
         element: <PageLogin />,
       },
     ],
@@ -59,7 +45,7 @@ const router = createBrowserRouter([
 
 
 
-// 3. Aplicación principal
+// Main App
 export default function App() {
   return (
     <AuthProvider>
