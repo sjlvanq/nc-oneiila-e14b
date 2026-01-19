@@ -34,6 +34,9 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "dni", nullable = false, unique = true, length = 20)
+    private String dni;
+
     @Column(name = "active")
     private Boolean active = true;
 
@@ -270,4 +273,17 @@ public class Client {
             this.birthDate = clientUpdateRequestDTO.birthDate();
         }
     }
+    public String getDni() {
+    return dni;
 }
+
+public void setDni(String dni) {
+    this.dni = dni;
+}
+
+}
+
+
+
+
+

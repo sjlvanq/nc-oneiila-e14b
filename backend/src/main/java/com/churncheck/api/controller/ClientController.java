@@ -143,4 +143,19 @@ public class ClientController {
         ClientFullResponseDTO prediction = clientService.predictChurn(id);
         return ResponseEntity.ok(prediction);
     }
+    
+    @Operation(summary = "Get churn prediction for client by DNI")
+@ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Prediction generated successfully"),
+    @ApiResponse(responseCode = "400", description = "Invalid DNI or prediction error",
+        content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
+    @ApiResponse(responseCode = "404", description = "Client not found",
+        content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+})
+@GetMapping("/prediction/{dni}")
+public ResponseEntity<ClientFullResponseDTO> getClientPredictionByDni(@PathVariable String dni){
+    ClientFullResponseDTO prediction = clientService.predictChurnByDni(dni);
+    return ResponseEntity.ok(prediction);
+}
+    
 }
