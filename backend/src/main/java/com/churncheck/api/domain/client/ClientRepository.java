@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -20,4 +21,9 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     
     // Validación de negocio - teléfono único
     boolean existsByClientPhone(String clientPhone);
+
+    long countByActiveTrue();
+
+    @Query("SELECT AVG(c.age) FROM Client c")
+    Double getAverageAge();
 }
