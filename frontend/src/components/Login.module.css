@@ -1,0 +1,60 @@
+.cardMessage {
+  min-height: 40px;
+}
+/* .success{
+    width: 100%; 
+    overflow: scroll;
+} */
+.fieldError{
+    color: orange;
+    animation: move 2s ease;
+}
+@keyframes move {
+    from{
+        opacity: 0;
+        transform: translateY(-40%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.error{
+    color:red;
+    animation: errorShow 1s ease;
+}
+@keyframes errorShow {
+    from{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+.cardButton button{
+    width: 100%;
+    padding: 14px;
+    background: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.cardButton button:hover{
+    background: #16a34a;;
+}
+.cardInput input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    color: #242424;
+    background-color: #f4f6f9;
+    border: 1px solid #242424;
+    font-size: 15px;
+}
