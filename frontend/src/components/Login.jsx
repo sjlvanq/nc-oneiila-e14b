@@ -16,18 +16,18 @@ export default function Login() {
         }
     }, [isAuthenticated, navigate]);
 
-    // Estados del formulario
+    // States for the form
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    // Estados de control visual
+    // States for visual control
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [response, setResponse] = useState(null);
 
-    // Función que se comunica con el backend
+    // Function to communicate with the backend
     const getToken = async (e) => {
-        e.preventDefault(); // Evita que la página se recargue
+        e.preventDefault(); // Prevent page reload
 
         const postBody = {
             email: username,
@@ -42,7 +42,7 @@ export default function Login() {
             const response = await api.post('/login', postBody);
             const data = response.data;
 
-            // Axios lanza un error (cae al catch) si el status no es 2xx
+            // Axios throws an error (goes to catch) if the status is not 2xx
             if (data.token) {
                 login(data.token);
                 navigate('/dashboard');
@@ -60,7 +60,7 @@ export default function Login() {
         }
     };
 
-    // Función auxiliar para mostrar errores por campo
+    // Function to show errors by field
     const getFieldError = (fieldName) => {
         if (!response || !response.fields) return null;
         const fieldError = response.fields.find(f => f.field === fieldName);
@@ -70,15 +70,15 @@ export default function Login() {
     return (
         <div className={styles.card}>
             <div className={styles.cardMessage}>
-                {/* Muestra el token si existe */}
+                {/* Show token if exists */}
                 {/* {token && <p className={styles.success}>{token}</p>} */}
 
-                {/* Mensajes de estado */}
+                {/* Messages */}
                 {loading && <p className={styles.info}>Solicitando acceso...</p>}
                 {error && <p className={styles.error}>{error}</p>}
             </div>
-            {/* Formulario */}
-            <form>
+            {/* Form */}
+            <form onSubmit={getToken}>
                 <div className={styles.cardInput}>
                     <label htmlFor="username">
                         Nombre de usuario:
@@ -107,7 +107,7 @@ export default function Login() {
                     </p>
                 </div>
                 <div className={styles.cardButton}>
-                    <button type="button" onClick={getToken} disabled={loading}>
+                    <button type="submit" disabled={loading}>
                         Entrar
                     </button>
                 </div>
