@@ -10,6 +10,7 @@ import MainLayout from './layouts/MainLayout';
 import Inicio from './pages/Home';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
+import NotFound from './pages/NotFound';
 
 // Define the routes
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "login", // Login is public
         element: <PageLogin />,
+      },
+      {
+        path: "*", // Catch-all route for 404
+        element: <NotFound />,
       },
     ],
   },
