@@ -4,13 +4,14 @@ import styles from '@/styles/components/DniSearch.module.css';
 export default function DniSearch() {
     const [dni, setDni] = useState('');
 
+    /*
     const handleInputChange = (e) => {
         const value = e.target.value;
         // Solo permitir números
         if (/^\d*$/.test(value)) {
             setDni(value);
         }
-    };
+    }; */
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -27,9 +28,9 @@ export default function DniSearch() {
                 type="text"
                 placeholder="Buscar cliente por DNI"
                 value={dni}
-                onChange={handleInputChange}
-                inputMode="numeric"
-                pattern="[0-9]*"
+                onChange={(e)=>setDni(e.currentTarget.value)}
+                //inputMode="numeric"
+                //pattern="[0-9]*"
             />
             <button type="submit">
                 Buscar cliente
