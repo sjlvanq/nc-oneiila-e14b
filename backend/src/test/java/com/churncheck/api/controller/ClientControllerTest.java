@@ -59,16 +59,17 @@ class ClientControllerTest {
         // Given
         ClientCreateRequestDTO dto = new ClientCreateRequestDTO(
             "John Doe",                    // clientName
-            true,                          // active
+            "DNI-1010",                    // dni
             Gender.MALE,                   // gender
+            LocalDate.of(2000, 1, 1),      // birthDate
+            "555-1234",                    // clientPhone
             true,                          // nearLocation
             1L,                            // partnerId
             true,                          // promoFriends
-            "555-1234",                    // clientPhone
-            LocalDate.of(2000, 1, 1),      // birthDate
             12,                            // contractPeriod
-            true                           // groupVisits
-        );
+            true,                          // groupVisits
+            true                           // active
+);
         
         ClientResponseDTO response = new ClientResponseDTO(
             1L, "John Doe", true, Gender.MALE, "555-1234", true, 30

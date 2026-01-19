@@ -30,6 +30,7 @@ import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
+import com.churncheck.api.domain.partner.Partner;
 import com.churncheck.api.service.ChurnService;
 import com.churncheck.api.service.ClientService;
 
@@ -53,19 +54,23 @@ class ClientServiceTest {
 
         // Given (Arrange)
         ClientCreateRequestDTO clientCreateRequestDTO = new ClientCreateRequestDTO(
-            "John Doe", 
-            true, 
-            Gender.MALE, 
-            true, 
-            null,  // partnerId = null to avoid searching for partner
-            true, 
-            "555-1234",
-            LocalDate.of(2000, 1, 1),
-            12, 
-            true
+                "John Doe",                    // clientName
+                "DNI-1010",                    // dni
+                Gender.MALE,                   // gender
+                LocalDate.of(2000, 1, 1),      // birthDate
+                "555-1234",                    // clientPhone
+                true,                          // nearLocation
+                1L,                            // partnerId
+                true,                          // promoFriends
+                12,                            // contractPeriod
+                true,                          // groupVisits
+                true                           // active
         );
 
         Client savedClient = createTestClient();
+        
+        Partner partner = new Partner();
+        when(partnerRepository.findById(clientCreateRequestDTO.partnerId())).thenReturn(Optional.of(partner));
         
         when(clientRepository.save(any(Client.class))).thenReturn(savedClient);
 
@@ -83,16 +88,17 @@ class ClientServiceTest {
 
         // Given (Arrange)
         ClientCreateRequestDTO clientCreateRequestDTO = new ClientCreateRequestDTO(
-            "Jane Smith", 
-            true, 
-            Gender.FEMALE, 
-            true, 
-            1L,
-            true, 
-            "555-5678", 
-            LocalDate.of(2000, 1, 1),
-            24, 
-            true
+                "John Doe",                    // clientName
+                "DNI-1010",                    // dni
+                Gender.MALE,                   // gender
+                LocalDate.of(2000, 1, 1),      // birthDate
+                "555-1234",                    // clientPhone
+                true,                          // nearLocation
+                1L,                            // partnerId
+                true,                          // promoFriends
+                12,                            // contractPeriod
+                true,                          // groupVisits
+                true                           // active
         );
 
         Client savedClient = createTestClient();
