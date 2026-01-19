@@ -7,6 +7,7 @@ import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.client.dto.StatisticsDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 import com.churncheck.api.domain.partner.Partner;
 import com.churncheck.api.domain.partner.PartnerRepository;
@@ -37,7 +38,7 @@ public class ClientService {
     public ClientResponseDTO createFromDto(ClientCreateRequestDTO dto) {
         Partner partner = null;
         if (dto.partnerId() != null) {
-            partner = partnerRepository.findById(dto.partnerId())                    
+            partner = partnerRepository.findById(dto.partnerId())
                 .orElseThrow(() -> new EntityNotFoundException("Partner not found"));
         }
         Client client = Client.createFromDto(dto, partner);
@@ -79,6 +80,17 @@ public class ClientService {
         PredictionResponseDTO prediction = churnService.predict(client);
         
         return new ClientFullResponseDTO(client, prediction);
+    }
+
+    public StatisticsDTO getGlobalStats() {
+        long total = clientRepository.count();
+        long active = clientRepository.countByActiveTrue();
+        Double avgAge = clientRepository.getAverageAge();
+
+        // Redondeo a 1 decimal
+        double roundedAvg = (avgAge != null) ? Math.round(avgAge * 10.0) / 10.0 : 0.0;
+
+        return new StatisticsDTO(total, active, roundedAvg);
     }
 }
 
