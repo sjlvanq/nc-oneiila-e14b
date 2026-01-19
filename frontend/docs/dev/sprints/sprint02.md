@@ -1,5 +1,5 @@
 # Frontend - Sprint 2
-Inicio: 2026-01-20 | Fin: 2026-01-22
+Inicio: 2026-01-19 | Fin: 2026-01-20
 
 # Resumen
 Este sprint se enfoca en la transición hacia la funcionalidad operativa de la plataforma. Se implementará la navegación definitiva con lógica de acceso dinámico, se expondrán y visualizarán las métricas generales del negocio y se habilitará la consulta individual de predicción de abandono (Churn) mediante DNI, aprovechando la refactorización del backend realizada en el ciclo anterior.
