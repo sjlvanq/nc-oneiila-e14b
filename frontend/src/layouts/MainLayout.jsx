@@ -10,19 +10,22 @@ export default function MainLayout() {
             <header>
                 <img src={logo} alt="ChurnCheck Logo" className="logo" />
                 <nav>
-
-                    {/* Navigation React */}
-                    <Link to="/">Inicio</Link>
-
-                    {isAuthenticated && (
-                        <Link to="/dashboard">Dashboard</Link>
-                    )}
-
-                    {/* Action Button */}
                     {!isAuthenticated ? (
-                        <Link to="/login" className="btn-login">Login</Link>
+                        <>
+                            <a href="#">Visión</a>
+                            <a href="#">Misión</a>
+                            <Link to="/">Inicio</Link>
+                            <Link to="/login" className="btn-login">Login</Link>
+                        </>
                     ) : (
-                        <button onClick={logout} className="btn-logout">Salir</button>
+                        <>
+                            <Link to="/dashboard">Dashboard</Link>
+                            <Link to="/clients">Clientes</Link>
+                            <Link to="/risk">Riesgo</Link>
+                            <Link to="/retention">Retención</Link>
+                            <Link to="/reports">Reportes</Link>
+                            <button onClick={logout} className="btn-logout">Salir</button>
+                        </>
                     )}
                 </nav>
             </header>
