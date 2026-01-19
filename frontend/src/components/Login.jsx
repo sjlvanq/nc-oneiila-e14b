@@ -1,12 +1,7 @@
-// export default function Login(){
-//     return (
-//         <div>
-//             <h1>Login</h1>
-//         </div>
-//     )
-// }
-
 import { useState } from 'react';
+
+import api from '@/services/api';
+
 import styles from './Login.module.css';
 
 export default function Login() {
@@ -18,7 +13,6 @@ export default function Login() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	const [response, setResponse] = useState(null);
-	const [token, setToken] = useState('');
 
 	// Función que se comunica con el backend
 	const getToken = async (e) => {
@@ -33,30 +27,20 @@ export default function Login() {
 			setError('');
 			setResponse(null);
 			setLoading(true);
-            setToken('');
 
-			const response = await fetch('http://localhost:8080/login', {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json',
-				},
-				body: JSON.stringify(postBody)
-			});
+			const response = await api.post('/login', postBody);
+			const data = response.data;
 
-			const data = await response.json();
-			setResponse(data);
-
-			if (response.ok) {
-				setToken(data.token);
-			} else {
-                setToken(''); 
-				setError(data.message || 'Error no especificado');
-			}
+			// Axios lanza un error (cae al catch) si el status no es 2xx
 
 		} catch (error) {
-			console.error("Sin conexión con el Backend");
-			setError("Sin conexión con el Backend");
-		} finally {
+			if (error.response) {
+            	setError(error.response.data.message || 'Error en las credenciales');
+                setResponse(error.response.data);
+            } else {
+                setError("Sin conexión con el Backend");
+            }
+        } finally {
 			setLoading(false);
 		}
 	};
@@ -79,7 +63,7 @@ export default function Login() {
                 {error && <p className={styles.error}>{error}</p>}            
             </div>
 			{/* Formulario */}
-            <form onSubmit={getToken}>
+            <form>
                 <div className={styles.cardInput}>
                     <label htmlFor="username">
                         Nombre de usuario:
@@ -108,7 +92,7 @@ export default function Login() {
                     </p>
                 </div>
                 <div className={styles.cardButton}>
-                    <button onClick={getToken} disabled={loading}>
+                    <button type="button" onClick={getToken} disabled={loading}>
                         Entrar
                     </button>
                 </div>
