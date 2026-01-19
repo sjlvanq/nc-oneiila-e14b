@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 
-import Inicio from './pages/Inicio';
+import Inicio from './pages/Home';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
 
@@ -15,7 +15,7 @@ function Layout() {
   return (
     <>
       <Navbar />
-      
+
       <main>
         <Outlet />
       </main>
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       },
       // Protegidas
       {
-        element: <ProtectedRoute />, 
+        element: <ProtectedRoute />,
         children: [
           {
             path: "dashboard",
