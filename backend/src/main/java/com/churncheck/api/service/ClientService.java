@@ -73,12 +73,12 @@ public class ClientService {
 
         return new ClientFullResponseDTO(client, prediction);
     }
-    public ClientFullResponseDTO predictChurnByDni(String dni) {
-    Client client = clientRepository.findByDni(dni)
-            .orElseThrow(() -> new EntityNotFoundException("Client not found with DNI: " + dni)
-               );
 
-    PredictionResponseDTO prediction = churnService.predict(client);
-    return new ClientFullResponseDTO(client, prediction);
+    public ClientFullResponseDTO predictChurnByDni(String dni) {
+        Client client = clientRepository.findByDni(dni).orElseThrow();
+        PredictionResponseDTO prediction = churnService.predict(client);
+        
+        return new ClientFullResponseDTO(client, prediction);
+    }
 }
 
