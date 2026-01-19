@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import api from '@/services/api';
+import { useAuth } from '@/contexts/AuthContext';
 
 import styles from './Login.module.css';
 
 export default function Login() {
+	const { login, isAuthenticated } = useAuth();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/dashboard');
+        }
+    }, [isAuthenticated, navigate]);
+
 	// Estados del formulario
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -32,6 +43,10 @@ export default function Login() {
 			const data = response.data;
 
 			// Axios lanza un error (cae al catch) si el status no es 2xx
+			if (data.token) {
+				login(data.token);
+				navigate('/dashboard');
+			}
 
 		} catch (error) {
 			if (error.response) {
