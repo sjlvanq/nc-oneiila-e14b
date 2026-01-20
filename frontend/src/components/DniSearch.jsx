@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import styles from '@/styles/components/DniSearch.module.css';
+import api from '@/services/api';
 
 export default function DniSearch() {
     const [dni, setDni] = useState('');
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [response, setResponse] = useState(null);
 
     /*
     const handleInputChange = (e) => {
@@ -13,16 +18,34 @@ export default function DniSearch() {
         }
     }; */
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
         if (dni) {
-            console.log("Buscando cliente con DNI:", dni);
-            // Aquí iría la navegación al perfil del cliente en el futuro
-            // navigate(`/profile/${dni}`);
+            try {
+                setError('');
+                setResponse(null);
+                setLoading(true);
+                
+                const response = await api.get(`/clients/prediction/${dni}`);
+                const data = response.data;
+                console.log(data);
+                setResponse(data);
+
+            } catch (error) {
+                if (error.response) {
+                    setError(error.response.data.message || 'Error al consultar churn');
+                    setResponse(error.response.data);
+                } else {
+                    setError("Sin conexión con el Backend");
+                }
+            } finally {
+                setLoading(false);
+            }
         }
     };
 
     return (
+        <>
         <form className={styles.searchBox} onSubmit={handleSearch}>
             <input
                 type="text"
@@ -36,5 +59,24 @@ export default function DniSearch() {
                 Buscar cliente
             </button>
         </form>
+
+        {loading && <p className={styles.info}>Consultando churn...</p>}
+        {error && <p className={styles.error}>{error}</p>}
+        
+        {!error && response && (
+            <div className={styles.card}>
+            <div className={styles.perfilGrid}>
+                <h2 id="nombre">{response.clientName}</h2>
+                <h3>Tel.: {response.clientPhone}</h3>
+                <div className={styles.datos}>
+                    <div className={styles.dato}><strong>Churn:</strong> {response.churn}</div>
+                    <div className={styles.dato}><strong>Probabilidad:</strong> {response.probability}</div>
+                    <div className={styles.dato}><strong>Timestamp:</strong> {response.timestamp}</div>
+                </div>
+            </div>
+            </div>
+        )}
+
+        </>
     );
 }
