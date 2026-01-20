@@ -1,22 +1,35 @@
 import { Link } from "react-router-dom";
 import { useAuth } from '@/contexts/AuthContext';
+import styles from '@/styles/components/Navbar.module.css'
+import homeicon from './icons/house-regular-full.svg'
+import dashicon from './icons/chart-line-solid-full.svg'
+import loginicon from './icons/arrow-right-to-bracket-solid-full.svg'
+import logouticon from './icons/arrow-right-from-bracket-solid-full.svg'
 
 export default function Navbar() {
     const { isAuthenticated, logout } = useAuth();
 
-    const navStyle = {
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '15px',
-        alignItems: 'center',
-        padding: '10px'
-    };
-
     return (
-        <nav style={navStyle}> {/* Reemplazar estilos inline por .module.css */}
-            <Link to="/">Home</Link>
-            {isAuthenticated && (<Link to="/dashboard">Dashboard</Link>)}
-            {!isAuthenticated ? (<Link to="/login">Login</Link>) : (<button onClick={logout}>Logout</button>)}
+        <nav className={styles.nav}> 
+            <div className={styles.elementStyle}>
+                <Link classname={styles.link} to="/" title="Home" >
+                    <img src={homeicon} className={styles.icon} alt="Home" />
+                </Link>
+            </div>
+            <div className={styles.elementStyle}>
+                {isAuthenticated && (
+                    <Link className={styles.link} to="/dashboard" title="Dashboard">
+                        <img src={dashicon} className={styles.icon} alt="Home" />
+                    </Link>)
+                }
+            </div>
+            <div className={styles.elementStyle}>
+                {!isAuthenticated ? (
+                    <Link className={styles.link} title="Login" to="/login"><img src={loginicon} className={styles.icon} alt="Login" /></Link>
+                ) : (
+                    <button className={styles.button} title="Logout" onClick={logout}><img src={logouticon} className={styles.icon} alt="Logout" /></button>
+                )}
+            </div>
         </nav>
     );
 }

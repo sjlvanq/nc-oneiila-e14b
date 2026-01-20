@@ -8,14 +8,12 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import Inicio from './pages/Inicio';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
-
 import Navbar from './layouts/Navbar';
 
 function Layout() {
   return (
     <>
       <Navbar />
-      
       <main>
         <Outlet />
       </main>
