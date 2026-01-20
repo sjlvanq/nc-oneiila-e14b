@@ -1,8 +1,8 @@
-import Login from '../components/Login'
+import Login from '@/components/Login'
 import styles from '@/styles/pages/PageLogin.module.css';
-import logo from './img/logo-churncheck.png'
+import logo from '@/assets/img/logo-churncheck.png'
 
-export default function PageLogin(){
+export default function PageLogin() {
     return (
         <div className={styles.loginWrapper}>
             <div className={styles.loginWrapper}>

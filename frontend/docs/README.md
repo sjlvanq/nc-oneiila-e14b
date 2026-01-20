@@ -37,7 +37,7 @@ npm run dev
 
 | Nro. Sprint | Plan | Resumen | Notas de implementación |
 | --- | --- | --- | --- |
-| 1 | [Plan-s01](dev/sprints/sprint01.md) | Cimientos y Seguridad: Unificación de búsqueda por DNI, integración de maqueta Iris, arquitectura de AuthContext (JWT) y pantalla de Login. | *En desarrollo* |
+| 1 | [Plan-s01](dev/sprints/sprint01.md) | Cimientos y Seguridad: Unificación de búsqueda por DNI, integración de maqueta Iris, arquitectura de AuthContext (JWT) y pantalla de Login. | [Impl.](dev/sprints/sprint01-end.md) |
 | ... | ... | ... | ... |
 
 -----

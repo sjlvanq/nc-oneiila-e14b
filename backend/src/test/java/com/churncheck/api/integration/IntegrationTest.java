@@ -61,8 +61,18 @@ class IntegrationTest {
         org.springframework.web.client.HttpClientErrorException exception2 = null;
         try {
             restTemplate.postForEntity(createURL("/clients"), new ClientCreateRequestDTO(
-                "Test", true, Gender.MALE, true, 1L, true, 
-                "555-1234", LocalDate.of(2000, 1, 1), 12, true), String.class);
+                    "John Doe",                    // clientName
+                    "DNI-1010",                    // dni
+                    Gender.MALE,                   // gender
+                    LocalDate.of(2000, 1, 1),      // birthDate
+                    "555-1234",                    // clientPhone
+                    true,                          // nearLocation
+                    1L,                            // partnerId
+                    true,                          // promoFriends
+                    12,                            // contractPeriod
+                    true,                          // groupVisits
+                    true                           // active
+                    ), String.class);
         } catch (org.springframework.web.client.HttpClientErrorException e) {
             exception2 = e;
         }

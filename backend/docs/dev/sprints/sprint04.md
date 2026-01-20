@@ -14,7 +14,7 @@ El objetivo de este sprint es consolidar la madurez operativa del sistema median
 | --- | --- | --- |
 | **Dev A (Infra)** | **Despliegue y CI/CD** | Configurar el entorno en la instancia OCI (Java 17, H2 en modo file). Implementar pipeline de GitHub Actions para compilación, pruebas y despliegue automático. Configurar variables de entorno y secrets. Documentar procedimientos de despliegue y rollback. |
 | **Dev B (Lógica)** | **Caché de Predicciones** | Extender la entidad `Client` con campos `last_prediction_churn`, `last_prediction_probability` y `last_prediction_timestamp`. Modificar `ChurnService` para guardar y consultar caché antes de llamar al microservicio. Implementar lógica de invalidación por TTL (24 horas). |
-| **Dev C (API)** | **Endpoints Analíticos** | *En revisión*. |
+| **Dev C (API)** | **Refactorización. Búsqueda por DNI** | Completado en [Frontend Sprint 1](../../../../frontend/docs/dev/sprints/sprint01-end.md): Refactorización del modelo `Client` para incluir campo `dni`, implementación de `findByDni(String dni)` en `ClientRepository`, creación del endpoint `GET /clients/prediction/{dni}` y actualización de scripts SQL. |
 
 ---
 
@@ -33,14 +33,20 @@ El objetivo de este sprint es consolidar la madurez operativa del sistema median
 │   └── com
 │       └── churncheck
 │           └── api
+│               ├── controller
+│               │   └── ClientController.java              [* devC] -> Endpoint GET /prediction/{dni}
 │               ├── domain
 │               │   └── client
-│               │       └── Client.java                    [* devB] -> Nuevos campos de caché
+│               │       ├── Client.java                    [* devB/devC] -> Campos caché + campo dni
+│               │       └── ClientRepository.java          [* devC] -> Método findByDni()
 │               └── service
-│                   └── ChurnService.java                  [* devB] -> Lógica de caché
+│                   ├── ChurnService.java                  [* devB] -> Lógica de caché
+│                   └── ClientService.java                 [* devC] -> Método predictChurnByDni()
 │
 ├── resources
-│   └── application-production.yaml                        [+ devA]
+│   ├── application-production.yaml                        [+ devA]
+│   ├── schema.sql                                         [* devC] -> Columna dni, corrección DECIMAL
+│   └── data.sql                                           [* devC] -> Datos de prueba con DNI
 │
 ├── .github
 │   └── workflows
@@ -48,45 +54,8 @@ El objetivo de este sprint es consolidar la madurez operativa del sistema median
 │
 └── scripts
     └── backup.sh                                          [+ devA]
+
 ```
-
----
-
-## Dependencias a instalar en OCI
-
-### Sistema Operativo (Ubuntu 22.04 LTS)
-```bash
-# Java 17
-sudo apt install -y openjdk-17-jdk
-
-# Nginx (reverse proxy)
-sudo apt install -y nginx
-
-# Git
-sudo apt install -y git
-
-# Herramientas adicionales
-sudo apt install -y curl wget unzip
-```
-
-### Estructura de directorios
-```bash
-/opt/churncheck/            # Aplicación
-/opt/churncheck/data/       # Base de datos H2
-/var/log/churncheck/        # Logs
-/opt/churncheck/backups/    # Backups automáticos
-```
-
----
-
-## Configuración de GitHub Secrets
-
-Los siguientes secrets deben configurarse en el repositorio de GitHub:
-
-- `OCI_SSH_KEY`: Clave privada SSH para acceso a la instancia
-- `OCI_HOST`: IP pública de la instancia OCI
-- `OCI_USER`: Usuario SSH (ej. `backend`)
-- `ML_SERVICE_API_KEY`: API Key del servicio de ML (opcional)
 
 ---
 
@@ -113,7 +82,6 @@ Los siguientes secrets deben configurarse en el repositorio de GitHub:
 * **Extensión de Entidad:** Campos `last_prediction_churn`, `last_prediction_probability`, `last_prediction_timestamp` en `Client.java`.
 * **Servicio systemd:** Configuración `/etc/systemd/system/churncheck.service` para inicio automático.
 * **Pipeline CI/CD:** Archivo `.github/workflows/deploy.yml` funcional con tests y despliegue automático.
-* **Endpoints Analíticos:** `/statistics/global` y `/statistics/clients/{id}` documentados en Swagger.
 * **Script de Backup:** `/opt/churncheck/backup.sh` con cron configurado para ejecución diaria.
 * **Configuración de Producción:** `application-production.yaml` con H2 en modo file.
 

@@ -5,9 +5,13 @@ import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 
-import Inicio from './pages/Inicio';
+//import MainLayout from './layouts/MainLayout';
+
+import Inicio from './pages/Home';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
+import NotFound from './pages/NotFound';
+
 import Navbar from './layouts/Navbar';
 
 function Layout() {
@@ -21,25 +25,22 @@ function Layout() {
   );
 }
 
-
-
-// 1. Definimos las rutas
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />, // El Layout envuelve a los hijos
+    element: <Layout />,
     children: [
       {
-        path: "/", // Login e Inicio desprotegidas
+        path: "/", // Login and Home are public
         element: <Inicio />,
       },
       {
         path: "login",
         element: <PageLogin />,
       },
-      // Protegidas
+      // Protected Routes
       {
-        element: <ProtectedRoute />, 
+        element: <ProtectedRoute />,
         children: [
           {
             path: "dashboard",
@@ -48,16 +49,18 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "login", // Ruta para /login
+        path: "login", // Login is public
         element: <PageLogin />,
+      },
+      {
+        path: "*", // Catch-all route for 404
+        element: <NotFound />,
       },
     ],
   },
 ]);
 
-
-
-// 3. Aplicación principal
+// Main App
 export default function App() {
   return (
     <AuthProvider>

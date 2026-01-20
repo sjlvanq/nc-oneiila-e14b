@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Retención de Clientes | ChurnCheck</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- NAV SUPERIOR -->
+<header class="topbar">
+  <div class="logo">ChurnCheck</div>
+  <nav class="nav-buttons">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="riesgo.html">Riesgo</a>
+    <a href="retencion.html" class="active">Retención</a>
+    <a href="reportes.html">Reportes</a>
+    <a href="#">Salir</a>
+  </nav>
+</header>
+
+<main class="container">
+
+  <!-- KPIs -->
+  <section class="kpi-grid">
+    <div class="kpi-card green">
+      <span>Clientes en programa</span>
+      <strong>78</strong>
+    </div>
+    <div class="kpi-card success">
+      <span>Recuperados</span>
+      <strong>34</strong>
+    </div>
+    <div class="kpi-card warning">
+      <span>En seguimiento</span>
+      <strong>29</strong>
+    </div>
+    <div class="kpi-card info">
+      <span>Impacto estimado</span>
+      <strong>$12,500</strong>
+    </div>
+  </section>
+
+  <!-- FLUJO -->
+  <section class="card">
+    <h2>Flujo de Retención</h2>
+    <div class="flow-grid">
+      <div class="flow-step">Clientes en riesgo<br><strong>96</strong></div>
+      <div class="flow-step">Contactados<br><strong>78</strong></div>
+      <div class="flow-step">Acciones aplicadas<br><strong>63</strong></div>
+      <div class="flow-step">Recuperados<br><strong>34</strong></div>
+      <div class="flow-step">Fidelizados<br><strong>29</strong></div>
+    </div>
+  </section>
+
+  <!-- GRÁFICOS -->
+  <section class="grid-2">
+    <div class="card">
+      <h3>Impacto de Acciones</h3>
+      <canvas id="impactoAcciones"></canvas>
+    </div>
+    <div class="card">
+      <h3>Evolución de Recuperación</h3>
+      <canvas id="evolucionRecuperacion"></canvas>
+    </div>
+  </section>
+
+  <!-- TABLA PROFESIONAL -->
+  <section class="card">
+    <h2>Acciones Aplicadas</h2>
+
+    <table class="table-enterprise">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Acción</th>
+          <th>Beneficio</th>
+          <th>Estado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Ana López</td>
+          <td>Descuento</td>
+          <td>15%</td>
+          <td><span class="badge success">Exitoso</span></td>
+          <td><a href="perfil.html?id=12345678" class="link">Ver ficha</a></td>
+        </tr>
+        <tr>
+          <td>José Rivera</td>
+          <td>Congelar membresía</td>
+          <td>7 días</td>
+          <td><span class="badge warning">Seguimiento</span></td>
+          <td><a href="perfil.html?id=99887766" class="link">Ver ficha</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+/* Impacto Acciones */
+new Chart(document.getElementById('impactoAcciones'), {
+  type: 'bar',
+  data: {
+    labels: ['Descuento', 'Congelar', 'Clase gratis', 'Seguimiento'],
+    datasets: [{
+      data: [15, 22, 10, 30],
+      backgroundColor: '#22c55e'
+    }]
+  },
+  options: { plugins:{legend:{display:false}} }
+});
+
+/* Evolución */
+new Chart(document.getElementById('evolucionRecuperacion'), {
+  type: 'line',
+  data: {
+    labels: ['Ene','Feb','Mar','Abr','May','Jun'],
+    datasets: [{
+      data: [18,20,23,28,31,34],
+      borderColor:'#3b82f6',
+      fill:true,
+      backgroundColor:'rgba(59,130,246,.15)'
+    }]
+  },
+  options: { plugins:{legend:{display:false}} }
+});
+</script>
+
+</body>
+</html>

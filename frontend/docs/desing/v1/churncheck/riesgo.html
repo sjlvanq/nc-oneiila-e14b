@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Riesgo | ChurnCheck</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f4f6f9;
+  color: #1f2937;
+}
+
+/* NAV */
+.navbar {
+  background: linear-gradient(90deg,#020617,#0f172a);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar img { height: 40px; }
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 24px;
+}
+
+/* LAYOUT */
+.container { padding: 40px; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  cursor: pointer;
+}
+
+.card.alto { border-left: 6px solid #ef4444; }
+.card.medio { border-left: 6px solid #f59e0b; }
+.card.bajo { border-left: 6px solid #22c55e; }
+
+.card span {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* DASHBOARD */
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.chart-box {
+  background: #fff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+/* TABLA */
+.hidden { display:none; }
+
+table {
+  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+th, td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+}
+.alto { background:#ef4444; }
+.medio { background:#f59e0b; }
+.bajo { background:#22c55e; }
+
+.action {
+  background:#22c55e;
+  color:#fff;
+  padding:8px 14px;
+  border-radius:8px;
+  text-decoration:none;
+}
+
+.back {
+  background:#64748b;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  display:inline-block;
+  margin-bottom:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+  <img src="img/logo-churncheck.png">
+  <div>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="clientes.html">Clientes</a>
+    <a href="retencion.html">Retención</a>
+    <a href="reportes.html">Reportes</a>
+    <a href="index.html">Salir</a>
+  </div>
+</div>
+
+<div class="container">
+<h1>Clientes en Riesgo</h1>
+
+<!-- TARJETAS -->
+<div class="cards">
+  <div class="card alto" onclick="verListado('alto')">
+    <h3>Riesgo Alto</h3><span>24</span>
+  </div>
+  <div class="card medio" onclick="verListado('medio')">
+    <h3>Riesgo Medio</h3><span>52</span>
+  </div>
+  <div class="card bajo" onclick="verListado('bajo')">
+    <h3>Riesgo Bajo</h3><span>20</span>
+  </div>
+</div>
+
+<!-- DASHBOARD ENTERPRISE -->
+<div id="dashboard">
+  <div class="charts">
+    <div class="chart-box">
+      <h3>Riesgo por Edad</h3>
+      <canvas id="ageRisk"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Riesgo por Sexo</h3>
+      <canvas id="genderRisk"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- LISTADO -->
+<div id="listado" class="hidden">
+  <div class="back" onclick="volver()">← Volver a Riesgo</div>
+  <h2 id="titulo"></h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Edad</th>
+        <th>Sexo</th>
+        <th>Asistencia</th>
+        <th>Riesgo</th>
+        <th>Acción IA</th>
+      </tr>
+    </thead>
+    <tbody id="tabla"></tbody>
+  </table>
+</div>
+
+</div>
+
+<script>
+/* ====== DATOS SIMULADOS ====== */
+const data = {
+  alto: [
+    {n:'Carlos Méndez',e:42,s:'M',a:32},
+    {n:'Ana Torres',e:35,s:'F',a:28}
+  ],
+  medio: [
+    {n:'Luis Gómez',e:29,s:'M',a:55}
+  ],
+  bajo: [
+    {n:'Sofía Ruiz',e:24,s:'F',a:75}
+  ]
+};
+
+/* ====== GRAFICOS ====== */
+new Chart(ageRisk,{
+  type:'bar',
+  data:{
+    labels:['18-25','26-35','36-45','46+'],
+    datasets:[
+      {label:'Alto',data:[2,4,6,12],backgroundColor:'#ef4444'},
+      {label:'Medio',data:[6,14,18,14],backgroundColor:'#f59e0b'},
+      {label:'Bajo',data:[10,6,3,1],backgroundColor:'#22c55e'}
+    ]
+  },
+  options:{responsive:true}
+});
+
+new Chart(genderRisk,{
+  type:'doughnut',
+  data:{
+    labels:['Mujeres','Hombres'],
+    datasets:[{
+      data:[48,52],
+      backgroundColor:['#3b82f6','#f97316']
+    }]
+  }
+});
+
+/* ====== FUNCIONES ====== */
+function verListado(tipo){
+  dashboard.classList.add('hidden');
+  listado.classList.remove('hidden');
+  titulo.innerText='Listado Riesgo '+tipo.toUpperCase();
+  tabla.innerHTML='';
+
+  data[tipo].forEach(c=>{
+    let accion = c.a < 40 ? 'Llamada + Descuento' :
+                 c.a < 60 ? 'Email Motivacional' :
+                 'Beneficio Premium';
+
+    tabla.innerHTML+=`
+      <tr>
+        <td>${c.n}</td>
+        <td>${c.e}</td>
+        <td>${c.s}</td>
+        <td>${c.a}%</td>
+        <td><span class="badge ${tipo}">${tipo}</span></td>
+        <td>${accion} | <a href="perfil.html" class="action">Ver ficha</a></td>
+      </tr>`;
+  });
+}
+
+function volver(){
+  listado.classList.add('hidden');
+  dashboard.classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>

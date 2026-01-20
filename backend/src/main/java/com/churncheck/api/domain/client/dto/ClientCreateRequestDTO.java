@@ -20,12 +20,19 @@ public record ClientCreateRequestDTO (
     @NotBlank
     @Size(min = 3, max = 100)
     String clientName,
-
-    @NotNull
-    Boolean active,
+    
+    @NotBlank
+    String dni,
 
     @NotNull
     Gender gender,
+
+    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    LocalDate birthDate,
+
+    @NotBlank
+    String clientPhone,
 
     @NotNull
     Boolean nearLocation,
@@ -34,21 +41,17 @@ public record ClientCreateRequestDTO (
 
     @NotNull
     Boolean promoFriends,
-
-    @NotBlank
-    String clientPhone,
-
-    @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    LocalDate birthDate,
-
+    
     @NotNull
     @Min(1)
     @Max(12)
     Integer contractPeriod,
 
     @NotNull
-    Boolean groupVisits
+    Boolean groupVisits,
+    
+    @NotNull
+    Boolean active
 ) {
     @JsonIgnore
     @Schema(hidden = true)

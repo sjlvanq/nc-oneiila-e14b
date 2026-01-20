@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.churncheck.api.domain.client.Client;
+import com.churncheck.api.domain.client.ClientRepository;
 import com.churncheck.api.domain.client.Gender;
 import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
@@ -30,6 +31,9 @@ class ChurnServiceTest {
     @Mock
     private com.churncheck.api.domain.client.ClientPredictionMapper mapper;
 
+    @Mock 
+    private ClientRepository clientRepository;
+    
     @InjectMocks
     private ChurnService churnService;
 
