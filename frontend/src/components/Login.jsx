@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '@/services/api';
 import { useAuth } from '@/contexts/AuthContext';
 
-import styles from './Login.module.css';
+import styles from '@/styles/components/Login.module.css';
 
 export default function Login() {
 	const { login, isAuthenticated } = useAuth();
