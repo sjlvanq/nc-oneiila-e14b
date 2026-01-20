@@ -1,3 +1,62 @@
+.fieldError{
+    color: orange;
+    animation: move 2s ease;
+}
+@keyframes move {
+    from{
+        opacity: 0;
+        transform: translateY(-40%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.error{
+    color:red;
+    animation: errorShow 1s ease;
+}
+@keyframes errorShow {
+    from{
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+.perfilGrid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.datos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.dato {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+    margin-bottom: 25px;
+}
+
 .searchBox {
     background: white;
     margin: 32px 0;
