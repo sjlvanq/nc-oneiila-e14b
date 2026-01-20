@@ -1,53 +1,332 @@
+    /* HERO SECTION */
+.hero {
+    height: 100vh;
+    width: 100%;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+        url("../../assets/img/gym-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+    padding-right: 40px;
+    color: white;
+}
+
+.heroContent {
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 32px;
+    color: #e5e7eb;
+}
+
+.heroButtons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btnPrimary {
+    background: #22c55e;
+    color: white;
+}
+
+.btnPrimary:hover {
+    background: #16a34a;
+    transform: translateY(-2px);
+}
+
+.btnSecondary {
+    background: transparent;
+    color: white;
+    border-color: #22c55e;
+}
+
+.btnSecondary:hover {
+    background: #22c55e;
+    transform: translateY(-2px);
+}
+
+.btnOutline {
+    background: transparent;
+    color: #22c55e;
+    border-color: #22c55e;
+}
+
+.btnOutline:hover {
+    background: #22c55e;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btnLarge {
+    padding: 18px 36px;
+    font-size: 18px;
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* SECTION TITLES */
+.sectionTitle {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 48px;
+    color: #1f2937;
+    font-weight: bold;
+}
+
+/* FEATURES SECTION */
+.features {
+    padding: 100px 0;
+    background: #f9fafb;
+}
+
+.featureGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+}
+
+.featureCard {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.featureCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.featureIcon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.featureCard h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: #1f2937;
+}
+
+.featureCard p {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+/* BENEFITS SECTION */
+.benefits {
+    padding: 100px 0;
+    background: white;
+}
+
+.benefitsContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.benefitsText h2 {
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+.benefitsText p {
+    font-size: 18px;
+    color: #6b7280;
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.benefitsList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 32px;
+}
+
+.benefitsList li {
+    padding: 8px 0;
+    color: #374151;
+    font-size: 16px;
+    position: relative;
+    padding-left: 24px;
+}
+
+.benefitsList li::before {
+    content: "✓";
+    color: #22c55e;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.mockDashboard {
+    background: #f3f4f6;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.mockHeader {
+    margin-bottom: 20px;
+}
+
+.mockMetrics {
+    display: flex;
+    gap: 24px;
+}
+
+.mockMetric {
+    text-align: center;
+}
+
+.mockLabel {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.mockValue {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.mockChart {
+    height: 200px;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border-radius: 8px;
+    opacity: 0.8;
+}
+
+/* CTA SECTION */
+.cta {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: white;
+}
+
+.ctaContent {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ctaContent h2 {
+    font-size: 36px;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.ctaContent p {
+    font-size: 18px;
+    margin-bottom: 40px;
+    color: #e5e7eb;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
     .hero {
-        height: 100vh;
-        width: 100%;
-        background:
-            linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
-            url("../../assets/img/gym-bg.jpg");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        display: flex;
-        align-items: center;
-        padding-left: 80px;
-        padding-right: 40px;
-        color: white;
-    }
-
-    .heroContent {
-        max-width: 600px;
+        padding-left: 32px;
+        padding-right: 32px;
     }
 
     .hero h1 {
-        font-size: 48px;
-        margin-bottom: 16px;
+        font-size: 36px;
+    }
+
+    .heroButtons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .benefitsContent {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .benefitsText h2 {
+        text-align: center;
+    }
+
+    .ctaButtons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sectionTitle {
+        font-size: 28px;
+    }
+
+    .features,
+    .benefits,
+    .cta {
+        padding: 60px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero h1 {
+        font-size: 28px;
     }
 
     .hero p {
-        font-size: 18px;
-        margin-bottom: 24px;
-        color: #e5e7eb;
+        font-size: 16px;
     }
 
-    .hero .btn {
-        display: inline-block;
-        background: #22c55e;
-        padding: 14px 28px;
-        border-radius: 10px;
-        color: white;
-        font-weight: bold;
-        text-decoration: none;
+    .featureGrid {
+        grid-template-columns: 1fr;
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-        .hero {
-            padding-left: 32px;
-            padding-right: 32px;
-        }
-
-        .hero h1 {
-            font-size: 36px;
-        }
+    .mockMetrics {
+        justify-content: center;
     }
+}
