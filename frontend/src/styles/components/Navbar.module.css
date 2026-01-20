@@ -60,3 +60,7 @@
         scale: 1;
     }
 }
+.button{
+    border: none;
+    background: none;
+}
