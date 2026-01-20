@@ -38,16 +38,11 @@ const router = createBrowserRouter([
         path: "login",
         element: <PageLogin />,
       },
-      // Protected Routes
       {
-        element: <ProtectedRoute />,
-        children: [
-          {
-            path: "dashboard",
-            element: <PageDashboard />,
-          },
-        ],
+        path: "dashboard",
+        element: <PageDashboard />,
       },
+      // Protected Routes
       {
         path: "login", // Login is public
         element: <PageLogin />,
