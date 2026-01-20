@@ -5,18 +5,30 @@ import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 
-import MainLayout from './layouts/MainLayout';
+//import MainLayout from './layouts/MainLayout';
 
 import Inicio from './pages/Home';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
 import NotFound from './pages/NotFound';
 
-// Define the routes
+import Navbar from './layouts/Navbar';
+
+function Layout() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Outlet />
+      </main>
+    </>
+  );
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: <Layout />,
     children: [
       {
         path: "/", // Login and Home are public
@@ -47,8 +59,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-
 
 // Main App
 export default function App() {
