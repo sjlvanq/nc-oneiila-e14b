@@ -1,4 +1,5 @@
 import DniSearch from '@/components/DniSearch';
+import GlobalStats from '../components/GlobalStats';
 
 export default function PageDashboard() {
     return (
@@ -9,6 +10,8 @@ export default function PageDashboard() {
                     <p>Visualiza el estado de tu gimnasio y busca clientes específicos.</p>
                 </div>
             </section>
+
+            <GlobalStats />
 
             <div className="container">
                 <DniSearch />
