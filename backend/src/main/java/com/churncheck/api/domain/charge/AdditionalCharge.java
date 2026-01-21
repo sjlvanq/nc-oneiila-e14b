@@ -30,6 +30,10 @@ public class AdditionalCharge {
     @ManyToOne
     @JoinColumn(name = "charge_type_id")
     private ChargeType chargeType;
+    
+    public String getChargeType() {
+        return chargeType.getName();
+    }
 
     public BigDecimal getAmount() {
         return amount;

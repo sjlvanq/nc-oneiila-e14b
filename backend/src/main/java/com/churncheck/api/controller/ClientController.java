@@ -22,6 +22,7 @@ import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
+import com.churncheck.api.domain.client.dto.statistics.ClientStatisticsDTO;
 import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.service.ClientService;
 
@@ -145,17 +146,33 @@ public class ClientController {
     }
     
     @Operation(summary = "Get churn prediction for client by DNI")
-@ApiResponses(value = {
+    @ApiResponses(value = {
     @ApiResponse(responseCode = "200", description = "Prediction generated successfully"),
     @ApiResponse(responseCode = "400", description = "Invalid DNI or prediction error",
         content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
     @ApiResponse(responseCode = "404", description = "Client not found",
         content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
-})
-@GetMapping("/prediction/{dni}")
-public ResponseEntity<ClientFullResponseDTO> getClientPredictionByDni(@PathVariable String dni){
-    ClientFullResponseDTO prediction = clientService.predictChurnByDni(dni);
-    return ResponseEntity.ok(prediction);
-}
-    
+    })
+    @GetMapping("/prediction/{dni}")
+    public ResponseEntity<ClientFullResponseDTO> getClientPredictionByDni(@PathVariable String dni){
+        ClientFullResponseDTO prediction = clientService.predictChurnByDni(dni);
+        return ResponseEntity.ok(prediction);
+    }
+
+    @Operation(summary = "Get statistics for client by ID")
+    @ApiResponses(value = {
+    @ApiResponse(responseCode = "200", description = "Statistics generated successfully"),
+    /*
+    @ApiResponse(responseCode = "400", description = "Invalid ID",
+        content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
+    */
+    @ApiResponse(responseCode = "404", description = "Client not found",
+        content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
+    })
+    @GetMapping("/clients/statistics/{id}")
+    public ResponseEntity<ClientStatisticsDTO> getClientPredictionByDni(@PathVariable Long id){
+        ClientStatisticsDTO statistics = clientService.getClientStatistics(id);
+        return ResponseEntity.ok(statistics);
+    }
+
 }
