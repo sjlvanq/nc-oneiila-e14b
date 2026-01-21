@@ -369,29 +369,130 @@
     margin-bottom: 40px;
 }
 
-/* RESPONSIVE */
+/* ====== RESPONSIVE ====== */
+
 @media (max-width: 1024px) {
+    .hero h1 {
+        font-size: 56px;
+    }
+
     .featureGrid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+
+    .mvContent {
+        gap: 40px;
     }
 }
 
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 44px;
+    .container {
+        padding: 0 24px;
     }
 
-    .benefitsContent {
-        grid-template-columns: 1fr;
-        gap: 48px;
+    .hero {
+        min-height: 80vh;
+        padding-top: 120px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .heroLogo {
+        width: 240px;
+        margin-bottom: 32px;
+    }
+
+    .sectionTitle {
+        font-size: 32px;
     }
 
     .featureGrid {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 24px;
+    }
+
+    .mvContent {
+        flex-direction: column !important;
+        text-align: center;
+        gap: 48px;
+    }
+
+    .mvText h2 {
+        font-size: 32px;
+    }
+
+    .mvImageContainer {
+        max-width: 100%;
+    }
+
+    .mvDecoration {
+        width: 100px;
+        height: 100px;
+        bottom: -20px;
+        right: 0;
+    }
+
+    .benefitsContent {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+
+    .benefitsList li {
+        justify-content: center;
+    }
+
+    .ctaContent h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding-top: 100px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .heroButtons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
     }
 
     .heroLogo {
-        width: 140px;
+        width: 180px;
+    }
+
+    .featureIcon {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .featureCard {
+        text-align: center;
+    }
+
+    .features,
+    .missionVision,
+    .benefits,
+    .cta {
+        padding: 60px 0;
+    }
+
+    .mvImg {
+        border-width: 4px;
     }
 }
