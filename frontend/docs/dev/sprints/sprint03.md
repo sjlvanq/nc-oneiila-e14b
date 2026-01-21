@@ -40,6 +40,7 @@ Este sprint tiene como objetivo profundizar en la analítica individual del clie
 
 * **Sidebar Mobile:** Implementar el comportamiento *drawer* (desplegable) para la navegación lateral en dispositivos móviles.
 * **Landing Page:** Añadir secciones para dar más profundidad a la página de inicio pública.
+* **Login Form:** Añadir control para regresar al Home (Landing Page).
 
 ---
 
