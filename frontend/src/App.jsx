@@ -14,7 +14,17 @@ import NotFound from './pages/NotFound';
 
 import Navbar from './layouts/Navbar';
 
-function Layout() {
+// Layout para rutas públicas (sin navbar)
+function PublicLayout() {
+  return (
+    <main>
+      <Outlet />
+    </main>
+  );
+}
+
+// Layout para rutas protegidas (con navbar)
+function ProtectedLayout() {
   return (
     <>
       <Navbar />
@@ -28,10 +38,10 @@ function Layout() {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <PublicLayout />,
     children: [
       {
-        path: "/", // Login and Home are public
+        path: "/", // Home is public
         element: <Inicio />,
       },
       {
@@ -39,17 +49,24 @@ const router = createBrowserRouter([
         element: <PageLogin />,
       },
       {
-        path: "dashboard",
-        element: <PageDashboard />,
-      },
-      // Protected Routes
-      {
-        path: "login", // Login is public
-        element: <PageLogin />,
-      },
-      {
         path: "*", // Catch-all route for 404
         element: <NotFound />,
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "",
+        element: <ProtectedLayout />,
+        children: [
+          {
+            path: "dashboard",
+            element: <PageDashboard />,
+          },
+        ],
       },
     ],
   },
