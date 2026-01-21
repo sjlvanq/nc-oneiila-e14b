@@ -189,10 +189,116 @@
     font-size: 16px;
 }
 
-/* BANNER / IMAGE SECTION */
+/* MISSION & VISION SECTIONS */
+.missionVision {
+    padding: 100px 0;
+    overflow: hidden;
+}
+
+.missionVisionBg {
+    background-color: #f8fafc;
+}
+
+.mvContent {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}
+
+.mvReverse {
+    flex-direction: row-reverse;
+}
+
+.mvText {
+    flex: 1;
+}
+
+.mvLabel {
+    display: inline-block;
+    padding: 6px 16px;
+    background: #f0fdf4;
+    color: #22c55e;
+    font-weight: 700;
+    border-radius: 99px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 24px;
+}
+
+.mvText h2 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+.mvText p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #475569;
+}
+
+.mvImage {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mvImageContainer {
+    position: relative;
+    max-width: 450px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.mvImg {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    border: 8px solid white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mvImg:hover {
+    transform: scale(1.03);
+    box-shadow: 0 30px 60px -12px rgba(34, 197, 94, 0.2);
+}
+
+.mvDecoration {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    bottom: -40px;
+    right: -40px;
+    z-index: 3;
+    animation: float 4s ease-in-out infinite reverse;
+    border-radius: 15px;
+    border: 4px solid white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(2deg);
+    }
+
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+}
+
+/* BENEFITS SECTION - Split View */
 .benefits {
     padding: 100px 0;
-    background: #f8fafc;
+    background: #ffffff;
     border-top: 1px solid #f1f5f9;
 }
 
