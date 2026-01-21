@@ -156,7 +156,7 @@ public class ClientController {
         content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
     })
     @GetMapping("/clients/statistics/{id}")
-    public ResponseEntity<ClientStatisticsDTO> getClientPredictionByDni(@PathVariable Long id){
+    public ResponseEntity<ClientStatisticsDTO> getClientStatistics(@PathVariable Long id){
         ClientStatisticsDTO statistics = clientService.getClientStatistics(id);
         return ResponseEntity.ok(statistics);
     }
