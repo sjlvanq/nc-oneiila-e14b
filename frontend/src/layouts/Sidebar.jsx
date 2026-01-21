@@ -12,22 +12,30 @@ export default function Sidebar() {
     return (
         <nav className={styles.sidebar}>
             <div className={styles.elementStyle}>
-                <Link classname={styles.link} to="/" title="Home" >
+                <Link className={styles.link} to="/" title="Home" >
                     <img src={homeicon} className={styles.icon} alt="Home" />
+                    <span className={styles.label}>Home</span>
                 </Link>
             </div>
             <div className={styles.elementStyle}>
                 {isAuthenticated && (
                     <Link className={styles.link} to="/dashboard" title="Dashboard">
-                        <img src={dashicon} className={styles.icon} alt="Home" />
+                        <img src={dashicon} className={styles.icon} alt="Dashboard" />
+                        <span className={styles.label}>Dashboard</span>
                     </Link>)
                 }
             </div>
             <div className={styles.elementStyle}>
                 {!isAuthenticated ? (
-                    <Link className={styles.link} title="Login" to="/login"><img src={loginicon} className={styles.icon} alt="Login" /></Link>
+                    <Link className={styles.link} title="Login" to="/login">
+                        <img src={loginicon} className={styles.icon} alt="Login" />
+                        <span className={styles.label}>Login</span>
+                    </Link>
                 ) : (
-                    <button className={styles.button} title="Logout" onClick={logout}><img src={logouticon} className={styles.icon} alt="Logout" /></button>
+                    <button className={styles.button + ' ' + styles.link} title="Logout" onClick={logout}>
+                        <img src={logouticon} className={styles.icon} alt="Logout" />
+                        <span className={styles.label}>Logout</span>
+                    </button>
                 )}
             </div>
         </nav>
