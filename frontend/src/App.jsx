@@ -1,6 +1,7 @@
 import './App.css'
 
 import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-dom";
+import styles from './styles/components/Sidebar.module.css'
 
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -26,12 +27,12 @@ function PublicLayout() {
 // Layout para rutas protegidas (con navbar)
 function ProtectedLayout() {
   return (
-    <>
+    <div className={styles.layoutWrapper}>
       <Sidebar />
-      <main>
+      <main className={styles.mainContent}>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
 
