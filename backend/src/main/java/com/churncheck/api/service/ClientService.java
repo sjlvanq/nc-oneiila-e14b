@@ -85,7 +85,7 @@ public class ClientService {
     }
 
     public ClientFullResponseDTO predictChurnByDni(String dni) {
-        Client client = clientRepository.findByDni(dni).orElseThrow();
+        Client client = clientRepository.findByDni(dni).orElseThrow(()->new EntityNotFoundException());
         PredictionResponseDTO prediction = churnService.predict(client);
         
         return new ClientFullResponseDTO(client, prediction);
