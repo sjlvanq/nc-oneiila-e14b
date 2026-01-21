@@ -145,10 +145,10 @@ class ClientControllerTest {
             1L, "John Doe", "555-1234", 27, (byte)1, 0.85, java.time.Instant.now()
         );
         
-        when(clientService.predictChurn(1L)).thenReturn(prediction);
+        when(clientService.predictChurnByDni("DNI-1001")).thenReturn(prediction);
         
         // When & Then
-        mockMvc.perform(get("/clients/1/prediction"))
+        mockMvc.perform(get("/clients/prediction/DNI-1001"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.clientName").value("John Doe"))
