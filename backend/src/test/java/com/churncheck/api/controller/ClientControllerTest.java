@@ -142,7 +142,7 @@ class ClientControllerTest {
     void shouldGetClientPrediction() throws Exception {
         // Given
         ClientFullResponseDTO prediction = new ClientFullResponseDTO(
-            1L, "John Doe", "555-1234", (byte)1, 0.85, java.time.Instant.now()
+            1L, "John Doe", "555-1234", 27, (byte)1, 0.85, java.time.Instant.now()
         );
         
         when(clientService.predictChurn(1L)).thenReturn(prediction);
