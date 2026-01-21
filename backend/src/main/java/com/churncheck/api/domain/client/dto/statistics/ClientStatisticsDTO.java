@@ -1,8 +1,9 @@
 package com.churncheck.api.domain.client.dto.statistics;
 
-import java.util.List;
+import java.time.YearMonth;
+import java.util.Map;
 
 public record ClientStatisticsDTO(
-    List<Long> monthlyAttendanceLastSixMonths,
+    Map<YearMonth, Long> monthlyAttendanceLastSixMonths,
     AdditionalChargesDTO additionalChargesByCat
 ) {}

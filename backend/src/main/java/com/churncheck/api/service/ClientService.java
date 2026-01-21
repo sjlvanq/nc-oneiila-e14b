@@ -1,5 +1,6 @@
 package com.churncheck.api.service;
 
+import com.churncheck.api.domain.attendance.Attendance;
 import com.churncheck.api.domain.charge.AdditionalCharge;
 import com.churncheck.api.domain.client.Client;
 import com.churncheck.api.domain.client.ClientRepository;
@@ -19,9 +20,12 @@ import com.churncheck.api.domain.partner.PartnerRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -140,12 +144,19 @@ public class ClientService {
                 .toList();
         
         //---
-        //List<Attendance> attendanceInLastSixMonths = clientRepository.findAttendanceInLastSixMonths(null);        
         
+        LocalDateTime fromDateTime = LocalDate.now().minusMonths(6).with(
+                TemporalAdjusters.firstDayOfMonth()).atStartOfDay();
+        List<Attendance> attendanceLastSixMonths = clientRepository.findAttendanceInLastSixMonths(id, fromDateTime);
+        Map<YearMonth, Long> monthlyAttendanceLastSixMonths = attendanceLastSixMonths.stream()
+                .collect(Collectors.groupingBy(
+                        attendance -> YearMonth.from(attendance.getCheckedInAt()),
+                        TreeMap::new, // Para ordenación cronológica
+                        Collectors.counting()));
         
         // ----
         AdditionalChargesDTO additionalCharges = new AdditionalChargesDTO(totalAmount, breakdown);
-        return new ClientStatisticsDTO(null, additionalCharges);
+        return new ClientStatisticsDTO(monthlyAttendanceLastSixMonths, additionalCharges);
     }
     
 }

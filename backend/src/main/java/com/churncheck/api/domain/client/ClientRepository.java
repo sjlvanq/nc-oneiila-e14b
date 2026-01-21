@@ -7,6 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.churncheck.api.domain.attendance.Attendance;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -26,4 +31,9 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Query("SELECT AVG(c.age) FROM Client c")
     Double getAverageAge();
+    
+    @Query("SELECT a FROM Attendance a " +
+            "WHERE a.client.id = :clientId " +
+            "AND a.checkedInAt >= :startDate")
+    List<Attendance> findAttendanceInLastSixMonths(Long clientId, LocalDateTime startDate);
 }
