@@ -12,7 +12,7 @@ import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
 import NotFound from './pages/NotFound';
 
-import Navbar from './layouts/Navbar';
+import Sidebar from './layouts/Sidebar';
 
 // Layout para rutas públicas (sin navbar)
 function PublicLayout() {
@@ -27,7 +27,7 @@ function PublicLayout() {
 function ProtectedLayout() {
   return (
     <>
-      <Navbar />
+      <Sidebar />
       <main>
         <Outlet />
       </main>
