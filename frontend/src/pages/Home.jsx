@@ -65,6 +65,47 @@ export default function Home() {
                 </div>
             </section>
 
+            {/* MISSION SECTION */}
+            <section className={styles.missionVision}>
+                <div className={styles.container}>
+                    <div className={styles.mvContent}>
+                        <div className={styles.mvText}>
+                            <span className={styles.mvLabel}>Nuestra Misión</span>
+                            <h2>Democratizamos la tecnología predictiva</h2>
+                            <p>
+                                Buscamos nivelar el campo de juego, permitiendo que dueños de gimnasios locales en América Latina tomen decisiones basadas en datos para proteger su rentabilidad mediante Machine Learning accesible.
+                            </p>
+                        </div>
+                        <div className={styles.mvImage}>
+                            <div className={styles.mvImageContainer}>
+                                <img src="/src/assets/img/woman.jpg" alt="Misión ChurnCheck" className={styles.mvImg} />
+                                <img src="/src/assets/img/woman1.png" alt="Decoración ChurnCheck" className={styles.mvDecoration} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* VISION SECTION */}
+            <section className={`${styles.missionVision} ${styles.missionVisionBg}`}>
+                <div className={styles.container}>
+                    <div className={`${styles.mvContent} ${styles.mvReverse}`}>
+                        <div className={styles.mvText}>
+                            <span className={styles.mvLabel}>Nuestra Visión</span>
+                            <h2>El estándar tecnológico para el 2030</h2>
+                            <p>
+                                Aspiramos a reducir la tasa de deserción global del sector Wellness de un 50% a un saludable 20% mediante intervención proactiva, convirtiéndonos en el referente de habla hispana.
+                            </p>
+                        </div>
+                        <div className={styles.mvImage}>
+                            <div className={styles.mvImageContainer} style={{ animationDelay: '1s' }}>
+                                <img src="/src/assets/img/man.jpg" alt="Visión ChurnCheck" className={styles.mvImg} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* BENEFITS SECTION - Split View */}
             <section className={styles.benefits}>
                 <div className={styles.container}>
