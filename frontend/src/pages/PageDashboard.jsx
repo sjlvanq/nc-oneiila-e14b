@@ -1,7 +1,9 @@
 import DniSearch from '@/components/DniSearch';
 import GlobalStats from '../components/GlobalStats';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 
 export default function PageDashboard() {
+    useDocumentTitle('Dashboard');
     return (
         <div className="dashboard-page">
             <section className="hero" style={{ height: 'auto', paddingTop: '100px', paddingLeft: ' 80px' }}>

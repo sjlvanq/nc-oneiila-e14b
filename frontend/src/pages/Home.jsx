@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import styles from '@/styles/pages/Home.module.css';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 
 export default function Inicio() {
+    useDocumentTitle('Inicio');
     return (
         <div>
             {/* Hero Section */}
