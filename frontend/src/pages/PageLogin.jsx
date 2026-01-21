@@ -13,7 +13,6 @@ export default function PageLogin() {
                     <h2>Qué bueno verte de nuevo</h2>
                     <Login />
                 </div>
-                
             </div>
         </div>
     )

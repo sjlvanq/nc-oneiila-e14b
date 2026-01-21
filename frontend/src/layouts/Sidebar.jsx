@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { useAuth } from '@/contexts/AuthContext';
-import styles from '@/styles/components/Navbar.module.css'
+import styles from '@/styles/components/Sidebar.module.css'
 import homeicon from './icons/house-regular-full.svg'
 import dashicon from './icons/chart-line-solid-full.svg'
 import loginicon from './icons/arrow-right-to-bracket-solid-full.svg'
 import logouticon from './icons/arrow-right-from-bracket-solid-full.svg'
 
-export default function Navbar() {
+export default function Sidebar() {
     const { isAuthenticated, logout } = useAuth();
 
     return (
-        <nav className={styles.nav}> 
+        <nav className={styles.sidebar}>
             <div className={styles.elementStyle}>
                 <Link classname={styles.link} to="/" title="Home" >
                     <img src={homeicon} className={styles.icon} alt="Home" />
