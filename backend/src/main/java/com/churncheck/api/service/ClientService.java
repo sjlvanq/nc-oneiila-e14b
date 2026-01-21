@@ -7,7 +7,7 @@ import com.churncheck.api.domain.client.dto.ClientFullResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientListResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientResponseDTO;
 import com.churncheck.api.domain.client.dto.ClientUpdateRequestDTO;
-import com.churncheck.api.domain.client.dto.StatisticsDTO;
+import com.churncheck.api.domain.client.dto.GlobalStatisticsDTO;
 import com.churncheck.api.domain.client.dto.prediction.PredictionResponseDTO;
 import com.churncheck.api.domain.partner.Partner;
 import com.churncheck.api.domain.partner.PartnerRepository;
@@ -82,7 +82,7 @@ public class ClientService {
         return new ClientFullResponseDTO(client, prediction);
     }
 
-    public StatisticsDTO getGlobalStats() {
+    public GlobalStatisticsDTO getGlobalStats() {
         long total = clientRepository.count();
         long active = clientRepository.countByActiveTrue();
         Double avgAge = clientRepository.getAverageAge();
@@ -90,7 +90,7 @@ public class ClientService {
         // Redondeo a 1 decimal
         double roundedAvg = (avgAge != null) ? Math.round(avgAge * 10.0) / 10.0 : 0.0;
 
-        return new StatisticsDTO(total, active, roundedAvg);
+        return new GlobalStatisticsDTO(total, active, roundedAvg);
     }
 }
 

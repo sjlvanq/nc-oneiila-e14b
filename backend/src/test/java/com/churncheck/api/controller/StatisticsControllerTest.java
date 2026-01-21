@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.churncheck.api.domain.client.dto.StatisticsDTO;
+import com.churncheck.api.domain.client.dto.GlobalStatisticsDTO;
 import com.churncheck.api.infra.errors.GlobalExceptionHandler;
 import com.churncheck.api.service.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,7 +43,7 @@ public class StatisticsControllerTest {
     @Test
     void shouldGetStatistics() throws Exception {
         // Given
-        StatisticsDTO expectedStats = new StatisticsDTO(100L, 85L, 28.5);
+        GlobalStatisticsDTO expectedStats = new GlobalStatisticsDTO(100L, 85L, 28.5);
         when(clientService.getGlobalStats()).thenReturn(expectedStats);
 
         // When & Then

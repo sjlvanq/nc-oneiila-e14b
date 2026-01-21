@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.churncheck.api.domain.client.dto.StatisticsDTO;
+import com.churncheck.api.domain.client.dto.GlobalStatisticsDTO;
 import com.churncheck.api.infra.errors.dto.ErrorStatusResponseDTO;
 import com.churncheck.api.service.ClientService;
 
@@ -39,8 +39,8 @@ public class StatisticsController {
     @Operation(summary = "Get statistics")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Statistics retrieved successfully") })
     @GetMapping
-    public ResponseEntity<StatisticsDTO> getGlobalStats() {
-        StatisticsDTO stats = clientService.getGlobalStats();;
+    public ResponseEntity<GlobalStatisticsDTO> getGlobalStats() {
+        GlobalStatisticsDTO stats = clientService.getGlobalStats();;
         return ResponseEntity.ok(stats);
     }
 }
