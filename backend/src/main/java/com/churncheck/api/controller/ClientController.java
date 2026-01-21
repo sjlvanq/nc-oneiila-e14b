@@ -130,21 +130,7 @@ public class ClientController {
         clientService.deleteClient(id);
         return ResponseEntity.noContent().build();
     }
-
-    @Operation(summary = "Get churn prediction for client")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Prediction generated successfully"),
-        @ApiResponse(responseCode = "400", description = "Invalid client or prediction error",
-            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class))),
-        @ApiResponse(responseCode = "404", description = "Client not found",
-            content = @Content(schema = @Schema(implementation = ErrorStatusResponseDTO.class)))
-    })
-    @GetMapping("/{id}/prediction")
-    public ResponseEntity<ClientFullResponseDTO> getClientPrediction(@PathVariable Long id){
-        ClientFullResponseDTO prediction = clientService.predictChurn(id);
-        return ResponseEntity.ok(prediction);
-    }
-    
+   
     @Operation(summary = "Get churn prediction for client by DNI")
     @ApiResponses(value = {
     @ApiResponse(responseCode = "200", description = "Prediction generated successfully"),

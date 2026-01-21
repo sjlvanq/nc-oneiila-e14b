@@ -84,13 +84,6 @@ public class ClientService {
         clientRepository.save(client);
     }
 
-    public ClientFullResponseDTO predictChurn(Long clientId){
-    	Client client = clientRepository.findById(clientId).orElseThrow();
-    	PredictionResponseDTO prediction = churnService.predict(client);
-
-        return new ClientFullResponseDTO(client, prediction);
-    }
-
     public ClientFullResponseDTO predictChurnByDni(String dni) {
         Client client = clientRepository.findByDni(dni).orElseThrow();
         PredictionResponseDTO prediction = churnService.predict(client);
