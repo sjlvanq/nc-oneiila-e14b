@@ -25,7 +25,7 @@ export default function Sidebar() {
                     </Link>)
                 }
             </div>
-            <div className={styles.elementStyle}>
+            <div className={`${styles.elementStyle} ${styles.bottomElement}`}>
                 {!isAuthenticated ? (
                     <Link className={styles.link} title="Login" to="/login">
                         <img src={loginicon} className={styles.icon} alt="Login" />
