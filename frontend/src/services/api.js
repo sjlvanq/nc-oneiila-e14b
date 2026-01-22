@@ -1,8 +1,14 @@
 import axios from 'axios';
 import { setupAuthInterceptor } from '@/interceptors/auth.interceptor';
 
+const apiUrl = import.meta.env.VITE_API_URL;
+
+if (!apiUrl) {
+  throw new Error("La variable de entorno VITE_API_URL no está definida. ");
+}
+
 const api = axios.create({
-    baseURL: 'http://localhost:8080', // Base URL
+    baseURL: apiUrl,
 });
 
 setupAuthInterceptor(api);
