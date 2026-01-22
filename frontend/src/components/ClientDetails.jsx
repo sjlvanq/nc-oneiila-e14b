@@ -15,19 +15,18 @@ const ClientDetails = ({ client }) => {
           ? "high"
           : "critical";
 
-
   return (
     <section className={`clientDetails ${riskLevel}`}>
       <h2>Client Details</h2>
 
       <div className="detailRow">
         <span>Client Name</span>
-        <span>{client.name}</span>
+        <span>{client.clientName}</span>
       </div>
 
       <div className="detailRow">
         <span>Phone Number</span>
-        <span>{client.phone}</span>
+        <span>{client.clientPhone}</span>
       </div>
 
       <div className="detailRow">
