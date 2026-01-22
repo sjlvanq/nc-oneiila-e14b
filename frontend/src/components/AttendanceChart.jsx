@@ -1,10 +1,31 @@
 import { useEffect, useState } from 'react';
 import api from '@/services/api';
-import {Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement, ArcElement, Title, Tooltip, Legend, BarElement}  from "chart.js";
-import { Bar, Pie, Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement
+} from "chart.js";
+import { Bar, Pie } from "react-chartjs-2";
 import styles from '@/styles/components/AttendanceChart.module.css';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend, BarElement);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement
+);
 
 export default function AttendanceChart({ clientId }) {
   const [data, setData] = useState(null);
@@ -32,6 +53,7 @@ export default function AttendanceChart({ clientId }) {
 
     fetchStats();
   }, [clientId]);
+
   if (loading) return null;
   if (error) return <p>{error}</p>;
   if (!data) return null;
@@ -48,43 +70,6 @@ export default function AttendanceChart({ clientId }) {
 
   const hasPie = breakdown.length > 0;
 
-  // const lineDatos = {
-  //   labels: monthlyLabels,
-  //   datasets: [
-  //     {
-  //       label: 'Asistencias por periodo',
-  //       data: monthlyValues,
-  //       tension: 0.3
-  //     }
-  //   ]
-  // };
-
-  // const lineOptions ={
-  //   responsive: true,
-  //   plugins:{
-  //     title:{
-  //       display: true,
-  //       text:'frecuencia de asistencia'
-  //     },
-  //     legend:{
-  //       display:true
-  //     }}, 
-  //   scales:{
-  //     x: {
-  //       title: {
-  //         display: true,
-  //         text: 'Mes'
-  //       }
-  //     },
-  //     y: {
-  //       title: {
-  //         display: true,
-  //         text: 'Asistencias'
-  //       },
-  //       beginAtZero: true,
-  //     }
-  //   }
-  // };
   const barData = {
     labels: monthlyLabels,
     datasets: [
@@ -98,15 +83,10 @@ export default function AttendanceChart({ clientId }) {
       }
     ]
   };
-
   
   const barOptions = {
     responsive: true,
     plugins: {
-      // title: {
-      //   display: true,
-      //   text: 'Frecuencia mensual de asistencia'
-      // },
       legend: {
         display: false
       }
@@ -153,10 +133,6 @@ export default function AttendanceChart({ clientId }) {
   const pieOptions = {
     responsive: true,
     plugins: {
-      // title: {
-      //   display: true,
-      //   text: 'Distribución de gastos por categoría'
-      // },
       legend: {
         position: 'bottom'
       }
@@ -166,21 +142,9 @@ export default function AttendanceChart({ clientId }) {
   return (
     <div className={styles.container}>
       <div className={styles.boxesContainer}>
-
-        {/* {loading && <p>Cargando estadísticas...</p>}
-        {error && <p>{error}</p>} */}
-
-        {/* {data && (
-          <pre>
-            {JSON.stringify(data, null, 2)}
-          </pre>
-
-        )} */}
-
         {hasMonthly ? (
           <div className={styles.chartBox}>
             <div className={styles.title}>Asistencia mensual</div>
-            {/* <Line data={lineDatos} options={lineOptions} /> */}
             <Bar data={barData} options={barOptions} />
           </div>
         ):(
