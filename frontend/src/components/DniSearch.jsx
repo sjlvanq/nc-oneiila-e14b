@@ -47,13 +47,17 @@ export default function DniSearch() {
         }
     };
 		const client = response
-   		 ? {
-        name: response.clientName,
-        phone: response.clientPhone,
-        age: response.age ?? 'N/A',
-        probability: response.probability,
-      }
-    : null;
+  ? {
+      name: response.clientName ?? 'N/A',
+      phone: response.clientPhone ?? 'N/A',
+      age: response.age ?? 'N/A',
+      lifetime: response.lifetime ?? 'N/A',
+      avgClassFrequency: response.avgClassFrequency ?? 'N/A',
+      groupVisits: response.groupVisits ?? 'N/A',
+      avgAdditionalChargesTotal: response.avgAdditionalChargesTotal ?? 0,
+      monthToEndContract: response.monthToEndContract ?? 'N/A',
+    }
+  : null;
 
     return (
         <>
