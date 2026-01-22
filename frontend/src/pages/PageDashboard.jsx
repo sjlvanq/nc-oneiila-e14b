@@ -1,10 +1,14 @@
-import DniSearch from '@/components/DniSearch';
-import GlobalStats from '../components/GlobalStats';
-import AttendanceChart from "../components/AttendanceChart.jsx";
 import { useState } from 'react';
 
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+
+import AttendanceChart from "@/components/AttendanceChart.jsx";
+import DniSearch from '@/components/DniSearch';
+import GlobalStats from '@/components/GlobalStats';
+
 export default function PageDashboard() {
-    const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedClient, setSelectedClient] = useState(null);
+  useDocumentTitle('Dashboard');
     return (
         <div className="dashboard-page">
             <section className="hero" style={{ height: 'auto', paddingTop: '100px', paddingLeft: ' 80px' }}>

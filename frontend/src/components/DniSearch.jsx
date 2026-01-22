@@ -2,9 +2,11 @@ import { useState } from 'react';
 import styles from '@/styles/components/DniSearch.module.css';
 import api from '@/services/api';
 
+import ClientDetails from './prediction/ClientDetails';
+import Recommendations from './prediction/Recommendations';
+
 export default function DniSearch({ onClientFound }) {
     const [dni, setDni] = useState('');
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [response, setResponse] = useState(null);
@@ -17,7 +19,7 @@ export default function DniSearch({ onClientFound }) {
             setDni(value);
         }
     }; */
-
+	
     const handleSearch = async (e) => {
         e.preventDefault();
         if (dni) {
@@ -46,6 +48,18 @@ export default function DniSearch({ onClientFound }) {
             }
         }
     };
+		const client = response
+  ? {
+      name: response.clientName ?? 'N/A',
+      phone: response.clientPhone ?? 'N/A',
+      age: response.age ?? 'N/A',
+      lifetime: response.lifetime ?? 'N/A',
+      avgClassFrequency: response.avgClassFrequency ?? 'N/A',
+      groupVisits: response.groupVisits ?? 'N/A',
+      avgAdditionalChargesTotal: response.avgAdditionalChargesTotal ?? 0,
+      monthToEndContract: response.monthToEndContract ?? 'N/A',
+    }
+  : null;
 
     return (
         <>
@@ -66,20 +80,12 @@ export default function DniSearch({ onClientFound }) {
         {loading && <p className={styles.info}>Consultando churn...</p>}
         {error && <p className={styles.error}>{error}</p>}
         
-        {!error && response && (
-            <div className={styles.card}>
-            <div className={styles.perfilGrid}>
-                <h2 id="nombre">{response.clientName}</h2>
-                <h3>Tel.: {response.clientPhone}</h3>
-                <div className={styles.datos}>
-                    <div className={styles.dato}><strong>Churn:</strong> {response.churn}</div>
-                    <div className={styles.dato}><strong>Probabilidad:</strong> {response.probability}</div>
-                    <div className={styles.dato}><strong>Timestamp:</strong> {response.timestamp}</div>
-                </div>
-            </div>
-            </div>
-        )}
-
-        </>
+       {!error && response && (
+    <div className={styles.card}>
+        <ClientDetails client={client} />
+        <Recommendations probability={response.probability} />
+    </div>
+)}
+     </>
     );
 }
