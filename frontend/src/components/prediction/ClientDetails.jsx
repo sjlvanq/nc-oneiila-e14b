@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../../styles/components/ClientDetails.module.css";
 
 const ClientDetails = ({ client }) => {
   if (!client) return null;
@@ -10,37 +11,37 @@ const ClientDetails = ({ client }) => {
     probability <= 25
       ? "low"
       : probability <= 50
-        ? "medium"
-        : probability <= 75
-          ? "high"
-          : "critical";
+      ? "medium"
+      : probability <= 75
+      ? "high"
+      : "critical";
 
   return (
-    <section className={`client-details ${riskLevel}`}>
-      <h2>Client Details</h2>
+    <section className={`${styles["client-details"]} ${styles[riskLevel]}`}>
+      <h2 className={styles.title}>Detalles del cliente</h2>
 
-      <div className="detail-row">
-        <span>Client Name</span>
-        <span>{client.name}</span>
+      <div className={styles["detail-row"]}>
+        <span>Nombre del cliente</span>
+        <span>{client.clientName}</span>
       </div>
 
-      <div className="detail-row">
-        <span>Phone Number</span>
-        <span>{client.phone}</span>
+      <div className={styles["detail-row"]}>
+        <span>Teléfono</span>
+        <span>{client.clientPhone}</span>
       </div>
 
-      <div className="detail-row">
-        <span>Age</span>
+      <div className={styles["detail-row"]}>
+        <span>Edad</span>
         <span>{client.age}</span>
       </div>
 
-      <div className="detail-row">
-        <span>Churn Probability</span>
+      <div className={styles["detail-row"]}>
+        <span>Probabilidad de abandono</span>
         <span>{probability}%</span>
       </div>
 
-      <div className="detail-row">
-        <span>Churn Status</span>
+      <div className={styles["detail-row"]}>
+        <span>Estado de abandono</span>
         <span>{churnState === 1 ? "Churn" : "Active"}</span>
       </div>
     </section>
