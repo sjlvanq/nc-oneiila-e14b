@@ -29,18 +29,18 @@ export default function GlobalStats() {
   if (!stats) return null;
 
   return (
-    <section className={styles.kpiGrid}>
-      <div className={`${styles.kpiCard} ${styles.green}`}>
+    <section className={styles.gStatsGrid}>
+      <div className={`${styles.gStatsCard} ${styles.clientsTotal}`}>
         <span>Clientes en programa</span>
         <strong>{stats.total}</strong>
       </div>
 
-      <div className={`${styles.kpiCard} ${styles.success}`}>
+      <div className={`${styles.gStatsCard} ${styles.clientsActive}`}>
         <span>Clientes activos</span>
         <strong>{stats.active}</strong>
       </div>
 
-      <div className={`${styles.kpiCard} ${styles.warning}`}>
+      <div className={`${styles.gStatsCard} ${styles.averageAge}`}>
         <span>Promedio de edad</span>
         <strong>{stats.averageAge}</strong>
       </div>
