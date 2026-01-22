@@ -12,7 +12,7 @@
 
 * [Documentación de Consumo de API](dev/consumo-api.md)
 * [Gestión de Autenticación (JWT)](dev/auth-jwt.md)
-* [Backend - Referencia de API (Autogenerado)](../backend/docs/specs/api-reference.md)
+* [Backend - Referencia de API (Autogenerado)](../../backend/docs/specs/api-reference.md)
 
 -----
 

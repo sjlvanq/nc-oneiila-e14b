@@ -9,6 +9,7 @@ public record ClientFullResponseDTO(
         Long id,
         String clientName,
         String clientPhone,
+        Integer age,
         Byte churn,
         Double probability,
         Instant timestamp
@@ -18,6 +19,7 @@ public record ClientFullResponseDTO(
             client.getId(),
             client.getClientName(),
             client.getClientPhone(),
+            client.getAge(),
             response.churn(),
             response.probability(),
             response.timestamp()

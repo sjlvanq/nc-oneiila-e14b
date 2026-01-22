@@ -5,9 +5,8 @@ import api from '@/services/api';
 import ClientDetails from './prediction/ClientDetails';
 import Recommendations from './prediction/Recommendations';
 
-export default function DniSearch() {
+export default function DniSearch({ onClientFound }) {
     const [dni, setDni] = useState('');
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [response, setResponse] = useState(null);
@@ -34,6 +33,8 @@ export default function DniSearch() {
                 console.log(data);
                 setResponse(data);
 
+                onClientFound?.(data);
+
             } catch (error) {
                 if (error.response) {
                     setError(error.response.data.message || 'Error al consultar churn');
@@ -41,6 +42,7 @@ export default function DniSearch() {
                 } else {
                     setError("Sin conexión con el Backend");
                 }
+                onClientFound?.(null);
             } finally {
                 setLoading(false);
             }

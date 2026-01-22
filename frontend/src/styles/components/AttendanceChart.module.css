@@ -1,0 +1,29 @@
+.container{
+    width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+.boxesContainer{
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.chartBox{
+    max-Width: '600px'; 
+    margin-bottom: '40px';
+    border-radius: 12px;
+    padding:24px;
+    max-width: 600px;
+    max-height: 450px;
+    flex: 1 1 420px;
+}
+.chartBox canvas{
+    object-fit: contain;
+}
+.title{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}

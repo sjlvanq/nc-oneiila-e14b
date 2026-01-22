@@ -1,5 +1,17 @@
-.claseDePrueba {
-    width:100%;
-    padding:2em;
-    text-align:center;
+.gStatsGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
 }
+
+.gStatsCard{
+  background:#fff;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+.gStatsCard strong{font-size:28px; padding-left:1em;}
+
+.gStatsCard.clientsTotal{border-left:6px solid #0a1430}
+.gStatsCard.clientsActive{border-left:6px solid #3b82f6}
+.gStatsCard.averageAge{border-left:6px solid #22c55e}

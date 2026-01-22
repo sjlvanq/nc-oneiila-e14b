@@ -34,6 +34,8 @@ import com.churncheck.api.domain.partner.Partner;
 import com.churncheck.api.service.ChurnService;
 import com.churncheck.api.service.ClientService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @ExtendWith(MockitoExtension.class)
 class ClientServiceTest {
 
@@ -229,32 +231,32 @@ class ClientServiceTest {
             java.time.Instant.now()
         );
         
-        when(clientRepository.findById(1L)).thenReturn(Optional.of(client));
+        when(clientRepository.findByDni("DNI-1001")).thenReturn(Optional.of(client));
         when(churnService.predict(client)).thenReturn(prediction);
 
         // When
-        ClientFullResponseDTO result = clientService.predictChurn(1L);
+        ClientFullResponseDTO result = clientService.predictChurnByDni("DNI-1001");
 
         // Then
         assertNotNull(result);
         assertEquals("John Doe", result.clientName());
         assertEquals((byte) 1, result.churn());
         assertEquals(0.85, result.probability());
-        verify(clientRepository).findById(1L);
+        verify(clientRepository).findByDni("DNI-1001");
         verify(churnService).predict(client);
     }
     
     @Test
     void shouldThrowExceptionWhenPredictChurnClientNotFound() {
         // Given
-        when(clientRepository.findById(999L)).thenReturn(Optional.empty());
+        when(clientRepository.findByDni("DNI-1001")).thenReturn(Optional.empty());
 
         // When & Then
         assertThrows(
-            java.util.NoSuchElementException.class,
-            () -> clientService.predictChurn(999L)
+            EntityNotFoundException.class,
+            () -> clientService.predictChurnByDni("DNI-1001")
         );
-        verify(clientRepository).findById(999L);
+        verify(clientRepository).findByDni("DNI-1001");
     }
     
     private Client createTestClient() {
