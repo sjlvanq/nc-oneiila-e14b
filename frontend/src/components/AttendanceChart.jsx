@@ -65,7 +65,7 @@ export default function AttendanceChart({ clientId }) {
   const hasMonthly = monthlyLabels.length > 0;
 
   const breakdown = data.additionalChargesByCat?.breakdown || [];
-  const pieLabels = breakdown.map(b => b.type);
+  const pieLabels = breakdown.map(b => `${b.type}: $${b.amount}`);
   const pieValues = breakdown.map(b => b.percentage);
 
   const hasPie = breakdown.length > 0;
