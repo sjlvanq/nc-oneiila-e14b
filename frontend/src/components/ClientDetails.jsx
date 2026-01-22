@@ -17,30 +17,30 @@ const ClientDetails = ({ client }) => {
 
   return (
     <section className={`clientDetails ${riskLevel}`}>
-      <h2>Client Details</h2>
+      <h2>Detalles del cliente</h2>
 
       <div className="detailRow">
-        <span>Client Name</span>
+       <span>Nombre del cliente</span>
         <span>{client.clientName}</span>
       </div>
 
       <div className="detailRow">
-        <span>Phone Number</span>
+        <span>Teléfono</span>
         <span>{client.clientPhone}</span>
       </div>
 
       <div className="detailRow">
-        <span>Age</span>
+        <span>Edad</span>
         <span>{client.age}</span>
       </div>
 
       <div className="detailRow">
-        <span>Churn Probability</span>
+        <span>Probabilidad de abandono</span>
         <span>{probability}%</span>
       </div>
 
       <div className="detailRow">
-        <span>Churn Status</span>
+        <span>Estado de abandono</span>
         <span>{churnState === 1 ? "Churn" : "Active"}</span>
       </div>
     </section>
