@@ -1,9 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from '@/contexts/AuthContext';
-import logo from '@/assets/img/logo-churncheck.png';
-
 export default function MainLayout() {
     const { isAuthenticated, logout } = useAuth();
+    const logo = "/churncheck-white.svg";
 
     return (
         <>

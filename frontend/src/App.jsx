@@ -1,6 +1,7 @@
 import './App.css'
 
 import { createBrowserRouter, RouterProvider, Link, Outlet } from "react-router-dom";
+import styles from './styles/components/Sidebar.module.css'
 
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -12,7 +13,7 @@ import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
 import NotFound from './pages/NotFound';
 
-import Navbar from './layouts/Navbar';
+import Sidebar from './layouts/Sidebar';
 
 // Layout para rutas públicas (sin navbar)
 function PublicLayout() {
@@ -26,12 +27,12 @@ function PublicLayout() {
 // Layout para rutas protegidas (con navbar)
 function ProtectedLayout() {
   return (
-    <>
-      <Navbar />
-      <main>
+    <div className={styles.layoutWrapper}>
+      <Sidebar />
+      <main className={styles.mainContent}>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
 
