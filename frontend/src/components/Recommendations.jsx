@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const Recommendations = ({ probability }) => {
   if (probability === undefined || probability === null) return null;
 

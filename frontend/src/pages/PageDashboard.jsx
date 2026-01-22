@@ -3,14 +3,18 @@ import { useState } from 'react';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 
 import AttendanceChart from "@/components/AttendanceChart.jsx";
+import ClientDetails from '../components/ClientDetails';
 import DniSearch from '@/components/DniSearch';
 import GlobalStats from '@/components/GlobalStats';
+import Recommendations from '../components/Recommendations';
+
+import styles from '@/styles/pages/PageDashboard.module.css';
 
 export default function PageDashboard() {
   const [selectedClient, setSelectedClient] = useState(null);
   useDocumentTitle('Dashboard');
     return (
-        <div className="dashboard-page">
+        <div className="dashboardPage">
             <section className="hero" style={{ height: 'auto', paddingTop: '100px', paddingLeft: ' 80px' }}>
                 <div className="heroContent">
                     <h1>Dashboard General</h1>
@@ -21,21 +25,24 @@ export default function PageDashboard() {
             <GlobalStats />
 
             <div className="container">
+                {selectedClient && (
+                    <div className={styles.predictionResultsContainer}>
+                        <div>
+                            <ClientDetails client={selectedClient} />
+                        </div>
+                        <div>
+                            <Recommendations probability={selectedClient.probability} />
+                        </div>
+                    </div>
+                
+                )}                
                 <DniSearch onClientFound={setSelectedClient} />
+                
+                {selectedClient && <AttendanceChart clientId={selectedClient.id} />}
 
-                {/* Las tarjetas de KPI se agregarán aquí en el futuro */}
                 <div style={{ marginTop: '40px', color: '#6b7280', textAlign: 'center' }}>
                     <p>ChurnCheck</p>
                 </div>
-            </div>
-            <div>
-                {selectedClient && (
-                    <>
-                    <h2 style={{alignContent:'center', textAlign:'center', fontSize: '50px'}}>Dashboard</h2>
-                    <AttendanceChart clientId={selectedClient.id} />
-                    </>
-                    
-                )}
             </div>
         </div>
     )
