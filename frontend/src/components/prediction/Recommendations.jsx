@@ -1,5 +1,5 @@
 import React from "react";
-
+import styles from "../../styles/components/Recommendations.module.css";
 
 const Recommendations = ({ probability }) => {
   if (probability === undefined || probability === null) return null;
@@ -8,63 +8,68 @@ const Recommendations = ({ probability }) => {
   let strategy = "";
   let action = "";
   let tactic = "";
+  let riskLevel = "";
 
   if (probability <= 25) {
-    riskTitle = "Low Risk (0% - 25%)";
-    strategy = "Loyalty & Upselling";
+    riskLevel = "low";
+    riskTitle = "Riesgo bajo (0% - 25%)";
+    strategy = "Fidelización y venta cruzada";
     action =
-      "Do not overwhelm the client with discounts. Focus on loyalty rewards such as referrals.";
+      "No saturar al cliente con descuentos. Ofrecer recompensas por lealtad, como beneficios por referir amigos.";
     tactic =
-      "Promote premium services like SPA, cafeteria, or merchandising.";
+      "Promocionar servicios premium como SPA, cafetería o merchandising.";
   } else if (probability <= 50) {
-    riskTitle = "Medium Risk (26% - 50%)";
-    strategy = "Preventive Engagement";
+    riskLevel = "medium";
+    riskTitle = "Riesgo medio (26% - 50%)";
+    strategy = "Engagement preventivo";
     action =
-      "Encourage habit formation when attendance starts to decline.";
+      "Fomentar el hábito cuando la asistencia del cliente comienza a disminuir.";
     tactic =
-      "Invite the client to group classes to increase social engagement.";
+      "Invitar al cliente a clases grupales para aumentar la interacción social.";
   } else if (probability <= 75) {
-    riskTitle = "High Risk (51% - 75%)";
-    strategy = "Active Intervention";
+    riskLevel = "high";
+    riskTitle = "Riesgo alto (51% - 75%)";
+    strategy = "Intervención activa";
     action =
-      "Send a personalized offer for early contract renewal.";
+      "Enviar una oferta personalizada para la renovación anticipada del contrato.";
     tactic =
-      "Offer a free personal training session to re-engage the client.";
+      "Ofrecer una sesión gratuita con un entrenador personal para reenganchar al cliente.";
   } else {
-    riskTitle = "Critical Risk (76% - 100%)";
-    strategy = "Emergency Retention";
+    riskLevel = "critical";
+    riskTitle = "Riesgo crítico (76% - 100%)";
+    strategy = "Retención de emergencia";
     action =
-      "Contact the client with an urgent aggressive offer valid for 48 hours.";
+      "Contactar al cliente con una oferta urgente y agresiva válida por 48 horas.";
     tactic =
-      "Offer membership freeze or collect short exit feedback.";
+      "Ofrecer la opción de congelar la membresía o realizar una breve encuesta de salida.";
   }
 
   return (
-    <section className="recommendations">
-      <h2>Recommendations</h2>
+    <section className={`${styles.recommendations} ${styles[riskLevel]}`}>
+      <h2 className={styles.title}>Recomendaciones</h2>
 
-      <div className="detail-row">
-        <span>Risk Level</span>
+      <div className={styles["detail-row"]}>
+        <span>Nivel de riesgo</span>
         <span>{riskTitle}</span>
       </div>
 
-      <div className="detail-row">
-        <span>Churn Status</span>
+      <div className={styles["detail-row"]}>
+        <span>Estado de abandono</span>
         <span>{probability > 50 ? "Churn" : "Active"}</span>
       </div>
 
-      <div className="detail-row">
-        <span>Strategy</span>
+      <div className={styles["detail-row"]}>
+        <span>Estrategia</span>
         <span>{strategy}</span>
       </div>
 
-      <div className="detail-row">
-        <span>Recommended Action</span>
+      <div className={styles["detail-row"]}>
+        <span>Acción recomendada</span>
         <span>{action}</span>
       </div>
 
-      <div className="detail-row">
-        <span>Tactic</span>
+      <div className={styles["detail-row"]}>
+        <span>Táctica</span>
         <span>{tactic}</span>
       </div>
     </section>
@@ -72,3 +77,4 @@ const Recommendations = ({ probability }) => {
 };
 
 export default Recommendations;
+
