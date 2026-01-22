@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from '@/styles/components/DniSearch.module.css';
 import api from '@/services/api';
 
-export default function DniSearch() {
+export default function DniSearch({ onClientFound }) {
     const [dni, setDni] = useState('');
 
     const [loading, setLoading] = useState(false);
@@ -31,6 +31,8 @@ export default function DniSearch() {
                 console.log(data);
                 setResponse(data);
 
+                onClientFound?.(data);
+
             } catch (error) {
                 if (error.response) {
                     setError(error.response.data.message || 'Error al consultar churn');
@@ -38,6 +40,7 @@ export default function DniSearch() {
                 } else {
                     setError("Sin conexión con el Backend");
                 }
+                onClientFound?.(null);
             } finally {
                 setLoading(false);
             }
