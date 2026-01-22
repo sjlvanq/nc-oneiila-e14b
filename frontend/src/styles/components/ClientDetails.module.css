@@ -1,0 +1,43 @@
+.client-details {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.low {
+  border-left: 6px solid #2ecc71;
+}
+
+.medium {
+  border-left: 6px solid #f1c40f;
+}
+
+.high {
+  border-left: 6px solid #e67e22;
+}
+
+.critical {
+  border-left: 6px solid #e74c3c;
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.detail-row span:first-child {
+  font-weight: 600;
+  color: #555;
+}
+
+.detail-row span:last-child {
+  color: #222;
+}
