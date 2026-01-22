@@ -16,35 +16,32 @@ const ClientDetails = ({ client }) => {
       : "critical";
 
   return (
-    <section className={`client-details ${riskLevel}`}>
-      <h2>Client Details</h2>
+  <section className={`client-details ${riskLevel}`}>
+    <h2>Client Details</h2>
 
-      <div className="detail-row">
-        <span>Name</span>
-        <span>{client.name}</span>
-      </div>
+    <div className="detail-row">
+      <span>Client Name</span>
+      <span>{client.name}</span>
+    </div>
 
-      <div className="detail-row">
-        <span>Phone</span>
-        <span>{client.phone}</span>
-      </div>
+    <div className="detail-row">
+      <span>Phone Number</span>
+      <span>{client.phone}</span>
+    </div>
 
-      <div className="detail-row">
-        <span>Age</span>
-        <span>{client.age}</span>
-      </div>
+    <div className="detail-row">
+      <span>Age</span>
+      <span>{client.age}</span>
+    </div>
 
-      <div className="detail-row">
-        <span>Churn Probability</span>
-        <span>{probability}%</span>
-      </div>
+    <div className="detail-row">
+      <span>Churn Probability</span>
+      <span>{probability}%</span>
+    </div>
 
-      <div className="detail-row">
-        <span>Status</span>
-        <span>{churnState === 1 ? "Churn" : "Active"}</span>
-      </div>
-    </section>
-  );
-};
-
-export default ClientDetails;
+    <div className="detail-row">
+      <span>Churn Status</span>
+      <span>{churnState === 1 ? "Churn" : "Active"}</span>
+    </div>
+  </section>
+);
