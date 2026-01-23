@@ -161,4 +161,13 @@ public class ClientController {
         return ResponseEntity.ok(statistics);
     }
 
+    @Operation(summary = "Get clients with high churn risk")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "High-risk clients retrieved successfully")
+    })
+    @GetMapping("/high-risk")
+    public ResponseEntity<java.util.List<ClientListResponseDTO>> getHighRiskClients() {
+        return ResponseEntity.ok(clientService.getHighRiskClients());
+    }
+
 }
