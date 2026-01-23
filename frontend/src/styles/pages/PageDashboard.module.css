@@ -1,15 +1,15 @@
 .predictionResultsContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin: 40px 0;
+  gap: 24px;
+  margin: 24px 0;
   padding: 0 20px;
 }
 
 .predictionResultsContainer > div:first-child {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .predictionResultsContainer > div:last-child {
@@ -20,15 +20,15 @@
 @media (max-width: 1024px) {
   .predictionResultsContainer {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
     padding: 0 16px;
   }
 }
 
 @media (max-width: 768px) {
   .predictionResultsContainer {
-    gap: 20px;
-    margin: 24px 0;
+    gap: 16px;
+    margin: 20px 0;
     padding: 0 12px;
   }
 }
