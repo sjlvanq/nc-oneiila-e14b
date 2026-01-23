@@ -876,3 +876,6 @@ INSERT INTO attendance (client_id, checked_in_at) VALUES
 -- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 1 visita
 INSERT INTO attendance (client_id, checked_in_at) VALUES
 (15, '2026-01-06 11:30:00');
+
+-- NOTA: Los datos de predicción se agregarán manualmente después de iniciar la aplicación
+-- para evitar problemas con el script de inicialización de datos.
