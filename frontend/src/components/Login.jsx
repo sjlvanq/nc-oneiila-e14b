@@ -106,9 +106,21 @@ export default function Login() {
                         <span>{getFieldError('password')}</span>
                     </p>
                 </div>
-                <div className={styles.cardButton}>
-                    <button type="submit" disabled={loading}>
-                        Entrar
+                <div className={styles.cardButtons}>
+                    <button 
+                        type="button" 
+                        className={styles.cancelButton}
+                        onClick={() => navigate('/')}
+                        disabled={loading}
+                    >
+                        Cancelar
+                    </button>
+                    <button 
+                        type="submit" 
+                        className={styles.loginButton}
+                        disabled={loading}
+                    >
+                        {loading ? 'Entrando...' : 'Entrar'}
                     </button>
                 </div>
             </form>
