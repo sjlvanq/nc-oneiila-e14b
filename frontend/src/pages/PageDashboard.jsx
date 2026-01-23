@@ -8,7 +8,7 @@ import GlobalStats from '@/components/GlobalStats';
 import HighRiskList from '@/components/HighRiskList';
 import Recommendations from '@/components/Recommendations';
 
-import logoChurncheck from '@/assets/img/logo-churncheck.png';
+import logoChurncheck from '@/assets/img/logo-churncheck-white.png';
 import styles from '@/styles/pages/PageDashboard.module.css';
 
 export default function PageDashboard() {
@@ -19,13 +19,15 @@ export default function PageDashboard() {
         <div className={styles.dashboardPage}>
             <header className={styles.hero}>
                 <div className={styles.heroContent}>
+                    <div className={styles.heroText}>
+                        <h1>Centro de Inteligencia</h1>
+                        <p>Monitoreo predictivo avanzado para retener clientes y optimizar tu negocio</p>
+                    </div>
                     <img
                         src={logoChurncheck}
                         alt="ChurnCheck Logo"
                         className={styles.heroLogo}
                     />
-                    <h1>Centro de Inteligencia</h1>
-                    <p>Monitoreo en tiempo real y análisis predictivo de clientes.</p>
                 </div>
             </header>
 
