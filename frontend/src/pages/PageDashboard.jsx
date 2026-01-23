@@ -8,6 +8,9 @@ import DniSearch from '@/components/DniSearch';
 import GlobalStats from '@/components/GlobalStats';
 import Recommendations from '../components/Recommendations';
 
+import logoChurncheck from '@/assets/img/logo-churncheck.png';
+import gymHero from '@/assets/img/gym-hero.jpg';
+
 import styles from '@/styles/pages/PageDashboard.module.css';
 
 export default function PageDashboard() {
@@ -15,8 +18,29 @@ export default function PageDashboard() {
   useDocumentTitle('Dashboard');
     return (
         <div className="dashboardPage">
-            <section className="hero" style={{ height: 'auto', paddingTop: '100px', paddingLeft: ' 80px' }}>
+            <section 
+                className="hero" 
+                style={{
+                    height: 'auto', 
+                    paddingTop: '100px', 
+                    paddingLeft: '80px',
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${gymHero})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    color: 'white'
+                }}
+            >
                 <div className="heroContent">
+                    <img 
+                        src={logoChurncheck} 
+                        alt="ChurnCheck Logo" 
+                        style={{
+                            width: '80px',
+                            height: 'auto',
+                            marginBottom: '20px'
+                        }}
+                    />
                     <h1>Dashboard General</h1>
                     <p>Visualiza el estado de tu gimnasio y busca clientes específicos.</p>
                 </div>
