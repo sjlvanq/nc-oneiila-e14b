@@ -1,0 +1,136 @@
+.clientsPage {
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+.header {
+    background: var(--primary-dark);
+    padding: 80px 20px;
+    margin-bottom: 30px;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    /* Keep below sidebar (z-index 1000) */
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+    padding: 5px 0;
+}
+
+.header p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.tableWrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.table th {
+    background-color: var(--gray-50);
+    padding: 16px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.table td {
+    padding: 16px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.table tr:hover {
+    background-color: var(--gray-50);
+}
+
+.badgeActive {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: var(--secondary-green);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.loading,
+.error,
+.noData {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.error {
+    color: var(--secondary-red);
+}
+
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.pageBtn {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-medium);
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.pageBtn:hover:not(:disabled) {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+    background-color: rgba(59, 130, 246, 0.05);
+}
+
+.pageBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 40px 20px;
+    }
+
+    .header h1 {
+        font-size: 1.8rem;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px;
+        font-size: 14px;
+    }
+}
