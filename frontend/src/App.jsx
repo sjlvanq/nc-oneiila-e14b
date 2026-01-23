@@ -12,6 +12,7 @@ import Inicio from './pages/Home';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
 import PageClientList from './pages/PageClientList';
+import PageRegisterClient from './pages/PageRegisterClient';
 import NotFound from './pages/NotFound';
 
 import Sidebar from './layouts/Sidebar';
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
           {
             path: "clients",
             element: <PageClientList />,
+          },
+          {
+            path: "register-client",
+            element: <PageRegisterClient />,
           },
         ],
       },

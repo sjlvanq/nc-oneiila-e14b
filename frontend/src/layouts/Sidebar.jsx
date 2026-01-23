@@ -4,6 +4,7 @@ import styles from '@/styles/components/Sidebar.module.css'
 import homeicon from './icons/house-regular-full.svg'
 import dashicon from './icons/chart-line-solid-full.svg'
 import usersicon from './icons/users-solid-full.svg'
+import registericon from './icons/user-plus-solid-full.svg'
 import loginicon from './icons/arrow-right-to-bracket-solid-full.svg'
 import logouticon from './icons/arrow-right-from-bracket-solid-full.svg'
 
@@ -30,6 +31,12 @@ export default function Sidebar() {
                         <Link className={styles.link} to="/clients" title="Clientes">
                             <img src={usersicon} className={styles.icon} alt="Clientes" />
                             <span className={styles.label}>Clients</span>
+                        </Link>
+                    </div>
+                    <div className={styles.elementStyle}>
+                        <Link className={styles.link} to="/register-client" title="Registrar">
+                            <img src={registericon} className={styles.icon} alt="Registrar" />
+                            <span className={styles.label}>Registrar</span>
                         </Link>
                     </div>
                 </>
