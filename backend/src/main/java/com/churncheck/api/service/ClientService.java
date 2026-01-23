@@ -94,12 +94,22 @@ public class ClientService {
     public GlobalStatisticsDTO getGlobalStats() {
         long total = clientRepository.count();
         long active = clientRepository.countByActiveTrue();
+        long inactive = clientRepository.countByActiveFalse();
+        long highRisk = clientRepository.countHighRiskClients();
         Double avgAge = clientRepository.getAverageAge();
 
         // Redondeo a 1 decimal
         double roundedAvg = (avgAge != null) ? Math.round(avgAge * 10.0) / 10.0 : 0.0;
 
-        return new GlobalStatisticsDTO(total, active, roundedAvg);
+        return new GlobalStatisticsDTO(total, active, inactive, highRisk, roundedAvg);
+    }
+
+    public List<ClientListResponseDTO> getHighRiskClients() {
+        // Obtenemos los 5 primeros clientes con riesgo > 70%
+        return clientRepository.findTopHighRiskClients(org.springframework.data.domain.PageRequest.of(0, 5))
+                .stream()
+                .map(ClientListResponseDTO::new)
+                .toList();
     }
 
     public ClientStatisticsDTO getClientStatistics(Long id) {

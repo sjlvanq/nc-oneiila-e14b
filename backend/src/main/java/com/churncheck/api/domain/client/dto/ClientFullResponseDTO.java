@@ -10,6 +10,7 @@ public record ClientFullResponseDTO(
         String clientName,
         String clientPhone,
         Integer age,
+        java.math.BigDecimal totalSpending,
         Byte churn,
         Double probability,
         Instant timestamp
@@ -20,6 +21,9 @@ public record ClientFullResponseDTO(
             client.getClientName(),
             client.getClientPhone(),
             client.getAge(),
+            client.getAdditionalCharges().stream()
+                .map(com.churncheck.api.domain.charge.AdditionalCharge::getAmount)
+                .reduce(java.math.BigDecimal.ZERO, java.math.BigDecimal::add),
             response.churn(),
             response.probability(),
             response.timestamp()
