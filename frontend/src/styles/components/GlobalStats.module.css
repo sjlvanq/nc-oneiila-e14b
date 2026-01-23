@@ -1,17 +1,55 @@
 .gStatsGrid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:20px;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:24px;
+  margin: 32px 20px;
+  max-width: 1200px;
 }
 
 .gStatsCard{
   background:#fff;
-  padding:20px;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.06);
+  padding:24px;
+  border-radius:16px;
+  box-shadow:0 4px 20px rgba(0,0,0,.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid;
 }
-.gStatsCard strong{font-size:28px; padding-left:1em;}
 
-.gStatsCard.clientsTotal{border-left:6px solid #0a1430}
-.gStatsCard.clientsActive{border-left:6px solid #3b82f6}
-.gStatsCard.averageAge{border-left:6px solid #22c55e}
+.gStatsCard:hover{
+  transform: translateY(-2px);
+  box-shadow:0 8px 30px rgba(0,0,0,.12);
+}
+
+.gStatsCard span{
+  display: block;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.gStatsCard strong{
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  display: block;
+}
+
+.gStatsCard.clientsTotal{border-left-color: #0a1430;}
+.gStatsCard.clientsActive{border-left-color: #3b82f6;}
+.gStatsCard.averageAge{border-left-color: #22c55e;}
+
+@media (max-width: 768px) {
+  .gStatsGrid{
+    margin: 24px 16px;
+    gap: 16px;
+  }
+  
+  .gStatsCard{
+    padding: 20px;
+  }
+  
+  .gStatsCard strong{
+    font-size: 28px;
+  }
+}
