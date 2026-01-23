@@ -1,12 +1,14 @@
 .recommendations {
   background: var(--bg-primary);
   border-radius: 16px;
-  padding: 24px;
+  padding: 16px;
   box-shadow: var(--shadow-md);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-left: 4px solid;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: fit-content;
 }
 
 .recommendations::before {
@@ -38,7 +40,7 @@
 .detailRow {
   display: flex;
   flex-direction: column;
-  padding: 16px 0;
+  padding: 8px 0;
   border-bottom: 1px solid var(--border-light);
   transition: background-color 0.2s ease;
 }
@@ -46,7 +48,7 @@
 .detailRow:hover {
   background-color: var(--bg-secondary);
   margin: 0 -24px;
-  padding: 16px 24px;
+  padding: 10px 24px;
   border-radius: 8px;
 }
 
@@ -93,7 +95,7 @@
 
 @media (max-width: 768px) {
   .recommendations {
-    padding: 20px;
+    padding: 10px;
   }
   
   .title {
@@ -102,11 +104,11 @@
   }
   
   .detailRow {
-    padding: 12px 0;
+    padding: 10px 0;
   }
   
   .detailRow:hover {
     margin: 0 -20px;
-    padding: 12px 20px;
+    padding: 10px 20px;
   }
 }

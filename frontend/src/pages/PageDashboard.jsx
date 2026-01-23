@@ -17,29 +17,18 @@ export default function PageDashboard() {
   const [selectedClient, setSelectedClient] = useState(null);
   useDocumentTitle('Dashboard');
     return (
-        <div className="dashboardPage">
+        <div className={styles.dashboardPage}>
             <section 
-                className="hero" 
+                className={styles.hero}
                 style={{
-                    height: 'auto', 
-                    paddingTop: '100px', 
-                    paddingLeft: '80px',
-                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${gymHero})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    color: 'white'
+                    backgroundImage: `url(${gymHero})`
                 }}
             >
-                <div className="heroContent">
+                <div className={styles.heroContent}>
                     <img 
                         src={logoChurncheck} 
                         alt="ChurnCheck Logo" 
-                        style={{
-                            width: '80px',
-                            height: 'auto',
-                            marginBottom: '20px'
-                        }}
+                        className={styles.heroLogo}
                     />
                     <h1>Dashboard General</h1>
                     <p>Visualiza el estado de tu gimnasio y busca clientes específicos.</p>
@@ -54,18 +43,21 @@ export default function PageDashboard() {
 
                 {selectedClient && (
                     <div className={styles.predictionResultsContainer}>
-                        <div>
-                            <ClientDetails client={selectedClient} />
+                        {/* Sección de gráficas - ocupa más espacio */}
+                        <div className={styles.chartsSection}>
                             <AttendanceChart clientId={selectedClient.id} />
-                        </div>
-                        <div>
+                            <ClientDetails client={selectedClient} />
                             <Recommendations probability={selectedClient.probability} />
                         </div>
+                        
+                        {/* Sección de detalles - abajo
+                        <div className={styles.detailsSection}>
+                        </div> */}
                     </div>
                 
                 )}
                 
-                <div style={{ marginTop: '40px', color: '#6b7280', textAlign: 'center' }}>
+                <div className={styles.footer}>
                     <p>ChurnCheck</p>
                 </div>
             </div>
