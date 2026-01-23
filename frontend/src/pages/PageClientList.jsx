@@ -78,7 +78,7 @@ export default function PageClientList() {
                                         clients.map(client => (
                                             <tr key={client.id}>
                                                 <td>{client.clientName}</td>
-                                                <td>{client.gender === 'M' ? 'Masculino' : 'Femenino'}</td>
+                                                <td>{client.gender === 'MALE' ? 'Masculino' : 'Femenino'}</td>
                                                 <td>{client.clientPhone}</td>
                                                 <td>{client.age} años</td>
                                                 <td>{client.nearLocation ? 'Sí' : 'No'}</td>
