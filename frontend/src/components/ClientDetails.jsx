@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "../../styles/components/ClientDetails.module.css";
 
 const ClientDetails = ({ client }) => {
   if (!client) return null;
@@ -10,10 +11,10 @@ const ClientDetails = ({ client }) => {
     probability <= 25
       ? "low"
       : probability <= 50
-        ? "medium"
-        : probability <= 75
-          ? "high"
-          : "critical";
+      ? "medium"
+      : probability <= 75
+      ? "high"
+      : "critical";
 
   return (
     <section className={`clientDetails ${riskLevel}`}>
