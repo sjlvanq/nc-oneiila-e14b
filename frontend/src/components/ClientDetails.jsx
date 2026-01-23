@@ -1,5 +1,4 @@
-import React from "react";
-import styles from "../../styles/components/ClientDetails.module.css";
+import styles from "@/styles/components/ClientDetails.module.css";
 
 const ClientDetails = ({ client }) => {
   if (!client) return null;
@@ -17,30 +16,30 @@ const ClientDetails = ({ client }) => {
       : "critical";
 
   return (
-    <section className={`clientDetails ${riskLevel}`}>
+    <section className={`${styles.clientDetails} ${styles[riskLevel]}`}>
       <h2>Detalles del cliente</h2>
 
-      <div className="detailRow">
+      <div className={styles.detailRow}>
        <span>Nombre del cliente</span>
         <span>{client.clientName}</span>
       </div>
 
-      <div className="detailRow">
+      <div className={styles.detailRow}>
         <span>Teléfono</span>
         <span>{client.clientPhone}</span>
       </div>
 
-      <div className="detailRow">
+      <div className={styles.detailRow}>
         <span>Edad</span>
         <span>{client.age}</span>
       </div>
 
-      <div className="detailRow">
+      <div className={styles.detailRow}>
         <span>Probabilidad de abandono</span>
         <span>{probability}%</span>
       </div>
 
-      <div className="detailRow">
+      <div className={styles.detailRow}>
         <span>Estado de abandono</span>
         <span>{churnState === 1 ? "Churn" : "Active"}</span>
       </div>
