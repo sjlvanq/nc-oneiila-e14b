@@ -34,19 +34,46 @@
         transform: translateY(0%);
     }
 }
-.cardButton button{
-    width: 100%;
+.cardButtons{
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.cardButtons button{
+    flex: 1;
     padding: 14px;
-    background: #22c55e;
-    color: white;
     border: none;
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
-.cardButton button:hover{
-    background: #16a34a;;
+
+.loginButton{
+    background: #22c55e;
+    color: white;
+}
+
+.loginButton:hover:not(:disabled){
+    background: #16a34a;
+}
+
+.cancelButton{
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+
+.cancelButton:hover:not(:disabled){
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.cardButtons button:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 .cardInput input{
     width: 100%;
