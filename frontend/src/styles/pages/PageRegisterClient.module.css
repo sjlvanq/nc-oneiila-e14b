@@ -1,0 +1,288 @@
+.registerPage {
+    min-height: 100vh;
+    background-color: var(--bg-secondary);
+    padding-bottom: 80px;
+}
+
+.header {
+    background: linear-gradient(rgba(10, 20, 48, 0.85), rgba(10, 20, 48, 0.85)), url('@/assets/img/gym-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
+    margin-bottom: 40px;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.header h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0 0 12px 0;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    padding: 10px 0;
+}
+
+.header p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.formGrid {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+}
+
+.formCard {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+}
+
+.formSection {
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(249, 250, 251, 0.5);
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+}
+
+.formSection h3 {
+    font-size: 14px;
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.formSection h3::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border-light), transparent);
+}
+
+.inputRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputGroup label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.inputGroup input,
+.inputGroup select {
+    padding: 14px 18px;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background: white;
+    color: var(--text-primary);
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    transform: translateY(-2px);
+}
+
+.hint {
+    font-size: 12px;
+    color: var(--primary-light);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.checkboxGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 10px;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.checkboxLabel:hover {
+    color: var(--primary-blue);
+}
+
+.checkboxLabel input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    accent-color: var(--primary-blue);
+}
+
+.errorBanner {
+    background-color: #fef2f2;
+    color: var(--secondary-red);
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 30px;
+    font-size: 14px;
+    font-weight: 600;
+    border-left: 5px solid var(--secondary-red);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    padding: 40px 30px;
+    background: var(--gray-50);
+}
+
+.submitBtn {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.submitBtn:hover:not(:disabled) {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--gray-400);
+}
+
+.cancelBtn {
+    background: white;
+    border: 2px solid var(--border-medium);
+    color: var(--text-secondary);
+    padding: 16px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+    background-color: var(--gray-100);
+    border-color: var(--gray-400);
+}
+
+/* Success State */
+.successWrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-dark);
+}
+
+.successCard {
+    text-align: center;
+    max-width: 450px;
+    padding: 60px 40px !important;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.successIcon {
+    font-size: 64px;
+    margin-bottom: 24px;
+    background: var(--secondary-green);
+    color: white;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 50%;
+    margin: 0 auto 24px;
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 80px 20px;
+        clip-path: none;
+        margin-bottom: 20px;
+    }
+
+    .header h1 {
+        font-size: 2.2rem;
+    }
+
+    .inputRow {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .formSection {
+        padding: 20px;
+    }
+
+    .actions {
+        flex-direction: column-reverse;
+        padding: 20px;
+    }
+
+    .submitBtn,
+    .cancelBtn {
+        width: 100%;
+        padding: 14px;
+    }
+}
