@@ -15,6 +15,13 @@ powered by ![NoCountry](docs/assets/nocountry-logo.png)
 * **Equipo: H12-25-L-Equipo 14-Data Science**
 
 -----
+![Oriana](docs/assets/team-oriana-nc.png)
+![Miguel Castillo](docs/assets/team-mcastillo-nc.png)
+![Iris](docs/assets/team-iris-nc.png)
+![Gabriel](docs/assets/team-gabriel-nc.png)
+![Silvano](docs/assets/team-silvano-nc.png)
+![Wilson](docs/assets/team-wilson-nc.png)
+-----
 
 ### Profundización Técnica
 
