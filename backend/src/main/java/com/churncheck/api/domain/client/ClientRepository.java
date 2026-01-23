@@ -28,6 +28,14 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     boolean existsByClientPhone(String clientPhone);
 
     long countByActiveTrue();
+    
+    long countByActiveFalse();
+
+    @Query("SELECT COUNT(c) FROM Client c WHERE c.active = true AND c.lastPredictionProbability > 0.7")
+    long countHighRiskClients();
+
+    @Query("SELECT c FROM Client c WHERE c.active = true AND c.lastPredictionProbability > 0.7 ORDER BY c.lastPredictionProbability DESC")
+    List<Client> findTopHighRiskClients(Pageable pageable);
 
     @Query("SELECT AVG(c.age) FROM Client c")
     Double getAverageAge();
