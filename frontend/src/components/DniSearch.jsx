@@ -2,8 +2,8 @@ import { useState } from 'react';
 import styles from '@/styles/components/DniSearch.module.css';
 import api from '@/services/api';
 
-import ClientDetails from './prediction/ClientDetails';
-import Recommendations from './prediction/Recommendations';
+import ClientDetails from '@/components/ClientDetails';
+import Recommendations from '@/components/Recommendations';
 
 export default function DniSearch({ onClientFound }) {
     const [dni, setDni] = useState('');
@@ -79,13 +79,6 @@ export default function DniSearch({ onClientFound }) {
 
         {loading && <p className={styles.info}>Consultando churn...</p>}
         {error && <p className={styles.error}>{error}</p>}
-        
-       {!error && response && (
-    <div className={styles.card}>
-        <ClientDetails client={client} />
-        <Recommendations probability={response.probability} />
-    </div>
-)}
      </>
     );
 }

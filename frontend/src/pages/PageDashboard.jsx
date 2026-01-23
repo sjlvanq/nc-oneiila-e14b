@@ -3,14 +3,18 @@ import { useState } from 'react';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 
 import AttendanceChart from "@/components/AttendanceChart.jsx";
+import ClientDetails from '../components/ClientDetails';
 import DniSearch from '@/components/DniSearch';
 import GlobalStats from '@/components/GlobalStats';
+import Recommendations from '../components/Recommendations';
+
+import styles from '@/styles/pages/PageDashboard.module.css';
 
 export default function PageDashboard() {
   const [selectedClient, setSelectedClient] = useState(null);
   useDocumentTitle('Dashboard');
     return (
-        <div className="dashboard-page">
+        <div className="dashboardPage">
             <section className="hero" style={{ height: 'auto', paddingTop: '100px', paddingLeft: ' 80px' }}>
                 <div className="heroContent">
                     <h1>Dashboard General</h1>
@@ -21,21 +25,25 @@ export default function PageDashboard() {
             <GlobalStats />
 
             <div className="container">
+
                 <DniSearch onClientFound={setSelectedClient} />
 
-                {/* Las tarjetas de KPI se agregarán aquí en el futuro */}
+                {selectedClient && (
+                    <div className={styles.predictionResultsContainer}>
+                        <div>
+                            <ClientDetails client={selectedClient} />
+                            <AttendanceChart clientId={selectedClient.id} />
+                        </div>
+                        <div>
+                            <Recommendations probability={selectedClient.probability} />
+                        </div>
+                    </div>
+                
+                )}
+                
                 <div style={{ marginTop: '40px', color: '#6b7280', textAlign: 'center' }}>
                     <p>ChurnCheck</p>
                 </div>
-            </div>
-            <div>
-                {selectedClient && (
-                    <>
-                    <h2 style={{alignContent:'center', textAlign:'center', fontSize: '50px'}}>Dashboard</h2>
-                    <AttendanceChart clientId={selectedClient.id} />
-                    </>
-                    
-                )}
             </div>
         </div>
     )

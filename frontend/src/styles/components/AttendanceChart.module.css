@@ -1,23 +1,21 @@
 .container{
-    width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 40px 24px;
 }
 .boxesContainer{
     display: flex;
-    gap: 2em;
+    gap: 1em;
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
 }
 .chartBox{
-    max-Width: '600px'; 
-    margin-bottom: '40px';
+    margin-bottom: '20px';
     border-radius: 12px;
-    padding:24px;
-    max-width: 600px;
-    max-height: 450px;
-    flex: 1 1 420px;
+    max-width: 200px;
+    max-height: 300px;
+    flex: 1 1 520px;
 }
 .chartBox canvas{
     object-fit: contain;

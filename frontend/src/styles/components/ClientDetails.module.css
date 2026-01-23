@@ -1,4 +1,4 @@
-.client-details {
+.clientDetails {
   background-color: #ffffff;
   border-radius: 8px;
   padding: 16px;
@@ -27,17 +27,17 @@
   font-weight: 600;
 }
 
-.detail-row {
+.detailRow {
   display: flex;
   justify-content: space-between;
   padding: 6px 0;
 }
 
-.detail-row span:first-child {
+.detailRow span:first-child {
   font-weight: 600;
   color: #555;
 }
 
-.detail-row span:last-child {
+.detailRow span:last-child {
   color: #222;
 }

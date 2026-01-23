@@ -1,0 +1,23 @@
+.predictionResultsContainer {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.predictionResultsContainer > div {
+  flex: 1 1 calc(50% - 12px);
+  min-width: 300px;
+}
+
+/* Mobile responsivo */
+@media (max-width: 768px) {
+  .predictionResultsContainer {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .predictionResultsContainer > div {
+    flex: 1 1 100%;
+  }
+}

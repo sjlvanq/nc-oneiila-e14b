@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/components/Recommendations.module.css";
+import styles from "@/styles/components/Recommendations.module.css";
 
 const Recommendations = ({ probability }) => {
   if (probability === undefined || probability === null) return null;
@@ -10,7 +10,7 @@ const Recommendations = ({ probability }) => {
   let tactic = "";
   let riskLevel = "";
 
-  if (probability <= 25) {
+  if (probability <= 0.25) {
     riskLevel = "low";
     riskTitle = "Riesgo bajo (0% - 25%)";
     strategy = "Fidelización y venta cruzada";
@@ -18,7 +18,7 @@ const Recommendations = ({ probability }) => {
       "No saturar al cliente con descuentos. Ofrecer recompensas por lealtad, como beneficios por referir amigos.";
     tactic =
       "Promocionar servicios premium como SPA, cafetería o merchandising.";
-  } else if (probability <= 50) {
+  } else if (probability <= 0.50) {
     riskLevel = "medium";
     riskTitle = "Riesgo medio (26% - 50%)";
     strategy = "Engagement preventivo";
@@ -26,7 +26,7 @@ const Recommendations = ({ probability }) => {
       "Fomentar el hábito cuando la asistencia del cliente comienza a disminuir.";
     tactic =
       "Invitar al cliente a clases grupales para aumentar la interacción social.";
-  } else if (probability <= 75) {
+  } else if (probability <= 0.75) {
     riskLevel = "high";
     riskTitle = "Riesgo alto (51% - 75%)";
     strategy = "Intervención activa";
@@ -48,27 +48,27 @@ const Recommendations = ({ probability }) => {
     <section className={`${styles.recommendations} ${styles[riskLevel]}`}>
       <h2 className={styles.title}>Recomendaciones</h2>
 
-      <div className={styles["detail-row"]}>
+      <div className={styles.detailRow}>
         <span>Nivel de riesgo</span>
         <span>{riskTitle}</span>
       </div>
 
-      <div className={styles["detail-row"]}>
+      <div className={styles.detailRow}>
         <span>Estado de abandono</span>
         <span>{probability > 50 ? "Churn" : "Active"}</span>
       </div>
 
-      <div className={styles["detail-row"]}>
+      <div className={styles.detailRow}>
         <span>Estrategia</span>
         <span>{strategy}</span>
       </div>
 
-      <div className={styles["detail-row"]}>
+      <div className={styles.detailRow}>
         <span>Acción recomendada</span>
         <span>{action}</span>
       </div>
 
-      <div className={styles["detail-row"]}>
+      <div className={styles.detailRow}>
         <span>Táctica</span>
         <span>{tactic}</span>
       </div>
