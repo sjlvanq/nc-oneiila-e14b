@@ -25,21 +25,22 @@ export default function PageDashboard() {
             <GlobalStats />
 
             <div className="container">
+
+                <DniSearch onClientFound={setSelectedClient} />
+
                 {selectedClient && (
                     <div className={styles.predictionResultsContainer}>
                         <div>
                             <ClientDetails client={selectedClient} />
+                            <AttendanceChart clientId={selectedClient.id} />
                         </div>
                         <div>
                             <Recommendations probability={selectedClient.probability} />
                         </div>
                     </div>
                 
-                )}                
-                <DniSearch onClientFound={setSelectedClient} />
+                )}
                 
-                {selectedClient && <AttendanceChart clientId={selectedClient.id} />}
-
                 <div style={{ marginTop: '40px', color: '#6b7280', textAlign: 'center' }}>
                     <p>ChurnCheck</p>
                 </div>
