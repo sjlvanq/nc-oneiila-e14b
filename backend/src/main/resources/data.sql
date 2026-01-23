@@ -60,6 +60,61 @@ INSERT INTO clients (
 (
     'DNI-1004','María García López', '555-0404', 'FEMALE', '1999-01-01', 1, 1, 1, 
     '2024-06-01', '2024-06-01', 12, 1, 1
+),
+-- Cliente 5: Perfil joven alto riesgo
+(
+    'DNI-1005','Carlos Rodríguez', '555-0505', 'MALE', '2003-05-15', 0, NULL, 0, 
+    '2025-10-01', '2025-10-01', 3, 0, 1
+),
+-- Cliente 6: Perfil adulto estable
+(
+    'DNI-1006','Ana Martínez', '555-0606', 'FEMALE', '1985-03-22', 1, 2, 1, 
+    '2023-03-15', '2023-03-15', 24, 1, 1
+),
+-- Cliente 7: Perfil senior comprometido
+(
+    'DNI-1007','Roberto Silva', '555-0707', 'MALE', '1978-11-08', 1, 1, 1, 
+    '2022-09-01', '2022-09-01', 36, 1, 1
+),
+-- Cliente 8: Perfil estudiante irregular
+(
+    'DNI-1008','Laura Chen', '555-0808', 'FEMALE', '2004-07-30', 0, 2, 0, 
+    '2025-08-15', '2025-08-15', 6, 0, 1
+),
+-- Cliente 9: Perfil profesional ocupado
+(
+    'DNI-1009','Diego Morales', '555-0909', 'MALE', '1992-02-14', 1, NULL, 1, 
+    '2024-11-01', '2024-11-01', 12, 0, 1
+),
+-- Cliente 10: Perfil atleta amateur
+(
+    'DNI-1010','Sofia Patel', '555-1010', 'FEMALE', '1996-09-25', 1, 1, 1, 
+    '2023-07-10', '2023-07-10', 18, 1, 1
+),
+-- Cliente 11: Perfil nuevo entusiasta
+(
+    'DNI-1011','Miguel Torres', '555-1111', 'MALE', '2001-12-03', 1, 2, 1, 
+    '2025-12-20', '2025-12-20', 1, 1, 1
+),
+-- Cliente 12: Perfil moderado estable
+(
+    'DNI-1012','Isabella Romano', '555-1212', 'FEMALE', '1989-06-18', 1, 1, 0, 
+    '2024-02-28', '2024-02-28', 12, 1, 1
+),
+-- Cliente 13: Perfil económico básico
+(
+    'DNI-1013','Luis Kim', '555-1313', 'MALE', '1995-04-10', 0, NULL, 0, 
+    '2025-09-05', '2025-09-05', 3, 0, 1
+),
+-- Cliente 14: Perfil premium dedicado
+(
+    'DNI-1014','Valentina Brown', '555-1414', 'FEMALE', '1987-08-22', 1, 2, 1, 
+    '2022-01-10', '2022-01-10', 48, 1, 1
+),
+-- Cliente 15: Perfil casual reciente
+(
+    'DNI-1015','Andrés White', '555-1515', 'MALE', '2000-10-15', 0, 1, 0, 
+    '2025-11-20', '2025-11-20', 6, 0, 1
 );
 
 -- Additional_charges
@@ -72,7 +127,45 @@ INSERT INTO additional_charges (client_id, charge_type_id, amount, charge_date) 
 (3, 1, 47.00, '2025-12-05'),
 (4, 2, 80.00, '2024-07-10'),
 (4, 1, 65.00, '2024-08-15'),
-(4, 2, 40.00, '2024-09-01');
+(4, 2, 40.00, '2024-09-01'),
+-- Cliente 5: Carlos Rodríguez - Alto riesgo (pocos cargos)
+(5, 2, 25.00, '2025-10-15'),
+-- Cliente 6: Ana Martínez - Estable (cargos regulares)
+(6, 1, 75.00, '2024-06-10'),
+(6, 2, 30.00, '2024-09-15'),
+(6, 1, 80.00, '2025-01-05'),
+-- Cliente 7: Roberto Silva - Premium (cargos frecuentes)
+(7, 1, 120.00, '2023-10-20'),
+(7, 2, 45.00, '2024-03-15'),
+(7, 1, 100.00, '2024-08-10'),
+(7, 2, 50.00, '2025-01-08'),
+-- Cliente 8: Laura Chen - Estudiante (cargos esporádicos)
+(8, 2, 20.00, '2025-09-20'),
+-- Cliente 9: Diego Morales - Ocupado (cargos ocasionales)
+(9, 1, 60.00, '2024-12-05'),
+(9, 2, 35.00, '2025-01-10'),
+-- Cliente 10: Sofia Patel - Atleta (cargos deportivos)
+(10, 1, 90.00, '2023-08-15'),
+(10, 2, 40.00, '2024-02-20'),
+(10, 1, 85.00, '2024-11-10'),
+(10, 2, 45.00, '2025-01-12'),
+-- Cliente 11: Miguel Torres - Nuevo (primer cargo)
+(11, 2, 15.00, '2025-12-25'),
+-- Cliente 12: Isabella Romano - Moderado (cargos medios)
+(12, 1, 55.00, '2024-05-12'),
+(12, 2, 28.00, '2024-10-18'),
+(12, 1, 60.00, '2025-01-03'),
+-- Cliente 13: Luis Kim - Económico (cargos básicos)
+(13, 2, 18.00, '2025-09-30'),
+-- Cliente 14: Valentina Brown - Premium (muchos cargos)
+(14, 1, 150.00, '2022-03-10'),
+(14, 2, 60.00, '2022-09-15'),
+(14, 1, 130.00, '2023-04-20'),
+(14, 2, 55.00, '2023-11-25'),
+(14, 1, 140.00, '2024-06-30'),
+(14, 2, 65.00, '2025-01-07'),
+-- Cliente 15: Andrés White - Casual (pocos cargos)
+(15, 1, 40.00, '2025-12-01');
 
 -- =====================================================
 -- ATTENDANCE DATA - Registros de Asistencia
@@ -491,3 +584,295 @@ INSERT INTO attendance (client_id, checked_in_at) VALUES
 (4, '2025-05-12 19:00:00'), (4, '2025-05-14 07:45:00'), (4, '2025-05-16 08:30:00'), (4, '2025-05-19 19:15:00'),
 (4, '2025-05-21 07:30:00'), (4, '2025-05-23 08:00:00'), (4, '2025-05-26 19:30:00'), (4, '2025-05-28 07:45:00'),
 (4, '2025-05-30 18:15:00');
+
+-- =====================================================
+-- Cliente 5: Carlos Rodríguez (ID: 5) - Alto riesgo
+-- =====================================================
+-- Perfil: Joven alto riesgo
+-- Registrado: 2025-10-01 (hace ~3.3 meses = ~14 semanas)
+-- avg_class_frequency_total: 0.3 visitas/semana → ~4 visitas totales
+-- avg_class_frequency_current_month: 0.0 visitas/semana → 0 visitas en enero 2026
+
+-- Octubre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(5, '2025-10-05 10:00:00'),
+(5, '2025-10-15 11:30:00');
+
+-- Noviembre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(5, '2025-11-02 10:30:00'),
+(5, '2025-11-20 14:00:00');
+
+-- Diciembre 2025 - 0 visitas (indicador de churn)
+-- (Sin registros - cliente ha abandonado)
+
+-- =====================================================
+-- Cliente 6: Ana Martínez (ID: 6) - Estable
+-- =====================================================
+-- Perfil: Adulto estable
+-- Registrado: 2023-03-15 (hace ~22 meses = ~95 semanas)
+-- avg_class_frequency_total: 2.8 visitas/semana → ~266 visitas totales
+-- avg_class_frequency_current_month: 3.0 visitas/semana → ~4 visitas en enero 2026
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(6, '2026-01-02 07:00:00'),
+(6, '2026-01-04 18:30:00'),
+(6, '2026-01-07 08:15:00'),
+(6, '2026-01-09 19:00:00');
+
+-- Diciembre 2025 - 12 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(6, '2025-12-01 07:15:00'), (6, '2025-12-03 18:45:00'), (6, '2025-12-05 08:00:00'), (6, '2025-12-08 19:15:00'),
+(6, '2025-12-10 07:30:00'), (6, '2025-12-12 18:30:00'), (6, '2025-12-15 08:45:00'), (6, '2025-12-17 19:00:00'),
+(6, '2025-12-19 07:00:00'), (6, '2025-12-22 18:15:00'), (6, '2025-12-26 08:30:00'), (6, '2025-12-29 19:30:00');
+
+-- Noviembre 2025 - 12 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(6, '2025-11-02 07:15:00'), (6, '2025-11-05 18:45:00'), (6, '2025-11-07 08:00:00'), (6, '2025-11-10 19:15:00'),
+(6, '2025-11-12 07:30:00'), (6, '2025-11-14 18:30:00'), (6, '2025-11-17 08:45:00'), (6, '2025-11-19 19:00:00'),
+(6, '2025-11-21 07:00:00'), (6, '2025-11-24 18:15:00'), (6, '2025-11-26 08:30:00'), (6, '2025-11-28 19:30:00');
+
+-- =====================================================
+-- Cliente 7: Roberto Silva (ID: 7) - Premium
+-- =====================================================
+-- Perfil: Senior comprometido
+-- Registrado: 2022-09-01 (hace ~40 meses = ~173 semanas)
+-- avg_class_frequency_total: 4.2 visitas/semana → ~727 visitas totales
+-- avg_class_frequency_current_month: 4.5 visitas/semana → ~6 visitas en enero 2026
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(7, '2026-01-01 06:30:00'),
+(7, '2026-01-03 17:30:00'),
+(7, '2026-01-05 07:15:00'),
+(7, '2026-01-07 18:00:00'),
+(7, '2026-01-08 06:45:00'),
+(7, '2026-01-10 17:45:00');
+
+-- Diciembre 2025 - 18 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(7, '2025-12-01 06:30:00'), (7, '2025-12-02 17:30:00'), (7, '2025-12-03 07:15:00'), (7, '2025-12-04 18:00:00'),
+(7, '2025-12-07 06:45:00'), (7, '2025-12-08 17:45:00'), (7, '2025-12-09 07:00:00'), (7, '2025-12-10 18:15:00'),
+(7, '2025-12-11 06:30:00'), (7, '2025-12-14 17:30:00'), (7, '2025-12-15 07:15:00'), (7, '2025-12-16 18:00:00'),
+(7, '2025-12-17 06:45:00'), (7, '2025-12-18 17:45:00'), (7, '2025-12-21 07:00:00'), (7, '2025-12-22 18:15:00'),
+(7, '2025-12-28 06:30:00'), (7, '2025-12-30 17:30:00');
+
+-- =====================================================
+-- Cliente 8: Laura Chen (ID: 8) - Estudiante irregular
+-- =====================================================
+-- Perfil: Estudiante irregular
+-- Registrado: 2025-08-15 (hace ~5 meses = ~21 semanas)
+-- avg_class_frequency_total: 0.6 visitas/semana → ~13 visitas totales
+-- avg_class_frequency_current_month: 0.0 visitas/semana → 0 visitas en enero 2026
+
+-- Agosto 2025 - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(8, '2025-08-16 15:00:00'),
+(8, '2025-08-20 16:30:00'),
+(8, '2025-08-25 14:45:00'),
+(8, '2025-08-30 15:30:00');
+
+-- Septiembre 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(8, '2025-09-05 15:15:00'),
+(8, '2025-09-15 16:00:00'),
+(8, '2025-09-25 14:30:00');
+
+-- Octubre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(8, '2025-10-08 15:45:00'),
+(8, '2025-10-22 16:15:00');
+
+-- Noviembre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(8, '2025-11-05 15:00:00'),
+(8, '2025-11-18 16:30:00');
+
+-- Diciembre 2025 - 2 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(8, '2025-12-02 15:15:00'),
+(8, '2025-12-20 16:00:00');
+
+-- Enero 2026 - 0 visitas (indicador de posible churn)
+
+-- =====================================================
+-- Cliente 9: Diego Morales (ID: 9) - Profesional ocupado
+-- =====================================================
+-- Perfil: Profesional ocupado
+-- Registrado: 2024-11-01 (hace ~14.3 meses = ~62 semanas)
+-- avg_class_frequency_total: 1.5 visitas/semana → ~93 visitas totales
+-- avg_class_frequency_current_month: 1.0 visitas/semana → ~1 visita en enero 2026
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 1 visita
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(9, '2026-01-08 20:00:00');
+
+-- Diciembre 2025 - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(9, '2025-12-02 20:15:00'),
+(9, '2025-12-07 19:30:00'),
+(9, '2025-12-12 20:45:00'),
+(9, '2025-12-17 19:00:00'),
+(9, '2025-12-22 20:30:00'),
+(9, '2025-12-28 19:15:00');
+
+-- Noviembre 2025 - 6 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(9, '2025-11-03 20:00:00'),
+(9, '2025-11-10 19:30:00'),
+(9, '2025-11-14 20:15:00'),
+(9, '2025-11-19 19:45:00'),
+(9, '2025-11-24 20:30:00'),
+(9, '2025-11-29 19:00:00');
+
+-- =====================================================
+-- Cliente 10: Sofia Patel (ID: 10) - Atleta amateur
+-- =====================================================
+-- Perfil: Atleta amateur
+-- Registrado: 2023-07-10 (hace ~18 meses = ~78 semanas)
+-- avg_class_frequency_total: 3.8 visitas/semana → ~296 visitas totales
+-- avg_class_frequency_current_month: 4.0 visitas/semana → ~5 visitas en enero 2026
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 5 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(10, '2026-01-02 06:00:00'),
+(10, '2026-01-04 17:00:00'),
+(10, '2026-01-06 06:30:00'),
+(10, '2026-01-08 17:30:00'),
+(10, '2026-01-10 06:15:00');
+
+-- Diciembre 2025 - 16 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(10, '2025-12-01 06:00:00'), (10, '2025-12-02 17:00:00'), (10, '2025-12-04 06:30:00'), (10, '2025-12-05 17:30:00'),
+(10, '2025-12-08 06:15:00'), (10, '2025-12-09 17:15:00'), (10, '2025-12-11 06:45:00'), (10, '2025-12-12 17:45:00'),
+(10, '2025-12-15 06:00:00'), (10, '2025-12-16 17:00:00'), (10, '2025-12-18 06:30:00'), (10, '2025-12-19 17:30:00'),
+(10, '2025-12-22 06:15:00'), (10, '2025-12-23 17:15:00'), (10, '2025-12-25 06:45:00'), (10, '2025-12-26 17:45:00');
+
+-- =====================================================
+-- Cliente 11: Miguel Torres (ID: 11) - Nuevo entusiasta
+-- =====================================================
+-- Perfil: Nuevo entusiasta
+-- Registrado: 2025-12-20 (hace ~3 semanas)
+-- avg_class_frequency_total: 2.0 visitas/semana → ~6 visitas totales
+-- avg_class_frequency_current_month: 2.0 visitas/semana → ~3 visitas en enero 2026
+
+-- Diciembre 2025 - 3 visitas (desde el 20)
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(11, '2025-12-22 09:00:00'),
+(11, '2025-12-24 18:30:00'),
+(11, '2025-12-28 10:15:00');
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(11, '2026-01-02 09:30:00'),
+(11, '2026-01-05 18:00:00'),
+(11, '2026-01-09 10:00:00');
+
+-- =====================================================
+-- Cliente 12: Isabella Romano (ID: 12) - Moderado estable
+-- =====================================================
+-- Perfil: Moderado estable
+-- Registrado: 2024-02-28 (hace ~10.5 meses = ~45 semanas)
+-- avg_class_frequency_total: 2.2 visitas/semana → ~99 visitas totales
+-- avg_class_frequency_current_month: 2.5 visitas/semana → ~3 visitas en enero 2026
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(12, '2026-01-01 08:30:00'),
+(12, '2026-01-04 19:00:00'),
+(12, '2026-01-08 08:00:00');
+
+-- Diciembre 2025 - 9 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(12, '2025-12-02 08:45:00'), (12, '2025-12-05 19:15:00'), (12, '2025-12-08 08:15:00'), (12, '2025-12-11 19:30:00'),
+(12, '2025-12-15 08:30:00'), (12, '2025-12-18 19:00:00'), (12, '2025-12-22 08:45:00'), (12, '2025-12-26 19:15:00'),
+(12, '2025-12-30 08:00:00');
+
+-- =====================================================
+-- Cliente 13: Luis Kim (ID: 13) - Económico básico
+-- =====================================================
+-- Perfil: Económico básico
+-- Registrado: 2025-09-05 (hace ~4.2 meses = ~18 semanas)
+-- avg_class_frequency_total: 0.8 visitas/semana → ~14 visitas totales
+-- avg_class_frequency_current_month: 0.0 visitas/semana → 0 visitas en enero 2026
+
+-- Septiembre 2025 - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(13, '2025-09-08 12:00:00'),
+(13, '2025-09-15 13:30:00'),
+(13, '2025-09-22 12:15:00'),
+(13, '2025-09-29 13:45:00');
+
+-- Octubre 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(13, '2025-10-06 12:30:00'),
+(13, '2025-10-15 13:00:00'),
+(13, '2025-10-25 12:45:00');
+
+-- Noviembre 2025 - 3 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(13, '2025-11-05 12:15:00'),
+(13, '2025-11-14 13:30:00'),
+(13, '2025-11-23 12:00:00');
+
+-- Diciembre 2025 - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(13, '2025-12-02 12:30:00'),
+(13, '2025-12-10 13:15:00'),
+(13, '2025-12-18 12:45:00'),
+(13, '2025-12-28 13:00:00');
+
+-- Enero 2026 - 0 visitas (indicador de churn)
+
+-- =====================================================
+-- Cliente 14: Valentina Brown (ID: 14) - Premium dedicado
+-- =====================================================
+-- Perfil: Premium dedicado
+-- Registrado: 2022-01-10 (hace ~48 meses = ~208 semanas)
+-- avg_class_frequency_total: 5.0 visitas/semana → ~1040 visitas totales
+-- avg_class_frequency_current_month: 5.5 visitas/semana → ~7 visitas en enero 2026
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 7 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(14, '2026-01-01 05:30:00'),
+(14, '2026-01-02 16:30:00'),
+(14, '2026-01-03 06:00:00'),
+(14, '2026-01-04 17:00:00'),
+(14, '2026-01-06 05:45:00'),
+(14, '2026-01-08 16:45:00'),
+(14, '2026-01-10 06:15:00');
+
+-- Diciembre 2025 - 22 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(14, '2025-12-01 05:30:00'), (14, '2025-12-02 16:30:00'), (14, '2025-12-03 06:00:00'), (14, '2025-12-04 17:00:00'),
+(14, '2025-12-05 05:45:00'), (14, '2025-12-06 16:45:00'), (14, '2025-12-07 06:15:00'), (14, '2025-12-08 17:15:00'),
+(14, '2025-12-09 05:30:00'), (14, '2025-12-10 16:30:00'), (14, '2025-12-11 06:00:00'), (14, '2025-12-12 17:00:00'),
+(14, '2025-12-13 05:45:00'), (14, '2025-12-14 16:45:00'), (14, '2025-12-15 06:15:00'), (14, '2025-12-16 17:15:00'),
+(14, '2025-12-17 05:30:00'), (14, '2025-12-18 16:30:00'), (14, '2025-12-19 06:00:00'), (14, '2025-12-20 17:00:00'),
+(14, '2025-12-21 05:45:00'), (14, '2025-12-30 16:45:00');
+
+-- =====================================================
+-- Cliente 15: Andrés White (ID: 15) - Casual reciente
+-- =====================================================
+-- Perfil: Casual reciente
+-- Registrado: 2025-11-20 (hace ~7.7 semanas)
+-- avg_class_frequency_total: 1.0 visitas/semana → ~8 visitas totales
+-- avg_class_frequency_current_month: 1.0 visitas/semana → ~1 visita en enero 2026
+
+-- Noviembre 2025 - 3 visitas (desde el 20)
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(15, '2025-11-22 11:00:00'),
+(15, '2025-11-26 18:30:00'),
+(15, '2025-11-29 10:45:00');
+
+-- Diciembre 2025 - 4 visitas
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(15, '2025-12-03 11:15:00'),
+(15, '2025-12-10 18:00:00'),
+(15, '2025-12-17 10:30:00'),
+(15, '2025-12-24 17:45:00');
+
+-- Enero 2026 (mes actual) - Solo hasta el 10 de enero - 1 visita
+INSERT INTO attendance (client_id, checked_in_at) VALUES
+(15, '2026-01-06 11:30:00');
