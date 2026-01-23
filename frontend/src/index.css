@@ -25,8 +25,8 @@
   
   /* Background Colors */
   --bg-primary: #ffffff;
-  --bg-secondary: var(--gray-50);
-  --bg-tertiary: var(--gray-100);
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
   
   /* Text Colors */
   --text-primary: var(--gray-900);
