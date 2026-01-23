@@ -1,92 +1,34 @@
-.container{
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.boxesContainer{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    align-items: start;
+.chartCard {
     min-height: 400px;
 }
 
-.chartBox{
-    background: var(--bg-primary);
-    border-radius: 16px;
-    padding: 20px;
-    box-shadow: var(--shadow-md);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
+.chartWrapper {
+    height: 320px;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.chartBox::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-  border-radius: 0 16px 0 60px;
-}
-
-.chartBox:hover{
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-.chartBox canvas{
-    flex: 1;
-    max-height: 300px;
-    min-height: 220px;
-}
-
-.title{
+.loading,
+.error {
     text-align: center;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.empty {
+    color: var(--text-tertiary);
+    font-style: italic;
 }
 
 @media (max-width: 1024px) {
-    .boxesContainer{
-        grid-template-columns: 1fr;
-        gap: 16px;
-        min-height: auto;
+    .chartCard {
+        min-height: 350px;
     }
-    
-    .chartBox{
-        padding: 16px;
-        min-height: 300px;
-    }
-    
-    .chartBox canvas{
-        max-height: 220px;
-        min-height: 180px;
-    }
-}
 
-@media (max-width: 768px) {
-    .chartBox{
-        padding: 12px;
-        min-height: 250px;
-    }
-    
-    .title{
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-    
-    .chartBox canvas{
-        max-height: 180px;
-        min-height: 150px;
+    .chartWrapper {
+        height: 280px;
     }
 }

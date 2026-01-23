@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '@/services/api';
+import Card from '@/components/common/Card';
 import styles from '@/styles/components/GlobalStats.module.css';
 
 export default function GlobalStats() {
@@ -12,7 +13,6 @@ export default function GlobalStats() {
       try {
         setError(false);
         const response = await api.get(`/api/stats`);
-        console.log(response);
         setStats(response.data);
       } catch (err) {
         console.error(err);
@@ -24,26 +24,23 @@ export default function GlobalStats() {
     fetchStats();
   }, []);
 
-  if (loading) return <p>Cargando estadísticas...</p>;
-  if (error) return <p>Error al cargar los datos del servidor.</p>;
+  if (loading) return <div className={styles.loading}>Cargando estadísticas...</div>;
+  if (error) return <div className={styles.error}>Error al cargar los datos del servidor.</div>;
   if (!stats) return null;
 
   return (
     <section className={styles.gStatsGrid}>
-      <div className={`${styles.gStatsCard} ${styles.clientsTotal}`}>
-        <span>Clientes en programa</span>
-        <strong>{stats.total}</strong>
-      </div>
+      <Card title="Clientes en programa" className={styles.clientsTotal}>
+        <strong className={styles.statValue}>{stats.total}</strong>
+      </Card>
 
-      <div className={`${styles.gStatsCard} ${styles.clientsActive}`}>
-        <span>Clientes activos</span>
-        <strong>{stats.active}</strong>
-      </div>
+      <Card title="Clientes activos" className={styles.clientsActive}>
+        <strong className={styles.statValue}>{stats.active}</strong>
+      </Card>
 
-      <div className={`${styles.gStatsCard} ${styles.averageAge}`}>
-        <span>Promedio de edad</span>
-        <strong>{stats.averageAge}</strong>
-      </div>
+      <Card title="Promedio de edad" className={styles.averageAge}>
+        <strong className={styles.statValue}>{Math.round(stats.averageAge)}</strong>
+      </Card>
     </section>
   );
 }
