@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '@/services/api';
 import Card from '@/components/common/Card';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+import logoChurncheck from '@/assets/img/logo-churncheck-white.png';
 import styles from '@/styles/pages/PageRegisterClient.module.css';
 
 export default function PageRegisterClient() {
@@ -86,9 +87,18 @@ export default function PageRegisterClient() {
 
     return (
         <div className={styles.registerPage}>
-            <header className={styles.header}>
-                <h1>Registro de Cliente</h1>
-                <p>Completa los datos para inscribir a un nuevo miembro.</p>
+            <header className={styles.hero}>
+                <div className={styles.heroContent}>
+                    <div className={styles.heroText}>
+                        <h1>Registro de Cliente</h1>
+                        <p>Inscripción de nuevos miembros con análisis predictivo integrado para retención</p>
+                    </div>
+                    <img
+                        src={logoChurncheck}
+                        alt="ChurnCheck Logo"
+                        className={styles.heroLogo}
+                    />
+                </div>
             </header>
 
             <main className="container">
