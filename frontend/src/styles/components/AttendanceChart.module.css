@@ -6,19 +6,22 @@
 
 .boxesContainer{
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 24px;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 20px;
     align-items: start;
+    min-height: 400px;
 }
 
 .chartBox{
     background: var(--bg-primary);
     border-radius: 16px;
-    padding: 24px;
+    padding: 20px;
     box-shadow: var(--shadow-md);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .chartBox::before {
@@ -38,15 +41,17 @@
 }
 
 .chartBox canvas{
-    max-height: 300px;
+    flex: 1;
+    max-height: 280px;
+    min-height: 200px;
 }
 
 .title{
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -54,25 +59,34 @@
 @media (max-width: 1024px) {
     .boxesContainer{
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
+        min-height: auto;
     }
     
     .chartBox{
-        padding: 20px;
+        padding: 16px;
+        min-height: 300px;
+    }
+    
+    .chartBox canvas{
+        max-height: 220px;
+        min-height: 180px;
     }
 }
 
 @media (max-width: 768px) {
     .chartBox{
-        padding: 16px;
+        padding: 12px;
+        min-height: 250px;
     }
     
     .title{
-        font-size: 16px;
-        margin-bottom: 16px;
+        font-size: 14px;
+        margin-bottom: 12px;
     }
     
     .chartBox canvas{
-        max-height: 250px;
+        max-height: 180px;
+        min-height: 150px;
     }
 }

@@ -76,39 +76,69 @@ export default function AttendanceChart({ clientId }) {
       {
         label: 'Asistencias mensuales',
         data: monthlyValues,
-        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+        backgroundColor: 'rgba(59, 130, 246, 0.8)',
         borderColor: 'rgba(59, 130, 246, 1)',
-        borderWidth: 1,
-        borderRadius: 6, 
+        borderWidth: 2,
+        borderRadius: 8,
+        hoverBackgroundColor: 'rgba(59, 130, 246, 1)',
       }
     ]
   };
   
   const barOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false
+      },
+      tooltip: {
+        backgroundColor: 'rgba(10, 20, 48, 0.9)',
+        titleColor: '#ffffff',
+        bodyColor: '#ffffff',
+        borderColor: 'rgba(59, 130, 246, 0.5)',
+        borderWidth: 1,
+        padding: 12,
+        cornerRadius: 8,
+        displayColors: false
       }
     },
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Mes'
+          text: 'Mes',
+          color: '#6b7280',
+          font: {
+            size: 12,
+            weight: '500'
+          }
         },
         grid: {
           display: false
+        },
+        ticks: {
+          color: '#6b7280'
         }
       },
       y: {
         title: {
           display: true,
-          text: 'Número de asistencias'
+          text: 'Número de asistencias',
+          color: '#6b7280',
+          font: {
+            size: 12,
+            weight: '500'
+          }
         },
         beginAtZero: true,
         ticks: {
-          stepSize: 1
+          stepSize: 1,
+          color: '#6b7280'
+        },
+        grid: {
+          color: 'rgba(229, 231, 235, 0.5)',
+          drawBorder: false
         }
       }
     }
@@ -120,21 +150,49 @@ export default function AttendanceChart({ clientId }) {
       {
         data: pieValues,
         backgroundColor: [
-          '#22c55e',
-          '#f59e0b',
-          '#ef4444',
-          '#8b5cf6',
-          '#06b6d4'
-        ]
+          'rgba(59, 130, 246, 0.8)',
+          'rgba(34, 197, 94, 0.8)',
+          'rgba(245, 158, 11, 0.8)',
+          'rgba(239, 68, 68, 0.8)',
+          'rgba(139, 92, 246, 0.8)'
+        ],
+        borderColor: [
+          'rgba(59, 130, 246, 1)',
+          'rgba(34, 197, 94, 1)',
+          'rgba(245, 158, 11, 1)',
+          'rgba(239, 68, 68, 1)',
+          'rgba(139, 92, 246, 1)'
+        ],
+        borderWidth: 2,
+        hoverOffset: 8
       }
     ]
   };
 
   const pieOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'bottom'
+        position: 'bottom',
+        labels: {
+          color: '#374151',
+          font: {
+            size: 12
+          },
+          padding: 15,
+          usePointStyle: true,
+          pointStyle: 'circle'
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(10, 20, 48, 0.9)',
+        titleColor: '#ffffff',
+        bodyColor: '#ffffff',
+        borderColor: 'rgba(59, 130, 246, 0.5)',
+        borderWidth: 1,
+        padding: 12,
+        cornerRadius: 8
       }
     }
   };
