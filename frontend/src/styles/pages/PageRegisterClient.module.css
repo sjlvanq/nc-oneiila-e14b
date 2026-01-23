@@ -1,36 +1,122 @@
 .registerPage {
-    min-height: 100vh;
-    background-color: var(--bg-secondary);
-    padding-bottom: 80px;
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+  padding-bottom: 60px;
+}
+
+.hero {
+  padding: 80px 20px;
+  background: linear-gradient(rgba(10, 20, 48, 0.4), rgba(10, 20, 48, 0.5)), url('@/assets/img/woman-train.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+  text-align: left;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 100%);
+  z-index: -1;
+}
+
+.heroContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  padding: 40px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.heroLogo {
+  width: 180px;
+  height: auto;
+  margin: 0;
+  filter: drop-shadow(0 6px 25px rgba(0,0,0,0.4));
+  animation: float 3s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 20px;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0;
+  padding: 0;
+}
+
+.heroText {
+  flex: 1;
+  text-align: left;
 }
 
 .header {
-    background: linear-gradient(rgba(10, 20, 48, 0.85), rgba(10, 20, 48, 0.85)), url('@/assets/img/gym-hero.jpg');
-    background-size: cover;
-    background-position: center;
-    padding: 100px 20px;
-    margin-bottom: 40px;
-    color: white;
+  display: none; /* Ocultar el header original */
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 60px 20px;
+    min-height: 50vh;
+  }
+
+  .heroContent {
+    flex-direction: column;
     text-align: center;
-    position: relative;
-    z-index: 1;
-}
+    gap: 30px;
+  }
 
-.header h1 {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin: 0 0 12px 0;
-    letter-spacing: -1.5px;
-    line-height: 1.1;
-    padding: 10px 0;
-}
+  .heroText {
+    text-align: center;
+  }
 
-.header p {
-    font-size: 1.25rem;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.6;
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+
+  .heroLogo {
+    width: 120px;
+  }
 }
 
 .formGrid {
