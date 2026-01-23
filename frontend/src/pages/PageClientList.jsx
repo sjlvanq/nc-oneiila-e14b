@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import api from '@/services/api';
 import Card from '@/components/common/Card';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+import logoChurncheck from '@/assets/img/logo-churncheck-white.png';
 import styles from '@/styles/pages/PageClientList.module.css';
 
 export default function PageClientList() {
@@ -49,9 +50,18 @@ export default function PageClientList() {
 
     return (
         <div className={styles.clientsPage}>
-            <header className={styles.header}>
-                <h1>Gestión de Clientes</h1>
-                <p>Listado completo de clientes activos en el sistema.</p>
+            <header className={styles.hero}>
+                <div className={styles.heroContent}>
+                    <div className={styles.heroText}>
+                        <h1>Gestión de Clientes</h1>
+                        <p>Listado completo de clientes activos en el sistema con información detallada</p>
+                    </div>
+                    <img
+                        src={logoChurncheck}
+                        alt="ChurnCheck Logo"
+                        className={styles.heroLogo}
+                    />
+                </div>
             </header>
 
             <main className="container">
