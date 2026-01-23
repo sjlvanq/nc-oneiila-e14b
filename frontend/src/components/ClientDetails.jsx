@@ -3,7 +3,7 @@ import styles from "@/styles/components/ClientDetails.module.css";
 const ClientDetails = ({ client }) => {
   if (!client) return null;
 
-  const probability = client.probability;
+  const probability = client.probability * 100;
   const churnState = probability > 50 ? 1 : 0;
   
   const riskLevel =
