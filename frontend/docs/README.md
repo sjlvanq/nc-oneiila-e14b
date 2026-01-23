@@ -39,7 +39,7 @@ npm run dev
 | --- | --- | --- | --- |
 | 1 | [Plan-s01](dev/sprints/sprint01.md) | Cimientos y Seguridad: Unificación de búsqueda por DNI, integración de maqueta Iris, arquitectura de AuthContext (JWT) y pantalla de Login. | [Impl.](dev/sprints/sprint01-end.md) |
 | 2 | [Plan-s02](dev/sprints/sprint02.md) | Funcionalidad Operativa y Dashboard: Implementación de métricas globales, buscador de predicción de Churn por DNI y sistema de navegación dinámica con lógica de acceso. | [Impl.](dev/sprints/sprint02-end.md) |
-| 3 | [Plan-s03](dev/sprints/sprint03.md) | Analítica Detallada e Infraestructura: Despliegue multi-entorno, visualización de históricos (asistencia/gastos) mediante gráficos, motor de recomendaciones preventivas por DNI y optimización móvil. | *En desarrollo* |
+| 3 | [Plan-s03](dev/sprints/sprint03.md) | Analítica Detallada e Infraestructura: Despliegue multi-entorno, visualización de históricos (asistencia/gastos) mediante gráficos, motor de recomendaciones preventivas por DNI y optimización móvil. | [Impl.](dev/sprints/sprint03-end.md) |
 
 -----
 
