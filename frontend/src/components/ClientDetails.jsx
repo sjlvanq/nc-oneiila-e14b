@@ -26,13 +26,18 @@ const ClientDetails = ({ client }) => {
       </div>
 
       <div className={styles.detailRow}>
+        <span>Total gastado</span>
+        <span className={styles.spendingValue}>${client.totalSpending || 0}</span>
+      </div>
+
+      <div className={styles.detailRow}>
         <span>Probabilidad de abandono</span>
         <span>{formatProbability(client.probability)}</span>
       </div>
 
       <div className={styles.detailRow}>
         <span>Estado de abandono</span>
-        <span>{isChurnClient ? "Churn" : "Active"}</span>
+        <span>{isChurnClient ? "Abandono" : "Activo"}</span>
       </div>
     </Card>
   );

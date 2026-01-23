@@ -1,44 +1,150 @@
+.statsWrapper {
+  margin-bottom: 40px;
+}
+
 .gStatsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin: 24px auto;
-  width: 100%;
+  grid-template-columns: 350px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.chartArea {
+  height: 100%;
+}
+
+.chartContainer {
+  height: 280px;
+  position: relative;
+  padding: 20px 10px;
+}
+
+.chartCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.centerValue {
+  display: block;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  line-height: 1;
+}
+
+.centerLabel {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 4px;
+}
+
+.kpiValues {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  height: 100%;
+}
+
+.kpiCard {
+  position: relative;
+  padding: 24px 20px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Color indicators on the left */
+.kpiCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--border-light);
+}
+
+.kpiCard:nth-child(1)::before {
+  background: linear-gradient(180deg, var(--secondary-green), rgba(34, 197, 94, 0.6));
+}
+
+.kpiCard:nth-child(2)::before {
+  background: linear-gradient(180deg, var(--secondary-red), rgba(239, 68, 68, 0.6));
+}
+
+.kpiCard:nth-child(3)::before {
+  background: linear-gradient(180deg, var(--primary-blue), rgba(59, 130, 246, 0.6));
 }
 
 .statValue {
-  font-size: 36px;
-  font-weight: 700;
-  display: block;
-  margin-top: 8px;
-}
-
-.clientsTotal .statValue {
+  font-size: 2.8rem;
+  font-weight: 800;
   color: var(--primary-dark);
+  line-height: 1;
+  margin-bottom: 4px;
 }
 
-.clientsActive .statValue {
-  color: var(--primary-blue);
-}
-
-.averageAge .statValue {
+.activeColor {
   color: var(--secondary-green);
+}
+
+.riskColor {
+  color: var(--secondary-red);
+}
+
+.unit {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .loading,
 .error {
+  grid-column: span 2;
+  padding: 60px;
   text-align: center;
-  padding: 40px;
-  color: var(--text-secondary);
+  background: white;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
+.error {
+  color: var(--secondary-red);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+@media (max-width: 1200px) {
   .gStatsGrid {
-    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+
+  .kpiValues {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .chartContainer {
+    height: 240px;
+  }
+
+  .kpiValues {
+    grid-template-columns: 1fr;
   }
 
   .statValue {
-    font-size: 28px;
+    font-size: 2.2rem;
   }
 }

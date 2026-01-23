@@ -5,6 +5,7 @@ import AttendanceChart from "@/components/AttendanceChart.jsx";
 import ClientDetails from '@/components/ClientDetails';
 import DniSearch from '@/components/DniSearch';
 import GlobalStats from '@/components/GlobalStats';
+import HighRiskList from '@/components/HighRiskList';
 import Recommendations from '@/components/Recommendations';
 
 import logoChurncheck from '@/assets/img/logo-churncheck.png';
@@ -23,20 +24,24 @@ export default function PageDashboard() {
                         alt="ChurnCheck Logo"
                         className={styles.heroLogo}
                     />
-                    <h1>Dashboard General</h1>
-                    <p>Visualiza el estado de tu gimnasio y busca clientes específicos.</p>
+                    <h1>Centro de Inteligencia</h1>
+                    <p>Monitoreo en tiempo real y análisis predictivo de clientes.</p>
                 </div>
             </header>
 
             <main className="container">
                 <div className={styles.dashboardGrid}>
-                    {/* Stats Section */}
+                    {/* Global Stats Section */}
                     <section className={styles.statsSection}>
                         <GlobalStats />
+                        <HighRiskList />
                     </section>
 
                     {/* Search Section */}
                     <section className={styles.searchSection}>
+                        <div className={styles.sectionHeader}>
+                            <h2>Busca un cliente para análisis detallado</h2>
+                        </div>
                         <DniSearch onClientFound={setSelectedClient} />
                     </section>
 
@@ -56,7 +61,7 @@ export default function PageDashboard() {
                 </div>
 
                 <footer className={styles.footer}>
-                    <p>© 2026 ChurnCheck - Avanzando hacia el futuro del fitness</p>
+                    <p>© 2026 ChurnCheck - Inteligencia Artificial para el Éxito Fitness</p>
                 </footer>
             </main>
         </div>
