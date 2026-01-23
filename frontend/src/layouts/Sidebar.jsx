@@ -16,7 +16,7 @@ export default function Sidebar() {
             <div className={styles.elementStyle}>
                 <Link className={styles.link} to="/" title="Home" >
                     <img src={homeicon} className={styles.icon} alt="Home" />
-                    <span className={styles.label}>Home</span>
+                    <span className={styles.label}>Inicio</span>
                 </Link>
             </div>
             {isAuthenticated && (
@@ -30,7 +30,7 @@ export default function Sidebar() {
                     <div className={styles.elementStyle}>
                         <Link className={styles.link} to="/clients" title="Clientes">
                             <img src={usersicon} className={styles.icon} alt="Clientes" />
-                            <span className={styles.label}>Clients</span>
+                            <span className={styles.label}>Clientes</span>
                         </Link>
                     </div>
                     <div className={styles.elementStyle}>
@@ -45,12 +45,12 @@ export default function Sidebar() {
                 {!isAuthenticated ? (
                     <Link className={styles.link} title="Login" to="/login">
                         <img src={loginicon} className={styles.icon} alt="Login" />
-                        <span className={styles.label}>Login</span>
+                        <span className={styles.label}>Iniciar sesión</span>
                     </Link>
                 ) : (
                     <button className={styles.button + ' ' + styles.link} title="Logout" onClick={logout}>
                         <img src={logouticon} className={styles.icon} alt="Logout" />
-                        <span className={styles.label}>Logout</span>
+                        <span className={styles.label}>Salir</span>
                     </button>
                 )}
             </div>
