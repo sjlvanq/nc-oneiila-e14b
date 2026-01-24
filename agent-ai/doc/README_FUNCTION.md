@@ -4,7 +4,7 @@ Microservicio de agente IA usando Azure Functions y Azure AI Agents con arquitec
 
 ## Arquitectura Modular
 
-```
+```yml
 Frontend → Backend Java (Puente) → Azure Function (Agent) → Azure AI Foundry
          POST /chat              POST /api/chat              → Agent Remoto
                                                               ↓
