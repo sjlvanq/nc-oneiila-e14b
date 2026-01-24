@@ -1,20 +1,21 @@
-# AI Agent con Agent Framework y FastAPI
+# AI Agent con Azure Functions y Agent Framework
 
-Agente básico implementado con Microsoft Agent Framework y FastAPI para integración con Azure AI Foundry.
+Agente especializado en análisis de churn implementado con Microsoft Agent Framework y Azure Functions para integración con Azure AI Foundry.
 
 ## 🚀 Características
 
+- ✅ **Azure Functions** - Microservicio serverless escalable
 - ✅ **Agent Framework** - Microsoft Agent Framework con Azure AI
-- ✅ **FastAPI** - API REST moderna y rápida
+- ✅ **Arquitectura Modular** - Agente separado de Azure Function
 - ✅ **Azure AI Foundry** - Integración con modelos GPT-4
-- ✅ **CORS** - Soporte para frontend
-- ✅ **Logging** - Monitoreo completo
-- ✅ **Health Check** - Endpoint de diagnóstico
+- ✅ **Fallback Inteligente** - Funciona sin Azure AI configurado
+- ✅ **Health Check** - Endpoint de diagnóstico completo
+- ✅ **Especializado en Churn** - Análisis de abandono de clientes
 
 ## 📋 Prerrequisitos
 
 1. **Python 3.11+**
-2. **uv** - Package manager (ya instalado)
+2. **Azure Functions Core Tools** - Para desarrollo local
 3. **Azure CLI** - Para autenticación
 4. **Cuenta Azure** con acceso a Azure AI Foundry
 
@@ -29,14 +30,15 @@ cd /workspaces/nc-oneiila-e14b/agent-ai
 ### 2. Instalar dependencias
 
 ```bash
-uv sync
+pip install -r requirements.txt
 ```
 
 ### 3. Configurar variables de entorno
 
 ```bash
-cp .env.example .env
-# Editar .env con tus credenciales de Azure
+# Crear local.settings.json para desarrollo local
+cp local.settings.json.example local.settings.json
+# Editar con tus credenciales de Azure
 ```
 
 ### 4. Autenticarse con Azure CLI
@@ -47,62 +49,50 @@ az login
 
 ## 🏃‍♂️ Ejecución
 
-### Modo Desarrollo
+### Modo Desarrollo (Local)
 
 ```bash
-uv run python src/main.py
+func start
 ```
 
-### Modo Producción
+### Modo Producción (Azure)
 
 ```bash
-uv run uvicorn src.main:app --host 0.0.0.0 --port 8000
+# Deploy a Azure Functions
+func azure functionapp publish <function-app-name>
 ```
 
 ## 📡 Endpoints
 
-### GET `/`
+### GET `/api/health`
 
-Endpoint raíz con información del servicio
-
-**Response:**
-
-```json
-{
-  "message": "AI Agent API",
-  "version": "1.0.0",
-  "status": "running",
-  "endpoints": {
-    "chat": "/chat",
-    "conversations": "/conversations",
-    "health": "/health"
-  }
-}
-```
-
-### GET `/health`
-
-Health check del servicio
+Health check del servicio con estado del agente
 
 **Response:**
 
 ```json
 {
   "status": "healthy",
-  "azure_connected": true,
-  "model": "gpt-4.1"
+  "service": "Churn Agent Function",
+  "version": "1.0.0",
+  "agent": {
+    "agent_framework_available": true,
+    "azure_configured": true,
+    "model_deployment": "gpt-4.1",
+    "agent_name": "ChurnAgent"
+  }
 }
 ```
 
-### POST `/chat`
+### POST `/api/chat`
 
-Endpoint principal de chat
+Endpoint principal de chat especializado en churn
 
 **Request:**
 
 ```json
 {
-  "message": "Hola, ¿cómo estás?",
+  "message": "Cuáles son los factores de riesgo de churn?",
   "conversation_id": "conv_123"
 }
 ```
@@ -111,58 +101,59 @@ Endpoint principal de chat
 
 ```json
 {
-  "response": "¡Hola! Estoy muy bien, gracias por preguntar. ¿En qué puedo ayudarte hoy?",
+  "response": "Puedo analizar el riesgo de churn de clientes. Los principales factores incluyen:\n\n1. **Antigüedad**: Clientes con < 12 meses tienen 2x más riesgo\n2. **Contrato**: Mes a mes = 3x más riesgo vs anual\n3. **Cargos**: > $100 mensuales aumenta riesgo 40%\n4. **Uso**: Baja frecuencia indica desinterés\n\n¿Qué cliente específico te gustaría que analice?",
   "conversation_id": "conv_123",
-  "timestamp": "1234567890.123"
+  "timestamp": "1769280559.4716215"
 }
 ```
 
-### POST `/conversations`
+## 🔗 Configuración del Endpoint
 
-Crear nueva conversación
+### Endpoint del Agente
 
-**Response:**
+El agente AI está disponible en el siguiente endpoint:
 
-```json
-{
-  "conversation_id": "conv_1234567890",
-  "status": "created"
-}
+```
+http://172.17.0.1:7071/api
 ```
 
-### GET `/conversations/{conversation_id}/status`
+### Endpoints Disponibles
 
-Obtener estado de conversación
+- **POST /api/chat** - Chat con el agente especializado
+- **GET /api/health** - Health check del servicio
 
-**Response:**
+### Ejemplo de Integración
 
-```json
-{
-  "conversation_id": "conv_123",
-  "status": "active",
-  "messages": []
-}
+Para integrar este agente con cualquier plataforma frontend o backend:
+
+```javascript
+// Ejemplo con JavaScript/TypeScript
+const response = await fetch('http://172.17.0.1:7071/api/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    message: "Cuáles son los factores de riesgo de churn?",
+    conversation_id: "optional_conversation_id"
+  })
+});
+
+const result = await response.json();
+console.log(result.response);
 ```
 
-## 🔗 Integración con Java Backend
+```python
+# Ejemplo con Python
+import requests
 
-Para conectar con el backend Java existente:
+response = requests.post('http://172.17.0.1:7071/api/chat', json={
+    "message": "Cuáles son los factores de riesgo de churn?",
+    "conversation_id": "optional_conversation_id"
+})
 
-### 1. Configurar el backend Java
-
-```yaml
-# application.yaml
-azure:
-  foundry:
-    project:
-      endpoint: http://localhost:8000  # Endpoint del agente Python
-```
-
-### 2. Ejemplo de llamada desde Java
-
-```java
-// Usar AzureFoundryClient para llamar al agente Python
-String response = foundryClient.sendMessage(conversationId, message);
+result = response.json()
+print(result['response'])
 ```
 
 ## 🛠️ Desarrollo
@@ -171,11 +162,12 @@ String response = foundryClient.sendMessage(conversationId, message);
 
 ```
 agent-ai/
-├── src/
-│   └── main.py              # Aplicación principal
-├── .env.example             # Plantilla de variables de entorno
-├── pyproject.toml           # Configuración de uv
-└── README.md               # Documentación
+├── 🚀 function_app.py         # Azure Function (endpoints HTTP)
+├── 🤖 churn_agent.py          # Agente síncrono modular
+├── 📦 requirements.txt         # Dependencias Python
+├── ⚙️ host.json              # Configuración Azure Functions
+├── 🔧 local.settings.json    # Configuración local
+└── 📖 README.md              # Documentación
 ```
 
 ### Logs
@@ -192,13 +184,13 @@ La aplicación usa logging con nivel INFO. Los logs incluyen:
 ### Health Check
 
 ```bash
-curl http://localhost:8000/health
+curl http://172.17.0.1:7071/api/health
 ```
 
 ### Ver logs en tiempo real
 
 ```bash
-uv run python src/main.py --log-level DEBUG
+func start --verbose
 ```
 
 ## 🚨 Troubleshooting
@@ -215,7 +207,7 @@ az account show
 ### Error de conexión
 
 - Verificar endpoint de Azure AI
-- Revisar variables de entorno
+- Revisar local.settings.json
 - Comprobar firewall/network
 
 ### Error de modelo
@@ -228,7 +220,7 @@ az account show
 
 - [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/)
 - [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/)
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/)
 - [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/)
 
 ## 🤝 Contribuciones
@@ -240,72 +232,77 @@ az account show
 ---
 
 **Versión:** 1.0.0  
-**Estado:** Beta - Funcional para pruebas
+**Estado:** Production-Ready ✅
 
 ---
 
-## 🧪 Manual Testing - Azure Foundry Agent
+## 🧪 Manual Testing - Azure Function Agent
 
-1. Verificar que el servidor está corriendo
+### 1. Verificar que la Azure Function está corriendo
 
 ```bash
-curl http://localhost:8000/
+curl http://172.17.0.1:7071/api/health
 ```
 
-2. Probar Health Check
+### 2. Probar Health Check
 
 ```bash
-curl http://localhost:8000/health
+curl http://172.17.0.1:7071/api/health
 ```
 
-3. Probar el Chat con Azure Foundry
+### 3. Probar el Chat con Azure Functions
 
 ```bash
-# Chat simple sin conversation_id
-curl -X POST http://localhost:8000/chat \
+# Chat básico
+curl -X POST http://172.17.0.1:7071/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "Hola, ¿cómo estás?"}'
+  -d '{"message": "Hola"}'
 
-# Chat con conversation_id específico
-curl -X POST http://localhost:8000/chat \
+# Chat especializado en churn
+curl -X POST http://172.17.0.1:7071/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "¿Recuerdas nuestra conversación anterior?", "conversation_id": "thread_abc123"}'
+  -d '{"message": "Cuáles son los factores de riesgo de churn?", "conversation_id": "test123"}'
+```
 
-# Análisis de cliente específico
-curl -X POST http://localhost:8000/analyze/CLIENTE123 \
+### 4. Probar integración con cualquier cliente
+
+```bash
+# Directamente al agente
+curl -X POST http://172.17.0.1:7071/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "Analiza este cliente"}'
+  -d '{"message": "Hola"}'
 ```
 
 ## 🔍 Qué esperar de las respuestas:
 
-✅ Si funciona con Azure Foundry:
+✅ Si funciona con Azure Functions:
 
-- Respuestas reales de GPT-4.1 con contexto inteligente
+- Respuestas especializadas en análisis de churn
 - Tiempo de respuesta de 2-5 segundos
-- Logs mostrando "Azure AI Agent Client inicializado correctamente"
-- Thread IDs reales del servicio (ej: `thread_abc123def456...`)
+- Logs mostrando inicialización del agente
+- Fallback inteligente si Azure AI no está configurado
 
 ❌ Si hay errores:
 
-- 500 Internal Server Error - Problemas de autenticación
+- 500 Internal Server Error - Problemas de configuración
 - Timeout - Problemas de conexión
-- Error messages en los logs
+- Error messages en los logs de Azure Functions
 
-## 🧠 **Manejo de Threads (Cómo funciona):**
+## 🧠 **Arquitectura Modular (Cómo funciona):**
 
-1. **Chat sin conversation_id**: 
-   - Agent Framework crea nuevo thread automáticamente
-   - Devuelve thread ID real en la respuesta
-   - Siguiente llamada con mismo conversation_id usará ese thread
+1. **Azure Function (`function_app.py`)**:
+   - Recibe requests HTTP de cualquier cliente
+   - Parsea JSON y valida inputs
+   - Llama al agente modular
 
-2. **Chat con conversation_id específico**:
-   - Agent Framework usa el thread existente
-   - Mantiene contexto completo
-   - No crea nuevo thread
+2. **Agente Modular (`churn_agent.py`)**:
+   - Inicializa Agent Framework con Azure AI
+   - Maneja fallback inteligente sin Azure AI
+   - Especializado en análisis de churn
 
-3. **Para continuar conversación**:
-   - Usa el conversation_id devuelto en la respuesta anterior
-   - Agent Framework encontrará el thread correcto automáticamente
+3. **Cliente (Cualquier plataforma)**:
+   - Envía requests HTTP al endpoint del agente
+   - Recibe respuestas JSON estructuradas
+   - Puede ser frontend, backend móvil, etc.
 
 ---
