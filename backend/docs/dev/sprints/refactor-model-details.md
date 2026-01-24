@@ -40,7 +40,7 @@
 * **Entidad Partner:** Se profesionalizó la relación corporativa migrando de un flag numérico a una entidad relacional `Partner`.
 * **Refactorización de Tipos de Datos:** Los flags de negocio (`near_location`, `promo_friends`, `group_visit`) ahora utilizan tipos `Boolean` reales en lugar de enteros, mejorando la integridad de los datos en la base de datos.
 
-### 6. Transición a Edad Dinámica (Nueva Sección)
+### 6. Transición a Edad Dinámica
 
 * **Sustitución de Campo Estático:** Se ha eliminado el campo `age` como un valor entero estático en la base de datos, reemplazándolo por `birth_date` (tipo `DATE`) para garantizar la precisión temporal de los datos.
 * **Cálculo Automático (Hibernate @Formula):** La entidad `Client` ahora utiliza la anotación `@Formula("TIMESTAMPDIFF(YEAR, birth_date, CURDATE())")` para calcular la edad en tiempo real directamente desde el motor de base de datos.
@@ -48,7 +48,7 @@
 * **Integridad en la API:** * El `ClientResponseDTO` ahora prioriza el cálculo de la edad basado en `birth_date` si el campo `age` no está presente, asegurando compatibilidad con el frontend.
 * Se integró la dependencia `jackson-datatype-jsr310` para el manejo correcto de formatos de fecha `yyyy-MM-dd` en las peticiones JSON.
 
-### 7. Limpieza y Consolidación de Esquemas (Nueva Sección)
+### 7. Limpieza y Consolidación de Esquemas
 
 * **Eliminación de Redundancias:** Se eliminaron los archivos de esquema y datos "foward" temporales (`schema_fwd.sql`, `data_fwd_birth_date.sql`, etc.) para centralizar la definición del modelo en los archivos Core del sistema.
 * **Actualización de Tests:** Toda la suite de pruebas (Unitarias, Controladores e Integración) ha sido refactorizada para utilizar `birth_date` en lugar de `age`, garantizando que la cobertura de código refleje el nuevo modelo transaccional.
