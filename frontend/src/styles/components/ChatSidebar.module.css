@@ -291,7 +291,7 @@
 /* Floating Button */
 .floatingButton {
   position: fixed;
-  bottom: 2rem;
+  bottom: 6rem;
   right: 2rem;
   width: 60px;
   height: 60px;
@@ -305,7 +305,7 @@
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(10, 20, 48, 0.3);
   transition: all 0.3s ease;
-  z-index: 999;
+  z-index: 1001;
   backdrop-filter: blur(10px);
   opacity: 0.95;
 }
@@ -340,13 +340,14 @@
   .chatSidebar {
     width: 100%;
     height: 100vh;
+    border-radius: 0;
   }
   
   .floatingButton {
-    bottom: 1rem;
+    bottom: 5rem;
     right: 1rem;
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
   }
   
   .message {
@@ -355,6 +356,22 @@
   
   .chatInput {
     padding: 0.75rem;
+  }
+  
+  .chatHeader {
+    padding: 1rem;
+  }
+  
+  .chatInfo h3 {
+    font-size: 1rem;
+  }
+  
+  .welcomeMessage h4 {
+    font-size: 1.1rem;
+  }
+  
+  .welcomeMessage p {
+    font-size: 0.9rem;
   }
 }
 
