@@ -225,3 +225,9 @@ env/
 *.csv
 *.xlsx
 *.sqlite
+
+# VSCode
+.vscode
+.windsurf
+agent-ai/src
+
