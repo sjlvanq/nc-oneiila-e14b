@@ -9,10 +9,10 @@ external:
     connection-timeout: 5000
     read-timeout: 5000
 
-# Configuración del Agente Python Local
+# Configuración del Agente IA con Azure Function
 agent:
   python:
-    endpoint: http://172.17.0.1:8000  # Agente corriendo local (base URL)
+    endpoint: http://172.17.0.1:7071/api
     timeout: 30000
     max-retries: 3
 
