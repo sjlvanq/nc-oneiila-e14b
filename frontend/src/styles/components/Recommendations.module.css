@@ -67,9 +67,12 @@
 
 .detailRow span:last-child {
   color: var(--text-primary);
-  line-height: 1.5;
+  line-height: 1.6;
   font-size: 14px;
   font-weight: 500;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 /* Colores por nivel de riesgo */
