@@ -1,12 +1,13 @@
-# Para test del RestClient sobre un servidor real con endpoint simulado
+# Configuración para API ML local
 external:
   prediction:
-    host: "https://lode.uno"
-    port: 443
-    endpoint: "/churncheck.php"
-    connect-timeout: 4000
-    connection-timeout: 4000
-    read-timeout: 4000
+    host: "http://localhost"
+    port: 8000
+    endpoint: "/predict"
+    api-key: "no-key-required"
+    connect-timeout: 5000
+    connection-timeout: 5000
+    read-timeout: 5000
 
 logging:
   level:

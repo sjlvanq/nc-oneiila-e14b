@@ -35,10 +35,10 @@ springdoc:
 # Configuración del servicio de predicción ML
 external:
   prediction:
-    host: "https://mock.echoapi.com"
-    port: 443
-    endpoint: "/mock/590aa3d9c002000/predict"
-    api-key: "mock-api-key-12345"
+    host: "http://localhost"
+    port: 8000
+    endpoint: "/predict"
+    api-key: ""
     connect-timeout: 5000
     connection-timeout: 5000
     read-timeout: 10000
