@@ -389,18 +389,7 @@ Estas métricas confirman la capacidad del modelo para identificar clientes con 
 | GET | /clients/clients/statistics/{id} | Obtiene las estadísticas de un cliente (asistencia al gimnasio en los últimos seis meses y gastos adicionales por categoría) por su ID. [Sólo usuarios autenticados]|
 | GET | /api/stats | Obtiene las estadísticas globales de la base de datos del negocio: Total de clientes, clientes activos y promedio de edad. [Sólo usuarios autenticados]|
 
-### Anexo D. Fragmentos de Código Relevantes
-
-**Backend**
-```java
-@Service
-public class ClientService {
-    public ChurnRiskResponse calculateChurnRisk(Long clientId) {
-        return new ChurnRiskResponse();
-    }
-}
-```
-### Anexo E. Glosario Técnico
+### Anexo D. Glosario Técnico
 
 **API (Application Programming Interface).**  
 Interfaz que permite la comunicación entre diferentes sistemas de software, facilitando el intercambio de datos y funcionalidades mediante protocolos definidos.
@@ -504,7 +493,7 @@ Hook de React utilizado para declarar y gestionar el estado local de un componen
 **Vite.**  
 Herramienta de desarrollo frontend que optimiza el rendimiento y la velocidad de construcción de aplicaciones web.
 
-### Anexo F. Glosario Técnico
+### Anexo E. Glosario Técnico
 **Dashboard general del sistema**
 
 ![Dashboard general](./assets/visualizacion-dashboard-general.png)
