@@ -133,12 +133,5 @@ public class GlobalExceptionHandler {
                         ErrorStatusResponseCodes.INTERNAL_SERVER_ERROR_500,
                         "An unexpected internal server error occurred"));
     }
-    @ExceptionHandler(ChatServiceException.class)
-    public ResponseEntity<ErrorStatusResponseDTO> handleChatServiceException(ChatServiceException ex) {
-        return ResponseEntity.status(ex.getStatusCode()).body(
-                new ErrorStatusResponseDTO(
-                        ErrorStatusResponseCodes.BAD_REQUEST_400,
-                        ex.getMessage()));
-    }
     
 }

@@ -4,5 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 
 public record ChatRequestDTO(
     @NotBlank(message = "El mensaje no puede estar vacío")
-    String message
+    String message,
+    String conversation_id  // Opcional, para continuar conversación
 ) {}
