@@ -372,3 +372,37 @@
         padding: 14px;
     }
 }
+
+/* =========================
+   Extra Responsive - Small Devices
+   ========================= */
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .formSection {
+    margin-bottom: 24px;
+  }
+
+  .errorBanner {
+    margin: 16px;
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   Accessibility - Focus Visible
+   ========================= */
+.submitBtn:focus-visible,
+.cancelBtn:focus-visible,
+.inputGroup input:focus-visible,
+.inputGroup select:focus-visible {
+  outline: 3px solid var(--primary-blue);
+  outline-offset: 2px;
+}
