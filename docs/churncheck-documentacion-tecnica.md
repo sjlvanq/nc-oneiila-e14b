@@ -9,6 +9,8 @@
 #### [Especificación Técnica](#especificación-técnica-1)
 
 
+Repositorio de código y documentación de desarrollo: [https://github.com/sjlvanq/nc-oneiila-e14b](https://github.com/sjlvanq/nc-oneiila-e14b)
+
 ---
 
 
