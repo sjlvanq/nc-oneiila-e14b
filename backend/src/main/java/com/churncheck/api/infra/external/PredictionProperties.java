@@ -21,6 +21,6 @@ public record PredictionProperties(
 ) {
     
     public String getBaseUrl() {
-        return String.format("%s:%d", host, port); // "mock.echoapi.com:443"
+        return String.format("%s:%d", host, port);
     }
 }
