@@ -547,7 +547,7 @@ Experiencia global del usuario al interactuar con el sistema, incluyendo usabili
 **Vite.**  
 Herramienta de desarrollo frontend que optimiza el rendimiento y la velocidad de construcción de aplicaciones web.
 
-### Anexo E.
+### Anexo E. Snapshots
 **Dashboard general del sistema**
 
 ![Dashboard general](./assets/visualizacion-dashboard-general.png)
@@ -560,6 +560,6 @@ Herramienta de desarrollo frontend que optimiza el rendimiento y la velocidad de
 
 ![Asistencia del cliente](./assets/visualizacion-asistencia-cliente.png)
 
-**Análisis visual y recomendaciones del sistema**
+**Análisis de gastos adicionales del cliente y recomendaciones del sistema**
 
 ![Análisis y recomendaciones](./assets/visualizacion-analisis-y-recomendaciones.png)
