@@ -259,12 +259,6 @@ Para la persistencia de datos se utilizó una base de datos en memoria **H2**, l
 
 El backend se comunica con el módulo de Data Science mediante servicios REST, consumiendo el modelo predictivo como un servicio externo. Esta integración permite mantener el desacoplamiento entre componentes y mejorar la resiliencia del sistema.
 
-```java
-@GetMapping("/{id}/churn-risk")
-public ChurnRiskResponse getChurnRisk(@PathVariable Long id) {
-    return clientService.calculateChurnRisk(id);
-}
-```
 ## 7. Frontend del Sistema
 
 ### 7.1 Rol del Frontend
