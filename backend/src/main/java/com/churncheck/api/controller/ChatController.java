@@ -13,7 +13,7 @@ import org.springframework.web.client.RestClient;
 
 @RestController
 @RequestMapping("/chat")
-@Tag(name = "Chat API", description = "Chat con Agente Python")
+@Tag(name = "Chat API", description = "Chat with Agent IA")
 public class ChatController {
     
     private final RestClient agentClient;
@@ -21,20 +21,29 @@ public class ChatController {
     public ChatController(RestClient.Builder restClientBuilder, AgentProperties properties) {
         this.agentClient = restClientBuilder
                 .baseUrl(properties.getEndpoint())
-                .defaultHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                .defaultHeaders(headers -> {
+                    headers.setContentType(MediaType.APPLICATION_JSON);
+                })
                 .build();
     }
     
     @PostMapping
-    @Operation(summary = "Chat con Agente IA", description = "Envía un mensaje al agente de IA y obtiene respuesta")
+    @Operation(summary = "Chat with Agent IA", description = "Send a message to the agent IA and get a response")
     public ResponseEntity<ChatResponseDTO> chat(@RequestBody @Valid ChatRequestDTO request) {
-        // Llamar directamente al agente Python
-        ChatResponseDTO response = agentClient.post()
-                .uri("/chat")
-                .body(request)
-                .retrieve()
-                .body(ChatResponseDTO.class);
-        
-        return ResponseEntity.ok(response);
+        try {
+            String jsonBody = String.format("{\"message\": \"%s\", \"conversation_id\": %s}", 
+                request.message(), 
+                request.conversationId() != null ? "\"" + request.conversationId() + "\"" : "null");
+            
+            ChatResponseDTO response = agentClient.post()
+                    .uri("/chat")
+                    .body(jsonBody)
+                    .retrieve()
+                    .body(ChatResponseDTO.class);
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 }
