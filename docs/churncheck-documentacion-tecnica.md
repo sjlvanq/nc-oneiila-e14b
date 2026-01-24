@@ -364,11 +364,21 @@ Los anexos complementan el cuerpo principal del informe, proporcionando informac
 ### Anexo A. Diccionario de Datos
 
 | Variable | Tipo | Descripción |
-|--------|------|-------------|
-| lifetime | Entero | Meses desde la inscripción del cliente |
-| contractPeriod | Entero | Duración del contrato |
-| avgClassFrequencyCurrentMonth | Decimal | Frecuencia de asistencia reciente |
-| churn | Binario | Variable objetivo |
+| :--- | :--- | :--- |
+| **idClient** | Integer | Identificador único del cliente. |
+| **gender** | Binary | Género del cliente (0 o 1). |
+| **nearLocation** | Binary | Indica si el cliente vive o trabaja cerca del centro (1: Sí, 0: No). |
+| **partner** | Binary | Indica si el cliente es empleado de una empresa asociada (1: Sí, 0: No). |
+| **promoFriends** | Binary | Indica si el cliente se unió mediante la promoción "Trae a un amigo" (1: Sí, 0: No). |
+| **phone** | Binary | Indica si el cliente proporcionó su número de teléfono (1: Sí, 0: No). |
+| **contractPeriod** | Integer | Duración del contrato actual en meses ({1, 6, 12}). |
+| **groupVisits** | Binary | Indica si el cliente participa en sesiones grupales (1: Sí, 0: No). |
+| **age** | Integer | Edad del cliente. Valores admitidos: Min. 18 - Max. 41 |
+| **avgAdditionalChargesTotal** | Float | Promedio de gastos adicionales en el centro (cafetería, masajes, etc.) Valores admitidos: 0.15 a 552.33 |
+| **monthToEndContract** | Integer | Meses restantes hasta la finalización del contrato. 1 a 12 |
+| **lifetime** | Integer | Tiempo (en meses) desde que el cliente se unió por primera vez. 0 a 31 |
+| **avgClassFrequencyTotal** | Float | Frecuencia media de visitas por semana desde el inicio. Valores admitidos: 0.00 a 6.02 |
+| **avgClassFrequencyCurrentMonth** | Float | Frecuencia media de visitas por semana en el último mes. Valores admitidos: 0.00 a 6.15 |
 
 ### Anexo B. Métricas del Modelo Predictivo
 
