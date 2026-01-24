@@ -1,14 +1,42 @@
-## Resumen Ejecutivo
+
+# ChurnCheck
+## Plataforma Analítica para la Predicción de Abandono de Clientes
+
+-----
+
+#### [Resumen Ejecutivo](#especificación-técnica-1)
+
+#### [Especificación Técnica](#especificación-técnica-1)
+
+
+Repositorio de código y documentación de desarrollo: [https://github.com/sjlvanq/nc-oneiila-e14b](https://github.com/sjlvanq/nc-oneiila-e14b)
+
+---
+
+
+
+# Resumen Ejecutivo
 
 **Proyecto:** ChurnCheck – Plataforma Analítica para la Predicción de Abandono de Clientes
 
-### 1. Contexto y Problemática
+
+## Índice de contenidos
+1. [Contexto y Problemática](#1-contexto-y-problemática)
+2. [Objetivo del Proyecto](#2-objetivo-del-proyecto)
+3. [Descripción General de la Solución](#3-descripción-general-de-la-solución)
+4. [Pilar 1: Data Science](#4-pilar-1-data-science)
+5. [Pilar 2: Backend](#5-pilar-2-backend)
+6. [Pilar 3: Frontend](#6-pilar-3-frontend)
+7. [Equipo de Trabajo](#7-equipo-de-trabajo)
+8. [Conclusión Ejecutiva](#8-conclusión-ejecutiva)
+
+## 1. Contexto y Problemática
 
 En los modelos de negocio basados en suscripción, la retención de clientes es un factor determinante para la sostenibilidad financiera de las organizaciones. Sectores como gimnasios y academias enfrentan tasas de abandono (*churn*) particularmente elevadas durante los primeros meses de afiliación, etapa crítica en la que los clientes aún no consolidan un hábito de consumo. Este fenómeno impacta directamente en el flujo de caja, incrementa los costos de adquisición de nuevos clientes y dificulta la planificación estratégica.
 
 Ante esta problemática, surge **ChurnCheck**, una solución tecnológica integral desarrollada en el contexto de un hackathon, cuyo objetivo es anticipar el abandono de clientes mediante el uso de analítica predictiva y visualización clara de información. El proyecto adopta un enfoque *data-driven*, en el cual los datos se convierten en el principal insumo para la toma de decisiones estratégicas.
 
-### 2. Objetivo del Proyecto
+## 2. Objetivo del Proyecto
 
 El objetivo principal de **ChurnCheck** es desarrollar una plataforma analítica de alerta temprana capaz de identificar clientes con alto riesgo de abandono, permitiendo a las organizaciones ejecutar acciones preventivas de retención de manera oportuna.
 
@@ -20,15 +48,15 @@ Para alcanzar este objetivo, el proyecto se estructura sobre tres pilares fundam
 
 Estos componentes trabajan de forma integrada, pero desacoplada, garantizando escalabilidad, mantenibilidad y claridad arquitectónica.
 
-### 3. Descripción General de la Solución
+## 3. Descripción General de la Solución
 
-ChurnCheck es una plataforma analítica que transforma datos históricos de clientes en información accionable. El flujo general del sistema sigue el principio:
+ChurnCheck es una plataforma analítica que transforma datos históricos de clientes calculados de forma dinámica en información accionable. El flujo general del sistema sigue el principio:
 
 **Datos → Análisis → Decisión**
 
 El sistema analiza variables relacionadas con la antigüedad del cliente, frecuencia de asistencia, tipo de contrato y comportamiento de consumo, con el fin de estimar la probabilidad de abandono en tiempo real. Esta información es presentada al usuario mediante un *dashboard* visual, facilitando la identificación de clientes prioritarios y apoyando la toma de decisiones estratégicas.
 
-### 4. Pilar 1: Data Science
+## 4. Pilar 1: Data Science
 
 El módulo de Data Science constituye el núcleo analítico del proyecto. A partir del dataset `gym_churn_us.csv`, el equipo llevó a cabo un ciclo completo de ciencia de datos que incluyó:
 
@@ -41,7 +69,7 @@ Tras comparar distintos algoritmos, se seleccionó una **Regresión Logística o
 
 El modelo fue desplegado como un microservicio mediante una **API REST** construida con **FastAPI** y containerizada con **Docker**, permitiendo su consumo en tiempo real por otros componentes del sistema.
 
-### 5. Pilar 2: Backend
+## 5. Pilar 2: Backend
 
 El backend de ChurnCheck actúa como el motor lógico y de integración del sistema. Su función principal es centralizar la lógica de negocio y orquestar la comunicación entre el módulo de Data Science y el frontend.
 
@@ -49,12 +77,12 @@ Desarrollado con **Java 21** y **Spring Boot 3**, el backend implementa:
 
 - Servicios REST para el consumo de datos.  
 - Integración con el modelo predictivo como servicio externo.  
-- Persistencia de datos mediante una base de datos en memoria (**H2**).  
+- Persistencia de datos mediante una base de datos **H2**.
 - Seguridad basada en autenticación *stateless* mediante **JWT**.  
 
 Este enfoque desacoplado permite que el sistema continúe siendo estable incluso ante latencias o fallos temporales del módulo analítico.
 
-### 6. Pilar 3: Frontend
+## 6. Pilar 3: Frontend
 
 El frontend constituye la capa de presentación y el punto de contacto directo con el usuario. Su objetivo es traducir resultados analíticos complejos en información visual clara y comprensible.
 
@@ -66,7 +94,7 @@ Desarrollado con **HTML, CSS, JavaScript, Chart.js y Vite**, el frontend present
 
 El frontend consume la API REST del backend, manteniendo una estricta separación de responsabilidades y garantizando una experiencia de usuario fluida e intuitiva.
 
-### 7. Equipo de Trabajo
+## 7. Equipo de Trabajo
 
 El desarrollo de ChurnCheck fue posible gracias al trabajo colaborativo de un equipo multidisciplinario, donde cada integrante aportó desde su especialidad:
 
@@ -82,9 +110,48 @@ El desarrollo de ChurnCheck fue posible gracias al trabajo colaborativo de un eq
 - Silvano Emanuel Roques – Backend Developer  
 - Luis Erwin Condori Mamani – Backend Developer  
 
-### 8. Conclusión Ejecutiva
+## 8. Conclusión Ejecutiva
 
 ChurnCheck demuestra que una solución basada en analítica predictiva, respaldada por una arquitectura backend robusta y presentada mediante un frontend claro y funcional, puede transformar datos en decisiones estratégicas de alto impacto. A pesar de haber sido desarrollado en el contexto de un hackathon, el proyecto presenta una base técnica sólida, escalable y alineada con estándares profesionales, lo que lo convierte en una propuesta viable para evolucionar hacia entornos productivos reales.
+
+
+-----
+
+# Especificación técnica
+
+## Índice de Contenidos
+
+1. [Introducción](#1-introducción)
+2. [Contexto del Proyecto y Objetivos](#2-contexto-del-proyecto-y-objetivos)
+   - [2.1 Contexto del Hackathon](#21-contexto-del-hackathon)
+   - [2.2 Objetivo General](#22-objetivo-general)
+   - [2.3 Objetivos Específicos](#23-objetivos-específicos)
+3. [Descripción General del Sistema](#3-descripción-general-del-sistema)
+4. [Arquitectura General del Sistema](#4-arquitectura-general-del-sistema)
+5. [Módulo de Data Science](#5-módulo-de-data-science)
+   - [5.1 Rol del Data Science en ChurnCheck](#51-rol-del-data-science-en-churncheck)
+   - [5.2 Dataset y Comprensión de los Datos](#52-dataset-y-comprensión-de-los-datos)
+   - [5.3 Limpieza y Preparación de Datos](#53-limpieza-y-preparación-de-datos)
+   - [5.4 Análisis Exploratorio de Datos (EDA)](#54-análisis-exploratorio-de-datos-eda)
+   - [5.5 Selección y Entrenamiento del Modelo](#55-selección-y-entrenamiento-del-modelo)
+   - [5.6 Despliegue del Modelo como Servicio](#56-despliegue-del-modelo-como-servicio)
+6. [Backend del Sistema](#6-backend-del-sistema)
+   - [6.1 Rol del Backend](#61-rol-del-backend)
+   - [6.2 Stack Tecnológico](#62-stack-tecnológico)
+   - [6.3 Arquitectura por Capas](#63-arquitectura-por-capas)
+   - [6.4 Persistencia y Gestión de Datos](#64-persistencia-y-gestión-de-datos)
+   - [6.5 Integración Backend – Data Science](#65-integración-backend--data-science)
+7. [Frontend del Sistema](#7-frontend-del-sistema)
+   - [7.1 Rol del Frontend](#71-rol-del-frontend)
+   - [7.2 Tecnologías Utilizadas](#72-tecnologías-utilizadas)
+   - [7.3 Arquitectura del Frontend](#73-arquitectura-del-frontend)
+   - [7.4 Dashboard Analítico](#74-dashboard-analítico)
+   - [7.5 Integración Backend – Frontend](#75-integración-backend--frontend)
+8. [Flujo Completo del Sistema](#8-flujo-completo-del-sistema)
+9. [Evaluación del Sistema](#9-evaluación-del-sistema)
+10. [Conclusiones](#10-conclusiones)
+11. [Trabajo Futuro](#11-trabajo-futuro)
+12. [Anexos](#12-anexos)
 
 ## 1. Introducción
 
@@ -98,15 +165,21 @@ El presente informe técnico documenta de manera detallada el diseño, desarroll
 
 ## 2. Contexto del Proyecto y Objetivos
 
+[⬆️ Volver arriba](#especificación-técnica-1)
+
 ### 2.1 Contexto del Hackathon
 
 Un hackathon es un entorno intensivo de innovación tecnológica en el que equipos multidisciplinarios desarrollan soluciones funcionales en un periodo limitado de tiempo. Bajo estas condiciones, se prioriza la demostrabilidad de la solución, la claridad técnica y la correcta integración entre componentes por encima de optimizaciones prematuras.
 
 ChurnCheck fue concebido y desarrollado bajo este contexto, con un enfoque práctico y profesional, orientado a entregar una plataforma funcional que evidencie buenas prácticas de ingeniería de software y ciencia de datos.
 
+[⬆️ Volver a Contexto del Proyecto y Objetivos](#2-contexto-del-proyecto-y-objetivos)
+
 ### 2.2 Objetivo General
 
 Desarrollar una plataforma analítica integral capaz de predecir el riesgo de abandono de clientes mediante el uso de técnicas de *machine learning*, facilitando la toma de decisiones estratégicas a través de una interfaz visual clara y comprensible.
+
+[⬆️ Volver a Contexto del Proyecto y Objetivos](#2-contexto-del-proyecto-y-objetivos)
 
 ### 2.3 Objetivos Específicos
 
@@ -116,7 +189,11 @@ Desarrollar una plataforma analítica integral capaz de predecir el riesgo de ab
 - Desarrollar un frontend que permita visualizar métricas analíticas de forma intuitiva.  
 - Integrar los componentes de forma desacoplada y escalable.
 
+[⬆️ Volver a Contexto del Proyecto y Objetivos](#2-contexto-del-proyecto-y-objetivos)
+
 ## 3. Descripción General del Sistema
+
+[⬆️ Volver arriba](#especificación-técnica-1)
 
 ChurnCheck es una plataforma analítica de alerta temprana cuyo propósito es transformar datos crudos en información accionable. El sistema se apoya en tres pilares fundamentales:
 
@@ -134,6 +211,8 @@ Este enfoque *data-driven* asegura que las decisiones estratégicas se fundament
 
 ## 4. Arquitectura General del Sistema
 
+[⬆️ Volver arriba](#especificación-técnica-1)
+
 La arquitectura del sistema fue diseñada bajo un enfoque desacoplado y modular, permitiendo que cada componente evolucione de forma independiente sin afectar al resto del sistema.
 
 **Figura 4.1. Arquitectura general del sistema ChurnCheck**
@@ -148,11 +227,16 @@ El diseño arquitectónico permite:
 - Integración flexible con servicios externos.  
 - Resiliencia ante fallos parciales del sistema.  
 
+
 ## 5. Módulo de Data Science
+
+[⬆️ Volver arriba](#especificación-técnica-1)
 
 ### 5.1 Rol del Data Science en ChurnCheck
 
 El módulo de Data Science constituye el núcleo analítico del sistema. Su responsabilidad principal es identificar patrones de comportamiento en los clientes y calcular la probabilidad de abandono de forma anticipada. Este componente representa el punto de partida del flujo funcional del sistema y es fundamental para la generación de información estratégica.
+
+[⬆️ Volver a 5. Módulo de Data Science](#5-módulo-de-data-science)
 
 ### 5.2 Dataset y Comprensión de los Datos
 
@@ -165,6 +249,8 @@ Para el desarrollo del modelo predictivo se utilizó el dataset `gym_churn_us.cs
 
 La correcta comprensión del dataset permitió identificar variables clave para la predicción del abandono de clientes.
 
+[⬆️ Volver a 5. Módulo de Data Science](#5-módulo-de-data-science)
+
 ### 5.3 Limpieza y Preparación de Datos
 
 El proceso de limpieza y preparación de datos incluyó las siguientes actividades:
@@ -175,6 +261,8 @@ El proceso de limpieza y preparación de datos incluyó las siguientes actividad
 - Normalización y estandarización de variables numéricas.  
 
 Estas acciones garantizaron la calidad, consistencia y confiabilidad de los datos utilizados en el entrenamiento del modelo.
+
+[⬆️ Volver a 5. Módulo de Data Science](#5-módulo-de-data-science)
 
 ### 5.4 Análisis Exploratorio de Datos (EDA)
 
@@ -187,6 +275,7 @@ El Análisis Exploratorio de Datos permitió identificar patrones y comportamien
 **Figura 5.1. Resultados del Análisis Exploratorio de Datos**
 ![Resultados del Análisis Exploratorio de Datos](./assets/eda-resultados.png)
 
+[⬆️ Volver a 5. Módulo de Data Science](#5-módulo-de-data-science)
 
 ### 5.5 Selección y Entrenamiento del Modelo
 
@@ -205,24 +294,25 @@ Estos resultados evidencian una adecuada capacidad del modelo para identificar c
 
 ![Pipeline de comparación de modelos](./assets/modelos-comparacion-pipeline.png)
 
+[⬆️ Volver a 5. Módulo de Data Science](#5-módulo-de-data-science)
+
 ### 5.6 Despliegue del Modelo como Servicio
 
 El modelo predictivo fue desplegado como un microservicio utilizando **FastAPI**, permitiendo su consumo en tiempo real por otros componentes del sistema a través de una **API REST**. Este enfoque facilita el desacoplamiento del modelo respecto al resto de la arquitectura y permite su evolución independiente.
 
 El endpoint expuesto recibe los datos del cliente, procesa la información mediante el modelo entrenado y retorna la probabilidad estimada de abandono.
 
-```python
-@app.post("/predict")
-def predict_churn(data: ClientData):
-    probability = model.predict_proba(data)
-    return {"churn_probability": probability}
-```
+[⬆️ Volver a 5. Módulo de Data Science](#5-módulo-de-data-science)
 
 ## 6. Backend del Sistema
+
+[⬆️ Volver arriba](#especificación-técnica-1)
 
 ### 6.1 Rol del Backend
 
 El backend actúa como el motor lógico del sistema, siendo responsable de centralizar la lógica de negocio y orquestar la comunicación entre el frontend y el módulo de Data Science. Este componente garantiza la correcta gestión de los datos, la aplicación de reglas de negocio y la integración eficiente entre los distintos módulos del sistema.
+
+[⬆️ Volver a 6. Backend del sistema](#6-backend-del-sistema)
 
 ### 6.2 Stack Tecnológico
 
@@ -237,6 +327,8 @@ El backend de ChurnCheck fue desarrollado utilizando un stack tecnológico moder
 - **Maven** como herramienta de gestión de dependencias  
 
 Este conjunto tecnológico permite construir servicios escalables, seguros y fáciles de mantener.
+
+[⬆️ Volver a 6. Backend del sistema](#6-backend-del-sistema)
 
 ### 6.3 Arquitectura por Capas
 
@@ -255,21 +347,23 @@ El backend implementa una arquitectura por capas, la cual favorece la separació
 
 Para la persistencia de datos se utilizó una base de datos en memoria **H2**, lo que permitió una rápida configuración y una alta portabilidad durante la demostración del sistema. Este enfoque resulta adecuado para entornos de prueba y hackathons, ya que elimina dependencias externas complejas.
 
+[⬆️ Volver a 6. Backend del sistema](#6-backend-del-sistema)
+
 ### 6.5 Integración Backend – Data Science
 
 El backend se comunica con el módulo de Data Science mediante servicios REST, consumiendo el modelo predictivo como un servicio externo. Esta integración permite mantener el desacoplamiento entre componentes y mejorar la resiliencia del sistema.
 
-```java
-@GetMapping("/{id}/churn-risk")
-public ChurnRiskResponse getChurnRisk(@PathVariable Long id) {
-    return clientService.calculateChurnRisk(id);
-}
-```
+[⬆️ Volver a 6. Backend del sistema](#6-backend-del-sistema)
+
 ## 7. Frontend del Sistema
+
+[⬆️ Volver arriba](#especificación-técnica-1)
 
 ### 7.1 Rol del Frontend
 
 El frontend constituye la capa de presentación del sistema y representa el punto de contacto directo con el usuario final. Su principal objetivo es traducir resultados analíticos complejos en información visual clara, comprensible y accionable, facilitando la toma de decisiones estratégicas.
+
+[⬆️ Volver a 7. Frontend del sistema](#7-frontend-del-sistema)
 
 ### 7.2 Tecnologías Utilizadas
 
@@ -281,12 +375,16 @@ El desarrollo del frontend se realizó utilizando las siguientes tecnologías:
 - **Chart.js** para la visualización de datos mediante gráficos interactivos.  
 - **Vite** como herramienta de construcción y desarrollo rápido.  
 
+[⬆️ Volver a 7. Frontend del sistema](#7-frontend-del-sistema)
+
 ### 7.3 Arquitectura del Frontend
 
 El frontend sigue una arquitectura simple y clara basada en la separación de responsabilidades entre estructura, estilos y lógica de negocio. Este enfoque mejora la mantenibilidad del código y facilita la incorporación de nuevas funcionalidades.
 
 **Figura 7.1. Estructura del proyecto frontend**
 ![Estructura del proyecto frontend](./assets/frontend-estructura-proyecto.png)
+
+[⬆️ Volver a 7. Frontend del sistema](#7-frontend-del-sistema)
 
 ### 7.4 Dashboard Analítico
 
@@ -299,16 +397,11 @@ El dashboard analítico constituye el componente central del frontend y permite 
 
 La información se presenta de forma intuitiva, reduciendo la complejidad inherente a los resultados analíticos.
 
-### 7.5 Integración Backend – Frontend
+[⬆️ Volver a 7. Frontend del sistema](#7-frontend-del-sistema)
 
-El frontend consume la API REST expuesta por el backend mediante solicitudes HTTP, manteniendo una estricta separación de responsabilidades entre ambas capas.
-
-```javascript
-fetch('/api/clients/1023/churn-risk')
-  .then(response => response.json())
-  .then(data => updateDashboard(data));
-```
 ## 8. Flujo Completo del Sistema
+
+[⬆️ Volver arriba](#especificación-técnica-1)
 
 El flujo completo del sistema **ChurnCheck** abarca desde la interacción inicial del usuario hasta la visualización de los resultados predictivos generados por el modelo de *machine learning*. Este flujo integra de forma coordinada los tres pilares del sistema: **Frontend**, **Backend** y **Data Science**.
 
@@ -325,7 +418,10 @@ El proceso general se desarrolla de la siguiente manera:
 ![Flujo completo del sistema](./assets/flujo-sistema.png)
 
 Este flujo desacoplado permite una comunicación eficiente entre componentes, mejora la escalabilidad del sistema y facilita su mantenimiento a largo plazo.
+
 ## 9. Evaluación del Sistema
+
+[⬆️ Volver arriba](#especificación-técnica-1)
 
 El sistema **ChurnCheck** fue evaluado considerando distintos criterios técnicos y funcionales, con el objetivo de validar su correcto funcionamiento durante la demostración del proyecto.
 
@@ -342,10 +438,15 @@ Los resultados de la evaluación evidencian que el sistema cumple con los objeti
 
 ## 10. Conclusiones
 
+[⬆️ Volver arriba](#especificación-técnica-1)
+
 ChurnCheck demuestra que una solución basada en analítica predictiva, respaldada por una arquitectura backend robusta y presentada mediante un frontend intuitivo, puede transformar datos en decisiones estratégicas de alto impacto.
 
 La integración efectiva de técnicas de **Data Science** con una arquitectura desacoplada permite anticipar el abandono de clientes y brinda a las organizaciones una herramienta valiosa para la ejecución de acciones preventivas de retención. A pesar de haber sido desarrollado en el contexto de un hackathon, el proyecto presenta una base técnica sólida, escalable y alineada con estándares profesionales.
+
 ## 11. Trabajo Futuro
+
+[⬆️ Volver arriba](#especificación-técnica-1)
 
 Las siguientes líneas de trabajo permitirían evolucionar la plataforma **ChurnCheck** hacia un entorno productivo real:
 
@@ -359,16 +460,28 @@ Las siguientes líneas de trabajo permitirían evolucionar la plataforma **Churn
 
 ## 12. Anexos
 
+[⬆️ Volver arriba](#especificación-técnica-1)
+
 Los anexos complementan el cuerpo principal del informe, proporcionando información técnica adicional que respalda el diseño y la implementación del sistema.
 
 ### Anexo A. Diccionario de Datos
 
 | Variable | Tipo | Descripción |
-|--------|------|-------------|
-| lifetime | Entero | Meses desde la inscripción del cliente |
-| contractPeriod | Entero | Duración del contrato |
-| avgClassFrequencyCurrentMonth | Decimal | Frecuencia de asistencia reciente |
-| churn | Binario | Variable objetivo |
+| :--- | :--- | :--- |
+| **idClient** | Integer | Identificador único del cliente. |
+| **gender** | Binary | Género del cliente (0 o 1). |
+| **nearLocation** | Binary | Indica si el cliente vive o trabaja cerca del centro (1: Sí, 0: No). |
+| **partner** | Binary | Indica si el cliente es empleado de una empresa asociada (1: Sí, 0: No). |
+| **promoFriends** | Binary | Indica si el cliente se unió mediante la promoción "Trae a un amigo" (1: Sí, 0: No). |
+| **phone** | Binary | Indica si el cliente proporcionó su número de teléfono (1: Sí, 0: No). |
+| **contractPeriod** | Integer | Duración del contrato actual en meses ({1, 6, 12}). |
+| **groupVisits** | Binary | Indica si el cliente participa en sesiones grupales (1: Sí, 0: No). |
+| **age** | Integer | Edad del cliente. Valores admitidos: Min. 18 - Max. 41 |
+| **avgAdditionalChargesTotal** | Float | Promedio de gastos adicionales en el centro (cafetería, masajes, etc.) Valores admitidos: 0.15 a 552.33 |
+| **monthToEndContract** | Integer | Meses restantes hasta la finalización del contrato. 1 a 12 |
+| **lifetime** | Integer | Tiempo (en meses) desde que el cliente se unió por primera vez. 0 a 31 |
+| **avgClassFrequencyTotal** | Float | Frecuencia media de visitas por semana desde el inicio. Valores admitidos: 0.00 a 6.02 |
+| **avgClassFrequencyCurrentMonth** | Float | Frecuencia media de visitas por semana en el último mes. Valores admitidos: 0.00 a 6.15 |
 
 ### Anexo B. Métricas del Modelo Predictivo
 
@@ -384,48 +497,24 @@ Estas métricas confirman la capacidad del modelo para identificar clientes con 
 
 | Método | Endpoint | Descripción |
 |------|----------|-------------|
-| GET | /api/clients/{id}/churn-risk | Obtiene el riesgo de churn |
-| POST | /auth/login | Autenticación |
+| POST | /auth/login | Autentica un usuario por email y password y retorna un token de autenticación JWT. |
+| GET | /clients/prediction/{dni} | Obtiene la predicción de churn de un cliente por su DNI. [Sólo usuarios autenticados]|
+| GET | /clients/clients/statistics/{id} | Obtiene las estadísticas de un cliente (asistencia al gimnasio en los últimos seis meses y gastos adicionales por categoría) por su ID. [Sólo usuarios autenticados]|
+| GET | /api/stats | Obtiene las estadísticas globales de la base de datos del negocio: Total de clientes, clientes activos y promedio de edad. [Sólo usuarios autenticados]|
 
-### Anexo D. Fragmentos de Código Relevantes
-
-**Backend**
-```java
-@Service
-public class ClientService {
-    public ChurnRiskResponse calculateChurnRisk(Long clientId) {
-        return new ChurnRiskResponse();
-    }
-}
-```
-### Anexo E. Glosario Técnico
+### Anexo D. Glosario Técnico
 
 **API (Application Programming Interface).**  
 Interfaz que permite la comunicación entre diferentes sistemas de software, facilitando el intercambio de datos y funcionalidades mediante protocolos definidos.
 
-**Axios.**  
-Librería de JavaScript utilizada para realizar solicitudes HTTP desde el frontend hacia servicios backend, basada en promesas.
-
 **Backend.**  
 Capa del sistema responsable de la lógica de negocio, la gestión de datos y la comunicación con servicios externos.
-
-**Branch (Rama).**  
-Línea independiente de desarrollo dentro de un repositorio que permite trabajar en funcionalidades específicas sin afectar la rama principal.
-
-**Build.**  
-Proceso mediante el cual el código fuente es compilado y optimizado para su ejecución en un entorno de producción.
 
 **Churn.**  
 Indicador que representa la pérdida de clientes o usuarios de un servicio durante un periodo determinado.
 
 **Churn Prediction.**  
 Proceso analítico orientado a estimar la probabilidad de abandono de un cliente utilizando datos históricos y modelos predictivos.
-
-**Commit.**  
-Registro permanente de cambios realizados en el código fuente dentro de un sistema de control de versiones.
-
-**Componente.**  
-Unidad funcional y reutilizable que encapsula lógica, estructura y presentación dentro de una aplicación frontend.
 
 **CSS (Cascading Style Sheets).**  
 Lenguaje utilizado para definir el diseño visual y la presentación de una aplicación web.
@@ -439,26 +528,11 @@ Proceso de publicación de una aplicación en un entorno accesible para los usua
 **EDA (Exploratory Data Analysis).**  
 Análisis exploratorio de datos cuyo objetivo es identificar patrones, tendencias y anomalías relevantes.
 
-**Fetch.**  
-API nativa de JavaScript utilizada para realizar peticiones HTTP de manera asíncrona.
-
 **Frontend.**  
 Capa del sistema responsable de la interacción directa con el usuario y la visualización de la información.
 
-**Git.**  
-Sistema de control de versiones distribuido que permite gestionar y registrar cambios en el código fuente.
-
-**GitHub.**  
-Plataforma en la nube utilizada para alojar repositorios Git y facilitar el trabajo colaborativo.
-
-**Hook.**  
-Función especial de React que permite utilizar estado y otras características sin necesidad de clases.
-
 **JSON (JavaScript Object Notation).**  
 Formato ligero de intercambio de datos basado en texto, ampliamente utilizado en servicios web.
-
-**JSX.**  
-Extensión de sintaxis que permite escribir estructuras similares a HTML dentro de código JavaScript en React.
 
 **Machine Learning.**  
 Conjunto de técnicas que permiten a los sistemas aprender patrones a partir de datos y realizar predicciones.
@@ -466,43 +540,16 @@ Conjunto de técnicas que permiten a los sistemas aprender patrones a partir de 
 **Microservicio.**  
 Arquitectura que divide una aplicación en servicios pequeños, independientes y desacoplados.
 
-**Pull Request.**  
-Solicitud formal para integrar cambios de una rama a otra dentro de un repositorio.
-
-**README.md.**  
-Archivo principal de documentación de un repositorio que describe el proyecto, su propósito y uso.
-
-**React.**  
-Biblioteca de JavaScript orientada a la construcción de interfaces de usuario basadas en componentes.
-
 **REST.**  
 Estilo arquitectónico para el diseño de servicios web basado en operaciones estándar HTTP.
-
-**Routing (Enrutamiento).**  
-Mecanismo que permite la navegación entre diferentes vistas dentro de una aplicación web.
-
-**SPA (Single Page Application).**  
-Aplicación web que carga una sola página y actualiza su contenido dinámicamente sin recargar completamente.
-
-**State (Estado).**  
-Estructura de datos que almacena información dinámica dentro de un componente frontend.
-
-**UI (User Interface).**  
-Conjunto de elementos visuales con los que el usuario interactúa en una aplicación.
 
 **UX (User Experience).**  
 Experiencia global del usuario al interactuar con el sistema, incluyendo usabilidad y accesibilidad.
 
-**useEffect.**  
-Hook de React que permite ejecutar efectos secundarios dentro de componentes funcionales.
-
-**useState.**  
-Hook de React utilizado para declarar y gestionar el estado local de un componente.
-
 **Vite.**  
 Herramienta de desarrollo frontend que optimiza el rendimiento y la velocidad de construcción de aplicaciones web.
 
-### Anexo F. Glosario Técnico
+### Anexo E. Snapshots
 **Dashboard general del sistema**
 
 ![Dashboard general](./assets/visualizacion-dashboard-general.png)
@@ -515,6 +562,6 @@ Herramienta de desarrollo frontend que optimiza el rendimiento y la velocidad de
 
 ![Asistencia del cliente](./assets/visualizacion-asistencia-cliente.png)
 
-**Análisis visual y recomendaciones del sistema**
+**Análisis de gastos adicionales del cliente y recomendaciones del sistema**
 
 ![Análisis y recomendaciones](./assets/visualizacion-analisis-y-recomendaciones.png)
