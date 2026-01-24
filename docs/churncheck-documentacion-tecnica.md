@@ -384,8 +384,10 @@ Estas métricas confirman la capacidad del modelo para identificar clientes con 
 
 | Método | Endpoint | Descripción |
 |------|----------|-------------|
-| GET | /api/clients/{id}/churn-risk | Obtiene el riesgo de churn |
-| POST | /auth/login | Autenticación |
+| POST | /auth/login | Autentica un usuario por email y password y retorna un token de autenticación JWT. |
+| GET | /clients/prediction/{dni} | Obtiene la predicción de churn de un cliente por su DNI. [Sólo usuarios autenticados]|
+| GET | /clients/clients/statistics/{id} | Obtiene las estadísticas de un cliente (asistencia al gimnasio en los últimos seis meses y gastos adicionales por categoría) por su ID. [Sólo usuarios autenticados]|
+| GET | /api/stats | Obtiene las estadísticas globales de la base de datos del negocio: Total de clientes, clientes activos y promedio de edad. [Sólo usuarios autenticados]|
 
 ### Anexo D. Fragmentos de Código Relevantes
 
