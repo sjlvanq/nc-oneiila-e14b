@@ -10,31 +10,31 @@
     height: 100vh;
     z-index: 1000;
     width: 80px;
-    background: rgba(255, 255, 255, 0.7);
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2347 100%);
+    border-right: 1px solid var(--border-light);
+    box-shadow: 4px 0 24px rgba(10, 20, 48, 0.15);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
     padding-top: 3em;
-    opacity: 0.9;
+    padding-bottom: 1rem;
+    opacity: 0.95;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
     backdrop-filter: blur(10px);
     overflow: hidden;
     flex-shrink: 0;
-    /* No se comprime */
 }
 
 .mainContent {
     flex: 1;
     min-width: 0;
-    /* Evita desbordamientos en flex */
+    background-color: var(--bg-secondary);
 }
 
 .sidebar:hover {
     width: 240px;
-    background: white;
+    background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2347 100%);
     opacity: 1;
 }
 
@@ -43,6 +43,11 @@
     display: flex;
     align-items: center;
     padding: 0 24px;
+}
+
+.bottomElement {
+    margin-top: auto;
+    margin-bottom: 24px;
 }
 
 .link {
@@ -54,14 +59,34 @@
     background: none;
     border: none;
     text-decoration: none;
-    color: #333;
+    color: rgba(255, 255, 255, 0.8);
     font-weight: 500;
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
     border-radius: 12px;
+    position: relative;
 }
 
 .link:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(4px);
+}
+
+.link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background-color: var(--primary-blue);
+    border-radius: 0 2px 2px 0;
+    transition: height 0.2s ease;
+}
+
+.link:hover::before {
+    height: 70%;
 }
 
 .label {
@@ -69,7 +94,8 @@
     opacity: 0;
     white-space: nowrap;
     transition: opacity 0.3s ease;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .sidebar:hover .label {
@@ -80,6 +106,14 @@
     width: 32px;
     height: 32px;
     flex-shrink: 0;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: all 0.2s ease;
+}
+
+.link:hover .icon {
+    opacity: 1;
+    filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
 }
 
 .icon:hover {
@@ -87,25 +121,11 @@
 }
 
 @keyframes popUp {
-    0% {
-        scale: 1.2;
-    }
-
-    25% {
-        scale: 0.8;
-    }
-
-    50% {
-        scale: 1.1;
-    }
-
-    75% {
-        scale: 0.9;
-    }
-
-    100% {
-        scale: 1;
-    }
+    0% { transform: scale(1.2); }
+    25% { transform: scale(0.8); }
+    50% { transform: scale(1.1); }
+    75% { transform: scale(0.9); }
+    100% { transform: scale(1); }
 }
 
 .button {
@@ -117,7 +137,6 @@
 @media (max-width: 768px) {
     .layoutWrapper {
         flex-direction: column;
-        /* Apila verticalmente */
     }
 
     .sidebar {
@@ -126,21 +145,18 @@
         top: auto;
         left: 0;
         width: 100%;
-        /* Mejor que 100vw */
         height: 70px;
         flex-direction: row;
         justify-content: space-evenly;
-        /* Espaciado más uniforme */
         align-items: center;
         padding: 0;
         gap: 0;
-        /* Eliminamos el gap heredado */
         border-right: none;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-top: 1px solid var(--border-light);
         border-radius: 20px 20px 0 0;
         opacity: 1;
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, var(--primary-dark) 0%, #1a2347 100%);
+        box-shadow: 0 -4px 20px rgba(10, 20, 48, 0.2);
     }
 
     .sidebar:hover {
@@ -153,7 +169,6 @@
 
     .elementStyle {
         width: 25%;
-        /* Divide el espacio equitativamente */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -169,6 +184,16 @@
         flex-direction: column;
         gap: 4px;
         margin: 0;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .link:hover {
+        transform: none;
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .link::before {
+        display: none;
     }
 
     .label {

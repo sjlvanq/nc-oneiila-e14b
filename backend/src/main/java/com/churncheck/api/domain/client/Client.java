@@ -98,6 +98,7 @@ public class Client {
     public static Client createFromDto(ClientCreateRequestDTO dto, Partner partner) {
         Client client = new Client();
         client.clientName = dto.clientName();
+        client.dni = dto.dni();
         client.clientPhone = dto.clientPhone();
         client.birthDate = dto.birthDate();
         client.gender = dto.gender();

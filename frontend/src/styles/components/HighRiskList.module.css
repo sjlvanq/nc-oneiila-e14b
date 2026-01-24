@@ -1,0 +1,142 @@
+.container {
+    height: 100%;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: -10px 0 20px 0;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.clientItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: #fef2f2;
+    border-radius: 10px;
+    border: 1px solid rgba(239, 68, 68, 0.1);
+    transition: transform 0.2s ease;
+}
+
+.clientItem:hover {
+    transform: translateX(5px);
+    background-color: #fee2e2;
+}
+
+.clientInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: 700;
+    color: var(--primary-dark);
+    font-size: 15px;
+}
+
+.phone {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.riskBadge {
+    background-color: var(--secondary-red);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+    color: var(--text-tertiary);
+    text-align: center;
+}
+
+.empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    top: 100px;
+    right: 30px;
+    background: linear-gradient(135deg, var(--primary-dark), #1e3a5f);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 9999;
+    animation: slideInRight 0.3s ease-out, fadeOut 0.3s ease-in 1.7s forwards;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(400px);
+    }
+}
+
+.toastIcon {
+    font-size: 18px;
+}
+
+/* Skeleton Loading */
+.skeleton {
+    padding: 20px 0;
+}
+
+.skeletonLine {
+    height: 60px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.skeletonLine:last-child {
+    margin-bottom: 0;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

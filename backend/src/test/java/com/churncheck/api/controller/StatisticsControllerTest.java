@@ -43,7 +43,7 @@ public class StatisticsControllerTest {
     @Test
     void shouldGetStatistics() throws Exception {
         // Given
-        GlobalStatisticsDTO expectedStats = new GlobalStatisticsDTO(100L, 85L, 28.5);
+        GlobalStatisticsDTO expectedStats = new GlobalStatisticsDTO(100L, 85L, 15L, 5L, 28.5);
         when(clientService.getGlobalStats()).thenReturn(expectedStats);
 
         // When & Then

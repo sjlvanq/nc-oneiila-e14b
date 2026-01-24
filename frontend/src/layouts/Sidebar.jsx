@@ -3,6 +3,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import styles from '@/styles/components/Sidebar.module.css'
 import homeicon from './icons/house-regular-full.svg'
 import dashicon from './icons/chart-line-solid-full.svg'
+import usersicon from './icons/users-solid-full.svg'
+import registericon from './icons/user-plus-solid-full.svg'
 import loginicon from './icons/arrow-right-to-bracket-solid-full.svg'
 import logouticon from './icons/arrow-right-from-bracket-solid-full.svg'
 
@@ -14,27 +16,41 @@ export default function Sidebar() {
             <div className={styles.elementStyle}>
                 <Link className={styles.link} to="/" title="Home" >
                     <img src={homeicon} className={styles.icon} alt="Home" />
-                    <span className={styles.label}>Home</span>
+                    <span className={styles.label}>Inicio</span>
                 </Link>
             </div>
-            <div className={styles.elementStyle}>
-                {isAuthenticated && (
-                    <Link className={styles.link} to="/dashboard" title="Dashboard">
-                        <img src={dashicon} className={styles.icon} alt="Dashboard" />
-                        <span className={styles.label}>Dashboard</span>
-                    </Link>)
-                }
-            </div>
-            <div className={styles.elementStyle}>
+            {isAuthenticated && (
+                <>
+                    <div className={styles.elementStyle}>
+                        <Link className={styles.link} to="/dashboard" title="Dashboard">
+                            <img src={dashicon} className={styles.icon} alt="Dashboard" />
+                            <span className={styles.label}>Dashboard</span>
+                        </Link>
+                    </div>
+                    <div className={styles.elementStyle}>
+                        <Link className={styles.link} to="/clients" title="Clientes">
+                            <img src={usersicon} className={styles.icon} alt="Clientes" />
+                            <span className={styles.label}>Clientes</span>
+                        </Link>
+                    </div>
+                    <div className={styles.elementStyle}>
+                        <Link className={styles.link} to="/register-client" title="Registrar">
+                            <img src={registericon} className={styles.icon} alt="Registrar" />
+                            <span className={styles.label}>Registrar</span>
+                        </Link>
+                    </div>
+                </>
+            )}
+            <div className={`${styles.elementStyle} ${styles.bottomElement}`}>
                 {!isAuthenticated ? (
                     <Link className={styles.link} title="Login" to="/login">
                         <img src={loginicon} className={styles.icon} alt="Login" />
-                        <span className={styles.label}>Login</span>
+                        <span className={styles.label}>Iniciar sesión</span>
                     </Link>
                 ) : (
                     <button className={styles.button + ' ' + styles.link} title="Logout" onClick={logout}>
                         <img src={logouticon} className={styles.icon} alt="Logout" />
-                        <span className={styles.label}>Logout</span>
+                        <span className={styles.label}>Salir</span>
                     </button>
                 )}
             </div>

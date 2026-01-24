@@ -11,6 +11,8 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import Inicio from './pages/Home';
 import PageLogin from './pages/PageLogin';
 import PageDashboard from './pages/PageDashboard';
+import PageClientList from './pages/PageClientList';
+import PageRegisterClient from './pages/PageRegisterClient';
 import NotFound from './pages/NotFound';
 
 import Sidebar from './layouts/Sidebar';
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
           {
             path: "dashboard",
             element: <PageDashboard />,
+          },
+          {
+            path: "clients",
+            element: <PageClientList />,
+          },
+          {
+            path: "register-client",
+            element: <PageRegisterClient />,
           },
         ],
       },

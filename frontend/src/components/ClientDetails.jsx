@@ -1,26 +1,17 @@
 import styles from "@/styles/components/ClientDetails.module.css";
+import { getRiskLevel, isChurn, formatProbability } from "@/utils/riskUtils";
+import Card from "@/components/common/Card";
 
 const ClientDetails = ({ client }) => {
   if (!client) return null;
 
-  const probability = client.probability * 100;
-  const churnState = probability > 50 ? 1 : 0;
-  
-  const riskLevel =
-    probability <= 25
-      ? "low"
-      : probability <= 50
-      ? "medium"
-      : probability <= 75
-      ? "high"
-      : "critical";
+  const riskLevel = getRiskLevel(client.probability);
+  const isChurnClient = isChurn(client.probability);
 
   return (
-    <section className={`${styles.clientDetails} ${styles[riskLevel]}`}>
-      <h2>Detalles del cliente</h2>
-
+    <Card title="Detalles del cliente" riskLevel={riskLevel}>
       <div className={styles.detailRow}>
-       <span>Nombre del cliente</span>
+        <span>Nombre del cliente</span>
         <span>{client.clientName}</span>
       </div>
 
@@ -35,15 +26,20 @@ const ClientDetails = ({ client }) => {
       </div>
 
       <div className={styles.detailRow}>
+        <span>Total gastado</span>
+        <span className={styles.spendingValue}>${client.totalSpending || 0}</span>
+      </div>
+
+      <div className={styles.detailRow}>
         <span>Probabilidad de abandono</span>
-        <span>{probability}%</span>
+        <span>{formatProbability(client.probability)}</span>
       </div>
 
       <div className={styles.detailRow}>
         <span>Estado de abandono</span>
-        <span>{churnState === 1 ? "Churn" : "Active"}</span>
+        <span>{isChurnClient ? "Abandono" : "Activo"}</span>
       </div>
-    </section>
+    </Card>
   );
 };
 

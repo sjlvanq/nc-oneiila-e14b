@@ -1,50 +1,71 @@
 import { useState } from 'react';
-
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 
 import AttendanceChart from "@/components/AttendanceChart.jsx";
-import ClientDetails from '../components/ClientDetails';
+import ClientDetails from '@/components/ClientDetails';
 import DniSearch from '@/components/DniSearch';
 import GlobalStats from '@/components/GlobalStats';
-import Recommendations from '../components/Recommendations';
+import HighRiskList from '@/components/HighRiskList';
+import Recommendations from '@/components/Recommendations';
 
+import logoChurncheck from '@/assets/img/logo-churncheck-white.png';
 import styles from '@/styles/pages/PageDashboard.module.css';
 
 export default function PageDashboard() {
-  const [selectedClient, setSelectedClient] = useState(null);
-  useDocumentTitle('Dashboard');
+    const [selectedClient, setSelectedClient] = useState(null);
+    useDocumentTitle('Dashboard');
+
     return (
-        <div className="dashboardPage">
-            <section className="hero" style={{ height: 'auto', paddingTop: '100px', paddingLeft: ' 80px' }}>
-                <div className="heroContent">
-                    <h1>Dashboard General</h1>
-                    <p>Visualiza el estado de tu gimnasio y busca clientes específicos.</p>
-                </div>
-            </section>
-
-            <GlobalStats />
-
-            <div className="container">
-
-                <DniSearch onClientFound={setSelectedClient} />
-
-                {selectedClient && (
-                    <div className={styles.predictionResultsContainer}>
-                        <div>
-                            <ClientDetails client={selectedClient} />
-                            <AttendanceChart clientId={selectedClient.id} />
-                        </div>
-                        <div>
-                            <Recommendations probability={selectedClient.probability} />
-                        </div>
+        <div className={styles.dashboardPage}>
+            <header className={styles.hero}>
+                <div className={styles.heroContent}>
+                    <div className={styles.heroText}>
+                        <h1>Centro de Inteligencia</h1>
+                        <p>Monitoreo predictivo avanzado para retener clientes y optimizar tu negocio</p>
                     </div>
-                
-                )}
-                
-                <div style={{ marginTop: '40px', color: '#6b7280', textAlign: 'center' }}>
-                    <p>ChurnCheck</p>
+                    <img
+                        src={logoChurncheck}
+                        alt="ChurnCheck Logo"
+                        className={styles.heroLogo}
+                    />
                 </div>
-            </div>
+            </header>
+
+            <main className="container">
+                <div className={styles.dashboardGrid}>
+                    {/* Global Stats Section */}
+                    <section className={styles.statsSection}>
+                        <GlobalStats />
+                        <HighRiskList />
+                    </section>
+
+                    {/* Search Section */}
+                    <section className={styles.searchSection}>
+                        <div className={styles.sectionHeader}>
+                            <h2>Busca un cliente para análisis detallado</h2>
+                        </div>
+                        <DniSearch onClientFound={setSelectedClient} />
+                    </section>
+
+                    {/* Result Section (Conditional) */}
+                    {selectedClient && (
+                        <div className={styles.resultsGrid}>
+                            <div className={styles.chartsArea}>
+                                <AttendanceChart clientId={selectedClient.id} />
+                            </div>
+
+                            <div className={styles.detailsArea}>
+                                <ClientDetails client={selectedClient} />
+                                <Recommendations probability={selectedClient.probability} />
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <footer className={styles.footer}>
+                    <p>© 2026 ChurnCheck - Inteligencia Artificial para el Éxito Fitness</p>
+                </footer>
+            </main>
         </div>
-    )
+    );
 }

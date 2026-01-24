@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from '@/styles/pages/Home.module.css';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+import dashboardMockup from '@/assets/img/gym-tools.jpg';
 
 export default function Home() {
     useDocumentTitle('Inicio');
@@ -124,9 +125,17 @@ export default function Home() {
                         </div>
                         <div className={styles.benefitsImage}>
                             <div className={styles.mockDashboard}>
-                                <div style={{ height: '300px', background: '#f8fafc', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#cbd5e1', fontSize: '14px' }}>
-                                    [ Vista del Dashboard ]
-                                </div>
+                                <img 
+                                    src={dashboardMockup} 
+                                    alt="Vista del Dashboard de ChurnCheck" 
+                                    style={{ 
+                                        width: '100%', 
+                                        height: '300px', 
+                                        objectFit: 'cover', 
+                                        borderRadius: '8px',
+                                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                                    }} 
+                                />
                             </div>
                         </div>
                     </div>

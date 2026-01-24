@@ -17,7 +17,7 @@ export default function Login() {
     }, [isAuthenticated, navigate]);
 
     // States for the form
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     // States for visual control
@@ -26,11 +26,11 @@ export default function Login() {
     const [response, setResponse] = useState(null);
 
     // Function to communicate with the backend
-    const getToken = async (e) => {
-        e.preventDefault(); // Prevent page reload
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         const postBody = {
-            email: username,
+            email: email,
             password: password
         };
 
@@ -39,10 +39,9 @@ export default function Login() {
             setResponse(null);
             setLoading(true);
 
-            const response = await api.post('/login', postBody);
-            const data = response.data;
+            const res = await api.post('/login', postBody);
+            const data = res.data;
 
-            // Axios throws an error (goes to catch) if the status is not 2xx
             if (data.token) {
                 login(data.token);
                 navigate('/dashboard');
@@ -70,45 +69,60 @@ export default function Login() {
     return (
         <div className={styles.card}>
             <div className={styles.cardMessage}>
-                {/* Show token if exists */}
-                {/* {token && <p className={styles.success}>{token}</p>} */}
-
-                {/* Messages */}
                 {loading && <p className={styles.info}>Solicitando acceso...</p>}
                 {error && <p className={styles.error}>{error}</p>}
             </div>
-            {/* Form */}
-            <form onSubmit={getToken}>
+
+            <form onSubmit={handleSubmit}>
                 <div className={styles.cardInput}>
-                    <label htmlFor="username">
-                        Nombre de usuario:
+                    <label htmlFor="email">
+                        Correo Electrónico:
                     </label>
                     <input
-                        type="text"
-                        // value={username}
-                        placeholder='Correo Electrónico'
-                        onChange={(e) => setUsername(e.currentTarget.value)}
+                        id="email"
+                        type="email"
+                        value={email}
+                        placeholder='ejemplo@correo.com'
+                        onChange={(e) => setEmail(e.currentTarget.value)}
+                        required
                     />
-                    <br />
                     <p className={styles.fieldError}>
                         <span>{getFieldError('email')}</span>
                     </p>
                 </div>
+
                 <div className={styles.cardInput}>
-                    Contraseña:
+                    <label htmlFor="password">
+                        Contraseña:
+                    </label>
                     <input
+                        id="password"
                         type="password"
+                        value={password}
                         placeholder='Contraseña'
                         onChange={(e) => setPassword(e.currentTarget.value)}
+                        required
                     />
-                    <br />
                     <p className={styles.fieldError}>
                         <span>{getFieldError('password')}</span>
                     </p>
                 </div>
-                <div className={styles.cardButton}>
-                    <button type="submit" disabled={loading}>
-                        Entrar
+
+                <div className={styles.cardButtons}>
+                    <button
+                        type="button"
+                        className={styles.cancelButton}
+                        onClick={() => navigate('/')}
+                        disabled={loading}
+                    >
+                        Cancelar
+                    </button>
+                    <button
+                        type="submit"
+                        className={styles.loginButton}
+                        disabled={loading}
+                    >
+                        {loading ? 'Entrando...' : 'Entrar'}
                     </button>
                 </div>
             </form>

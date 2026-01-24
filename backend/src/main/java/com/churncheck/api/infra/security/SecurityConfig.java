@@ -45,6 +45,8 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 																															// en
 																															// producción
 						.requestMatchers(HttpMethod.POST, "/login").permitAll()
+						.requestMatchers("/api/stats").permitAll()
+						.requestMatchers("/clients/high-risk").permitAll()
 						.requestMatchers("/clients/**").authenticated()
 						.requestMatchers("/swagger/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs",
 								"/v3/api-docs/**")
