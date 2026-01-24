@@ -1,9 +1,9 @@
 .chartCard {
-    min-height: 400px;
+    min-height: 420px;
 }
 
 .chartWrapper {
-    height: 320px;
+    height: 340px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -25,10 +25,10 @@
 
 @media (max-width: 1024px) {
     .chartCard {
-        min-height: 350px;
+        min-height: 380px;
     }
 
     .chartWrapper {
-        height: 280px;
+        height: 300px;
     }
 }
