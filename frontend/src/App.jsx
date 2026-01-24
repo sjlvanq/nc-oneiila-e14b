@@ -16,6 +16,7 @@ import PageRegisterClient from './pages/PageRegisterClient';
 import NotFound from './pages/NotFound';
 
 import Sidebar from './layouts/Sidebar';
+import ChatSidebar from './components/ChatSidebar';
 
 // Layout para rutas públicas (sin navbar)
 function PublicLayout() {
@@ -34,6 +35,7 @@ function ProtectedLayout() {
       <main className={styles.mainContent}>
         <Outlet />
       </main>
+      <ChatSidebar />
     </div>
   );
 }
