@@ -8,7 +8,7 @@ powered by ![NoCountry](docs/assets/nocountry-logo.png)
 
 ----
 
-# ChurnCheck
+# ![LOGO](docs/assets/logo-64.png) ChurnCheck
 ## Predicción de Cancelación de Clientes
 
 * Proyecto ChurnInsight
