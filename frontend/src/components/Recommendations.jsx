@@ -41,14 +41,15 @@ const Recommendations = ({ probability }) => {
 
   return (
     <Card title="Recomendaciones" riskLevel={riskLevel}>
-      <div className={styles.detailRow}>
-        <span>Nivel de riesgo</span>
-        <span>{riskTitle}</span>
-      </div>
-
-      <div className={styles.detailRow}>
-        <span>Estado de abandono</span>
-        <span>{isChurnClient ? "Churn" : "Active"}</span>
+      <div className={styles.probabilityBadge}>
+        <div className={styles.probabilityCircle}>
+          <span className={styles.probabilityValue}>{Math.round(probability * 100)}%</span>
+          <span className={styles.probabilityLabel}>Riesgo</span>
+        </div>
+        <div className={styles.riskInfo}>
+          <span className={styles.riskTitle}>{riskTitle}</span>
+          <span className={styles.riskStatus}>{isChurnClient ? "Churn" : "Active"}</span>
+        </div>
       </div>
 
       <div className={styles.detailRow}>
