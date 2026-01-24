@@ -140,3 +140,14 @@
         background-position: -200% 0;
     }
 }
+@media (max-width: 480px) {
+    .clientItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .riskBadge {
+        align-self: flex-start;
+    }
+}
