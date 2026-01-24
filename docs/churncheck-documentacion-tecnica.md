@@ -77,7 +77,7 @@ Desarrollado con **Java 21** y **Spring Boot 3**, el backend implementa:
 
 - Servicios REST para el consumo de datos.  
 - Integración con el modelo predictivo como servicio externo.  
-- Persistencia de datos mediante una base de datos en memoria (**H2**).  
+- Persistencia de datos mediante una base de datos **H2**.
 - Seguridad basada en autenticación *stateless* mediante **JWT**.  
 
 Este enfoque desacoplado permite que el sistema continúe siendo estable incluso ante latencias o fallos temporales del módulo analítico.
