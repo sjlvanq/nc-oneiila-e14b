@@ -12,6 +12,7 @@ export default function PageClientList() {
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
+    const [totalElements, setTotalElements] = useState(0);
     const [error, setError] = useState(null);
 
     const fetchClients = useCallback(async (pageNumber) => {
@@ -24,6 +25,7 @@ export default function PageClientList() {
             setClients(data.content || []);
             setTotalPages(data.totalPages || 0);
             setPage(data.number || 0);
+            setTotalElements(data.totalElements || 0);
         } catch (err) {
             console.error('Error fetching clients:', err);
             setError('No se pudo cargar la lista de clientes. Por favor, intenta de nuevo más tarde.');
@@ -65,7 +67,7 @@ export default function PageClientList() {
             </header>
 
             <main className="container">
-                <Card title="Listado de Clientes Activos">
+                <Card title={`Listado de Clientes Activos (${totalElements} clientes)`}>
                     {loading ? (
                         <div className={styles.loading}>Cargando clientes...</div>
                     ) : error ? (
@@ -75,6 +77,7 @@ export default function PageClientList() {
                             <table className={styles.table}>
                                 <thead>
                                     <tr>
+                                        <th>#</th>
                                         <th>Nombre</th>
                                         <th>Género</th>
                                         <th>Teléfono</th>
@@ -85,8 +88,9 @@ export default function PageClientList() {
                                 </thead>
                                 <tbody>
                                     {clients.length > 0 ? (
-                                        clients.map(client => (
+                                        clients.map((client, index) => (
                                             <tr key={client.id}>
+                                                <td>{page * 10 + index + 1}</td>
                                                 <td>{client.clientName}</td>
                                                 <td>{client.gender === 'MALE' ? 'Masculino' : 'Femenino'}</td>
                                                 <td>{client.clientPhone}</td>
@@ -99,7 +103,7 @@ export default function PageClientList() {
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="6" className={styles.noData}>No hay clientes activos registrados.</td>
+                                            <td colSpan="7" className={styles.noData}>No hay clientes activos registrados.</td>
                                         </tr>
                                     )}
                                 </tbody>
