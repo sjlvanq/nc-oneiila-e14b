@@ -50,7 +50,7 @@ Estos componentes trabajan de forma integrada, pero desacoplada, garantizando es
 
 ## 3. Descripción General de la Solución
 
-ChurnCheck es una plataforma analítica que transforma datos históricos de clientes en información accionable. El flujo general del sistema sigue el principio:
+ChurnCheck es una plataforma analítica que transforma datos históricos de clientes calculados de forma dinámica en información accionable. El flujo general del sistema sigue el principio:
 
 **Datos → Análisis → Decisión**
 
