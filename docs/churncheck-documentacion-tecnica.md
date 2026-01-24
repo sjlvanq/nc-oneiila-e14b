@@ -137,6 +137,7 @@ Este enfoque *data-driven* asegura que las decisiones estratégicas se fundament
 La arquitectura del sistema fue diseñada bajo un enfoque desacoplado y modular, permitiendo que cada componente evolucione de forma independiente sin afectar al resto del sistema.
 
 **Figura 4.1. Arquitectura general del sistema ChurnCheck**
+![Arquitectura general del sistema ChurnCheck](./assets/arquitectura-churncheck.png)
 
 La comunicación entre los distintos componentes se realiza mediante servicios **REST** y el formato **JSON**, garantizando interoperabilidad entre tecnologías heterogéneas y facilitando la escalabilidad del sistema.
 
@@ -184,6 +185,8 @@ El Análisis Exploratorio de Datos permitió identificar patrones y comportamien
 - Variables como el género no presentan una influencia significativa en la probabilidad de abandono.  
 
 **Figura 5.1. Resultados del Análisis Exploratorio de Datos**
+![Resultados del Análisis Exploratorio de Datos](./assets/eda-resultados.png)
+
 
 ### 5.5 Selección y Entrenamiento del Modelo
 
@@ -198,6 +201,9 @@ Las métricas obtenidas durante la evaluación del modelo fueron las siguientes:
 Estos resultados evidencian una adecuada capacidad del modelo para identificar clientes con alto riesgo de abandono.
 
 **Figura 5.2. Comparativo Regresión Logística vs. Random Forest**
+![Comparación de modelos predictivos](./assets/modelos-comparacion.png)
+
+![Pipeline de comparación de modelos](./assets/modelos-comparacion-pipeline.png)
 
 ### 5.6 Despliegue del Modelo como Servicio
 
@@ -243,6 +249,7 @@ El backend implementa una arquitectura por capas, la cual favorece la separació
 - **Configuración:** Centraliza la configuración de seguridad y del framework.  
 
 **Figura 6.1. Arquitectura por capas del backend**
+![Arquitectura por capas del backend](./assets/backend-arquitectura-capas.png)
 
 ### 6.4 Persistencia y Gestión de Datos
 
@@ -279,6 +286,7 @@ El desarrollo del frontend se realizó utilizando las siguientes tecnologías:
 El frontend sigue una arquitectura simple y clara basada en la separación de responsabilidades entre estructura, estilos y lógica de negocio. Este enfoque mejora la mantenibilidad del código y facilita la incorporación de nuevas funcionalidades.
 
 **Figura 7.1. Estructura del proyecto frontend**
+![Estructura del proyecto frontend](./assets/frontend-estructura-proyecto.png)
 
 ### 7.4 Dashboard Analítico
 
@@ -314,6 +322,7 @@ El proceso general se desarrolla de la siguiente manera:
 6. El frontend presenta los resultados al usuario mediante gráficos e indicadores visuales.
 
 **Figura 8.1. Flujo completo del sistema**
+![Flujo completo del sistema](./assets/flujo-sistema.png)
 
 Este flujo desacoplado permite una comunicación eficiente entre componentes, mejora la escalabilidad del sistema y facilita su mantenimiento a largo plazo.
 ## 9. Evaluación del Sistema
@@ -493,4 +502,19 @@ Hook de React utilizado para declarar y gestionar el estado local de un componen
 **Vite.**  
 Herramienta de desarrollo frontend que optimiza el rendimiento y la velocidad de construcción de aplicaciones web.
 
+### Anexo F. Glosario Técnico
+**Dashboard general del sistema**
 
+![Dashboard general](./assets/visualizacion-dashboard-general.png)
+
+**Indicadores y alertas de abandono**
+
+![KPIs y alertas de churn](./assets/visualizacion-kpis-alertas-churn.png)
+
+**Análisis de asistencia por cliente**
+
+![Asistencia del cliente](./assets/visualizacion-asistencia-cliente.png)
+
+**Análisis visual y recomendaciones del sistema**
+
+![Análisis y recomendaciones](./assets/visualizacion-analisis-y-recomendaciones.png)
