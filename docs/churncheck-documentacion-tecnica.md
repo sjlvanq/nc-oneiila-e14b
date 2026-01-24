@@ -211,13 +211,6 @@ El modelo predictivo fue desplegado como un microservicio utilizando **FastAPI**
 
 El endpoint expuesto recibe los datos del cliente, procesa la información mediante el modelo entrenado y retorna la probabilidad estimada de abandono.
 
-```python
-@app.post("/predict")
-def predict_churn(data: ClientData):
-    probability = model.predict_proba(data)
-    return {"churn_probability": probability}
-```
-
 ## 6. Backend del Sistema
 
 ### 6.1 Rol del Backend
