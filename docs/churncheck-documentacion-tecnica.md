@@ -394,29 +394,14 @@ Estas métricas confirman la capacidad del modelo para identificar clientes con 
 **API (Application Programming Interface).**  
 Interfaz que permite la comunicación entre diferentes sistemas de software, facilitando el intercambio de datos y funcionalidades mediante protocolos definidos.
 
-**Axios.**  
-Librería de JavaScript utilizada para realizar solicitudes HTTP desde el frontend hacia servicios backend, basada en promesas.
-
 **Backend.**  
 Capa del sistema responsable de la lógica de negocio, la gestión de datos y la comunicación con servicios externos.
-
-**Branch (Rama).**  
-Línea independiente de desarrollo dentro de un repositorio que permite trabajar en funcionalidades específicas sin afectar la rama principal.
-
-**Build.**  
-Proceso mediante el cual el código fuente es compilado y optimizado para su ejecución en un entorno de producción.
 
 **Churn.**  
 Indicador que representa la pérdida de clientes o usuarios de un servicio durante un periodo determinado.
 
 **Churn Prediction.**  
 Proceso analítico orientado a estimar la probabilidad de abandono de un cliente utilizando datos históricos y modelos predictivos.
-
-**Commit.**  
-Registro permanente de cambios realizados en el código fuente dentro de un sistema de control de versiones.
-
-**Componente.**  
-Unidad funcional y reutilizable que encapsula lógica, estructura y presentación dentro de una aplicación frontend.
 
 **CSS (Cascading Style Sheets).**  
 Lenguaje utilizado para definir el diseño visual y la presentación de una aplicación web.
@@ -430,26 +415,11 @@ Proceso de publicación de una aplicación en un entorno accesible para los usua
 **EDA (Exploratory Data Analysis).**  
 Análisis exploratorio de datos cuyo objetivo es identificar patrones, tendencias y anomalías relevantes.
 
-**Fetch.**  
-API nativa de JavaScript utilizada para realizar peticiones HTTP de manera asíncrona.
-
 **Frontend.**  
 Capa del sistema responsable de la interacción directa con el usuario y la visualización de la información.
 
-**Git.**  
-Sistema de control de versiones distribuido que permite gestionar y registrar cambios en el código fuente.
-
-**GitHub.**  
-Plataforma en la nube utilizada para alojar repositorios Git y facilitar el trabajo colaborativo.
-
-**Hook.**  
-Función especial de React que permite utilizar estado y otras características sin necesidad de clases.
-
 **JSON (JavaScript Object Notation).**  
 Formato ligero de intercambio de datos basado en texto, ampliamente utilizado en servicios web.
-
-**JSX.**  
-Extensión de sintaxis que permite escribir estructuras similares a HTML dentro de código JavaScript en React.
 
 **Machine Learning.**  
 Conjunto de técnicas que permiten a los sistemas aprender patrones a partir de datos y realizar predicciones.
@@ -457,38 +427,11 @@ Conjunto de técnicas que permiten a los sistemas aprender patrones a partir de 
 **Microservicio.**  
 Arquitectura que divide una aplicación en servicios pequeños, independientes y desacoplados.
 
-**Pull Request.**  
-Solicitud formal para integrar cambios de una rama a otra dentro de un repositorio.
-
-**README.md.**  
-Archivo principal de documentación de un repositorio que describe el proyecto, su propósito y uso.
-
-**React.**  
-Biblioteca de JavaScript orientada a la construcción de interfaces de usuario basadas en componentes.
-
 **REST.**  
 Estilo arquitectónico para el diseño de servicios web basado en operaciones estándar HTTP.
 
-**Routing (Enrutamiento).**  
-Mecanismo que permite la navegación entre diferentes vistas dentro de una aplicación web.
-
-**SPA (Single Page Application).**  
-Aplicación web que carga una sola página y actualiza su contenido dinámicamente sin recargar completamente.
-
-**State (Estado).**  
-Estructura de datos que almacena información dinámica dentro de un componente frontend.
-
-**UI (User Interface).**  
-Conjunto de elementos visuales con los que el usuario interactúa en una aplicación.
-
 **UX (User Experience).**  
 Experiencia global del usuario al interactuar con el sistema, incluyendo usabilidad y accesibilidad.
-
-**useEffect.**  
-Hook de React que permite ejecutar efectos secundarios dentro de componentes funcionales.
-
-**useState.**  
-Hook de React utilizado para declarar y gestionar el estado local de un componente.
 
 **Vite.**  
 Herramienta de desarrollo frontend que optimiza el rendimiento y la velocidad de construcción de aplicaciones web.
