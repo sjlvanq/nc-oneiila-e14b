@@ -5,18 +5,18 @@
 }
 
 .hero {
-  padding: 80px 20px;
+  padding: 30px 20px;
   background: linear-gradient(rgba(10, 20, 48, 0.4), rgba(10, 20, 48, 0.5)), url('@/assets/img/gym-hero.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   color: white;
   text-align: left;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   position: relative;
   z-index: 1;
   overflow: hidden;
-  min-height: 60vh;
+  min-height: 40vh;
   display: flex;
   align-items: center;
 }
@@ -37,7 +37,7 @@
   margin: 0 auto;
   position: relative;
   z-index: 2;
-  padding: 40px 20px;
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -134,14 +134,14 @@
 }
 
 .chartsArea {
-  grid-column: span 8;
+  grid-column: span 7;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
 .detailsArea {
-  grid-column: span 4;
+  grid-column: span 5;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -167,6 +167,14 @@
   .chartsArea,
   .detailsArea {
     grid-column: span 12;
+  }
+
+  .chartsArea {
+    order: 2;
+  }
+
+  .detailsArea {
+    order: 1;
   }
 }
 
