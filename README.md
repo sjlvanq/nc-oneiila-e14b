@@ -15,6 +15,7 @@ powered by ![NoCountry](docs/assets/nocountry-logo.png)
 * **Equipo: H12-25-L-Equipo 14-Data Science**
 
 -----
+![Miguel Figueroa](docs/assets/team-mfigueroa-nc.png)
 ![Oriana](docs/assets/team-oriana-nc.png)
 ![Miguel Castillo](docs/assets/team-mcastillo-nc.png)
 ![Iris](docs/assets/team-iris-nc.png)
