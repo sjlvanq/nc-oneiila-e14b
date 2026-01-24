@@ -63,7 +63,7 @@ public class ClientPredictionMapper {
 
         LocalDate endContractDate = client.getContractStartDate().plusMonths(client.getContractPeriod());
         long monthsRemaining = ChronoUnit.MONTHS.between(today, endContractDate);
-        Integer monthsToEndContract = (int) Math.max(0, monthsRemaining);
+        Integer monthsToEndContract = (int) monthsRemaining;
         
         BigDecimal avgClassFrequencyTotal = calculateAvgClassFrequencyTotal(
                 client.getAttendances(), registrationDate, today);
