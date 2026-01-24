@@ -299,10 +299,6 @@ El dashboard analítico constituye el componente central del frontend y permite 
 
 La información se presenta de forma intuitiva, reduciendo la complejidad inherente a los resultados analíticos.
 
-### 7.5 Integración Backend – Frontend
-
-El frontend consume la API REST expuesta por el backend mediante solicitudes HTTP, manteniendo una estricta separación de responsabilidades entre ambas capas.
-
 ## 8. Flujo Completo del Sistema
 
 El flujo completo del sistema **ChurnCheck** abarca desde la interacción inicial del usuario hasta la visualización de los resultados predictivos generados por el modelo de *machine learning*. Este flujo integra de forma coordinada los tres pilares del sistema: **Frontend**, **Backend** y **Data Science**.
