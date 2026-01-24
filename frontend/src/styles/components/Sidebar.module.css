@@ -165,6 +165,7 @@
 
     .mainContent {
         padding-bottom: 80px;
+        margin-right: 0; /* No margin en móvil */
     }
 
     .elementStyle {
