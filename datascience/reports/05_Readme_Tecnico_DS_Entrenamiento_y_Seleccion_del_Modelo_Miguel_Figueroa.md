@@ -58,6 +58,7 @@ Se evaluaron distintos algoritmos:
 
 <details>
   <summary> <strong>Lineal:</strong>Logistic Regression.</summary>
+    
     Este primer modelo real se entrenó utilizando `LogisticRegression` con dos ajustes clave:
 
   - `max_iter=2000`, para asegurar la convergencia del algoritmo.
@@ -83,7 +84,7 @@ Se evaluaron distintos algoritmos:
 
   ![Plot ROC regresssion initial model](images/curva_roc_regression_initial_model.png)
 
-  ![Plot precision-Recall initial Regression](/images/curva_pres_recall_regression_initial_model.png)
+  ![Plot precision-Recall initial Regression](images/curva_pres_recall_regression_initial_model.png)
 
   Este modelo representa un salto cualitativo frente al baseline. A diferencia del Dummy, la regresión logística logra identificar eficazmente la clase minoritaria:
 
@@ -92,6 +93,7 @@ Se evaluaron distintos algoritmos:
   - La *accuracy* global del **91%** ya no es producto del azar, sino del aprendizaje efectivo de patrones.
 
   El uso de `class_weight='balanced'` demuestra ser una estrategia funcional para abordar el desbalance sin recurrir aún a técnicas de remuestreo. 
+
 --- 
   ### Evaluación con Datos Balanceados y Validación Cruzada
 
@@ -125,7 +127,8 @@ Se evaluaron distintos algoritmos:
 </details>
 
 <details>
-  <summary> <strong>Ensamble:</strong>Random Forest Classifier.</summary>
+  <summary> <strong>Ensamble: </strong>Random Forest Classifier.</summary>
+  
   El modelo Random Forest se entrenó inicialmente con `n_estimators=300` y `class_weight='balanced'`, buscando aprovechar su capacidad para modelar relaciones no lineales y mitigar el desbalance desde el propio algoritmo.
 
   #### Resultados: 
@@ -184,14 +187,16 @@ Se evaluaron distintos algoritmos:
 </details>
 
 
-### **3\. Optimización de los modelos
+### **3\. Optimización de los modelos**
 
-Se realizó una optimización de cada uno de los modelos de acuerdo a su comportamiento esperado. Para ello, los resultados se describen a continuación:
+Se realizó una optimización de cada uno de los modelos. Basado en los resultados obtenidos, se puede señalar lo siguiente:
 
 <details>
-  <summary>El modelo de Regresión Logística muestra un equilibrio entre Precision y Recall</summary>
+  <summary>
+    <em>El modelo de Regresión Logística muestra un equilibrio entre Precision y Recall</em>
+  </summary>
   
-  #### Optimización del Modelo
+  #### *Optimización del Modelo*
 
   El proceso de optimización se centró en mejorar el desempeño del modelo a partir de tres ejes: <strong>relevancia de variables, estabilidad estadística y ajuste fino de hiperparámetros.</strong>
 
@@ -207,7 +212,7 @@ Se realizó una optimización de cada uno de los modelos de acuerdo a su comport
 
   Estas variables fueron eliminadas al no contribuir a la detección de churn.
 
-  ### 2. Análisis de Multicolinealidad
+  ### 2. *Análisis de Multicolinealidad*
 
   Se evaluó la multicolinealidad mediante el Factor de Inflación de Varianza (VIF), detectando valores elevados en:
 
@@ -218,7 +223,7 @@ Se realizó una optimización de cada uno de los modelos de acuerdo a su comport
 
   Para evitar redundancia y ruido estadístico, se eliminó `contractPeriod`, conservando `monthToEndContract`.
 
-  ### 3. Reentrenamiento con Variables Reducidas
+  ### 3. *Reentrenamiento con Variables Reducidas*
 
   El modelo fue reentrenado con 9 variables. El desempeño resultante mostró una mejora ligera pero consistente:
 
@@ -232,7 +237,7 @@ Se realizó una optimización de cada uno de los modelos de acuerdo a su comport
 
   Esto confirma que la reducción de variables no solo preserva el rendimiento, sino que mejora la capacidad de detección de la clase minoritaria.
 
-  ### 4. Optimización de Hiperparámetros
+  ### 4. *Optimización de Hiperparámetros*
 
   Se aplicó `GridSearchCV` priorizando la métrica `roc_auc`, buscando un equilibrio entre *precision* y *recall*.  
   El mejor conjunto de parámetros fue:
@@ -250,10 +255,11 @@ Se realizó una optimización de cada uno de los modelos de acuerdo a su comport
 
   ![Confussion Matrix for best regression model](images/CM_regression_best_model.png)
 
-  *Accuracy:* **0.93**
-  *Recall (churn):* **0.90**
-  *F1 (churn):* **0.87**
-  *ROC AUC:* **0.98**
+  - *Accuracy:* **0.93**
+  - *Recall (churn):* **0.90**
+  - *F1 (churn):* **0.87**
+  - *ROC AUC:* **0.98**
+
   ![Plot ROC regresssion initial model](images/curva_roc_regression_best_model.png)
 
   ![Plot precision-Recall initial Regression](images/curva_pres_recall_regression_best_model.png)
@@ -264,7 +270,7 @@ Se realizó una optimización de cada uno de los modelos de acuerdo a su comport
 
 <details>
   <summary>
-  Random Forest es estable y consistente, pero capacidad limitado para superar a la regresión logística, incluso tras la optimización por hiperparámetros.
+  <em>Random Forest es estable y consistente, pero capacidad limitado para superar a la regresión logística, incluso tras la optimización por hiperparámetros.</em>
   </summary>
 
   #### Optimización del Modelo Random Forest
@@ -304,12 +310,14 @@ Se realizó una optimización de cada uno de los modelos de acuerdo a su comport
   Aunque el best_score_ alcanzó 0.8669, el desempeño final del modelo fue:
 
   ![Confussion Matrix for best RF model](images/CM_RF_best_model.png)
+
   | Clase | Precision | Recall | F1-score |
   |-------|-----------|--------|----------|
   | 0     | 0.95      | 0.93   | 0.94     |
   | 1     | 0.82      | 0.86   | 0.84     |
 
   - *Accuracy*: **0.90**
+
   ![Plot ROC for RF best model](images/curva_roc_RF_best_model.png)
 
   ![Plot precision-recall for RF best model](images/curva_pres_recall_RF_best_model.png)
@@ -335,18 +343,31 @@ Este resultado confirma que, para este dominio, un modelo lineal bien regulariza
 
 ## **📂 Archivos Generados**
 
-* models/best\_model\_logistic\_opt.pkl: El modelo ganador serializado.  
-* reports/coeficientes\_importancia.csv: Tabla con los pesos de cada variable (feature importance) extraídos del modelo lineal.
+* 💹 **Modelo base de entremiento**
+        [dummy_baseline.joblib](../models/dummy_baseline.joblib) 
+
+ * 🥇 **Modelo Optimizado de Regresión Logísitica**
+        [Regresion_modelo_champion.joblib](../models/Regresion_modelo_champion.joblib)
+    
+  * 🥈 **Modelo random Forest para respaldo al ejecutar API**
+        [RF_modelo_champion.joblib](../models/RF_modelo_champion.joblib)
+
+  * 📓 **Jupyter Notebook utilizado durante entrenamiento**
+        [05.-Optimización_de_gym_churn_camelcase_train.ipynb](../notebooks/05.-%20Optimización_de_gym_churn_camelcase_train.ipynb)
+
+    
+
 
 ## **🏁 Uso del Modelo**
 
-Python
+```python
 
 import joblib
 
 \# Cargar el modelo ganador  
-modelo \= joblib.load('models/best\_model\_logistic\_opt.pkl')
+modelo \= joblib.load('models/Regresion_modelo_champion.joblib')
 
 \# Obtener probabilidades de churn  
 \# (El modelo ya incluye el escalado internamente si se guardó como Pipeline)  
 probabilidades \= modelo.predict\_proba(nuevos\_datos)\[:, 1\]  
+```
