@@ -1,6 +1,7 @@
 import azure.functions as func
 import logging
 import json
+import asyncio
 from typing import Optional
 
 # Importar el agente modular
@@ -12,7 +13,7 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 chat_agent = ChurnAgent()
 
 @app.route(route="chat", methods=["POST"])
-def chat(req: func.HttpRequest) -> func.HttpResponse:
+async def chat(req: func.HttpRequest) -> func.HttpResponse:
     """
     Endpoint principal de chat - compatible con el backend Java simplificado
     """
@@ -34,8 +35,8 @@ def chat(req: func.HttpRequest) -> func.HttpResponse:
                 mimetype="application/json"
             )
         
-        # Llamar al agente (síncrono)
-        response = chat_agent.chat(message, conversation_id)
+        # Llamar al agente (asíncrono)
+        response = await chat_agent.chat(message, conversation_id)
         
         logging.info(f"Agent response: {response}")
         
@@ -81,5 +82,42 @@ def health_check(req: func.HttpRequest) -> func.HttpResponse:
                 "error": str(e)
             }),
             status_code=503,
+            mimetype="application/json"
+        )
+
+@app.route(route="analyze/{client_id}", methods=["POST"])
+async def analyze_client(req: func.HttpRequest) -> func.HttpResponse:
+    """
+    Endpoint para análisis específico de cliente
+    """
+    try:
+        client_id = req.route_params.get('client_id')
+        req_body = req.get_json()
+        additional_message = req_body.get('message', '')
+        
+        # Construir mensaje para el agente
+        message = f"Analiza el riesgo de churn del cliente {client_id}"
+        if additional_message:
+            message += f". {additional_message}"
+        
+        logging.info(f"Analyzing client: {client_id}")
+        
+        # Llamar al agente
+        response = await chat_agent.chat(message)
+        
+        return func.HttpResponse(
+            json.dumps(response),
+            status_code=200,
+            mimetype="application/json"
+        )
+        
+    except Exception as e:
+        logging.error(f"Error analyzing client: {str(e)}")
+        return func.HttpResponse(
+            json.dumps({
+                "error": "Internal server error",
+                "details": str(e)
+            }),
+            status_code=500,
             mimetype="application/json"
         )
