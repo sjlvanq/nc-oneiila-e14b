@@ -160,8 +160,8 @@ class PredictionClientErrorScenariosTest {
     
     private PredictionRequestDTO createTestRequest() {
         return new PredictionRequestDTO(
-            1, (byte) 1, (byte) 1, (byte) 1, (byte) 1,
-            12, (byte) 1, 30,
+            1, 1, 1, 1, 1,
+            12, 1, 30,
             BigDecimal.valueOf(2.5), 24, 30,
             BigDecimal.valueOf(1.8), BigDecimal.valueOf(3.2)
         );
