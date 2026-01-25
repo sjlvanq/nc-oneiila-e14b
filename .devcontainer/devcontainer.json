@@ -39,7 +39,7 @@
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [8080, 5173, 8000],
+  "forwardPorts": [8080, 5173, 8000, 7071],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "corepack enable pnpm"
