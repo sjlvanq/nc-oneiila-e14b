@@ -8,6 +8,7 @@
     "AZURE_AI_AGENT_ID": ""
   },
   "Host": {
-    "LocalHttpPort": 7071
+    "LocalHttpPort": 7071,
+    "LocalHttpPortWithHost": "0.0.0.0:7071"
   }
 }
