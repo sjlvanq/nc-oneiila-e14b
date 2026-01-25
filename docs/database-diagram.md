@@ -45,7 +45,7 @@ PK = Primary Key, FK = Foreign Key, UK = Unique Key
 erDiagram
     USERS ||--o{ USER_ROLES : "has"
     ROLES ||--o{ USER_ROLES : "assigned to"
-    PARTNERS ||--o{ CLIENTS : "manages"
+    PARTNERS ||--o{ CLIENTS : "refers"
     CLIENTS ||--o{ ADDITIONAL_CHARGES : "receives"
     CHARGE_TYPES ||--o{ ADDITIONAL_CHARGES : "defines"
     CLIENTS ||--o{ ATTENDANCE : "records"
