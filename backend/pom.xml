@@ -8,23 +8,37 @@
 		<version>4.0.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.churncheck</groupId>
+	<artifactId>churncheck-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
-	<url/>
+	<name>ChurnCheck Backend</name>
+	<description>Backend API for Client management and Churn prediction application</description>
+	<url>https://github.com/sjlvanq/nc-oneiila-e14b.git<url/>
 	<licenses>
 		<license/>
 	</licenses>
 	<developers>
+		<developer>
+			<name>Silvano Emanuel Roqués</name>
+			<email>silvanoroques@abc.gob.ar</email>
+			<url>https://github.com/sjlvanq</url>
+		<developer/>
+		<developer>
+			<name>Iris Criseida Hernández Rodríguez</name>
+			<email>iris2908hndez@gmail.com</email>
+			<url>https://github.com/criseida0310</url>
+		<developer/>
+		<developer>
+			<name>Luis Erwin Condori Mamani</name>
+			<email>luiserwin.cm@outlook.com</email>
+			<url>https://github.com/luiscm17</url>
 		<developer/>
 	</developers>
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:https://github.com/sjlvanq/nc-oneiila-e14b.git<connection/>
+		<developerConnection>scm:git:ssh://git@github.com:sjlvanq/nc-oneiila-e14b.git<developerConnection/>
+		<tag>dev<tag/>
+		<url>https://github.com/sjlvanq/nc-oneiila-e14b.git<url/>
 	</scm>
 	<properties>
 		<java.version>21</java.version>
