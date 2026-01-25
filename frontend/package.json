@@ -1,7 +1,36 @@
 {
-  "name": "frontend",
+  "name": "churncheck-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Frontend web for the ChurnCheck application",
+  "author": "H12-25-L-Equipo 14-Data Science",
+  "contributors": [
+    {
+      "name":"Silvano Emanuel Roqués",
+      "email":"silvanoroques@abc.gob.ar",
+      "url":"https://github.com/sjlvanq"
+    },
+    {
+      "name":"Iris Criseida Hernández Rodríguez",
+      "email":"iris2908hndez@gmail.com",
+      "url":"https://github.com/criseida0310"
+    },
+    {
+      "name":"Luis Erwin Condori Mamani",
+      "email":"luiserwin.cm@outlook.com",
+      "url":"https://github.com/luiscm17"
+    },
+    {
+      "name":"Miguel Figueroa Aguilar",
+      "email":"deusmus2@gmail.com",
+      "url":"https://github.com/MiguelFigueroa02"
+    }
+  ],
+  "homepage": "https://github.com/sjlvanq/nc-oneiila-e14b.git",
+  "repository": {                 
+    "type": "git",
+    "url": "https://github.com/sjlvanq/nc-oneiila-e14b.git"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
