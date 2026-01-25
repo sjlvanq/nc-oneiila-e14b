@@ -103,7 +103,21 @@ stats_state = {"total_evaluated": 0, "total_pred_churn": 0, "last_request_at": N
 # 4. SCHEMAS PYDANTIC
 # -----------------------------------------------------------------------------
 class PredictIn(BaseModel):
-    data: Dict[str, Any] = Field(..., description="Campos del cliente.")
+    # Datos directos del cliente (sin wrapper "data")
+    gender: int
+    nearLocation: int
+    partner: int
+    promoFriends: int
+    phone: int
+    contractPeriod: int
+    groupVisits: int
+    age: int
+    avgAdditionalChargesTotal: float
+    monthToEndContract: int
+    lifetime: int
+    avgClassFrequencyTotal: float
+    avgClassFrequencyCurrentMonth: float
+    
     threshold: Optional[float] = Field(default=None, ge=0.0, le=1.0)
 
 # ✅ CONTRATO DE SALIDA ESTRICTO
@@ -195,7 +209,9 @@ def stats():
 @app.post("/predict", response_model=PredictOut)
 def predict_endpoint(payload: PredictIn):
     thr = float(payload.threshold) if payload.threshold is not None else DEFAULT_THRESHOLD
-    return predict_one(payload.data, threshold=thr)
+    # Convertir el modelo a diccionario para predict_one
+    data_dict = payload.model_dump(exclude={'threshold'})
+    return predict_one(data_dict, threshold=thr)
 
 @app.post("/batch_predict", response_model=BatchPredictOut)
 def batch_predict_endpoint(payload: BatchPredictIn):

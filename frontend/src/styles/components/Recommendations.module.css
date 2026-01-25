@@ -18,8 +18,19 @@
   right: 0;
   width: 100px;
   height: 100px;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%);
   border-radius: 0 16px 0 100px;
+}
+
+.recommendations::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  border-radius: 50%;
 }
 
 .recommendations:hover {
@@ -37,10 +48,118 @@
   gap: 8px;
 }
 
+/* Probability Badge Styles */
+.probabilityBadge {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.probabilityCircle {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.low .probabilityCircle {
+  background: linear-gradient(135deg, var(--secondary-green), rgba(34, 197, 94, 0.8));
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+}
+
+.medium .probabilityCircle {
+  background: linear-gradient(135deg, var(--secondary-amber), rgba(245, 158, 11, 0.8));
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+}
+
+.high .probabilityCircle {
+  background: linear-gradient(135deg, var(--secondary-red), rgba(239, 68, 68, 0.8));
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
+}
+
+.critical .probabilityCircle {
+  background: linear-gradient(135deg, var(--secondary-red), rgba(239, 68, 68, 0.9));
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.5);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.7);
+  }
+}
+
+.probabilityValue {
+  font-size: 24px;
+  font-weight: 900;
+  color: black;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.probabilityLabel {
+  font-size: 10px;
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.riskInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.riskTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+.riskStatus {
+  font-size: 13px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.riskStatus:contains("Churn") {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--secondary-red);
+}
+
+.riskStatus:contains("Active") {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--secondary-green);
+}
+
 .detailRow {
   display: flex;
   flex-direction: column;
-  padding: 8px 0;
+  padding: 4px 0;
   border-bottom: 1px solid var(--border-light);
   transition: background-color 0.2s ease;
 }
@@ -67,30 +186,57 @@
 
 .detailRow span:last-child {
   color: var(--text-primary);
-  line-height: 1.5;
+  line-height: 1.6;
   font-size: 14px;
   font-weight: 500;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 /* Colores por nivel de riesgo */
 .low {
   border-left-color: var(--secondary-green);
-  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(34, 197, 94, 0.02) 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(34, 197, 94, 0.03) 100%);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
+}
+
+.low:hover {
+  box-shadow: 0 8px 20px rgba(34, 197, 94, 0.25);
+  transform: translateY(-4px);
 }
 
 .medium {
   border-left-color: var(--secondary-amber);
-  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(245, 158, 11, 0.02) 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(245, 158, 11, 0.03) 100%);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.medium:hover {
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
+  transform: translateY(-4px);
 }
 
 .high {
   border-left-color: var(--secondary-red);
-  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(239, 68, 68, 0.02) 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(239, 68, 68, 0.03) 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+}
+
+.high:hover {
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+  transform: translateY(-4px);
 }
 
 .critical {
   border-left-color: var(--secondary-red);
-  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(239, 68, 68, 0.05) 100%);
+  background: linear-gradient(135deg, var(--bg-primary) 0%, rgba(239, 68, 68, 0.08) 100%);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+.critical:hover {
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.35);
+  transform: translateY(-4px);
 }
 
 @media (max-width: 768px) {
