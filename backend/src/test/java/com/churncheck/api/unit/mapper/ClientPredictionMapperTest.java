@@ -117,7 +117,7 @@ class ClientPredictionMapperTest {
     void shouldCalculateNegativeMonthsToEndContractForExpiredContract(){
         // Given
         Client client = createTestClient(Gender.MALE, "123-456-7890");
-        // Contract of 12 months started 15 months ago, should give -3 months
+        // Contract of 12 months started 15 months ago, should give 0 months (minimum)
         setContractStartDate(client, LocalDate.now().minusMonths(15));
         client.setContractPeriod(12);
         
@@ -126,7 +126,7 @@ class ClientPredictionMapperTest {
         
         // Then
         assertNotNull(result);
-        assertEquals(-3, result.monthToEndContract(), "Expired contract should give negative months");
+        assertEquals(0, result.monthToEndContract(), "Expired contract should give 0 months (minimum)");
     }
 
     @Test

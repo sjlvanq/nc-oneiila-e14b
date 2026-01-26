@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.churncheck.api.domain.attendance.Attendance;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

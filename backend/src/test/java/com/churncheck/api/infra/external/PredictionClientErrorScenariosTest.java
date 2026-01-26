@@ -22,8 +22,6 @@ import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 import com.churncheck.api.infra.errors.exceptions.MLServiceBadRequestException;
 import com.churncheck.api.infra.errors.exceptions.MLServiceTimeoutException;
 import com.churncheck.api.infra.errors.exceptions.MLServiceUnavailableException;
-import com.churncheck.api.infra.external.PredictionClient;
-import com.churncheck.api.infra.external.PredictionProperties;
 
 import jakarta.validation.Validator;
 
