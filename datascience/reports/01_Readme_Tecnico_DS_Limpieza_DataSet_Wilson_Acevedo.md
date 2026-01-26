@@ -1,3 +1,13 @@
+
+![ORACLE + Alura Latam](../../docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
+
+***Desafío intensivo de innovación para participantes de todo Latam.***
+
+powered by ![NoCountry](../../docs/assets/nocountry-logo.png)
+
+----
+
 **Limpieza y Preprocesamiento \- Gym Churn Prediction**
 
 ## **1\. Descripción del Proyecto**

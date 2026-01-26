@@ -1,3 +1,13 @@
+
+![ORACLE + Alura Latam](../../docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
+
+***Desafío intensivo de innovación para participantes de todo Latam.***
+
+powered by ![NoCountry](../../docs/assets/nocountry-logo.png)
+
+----
+
 # API ChurnInsight Gym
 
 Una API basada en FastAPI para predicción de deserción de clientes en servicios de membresía de gimnasio.
