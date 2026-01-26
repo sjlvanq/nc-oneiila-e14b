@@ -1,8 +1,4 @@
-Este es un archivo **README.md** diseñado con estándares profesionales de Data Science para documentar el ciclo de vida de procesamiento de tu proyecto. Este documento es ideal para acompañar tu entrega en un challenge o subirlo a un repositorio de GitHub.
-
-# ---
-
-**README: Limpieza y Preprocesamiento \- Gym Churn Prediction**
+**Limpieza y Preprocesamiento \- Gym Churn Prediction**
 
 ## **1\. Descripción del Proyecto**
 
