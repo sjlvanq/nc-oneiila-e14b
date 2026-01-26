@@ -1,4 +1,13 @@
 
+![ORACLE + Alura Latam](../docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
+
+***Desafío intensivo de innovación para participantes de todo Latam.***
+
+powered by ![NoCountry](../docs/assets/nocountry-logo.png)
+
+----
+
 # 🏛️ChurnCheck: Ecosistema de Data Science (2026)
 
 > **Declaración de Autoridad:** Este repositorio constituye el núcleo analítico y predictivo del proyecto *ChurnCheck*. Ha sido reestructurado bajo estándares de ingeniería de datos de alto nivel para garantizar la integridad, trazabilidad y escalabilidad de los modelos destinados a la prevención de fuga de clientes.
