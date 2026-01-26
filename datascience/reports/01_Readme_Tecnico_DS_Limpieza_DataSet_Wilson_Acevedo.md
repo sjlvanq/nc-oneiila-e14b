@@ -1,6 +1,4 @@
-# ---
-
-**README: Limpieza y Preprocesamiento \- Gym Churn Prediction**
+**Limpieza y Preprocesamiento \- Gym Churn Prediction**
 
 ## **1\. Descripción del Proyecto**
 
