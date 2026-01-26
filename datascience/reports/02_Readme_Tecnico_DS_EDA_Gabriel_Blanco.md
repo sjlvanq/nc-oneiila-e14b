@@ -1,6 +1,6 @@
 # ---
 
-**📊 Reporte Retención en Gimnasios**
+**Reporte Retención en Gimnasios**
 
 **Proyecto:** Auditoría de Calidad y Análisis Exploratorio (EDA)
 
