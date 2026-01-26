@@ -11,4 +11,6 @@ dependencies = [
     "azure-identity>=1.26.0b1",
     "fastapi[standard]>=0.128.0",
     "openai>=2.15.0",
+    "pandas>=3.0.0",
+    "python-dotenv>=1.2.1",
 ]
