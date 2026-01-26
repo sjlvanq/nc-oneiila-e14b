@@ -1,46 +1,45 @@
-# Churn Agent Azure Function
+# Churn Agent - Documentación Técnica Completa
 
-Microservicio de agente IA usando Azure Functions y Azure AI Agents con arquitectura modular y fallback inteligente.
+Microservicio de agente IA usando Azure Functions, Agent Framework y MCP Server para análisis dinámico de churn.
 
 ## Arquitectura Modular
 
 ```yml
-Frontend → Backend Java (Puente) → Azure Function (Agent) → Azure AI Foundry
-         POST /chat              POST /api/chat              → Agent Remoto
-                                                              ↓
-                                                         Fallback Local
+Frontend → Azure Function → Agente AI → MCP Server → CSV Datos
+         POST /api/chat   (function_app) (churn_agent) (mcp_server)
 ```
 
 ### Estructura del Proyecto
 
 ```yml
 agent-ai/
-├── 📁 src/                    # Desarrollo de agentes con Agent Framework
-│   ├── agents/                # Definiciones de agentes locales
-│   │   └── churn_agent.py     # Agente local con herramientas
-│   ├── tools/                 # Herramientas personalizadas
-│   │   └── churn_analyzer.py  # Análisis de datos de churn
-│   ├── main.py               # Testing local interactivo
-│   └── deploy.py             # Deploy a Azure Foundry
-├── 🚀 function_app.py         # Azure Function (endpoints HTTP)
-├── 🤖 churn_agent.py          # Agente síncrono (fallback + Azure AI Agents)
-├── 📦 requirements.txt         # Dependencias Python
-├── ⚙️ host.json               # Configuración Azure Functions
-├── 🔧 local.settings.json     # Configuración local
-└── 📖 README_FUNCTION.md      # Documentación
+├── function_app.py         # Azure Function (endpoints HTTP)
+├── churn_agent.py          # Agente síncrono con MCP integration
+├── mcp_server.py          # MCP Server para datos dinámicos
+├── tools/
+│   ├── __init__.py
+│   └── client_data.py     # Herramientas MCP para clientes
+├── resources/
+│   └── data.csv          # Datos de clientes (dinámicos)
+├── requirements.txt       # Dependencias Python
+├── host.json            # Configuración Azure Functions
+├── local.settings.json  # Configuración local
+├── .env.example          # Variables de entorno
+└── doc/
+    └── README_FUNCTION.md
 ```
 
 ## Endpoints
 
 ### POST /api/chat
 
-Endpoint principal compatible con el backend Java simplificado.
+Endpoint principal para chat con el agente especializado en churn.
 
 **Request:**
 
 ```json
 {
-  "message": "Hola, necesito analizar churn",
+  "message": "analiza cliente DNI-1012",
   "conversation_id": "conv_12345"
 }
 ```
@@ -49,15 +48,15 @@ Endpoint principal compatible con el backend Java simplificado.
 
 ```json
 {
-  "response": "Respuesta del agente especializado en churn...",
+  "response": "Aquí tienes el análisis completo del cliente DNI-1012 (Isabella Romano):\n\n### Información del Cliente\n- **Nombre:** Isabella Romano\n- **Teléfono:** 555-1212\n- **Edad:** 36 años\n...\n\n### Análisis de Riesgo de Churn\n- **Nivel de Riesgo:** BAJO (0%)",
   "conversation_id": "conv_12345",
-  "timestamp": "1640995200.0"
+  "timestamp": "28083.541188198"
 }
 ```
 
 ### GET /api/health
 
-Health check del servicio con estado del agente.
+Health check del servicio con estado del agente y herramientas MCP.
 
 **Response:**
 
@@ -65,12 +64,15 @@ Health check del servicio con estado del agente.
 {
   "status": "healthy",
   "service": "Churn Agent Function",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "agent": {
-    "agent_framework_available": true,
-    "azure_configured": true,
-    "model_deployment": "gpt-4o-mini",
-    "agent_name": "ChurnAgent"
+    "status": "ready",
+    "agent_initialized": true,
+    "tools_available": [
+      "get_client_by_id",
+      "analyze_churn_risk",
+      "list_clients"
+    ]
   }
 }
 ```
@@ -84,108 +86,141 @@ Health check del servicio con estado del agente.
 - Azure CLI (para autenticación)
 - uv (recomendado para gestión de dependencias)
 
-### Instalación
+### Instalación Completa
 
 ```bash
-# Instalar dependencias con uv
-uv add azure-functions azure-ai-agents==1.1.0 azure-ai-projects==1.0.0 azure-identity agent-framework-azure-ai --pre
+# 1. Instalar dependencias principales
+uv pip install -r requirements.txt
 
-# O con pip
-pip install -r requirements.txt
+# 2. Dependencias MCP
+uv add pandas python-dotenv
 
-# Iniciar Azure Function localmente
+# 3. Configurar variables de entorno
+cp .env.example .env
+# Editar con tus credenciales de Azure
+
+# 4. Autenticarse con Azure
+az login
+
+# 5. Iniciar servicios
 func start
 ```
 
-El servicio estará disponible en: http://localhost:7071
-
-### Testing
+### Testing Completo
 
 ```bash
-# Test del endpoint chat
+# 1. Health check
+curl http://localhost:7071/api/health
+
+# 2. Chat con cliente específico
 curl -X POST http://localhost:7071/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "Hola, necesito analizar churn"}'
+  -d '{"message": "analiza cliente DNI-1012", "conversation_id": "test_1"}'
 
-# Test health check con estado del agente
-curl http://localhost:7071/api/health
+# 3. Listar todos los clientes
+curl -X POST http://localhost:7071/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "muéstrame todos los clientes", "conversation_id": "test_2"}'
+
+# 4. Análisis de riesgo
+curl -X POST http://localhost:7071/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "analiza el riesgo de churn del cliente DNI-1002", "conversation_id": "test_3"}'
+
+# 5. Preguntas generales
+curl -X POST http://localhost:7071/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"message": "cuáles son los factores de riesgo de churn?", "conversation_id": "test_4"}'
 ```
 
-### Desarrollo de Agentes Locales
+## MCP Server - Datos Dinámicos
 
-```bash
-# Testing interactivo del agente local con Agent Framework
-uv run python src/main.py
+### Herramientas MCP Disponibles
 
-# Deploy del agente local a Azure Foundry
-uv run python src/deploy.py
+1. **`get_client_by_id(client_id)`**
+   - Busca cliente por DNI en el CSV
+   - Retorna información completa del cliente
 
-# Testing directo del agente (fallback)
-uv run python test_agent.py
+2. **`analyze_churn_risk(client_id)`**
+   - Analiza riesgo de churn basado en datos reales
+   - Calcula score y proporciona recomendaciones
+
+3. **`list_clients()`**
+   - Lista todos los clientes con nivel de riesgo
+   - Clasificación por colores (🟢 Bajo, 🟡 Medio, 🔴 Alto)
+
+### Estructura del CSV
+
+```csv
+dni,name,phone,gender,birth_date,near_location,partner_id,promo_friends,registration_date,contract_start_date,contract_period,group_visit,active
+DNI-1001,John Doe,555-0101,MALE,1994-01-01,1,1,1,2024-01-01,2024-01-01,24,1,1
+DNI-1012,Isabella Romano,555-1212,FEMALE,1989-06-18,1,1,1,2024-02-28,2024-02-28,12,1,1
+...
 ```
 
-### Testing del Agente Directamente
+### Algoritmo de Riesgo
 
-```python
-# Test del agente síncrono
-from churn_agent import ChurnAgent
+El riesgo de churn se calcula basado en:
 
-agent = ChurnAgent()
-response = agent.chat("Cuáles son los factores de churn?")
-print(response)
-
-# Verificar estado del agente
-status = agent.get_status()
-print(status)
-```
+- **Antigüedad** (35%): < 6 meses = alto riesgo
+- **Tipo de contrato** (30%): mensual = alto riesgo
+- **Ubicación** (15%): lejana = barrera de acceso
+- **Visitas grupales** (10%): sin participación = bajo engagement
+- **Partner** (5%): sin asignar = menos beneficios
+- **Promoción amigos** (5%): sin referidos = bajo compromiso social
 
 ## Deploy a Azure
+
+### Configuración en Azure
+
+Variables de entorno requeridas en Azure Function App:
+
+```bash
+# Para Azure AI Foundry
+AZURE_AI_PROJECT_ENDPOINT=https://<resource>.services.ai.azure.com/
+AZURE_AI_MODEL_DEPLOYMENT_NAME=gpt-4.1
+AZURE_OPENAI_ENDPOINT=https://<resource>.services.ai.azure.com
+
+# Configuración del servidor
+HOST=0.0.0.0
+PORT=8000
+LOG_LEVEL=info
+```
+
+### Deploy Commands
 
 ```bash
 # Login a Azure
 az login
 
-# Deploy
+# Deploy a Azure Functions
 func azure functionapp publish ChurnAgentFunction
+
+# Verificar deployment
+curl https://<function-app>.azurewebsites.net/api/health
 ```
 
-## Configuración en Azure
-
-Variables de entorno requeridas en Azure Function App:
-
-### Para Modo Azure AI Agents (Producción)
-- `AZURE_AI_PROJECT_ENDPOINT`: Endpoint del proyecto Azure AI Foundry
-- `AZURE_AI_AGENT_ID`: ID del agente desplegado en Azure Foundry
-
-### Para Modo Agent Framework (Desarrollo)
-- `AZURE_AI_PROJECT_ENDPOINT`: Endpoint del proyecto Azure AI Foundry
-- `AZURE_AI_MODEL_DEPLOYMENT_NAME`: Nombre del modelo desplegado (ej: gpt-4o-mini)
-
-## Características del Agente
+## Características Técnicas
 
 ### Arquitectura Híbrida
 
-- **Azure AI Agents**: Conexión con agentes remotos en Azure Foundry
-- **Agent Framework**: Desarrollo local con herramientas personalizadas
-- **Fallback inteligente**: Funciona incluso sin Azure configurado
-- **Instrucciones especializadas**: Enfoque en análisis de churn
-- **Conversaciones stateful**: Manejo automático de conversation_ids
+- **Azure Functions**: Serverless, escalable, HTTP endpoints
+- **Agent Framework**: Microsoft Agent Framework con Azure AI
+- **MCP Server**: Model Context Protocol para datos dinámicos
+- **Fallback Inteligente**: Funciona sin Azure configurado
+- **Datos en Tiempo Real**: CSV actualizable sin re-deploy
 
 ### Modos de Operación
 
-#### 🚀 Modo Producción (Azure AI Agents)
-- Agente persistente desplegado en Azure Foundry
-- Herramientas personalizadas en la nube
+#### Modo Producción (Azure AI + MCP)
+
+- Agente con Azure AI Foundry
+- MCP Server para datos dinámicos
 - Escalabilidad automática
 - Management centralizado
 
-#### 🔧 Modo Desarrollo (Agent Framework)
-- Desarrollo local con `src/agents/churn_agent.py`
-- Herramientas personalizadas locales
-- Testing interactivo con `src/main.py`
-- Deploy a Azure con `src/deploy.py`
+#### Modo Fallback
 
-#### 🛡️ Modo Fallback
 - Respuestas básicas especializadas en churn
 - Funciona sin configuración Azure
 - Ideal para desarrollo y testing
@@ -194,95 +229,22 @@ Variables de entorno requeridas en Azure Function App:
 
 El agente puede manejar:
 
-- Análisis de factores de riesgo de churn
-- Solicitudes de ID de cliente para análisis específico
-- Recomendaciones de retención personalizadas
-- Explicación de patrones de abandono
-- Consultas generales sobre churn
-- Análisis con datos reales (cuando hay herramientas)
-
-## Flujo de Desarrollo
-
-### 1. Desarrollo Local
-```bash
-# Desarrollar agente con Agent Framework
-uv run python src/main.py
-
-# Probar herramientas personalizadas
-uv run python test_agent.py
-```
-
-### 2. Deploy a Azure Foundry
-```bash
-# Desplegar agente persistente
-uv run python src/deploy.py
-
-# Obtener AGENT_ID y configurar en local.settings.json
-```
-
-### 3. Producción
-```bash
-# Iniciar Azure Function con agente remoto
-func start
-
-# Deploy a Azure Functions
-func azure functionapp publish ChurnAgentFunction
-```
+- **Análisis de clientes específicos** por DNI
+- **Cálculo dinámico de riesgo** basado en datos reales
+- **Recomendaciones personalizadas** por nivel de riesgo
+- **Listado de clientes** con clasificación
+- **Análisis de factores** de riesgo de churn
+- **Consultas generales** sobre patrones de abandono
 
 ## Próximos Pasos
 
-1. **✅ Azure AI Agents**: Configurar endpoint y AGENT_ID para producción
-2. **🔧 Herramientas Avanzadas**: Integrar con backend Java para datos reales de clientes
-3. **📊 Analytics**: Implementar dashboards de métricas de churn
-4. **🔄 Orquestación**: Múltiples agentes especializados (retención, análisis, predicción)
-5. **📈 Monitoring**: Configurar Application Insights y alertas
-6. **🧪 Testing**: Añadir tests unitarios y de integración
-7. **🚀 CI/CD**: Pipeline automático de deploy
+1. **Base de Datos Real**: Conectar a PostgreSQL/MySQL
+2. **Más Herramientas MCP**: Integración con backend Java
+3. **Analytics**: Dashboards de métricas de churn en tiempo real
+4. **Orquestación**: Múltiples agentes especializados
+5. **Monitoring**: Application Insights y alertas
+6. **Testing**: Unit tests y tests de integración
+7. **CI/CD**: Pipeline automático de deploy
+8. **Security**: Autenticación y autorización
 
-## Troubleshooting
-
-### Azure AI Agents no disponible
-
-Si el agente remoto no se inicializa correctamente:
-
-1. Verificar `AZURE_AI_PROJECT_ENDPOINT` en local.settings.json
-2. Configurar `AZURE_AI_AGENT_ID` después del deploy
-3. Asegurar autenticación con `az login`
-4. Revisar permisos en Azure Foundry (rol Azure AI User)
-
-### Agent Framework no disponible
-
-Si el agente local no funciona:
-
-1. Instalar dependencias: `uv add agent-framework-azure-ai --pre`
-2. Verificar configuración del modelo en `AZURE_AI_MODEL_DEPLOYMENT_NAME`
-3. Revisar logs del Azure Function
-
-### Fallback Mode
-
-El agente funcionará en modo fallback incluso sin configuración Azure, proporcionando respuestas básicas especializadas en churn.
-
-## Estado Actual
-
-✅ **Azure Function**: Funcionando en http://localhost:7071  
-✅ **Fallback Mode**: Respuestas especializadas en churn  
-✅ **Agent Framework**: Estructura para desarrollo local  
-✅ **Deploy Tools**: Scripts para Azure Foundry  
-🔄 **Azure AI Agents**: Configurable para producción  
-
-## Ejemplos de Uso
-
-```bash
-# Health check
-curl http://localhost:7071/api/health
-
-# Chat básico
-curl -X POST http://localhost:7071/api/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Hola, necesito analizar churn"}'
-
-# Chat con conversación
-curl -X POST http://localhost:7071/api/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "¿Cuáles son los factores de riesgo?", "conversation_id": "conv_123"}'
-```
+---
