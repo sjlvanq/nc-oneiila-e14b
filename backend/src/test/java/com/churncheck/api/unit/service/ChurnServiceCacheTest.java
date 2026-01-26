@@ -69,8 +69,7 @@ class ChurnServiceCacheTest {
         client.setLastPredictionTimestamp(Instant.now().minus(25, ChronoUnit.HOURS));
 
         PredictionResponseDTO newPrediction = new PredictionResponseDTO(
-            (byte) 1, 0.92, Instant.now()
-        );
+                (byte) 1, 0.92, Instant.now());
 
         when(mapper.toPredictionRequest(client)).thenReturn(mock(PredictionRequestDTO.class));
         when(predictionClient.predict(any())).thenReturn(newPrediction);
@@ -91,16 +90,14 @@ class ChurnServiceCacheTest {
         client.setLastPredictionTimestamp(null);
 
         PredictionResponseDTO newPrediction = new PredictionResponseDTO(
-            (byte) 1, 0.75, Instant.now()
-        );
+                (byte) 1, 0.75, Instant.now());
 
         when(mapper.toPredictionRequest(client)).thenReturn(mock(PredictionRequestDTO.class));
         when(predictionClient.predict(any())).thenReturn(newPrediction);
         when(clientRepository.save(any())).thenReturn(client);
 
         // When
-        PredictionResponseDTO
-    result = churnService.predict(client);
+        PredictionResponseDTO result = churnService.predict(client);
 
         // Then: Debe llamar al microservicio
         verify(predictionClient, times(1)).predict(any());

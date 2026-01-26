@@ -38,7 +38,6 @@ public class SecurityFilter extends OncePerRequestFilter {
 
             if (userEmail != null) {
                 // Token is valid
-                // TODO: Decidir personalización de UsernameNotFoundException
                 AuthUser authUser = new AuthUser(userRepository.findByEmailWithRoles(userEmail)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found")));
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(authUser,

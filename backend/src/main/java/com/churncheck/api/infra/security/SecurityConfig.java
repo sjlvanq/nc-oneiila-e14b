@@ -22,42 +22,38 @@ import org.springframework.security.web.servlet.util.matcher.PathPatternRequestM
 @EnableWebSecurity
 @EnableMethodSecurity(jsr250Enabled = true)
 
- public class SecurityConfig {
-     @Autowired
-     private SecurityFilter securityFilter;
-     
-     @Autowired
-     private CustomAuthenticationEntryPoint authEntryPoint;
+public class SecurityConfig {
+	@Autowired
+	private SecurityFilter securityFilter;
 
-     @Bean
-     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	@Autowired
+	private CustomAuthenticationEntryPoint authEntryPoint;
+
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		return http
 				.cors(Customizer.withDefaults())
 				.csrf(c -> c.disable())
 				// .formLogin(form -> form.disable())
-				.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // //TODO Quitar en producción -
-																						// Frames de UI H2
+				.headers(headers -> headers.frameOptions(frame -> frame.sameOrigin())) // Frames de UI H2
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
 				.authorizeHttpRequests((request) -> request
-						.requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/h2-console/**")).permitAll() // TODO:
-																															// Quitar
-																															// en
-																															// producción
+						.requestMatchers(PathPatternRequestMatcher.withDefaults().matcher("/h2-console/**")).permitAll()
 						.requestMatchers(HttpMethod.POST, "/login").permitAll()
 						.requestMatchers("/api/stats").permitAll()
 						.requestMatchers("/clients/high-risk").permitAll()
 						.requestMatchers("/clients/**").authenticated()
-						.requestMatchers("/chat/**").permitAll()  // Temporalmente permitido para pruebas
+						.requestMatchers("/chat/**").permitAll()
 						.requestMatchers("/swagger/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs",
 								"/v3/api-docs/**")
 						.permitAll()
 						.anyRequest().authenticated())
 
- 				.exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
- 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
- 				.build();
- 	}
+				.exceptionHandling(e -> e.authenticationEntryPoint(authEntryPoint))
+				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+				.build();
+	}
 
 	@Bean
 	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)

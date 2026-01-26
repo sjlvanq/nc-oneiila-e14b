@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.churncheck.api.domain.client.dto.GlobalStatisticsDTO;
 import com.churncheck.api.infra.errors.GlobalExceptionHandler;
 import com.churncheck.api.service.ClientService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(MockitoExtension.class)
 public class StatisticsControllerTest {
@@ -29,7 +28,6 @@ public class StatisticsControllerTest {
     private StatisticsController statisticsController;
 
     private MockMvc mockMvc;
-    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
@@ -37,7 +35,6 @@ public class StatisticsControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(statisticsController)
                 .setControllerAdvice(new GlobalExceptionHandler())
                 .build();
-        objectMapper = new ObjectMapper();
     }
 
     @Test
