@@ -21,7 +21,9 @@ powered by ![NoCountry](docs/assets/nocountry-logo.png)
 ![Iris](docs/assets/team-iris-nc.png)
 ![Gabriel](docs/assets/team-gabriel-nc.png)
 ![Silvano](docs/assets/team-silvano-nc.png)
+![Mario](docs/assets/team-mario-nc.png)
 ![Wilson](docs/assets/team-wilson-nc.png)
+![Luis](docs/assets/team-luis-nc.png)
 -----
 
 ### Profundización Técnica
