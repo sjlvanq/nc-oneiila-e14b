@@ -43,12 +43,12 @@ class ChurnServiceTest {
         Client client = createTestClient();
         PredictionRequestDTO expectedRequest = new PredictionRequestDTO(
             0,                              // gender (MALE)
-            (byte)1,                         // nearLocation (true)
-            (byte)0,                         // partner (null)
-            (byte)1,                         // promoFriends (true)
-            (byte)1,                         // phone (no nulo)
+            1,                              // nearLocation (true)
+            0,                              // partner (null)
+            1,                              // promoFriends (true)
+            1,                              // phone (no nulo)
             12,                               // contractPeriod
-            (byte)1,                         // groupVisits (true)
+            1,                               // groupVisits (true)
             30,                               // age
             new BigDecimal("50.50"),          // avgAdditionalChargesTotal
             6,                                // monthToEndContract (calculado)
@@ -80,12 +80,12 @@ class ChurnServiceTest {
         
         PredictionRequestDTO expectedRequest = new PredictionRequestDTO(
             1,                              // gender (FEMALE)
-            (byte)1,                         // nearLocation (true)
-            (byte)0,                         // partner (null)
-            (byte)1,                         // promoFriends (true)
-            (byte)1,                         // phone (no nulo)
+            1,                              // nearLocation (true)
+            0,                              // partner (null)
+            1,                              // promoFriends (true)
+            1,                              // phone (no nulo)
             12,                               // contractPeriod
-            (byte)1,                         // groupVisits (true)
+            1,                               // groupVisits (true)
             30,                               // age
             new BigDecimal("50.50"),          // avgAdditionalChargesTotal
             6,                                // monthToEndContract (calculado)
@@ -117,12 +117,12 @@ class ChurnServiceTest {
         
         PredictionRequestDTO expectedRequest = new PredictionRequestDTO(
             0,                              // gender (MALE)
-            (byte)1,                         // nearLocation (true)
-            (byte)0,                         // partner (null)
-            (byte)1,                         // promoFriends (true)
-            (byte)0,                         // phone (nulo)
+            1,                              // nearLocation (true)
+            0,                              // partner (null)
+            1,                              // promoFriends (true)
+            0,                              // phone (nulo)
             12,                               // contractPeriod
-            (byte)1,                         // groupVisits (true)
+            1,                               // groupVisits (true)
             30,                               // age
             new BigDecimal("50.50"),          // avgAdditionalChargesTotal
             6,                                // monthToEndContract (calculado)

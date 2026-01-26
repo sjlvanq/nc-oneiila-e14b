@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import com.churncheck.api.infra.external.PredictionProperties;
 
 @Configuration
-@EnableConfigurationProperties(PredictionProperties.class)
+@EnableConfigurationProperties({PredictionProperties.class, AgentProperties.class})
 public class PredictionConfig {
     // Configuration class for Prediction properties
 }

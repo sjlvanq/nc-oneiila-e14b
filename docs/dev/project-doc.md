@@ -2,13 +2,13 @@
 
 ## Descripción General
 
-**ChurnCheck** es un ecosistema integral diseñado para predecir y prevenir la fuga de clientes (churn). Combina un potente backend en Spring Boot, un frontend moderno en React y un pipeline de Data Science dedicado para proporcionar información accionable destinada a la retención de clientes.
+**ChurnCheck** es un ecosistema integral diseñado para predecir y prevenir la fuga de clientes (churn). Combina un potente backend en Spring Boot, un frontend moderno en React, un pipeline de Data Science dedicado y un agente de IA especializado con Microsoft Agent Framework para proporcionar información accionable y conversaciones inteligentes destinadas a la retención de clientes.
 
 ---
 
 ## Arquitectura
 
-El sistema sigue una arquitectura desacoplada donde el Frontend se comunica con el Backend a través de una API REST, y el Backend gestiona la lógica de negocio, la seguridad y la integración con los modelos de Data Science.
+El sistema sigue una arquitectura desacoplada donde el Frontend se comunica con el Backend a través de una API REST, el Backend gestiona la lógica de negocio, la seguridad y la integración con los modelos de Data Science, y el Agente AI proporciona capacidades conversacionales inteligentes especializadas en análisis de churn.
 
 ### Diagrama del Sistema
 
@@ -17,7 +17,7 @@ graph TD
     subgraph "Frontend: Lado del Cliente (React + Vite)"
         direction TB
         F_Views[Páginas: Home, Login, Dashboard, Perfil]
-        F_Comp[Componentes: Nav, Sidebar, Charts, ClientList]
+        F_Comp[Componentes: Nav, Sidebar, Charts, ClientList, Chat]
         F_Axios[Servicios: Axios + Interceptores de Auth]
         F_Store[Estado: AuthContext / JWT]
         
@@ -59,10 +59,22 @@ graph TD
         ML_API --> ML_Models
     end
 
+    subgraph "Agente AI (Microsoft Agent Framework)"
+        direction TB
+        AI_Azure[Azure Functions Serverless]
+        AI_Agent[Agente: ChurnAgent Especializado]
+        AI_GPT[Azure AI Foundry / GPT-4]
+        
+        AI_Azure --> AI_Agent
+        AI_Agent --> AI_GPT
+    end
+
     %% Conexiones
     F_Axios -- "HTTP/JSON + JWT" --> B_Sec
+    F_Axios -- "Chat API" --> AI_Azure
     B_Repo -- "SQL / JDBC" --> D_Client
     B_Serv -- "Solicitud REST" --> ML_API
+    AI_Agent -- "Contexto de Cliente" --> B_Serv
 ```
 
 ---
@@ -103,6 +115,21 @@ El motor analítico que identifica patrones en el comportamiento de los clientes
 - **Artefactos**: Los modelos finales se exportan como archivos `.joblib` y se documentan en `reports/`.
 - **Integración**: Define esquemas JSON para la compatibilidad con el Backend.
 
+### 4. Agente AI (Microsoft Agent Framework / Azure Functions)
+
+Asistente conversacional especializado en análisis de churn y retención de clientes.
+
+- **Tecnología**: Microsoft Agent Framework con Azure Functions serverless.
+- **Capacidades**:
+  - **Chat Especializado**: Conversaciones naturales sobre análisis de churn.
+  - **Azure AI Foundry**: Integración con modelos GPT-4 para respuestas inteligentes.
+  - **Fallback Inteligente**: Funciona incluso sin configuración Azure completa.
+  - **Serverless**: Escalabilidad automática con Azure Functions.
+- **Endpoints**:
+  - `POST /api/chat`: Chat conversacional especializado.
+  - `GET /api/health`: Diagnóstico del servicio.
+- **Integración**: Se conecta tanto con el Frontend (chat directo) como con el Backend (contexto de clientes).
+
 ---
 
 ## Flujo de Trabajo Clave: Predicción de Churn
@@ -115,7 +142,8 @@ sequenceDiagram
     participant FE as Frontend (React)
     participant BE as Backend (Spring Boot)
     participant ML as Servicio ML
-    participant DB as Base de Datos H2
+    participant AI as Agente AI
+    participant DB as Base de Datos PostgreSQL
 
     User->>FE: Ver Detalles del Cliente
     FE->>BE: GET /clients/{id} (con JWT)
@@ -125,6 +153,13 @@ sequenceDiagram
     ML-->>BE: Probabilidad de Churn (%)
     BE->>FE: Retornar Cliente + Predicción
     FE-->>User: Mostrar Datos y Nivel de Riesgo
+    
+    User->>FE: Iniciar Chat sobre Churn
+    FE->>AI: POST /api/chat (mensaje + contexto)
+    AI-->>FE: Respuesta Inteligente Especializada
+    FE-->>User: Mostrar Conversación con IA
+    
+    Note over AI: El agente puede solicitar contexto adicional<br/>del backend para análisis más precisos
 ```
 
 ---
@@ -135,6 +170,7 @@ sequenceDiagram
 | :--- | :--- |
 | **Frontend** | React, Vite, Axios, Lucide-React, JavaScript |
 | **Backend** | Java 21, Spring Boot 4.0, Spring Security, JWT, Maven |
-| **Base de Datos** | H2, Hibernate, JPA |
-| **ML/DS** | Python, Pandas, Scikit-Learn, LightGBM, Joblib |
-| **DevOps** | Docker (DevContainers), Git |
+| **Base de Datos** | PostgreSQL, Hibernate, JPA |
+| **ML/DS** | Python, Pandas, Scikit-Learn, LightGBM, Joblib, FastAPI |
+| **Agente AI** | Microsoft Agent Framework, Azure Functions, Azure AI Foundry, GPT-4 |
+| **DevOps** | Docker (DevContainers), Git, Azure CLI |

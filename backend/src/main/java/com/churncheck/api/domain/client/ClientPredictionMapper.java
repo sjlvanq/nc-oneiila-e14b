@@ -3,7 +3,6 @@ package com.churncheck.api.domain.client;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -19,25 +18,25 @@ import com.churncheck.api.domain.client.dto.prediction.PredictionRequestDTO;
 
 @Component
 public class ClientPredictionMapper {
-
+    
     public PredictionRequestDTO toPredictionRequest(Client client) {
 
         Integer gender =
                 client.getGender() == Gender.MALE ? 0 :
                 client.getGender() == Gender.FEMALE ? 1 : 0;
 
-        Byte hasPhone = (byte) (client.getClientPhone() != null ? 1 : 0);
-        Byte hasPartner = (byte) (client.getPartner() != null ? 1 : 0);
+        Integer hasPhone = (client.getClientPhone() != null ? 1 : 0);
+        Integer hasPartner = (client.getPartner() != null ? 1 : 0);
 
-        Byte isNearLocation = (byte) (Boolean.TRUE.equals(client.getNearLocation()) ? 1 : 0);
-        Byte isGroupVisits = (byte) (Boolean.TRUE.equals(client.getGroupVisits()) ? 1 : 0);
-        Byte isPromoFriends = (byte) (Boolean.TRUE.equals(client.getPromoFriends()) ? 1 : 0);
+        Integer isNearLocation = (Boolean.TRUE.equals(client.getNearLocation()) ? 1 : 0);
+        Integer isGroupVisits = (Boolean.TRUE.equals(client.getGroupVisits()) ? 1 : 0);
+        Integer isPromoFriends = (Boolean.TRUE.equals(client.getPromoFriends()) ? 1 : 0);
 
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now();       
         LocalDate registrationDate = client.getRegistrationDate()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-
+        
         Integer lifetime = (int) ChronoUnit.MONTHS.between(registrationDate, today);
     
         Map<YearMonth, java.util.List<AdditionalCharge>> chargesByMonth =
@@ -63,7 +62,7 @@ public class ClientPredictionMapper {
 
         LocalDate endContractDate = client.getContractStartDate().plusMonths(client.getContractPeriod());
         long monthsRemaining = ChronoUnit.MONTHS.between(today, endContractDate);
-        Integer monthsToEndContract = (int) Math.max(0, monthsRemaining);
+        Integer monthsToEndContract = (int) Math.max(0, monthsRemaining); // Evitar valores negativos
         
         BigDecimal avgClassFrequencyTotal = calculateAvgClassFrequencyTotal(
                 client.getAttendances(), registrationDate, today);

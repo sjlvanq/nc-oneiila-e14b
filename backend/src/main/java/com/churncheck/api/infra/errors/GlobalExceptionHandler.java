@@ -133,4 +133,5 @@ public class GlobalExceptionHandler {
                         ErrorStatusResponseCodes.INTERNAL_SERVER_ERROR_500,
                         "An unexpected internal server error occurred"));
     }
+    
 }

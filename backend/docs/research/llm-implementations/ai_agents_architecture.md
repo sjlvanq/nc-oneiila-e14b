@@ -1,215 +1,184 @@
-# Arquitectura para Agentes de IA Generativa
+# Arquitectura para Agentes de IA Generativa - ChurnCheck
 
 ## Visión General
 
+Arquitectura de microservicios para análisis de churn con agentes IA especializados y acceso dinámico a datos.
+
 ```mermaid
 graph TD
-    A[Cliente] -->|Solicitudes HTTP| B[Backend Java]
-    B -->|API REST| C[Servicio de Agentes Python]
-    C -->|Consulta| D[Azure OpenAI]
-    B -->|CRUD| E[Base de Datos H2]
+    A[Frontend] -->|HTTP| B[Backend Java]
+    B -->|REST API| C[Azure Function]
+    C -->|MCP Protocol| D[MCP Server]
+    D -->|CSV Data| E[Client Database]
+    C -->|Azure AI| F[OpenAI GPT-4]
 ```
-
-**Nota**: Arquitectura simplificada para desarrollo inicial, sin componentes de escalabilidad avanzada.
 
 ## 1. Componentes Principales
 
-### 1.1 Capa de Presentación
+### 1.1 Frontend
 
-- **API REST** (Java Spring Boot)
-  - Endpoint: `POST /api/ai/chat`
-  - Autenticación: API Key
-  - Formato: JSON
+- Interfaz de usuario para análisis de clientes
+- Visualización de métricas de churn
 
-### 1.2 Servicio de Agentes (Python)
+### 1.2 Backend Java (Spring Boot)
 
-- **Framework**: Agent Framework MAF, FastAPI
-- **Patrón**: Agent-based architecture
+- API REST principal
+- Endpoint: `POST /api/chat`
+- Autenticación y validación
+- Enrutamiento a Azure Function
 
-### 1.3 Base de Conocimiento
+### 1.3 Azure Function (Python)
 
-- **Almacenamiento**: Base de datos H2
-- **Datos**:
-  - Historial de interacciones
-  - Perfiles de clientes
+- Microservicio serverless
+- Agent Framework con Azure AI
+- Integración MCP Server
+- Endpoints: `/api/chat`, `/api/health`
 
-## 2. Agentes Propuestos
+### 1.4 MCP Server
 
-### 2.1 Churn Analyst Agent
+- Model Context Protocol
+- Acceso dinámico a datos CSV
+- Herramientas: `get_client_by_id`, `analyze_churn_risk`, `list_clients`
 
-- **Responsabilidad**: Analizar riesgo de churn
-- **Entradas**: Datos de cliente, historial
-- **Salidas**: Análisis predictivo, recomendaciones
+### 1.5 Base de Datos
 
-### 2.2 Customer Service Agent
+- CSV con 15 clientes
+- Datos: DNI, nombre, contrato, ubicación, actividad
+- Actualizable sin re-deploy
 
-- **Responsabilidad**: Asistencia al cliente
-- **Capacidades**:
-  - Respuestas a preguntas frecuentes
-  - Guía de solución de problemas
-  - Escalamiento a agente humano
+## 2. Agentes Implementados
 
-### 2.3 Data Enrichment Agent (poco relevante)
+### 2.1 Churn Analysis Agent
 
-- **Responsabilidad**: Mejorar datos de entrada
-- **Funciones**:
-  - Enriquecimiento con fuentes externas
-  - Normalización de datos
-  - Validación de calidad
+- **Función**: Análisis de riesgo de churn
+- **Entradas**: ID de cliente (DNI-XXXX)
+- **Salidas**: Nivel de riesgo (BAJO/MEDIO/ALTO), recomendaciones
+- **Algoritmo**: Basado en antigüedad, contrato, ubicación, actividad
 
-## 3. Orquestación de Agentes
+### 2.2 General Assistant Agent
 
-### 3.1 Arquitectura de Orquestación
+- **Función**: Asistente conversacional
+- **Capacidades**: Preguntas generales sobre churn, patrones, factores
+- **Respuestas**: Análisis cualitativo sin datos específicos
 
-```mermaid
-graph TB
-    %% Node definitions
-    Client["Client/Backend"]
-    
-    subgraph "Microsoft Agent Framework"
-        O["Main Orchestrator"]
-        
-        subgraph "Agents"
-            A["Churn Analyst Agent"]
-            B["Customer Service Agent"]
-            C["Data Enrichment Agent"]
-        end
-        
-        subgraph "Services"
-            D["Data Base H2"]
-            E["Azure OpenAI"]
-        end
-    end
+## 3. Flujo de Arquitectura
 
-    %% Main connections
-    Client <-->|Request/Response| O
-    
-    %% Orchestrator connections
-    O -->|1. Delegate tasks| A
-    O -->|2. Delegate tasks| B
-    O -->|3. Request enrichment| C
-    
-    %% Knowledge Base interactions
-    A <-->|Query/Update| D
-    B <-->|Query/Update| D
-    C -->|Enhance| D
-    
-    %% Azure OpenAI connections
-    A -->|Query| E
-    B -->|Query| E
+### 3.1 Flujo de Datos Principal
 
-    %% Styling
-    classDef client fill:#e1f5fe,stroke:#01579b,color:#01579b
-    classDef orchestrator fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
-    classDef agent fill:#f3e5f5,stroke:#6a1b9a,color:#4a148c
-    classDef service fill:#fff3e0,stroke:#e65100,color:#bf360c
-    
-    class Client client
-    class O orchestrator
-    class A,B,C agent
-    class D,E service
+1. **Frontend** solicita análisis de cliente
+2. **Backend Java** valida y enruta a Azure Function
+3. **Azure Function** invoca agente con herramientas MCP
+4. **MCP Server** lee datos del CSV
+5. **Agente** procesa con Azure AI y retorna análisis
+6. **Respuesta** viaja de vuelta al frontend
+
+### 3.2 Cálculo de Riesgo
+
+- Antigüedad: < 6 meses (35% peso)
+- Contrato: mensual (30% peso)
+- Ubicación: lejana (15% peso)
+- Visitas grupales: no participa (10% peso)
+- Partner: sin asignar (5% peso)
+- Promoción amigos: sin referidos (5% peso)
+
+## 4. Estructura del Proyecto
+
 ```
-
-### 3.2 Flujo de Trabajo
-
-1. **Recepción de Solicitud**:
-   - El orquestador recibe una solicitud del backend Java
-   - Valida y parsea la solicitud
-
-2. **Enrutamiento Inteligente**:
-   - Determina qué agente(s) deben manejar la solicitud
-   - Puede dividir tareas complejas en subtareas
-
-3. **Ejecución Paralela**:
-   - Los agentes trabajan de forma concurrente cuando es posible
-   - El orquestador maneja las dependencias entre tareas
-
-4. **Consolidación de Resultados**:
-   - Agrega y formatea las respuestas
-   - Aplica reglas de negocio adicionales
-   - Devuelve una respuesta unificada
-
-### 3.3 Ventajas de MAF
-
-- **Gestión de Estado**: Mantiene el contexto entre llamadas
-- **Patrones de Reintento**: Manejo automático de fallos
-- **Observabilidad**: Monitoreo integrado de agentes
-- **Extensibilidad**: Fácil adición de nuevos agentes
-
-## 4. Flujo de Datos
-
-```mermaid
-sequenceDiagram
-    participant C as Cliente
-    participant G as API Gateway
-    participant J as Backend Java
-    participant A as Agente IA
-    participant D as Base de Datos
-    
-    C->>G: POST /api/ai/chat
-    G->>A: Enruta solicitud
-    A->>D: Consulta datos cliente
-    D-->>A: Retorna datos
-    A->>Azure OpenAI: Procesa consulta
-    Azure OpenAI-->>A: Respuesta generada
-    A-->>G: Respuesta estructurada
-    G-->>C: Muestra resultados
-```
-
-## 4. Estructura del Repositorio
-
-```yml
 nc-oneiila-e14b/
-├── backend-java/           # Backend principal (Spring Boot)
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/churninsight/
-│   │   │   │   ├── config/        # Configuraciones
-│   │   │   │   ├── controller/    # Controladores REST
-│   │   │   │   ├── service/       # Lógica de negocio
-│   │   │   │   ├── repository/    # Acceso a datos
-│   │   │   │   └── model/         # Entidades y DTOs
-│   │   │   └── resources/
-│   │   └── test/                  # Pruebas Java
-│   └── pom.xml
-│
-├── ai-agents/              # Servicio de Agentes IA (Python)
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py               # Punto de entrada FastAPI
-│   │   ├── config.py             # Configuraciones
-│   │   ├── agents/               # Implementación de agentes
-│   │   │   ├── __init__.py
-│   │   │   ├── base_agent.py
-│   │   │   ├── churn_analyst.py
-│   │   │   └── service_agent.py
-│   │   ├── api/                 # Endpoints de la API
-│   │   └── models/              # Modelos Pydantic
-│   ├── requirements.txt
-│   └── tests/                   # Pruebas Python
-│
-└── doc/                      # Documentación
+├── backend/                    # Backend Java Spring Boot
+│   ├── src/main/java/         # Controladores, servicios
+│   └── src/main/resources/    # Base de datos H2
+├── agent-ai/                   # Azure Function + MCP
+│   ├── function_app.py        # Endpoints HTTP
+│   ├── churn_agent.py         # Agente con Azure AI
+│   ├── mcp_server.py          # Servidor MCP
+│   ├── tools/client_data.py   # Herramientas MCP
+│   └── resources/data.csv     # Datos de clientes
+└── frontend/                   # Interfaz de usuario
 ```
 
-## 5. Requisitos Técnicos
+## 5. Tecnologías
 
-### 5.1 Infraestructura
+### 5.1 Backend
 
-- Python 3.12+
-- Microsoft Agent Framework (MAF)
-- FastAPI
-- Azure OpenAI Service
+- Java 21+
+- Spring Boot 3.x
 - Base de datos H2
+- REST API
 
-### 5.2 Seguridad
+### 5.2 Agentes IA
 
-- Autenticación por API Key
-- Cifrado en tránsito (HTTPS)
+- Python 3.11+
+- Azure Functions
+- Microsoft Agent Framework
+- Azure OpenAI (GPT-4)
+- Model Context Protocol (MCP)
+- Pandas para procesamiento de datos
+
+### 5.3 Infraestructura
+
+- Azure Functions (serverless)
+- Azure AI Foundry
+- MCP Server para datos dinámicos
+
+## 6. Características Técnicas
+
+### 6.1 Arquitectura Híbrida
+
+- Serverless para escalabilidad
+- MCP para acceso dinámico a datos
+- Agent Framework para IA especializada
+- Fallback inteligente sin Azure
+
+### 6.2 Datos Dinámicos
+
+- CSV actualizable en tiempo real
+- Clientes con análisis de riesgo
+- Sin necesidad de re-deploy para actualizar datos
+
+### 6.3 Seguridad
+
+- API Key authentication
+- HTTPS en tránsito
 - Validación de entrada/salida
+- Azure CLI credential integration
 
-## 6. Recursos Adicionales
+## 7. Endpoints Principales
 
-- [Documentación Azure Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/what-is-azure-ai-foundry?view=foundry-classic)
-- [Documentación Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/overview/agent-framework-overview)
-- [Guía FastAPI](https://fastapi.tiangolo.com/)
-- [Patrones de diseño para IA](https://docs.microsoft.com/en-us/azure/architecture/patterns/)
+### 7.1 Backend Java
+
+- `POST /api/chat` - Chat con agente
+- `GET /api/health` - Health check
+
+### 7.2 Azure Function
+
+- `POST /api/chat` - Procesamiento con agentes
+- `GET /api/health` - Estado del sistema
+
+### 7.3 MCP Server
+
+- `get_client_by_id(client_id)` - Buscar cliente
+- `analyze_churn_risk(client_id)` - Análisis de riesgo
+- `list_clients()` - Listar todos los clientes
+
+## 8. Próximos Mejoras
+
+### 8.1 Corto Plazo
+
+- Base de datos PostgreSQL/MySQL
+- Más herramientas MCP
+- Dashboard de métricas
+
+### 8.2 Largo Plazo
+
+- Múltiples agentes especializados
+- Integración con backend Java
+- Analytics en tiempo real
+- CI/CD pipeline
+
+## 9. Recursos
+
+- [Microsoft Agent Framework](https://learn.microsoft.com/en-us/agent-framework/)
+- [Model Context Protocol](https://modelcontextprotocol.io/)
+- [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/)
+- [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/)

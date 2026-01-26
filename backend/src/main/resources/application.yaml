@@ -32,6 +32,13 @@ springdoc:
   api-docs:
     version: OPENAPI_3_0
 
+# Configuración del Agente IA con Azure Function
+agent:
+  python:
+    endpoint: http://172.17.0.1:7071/api  # Azure Function local
+    timeout: 30000
+    max-retries: 3
+
 # Configuración del servicio de predicción ML
 external:
   prediction:

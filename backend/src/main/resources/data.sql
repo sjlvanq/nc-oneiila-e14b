@@ -44,7 +44,7 @@ INSERT INTO clients (
 -- Cliente 1: Perfil de retención alta
 (
     'DNI-1001','John Doe', '555-0101', 'MALE', '1994-01-01', 1, 1, 1,
-    '2024-01-01', '2024-01-01', 12, 1, 1
+    '2024-01-01', '2024-01-01', 24, 1, 1
 ),
 -- Cliente 2: Perfil de alto riesgo de Churn
 (
@@ -58,7 +58,7 @@ INSERT INTO clients (
 ),
 -- Cliente 4: Nuevo cliente para pruebas
 (
-    'DNI-1004','María García López', '555-0404', 'FEMALE', '1999-01-01', 1, 1, 1, 
+    'DNI-1004','María García López', '555-0404', 'FEMALE', '1999-01-01', 1, 2, 1, 
     '2024-06-01', '2024-06-01', 12, 1, 1
 ),
 -- Cliente 5: Perfil joven alto riesgo
@@ -69,12 +69,12 @@ INSERT INTO clients (
 -- Cliente 6: Perfil adulto estable
 (
     'DNI-1006','Ana Martínez', '555-0606', 'FEMALE', '1985-03-22', 1, 2, 1, 
-    '2023-03-15', '2023-03-15', 24, 1, 1
+    '2023-06-15', '2023-06-15', 24, 1, 1
 ),
 -- Cliente 7: Perfil senior comprometido
 (
     'DNI-1007','Roberto Silva', '555-0707', 'MALE', '1978-11-08', 1, 1, 1, 
-    '2022-09-01', '2022-09-01', 36, 1, 1
+    '2023-08-01', '2023-08-01', 36, 1, 1
 ),
 -- Cliente 8: Perfil estudiante irregular
 (
@@ -83,8 +83,8 @@ INSERT INTO clients (
 ),
 -- Cliente 9: Perfil profesional ocupado
 (
-    'DNI-1009','Diego Morales', '555-0909', 'MALE', '1992-02-14', 1, NULL, 1, 
-    '2024-11-01', '2024-11-01', 12, 0, 1
+    'DNI-1009','Diego Morales', '555-0909', 'MALE', '1992-02-14', 1, 2, 1, 
+    '2024-11-01', '2024-11-01', 12, 1, 1
 ),
 -- Cliente 10: Perfil atleta amateur
 (
@@ -98,18 +98,18 @@ INSERT INTO clients (
 ),
 -- Cliente 12: Perfil moderado estable
 (
-    'DNI-1012','Isabella Romano', '555-1212', 'FEMALE', '1989-06-18', 1, 1, 0, 
+    'DNI-1012','Isabella Romano', '555-1212', 'FEMALE', '1989-06-18', 1, 1, 1, 
     '2024-02-28', '2024-02-28', 12, 1, 1
 ),
 -- Cliente 13: Perfil económico básico
 (
-    'DNI-1013','Luis Kim', '555-1313', 'MALE', '1995-04-10', 0, NULL, 0, 
-    '2025-09-05', '2025-09-05', 3, 0, 1
+    'DNI-1013','Luis Kim', '555-1313', 'MALE', '1995-04-10', 1, 1, 1, 
+    '2025-09-05', '2025-09-05', 6, 1, 1
 ),
 -- Cliente 14: Perfil premium dedicado
 (
     'DNI-1014','Valentina Brown', '555-1414', 'FEMALE', '1987-08-22', 1, 2, 1, 
-    '2022-01-10', '2022-01-10', 48, 1, 1
+    '2023-07-10', '2023-07-10', 48, 1, 1
 ),
 -- Cliente 15: Perfil casual reciente
 (

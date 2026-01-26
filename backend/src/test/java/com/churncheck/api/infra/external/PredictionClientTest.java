@@ -60,7 +60,7 @@ class PredictionClientTest {
     void shouldCreatePredictionRequestDTO() {
         // Given
         PredictionRequestDTO request = new PredictionRequestDTO(
-            0, (byte)1, (byte)0, (byte)1, (byte)1, 12, (byte)1, 30, 
+            0, 1, 0, 1, 1, 12, 1, 30, 
             new java.math.BigDecimal("50.50"), 6, 6, 
             new java.math.BigDecimal("2.5"), new java.math.BigDecimal("3.0")
         );
@@ -68,7 +68,7 @@ class PredictionClientTest {
         // Then
         assertNotNull(request);
         assertEquals(0, request.gender());
-        assertEquals((byte)1, request.nearLocation());
+        assertEquals(1, request.nearLocation());
     }
     
     @Test
@@ -110,7 +110,7 @@ class PredictionClientTest {
         // Given
         PredictionClient client = new PredictionClient(restClientBuilder, properties, validator);
         PredictionRequestDTO requestWithNulls = new PredictionRequestDTO(
-            0, (byte)1, (byte)0, (byte)1, (byte)1, 12, (byte)1, 30, 
+            0, 1, 0, 1, 1, 12, 1, 30, 
             new java.math.BigDecimal("50.50"), null, 6, 
             new java.math.BigDecimal("2.5"), new java.math.BigDecimal("3.0")
         );
@@ -130,7 +130,7 @@ class PredictionClientTest {
         // Given
         PredictionClient client = new PredictionClient(restClientBuilder, properties, validator);
         PredictionRequestDTO requestWithNegatives = new PredictionRequestDTO(
-            0, (byte)1, (byte)0, (byte)1, (byte)1, 12, (byte)1, 30, 
+            0, 1, 0, 1, 1, 12, 1, 30, 
             new java.math.BigDecimal("50.50"), -5, 6, 
             new java.math.BigDecimal("2.5"), new java.math.BigDecimal("3.0")
         );
@@ -150,7 +150,7 @@ class PredictionClientTest {
         // Given
         PredictionClient client = new PredictionClient(restClientBuilder, properties, validator);
         PredictionRequestDTO requestWithExtremes = new PredictionRequestDTO(
-            0, (byte)1, (byte)0, (byte)1, (byte)1, 12, (byte)1, 30, 
+            0, 1, 0, 1, 1, 12, 1, 30, 
             new java.math.BigDecimal("50.50"), 6, 50, 
             new java.math.BigDecimal("2.5"), new java.math.BigDecimal("3.0")
         );
