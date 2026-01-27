@@ -1,14 +1,22 @@
-# ---
 
-**Reporte Retención en Gimnasios**
+![ORACLE + Alura Latam](../../docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
+
+***Desafío intensivo de innovación para participantes de todo Latam.***
+
+powered by ![NoCountry](../../docs/assets/nocountry-logo.png)
+
+---
+
+# **Reporte Retención en Gimnasios**
 
 **Proyecto:** Auditoría de Calidad y Análisis Exploratorio (EDA)
 
 **Especialista:** BI & Data Science Team
 
-## ---
+---
 
-**1\. Diccionarios de Datos (Data Catalog)**
+## **1\. Diccionarios de Datos (Data Catalog)**
 
 ### **1.1. Dataset Original (gym\_churn\_cleaned.csv)**
 
@@ -33,9 +41,7 @@ Activo generado para pruebas de estrés y validación de tuberías de datos (Dat
 * **Metodología:** Generación estocástica basada en distribuciones observadas.  
 * **Uso:** Pruebas de integración sin comprometer datos reales de clientes.
 
-## ---
-
-**2\. Resumen Estadístico (Insights de Negocio)**
+## **2\. Resumen Estadístico (Insights de Negocio)**
 
 Basado en el procesamiento de 4,000 registros, estos son los indicadores clave de tendencia y dispersión:
 
@@ -97,7 +103,8 @@ Registros Duplicados: 0
 | **avgClassFrequencyCurrentMonth** | 1.766271 | 1.719574 | 0.000000 | 1.050333 |
 | **churn** | 0.265250 | 0.000000 | 0.000000 | 0.441521 |
 
-<img width="1600" height="1200" alt="1" src="https://github.com/user-attachments/assets/c430131a-7d18-40d3-a5d2-9175e8430b72" />
+
+
 
 | Variable | Skewness |
 | ----- | ----- |
@@ -121,7 +128,7 @@ churn
 0    	73.475  
 1    	26.525
 
-<img width="1297" height="525" alt="2" src="https://github.com/user-attachments/assets/1430b63f-9457-4489-8137-afe729821d6d" />
+
 
 \--- EJECUTANDO SANITY CHECK —
 
@@ -130,9 +137,8 @@ Rango Edad Coherente: 	✅ PASÓ
 Churn Binario: 		✅ PASÓ  
 Lifetime Positivo: 		✅ PASÓ
 
-## ---
+## **3\. Análisis Visual y Hallazgos**
 
-**3\. Análisis Visual y Hallazgos**
 
 ### **3.1. Matriz de Correlación (Heatmap)**
 
@@ -160,9 +166,7 @@ Lifetime Positivo: 		✅ PASÓ
 
 ![Relacion Lifetime-Frecuencia](images/EDA_edad_gastos.png)
 
-## ---
-
-**4\. Reporte de Sanity Check (Calidad Asegurada)**
+## **4\. Reporte de Sanity Check (Calidad Asegurada)**
 
 El script de validación automática arrojó los siguientes resultados antes del procesamiento:
 
@@ -171,9 +175,7 @@ El script de validación automática arrojó los siguientes resultados antes del
 3. **Consistencia de Objetivo:** La variable churn es estrictamente binaria $\\{0, 1\\}$. ✅  
 4. **Validación de Negocio:** No existen valores negativos en cargos adicionales ni en antigüedad. ✅
 
-## ---
-
-**🚀 Conclusiones para el Modelo Predictivo**
+## **🚀 Conclusiones para el Modelo Predictivo**
 
 1. **Evitar el ruido:** Se debe descartar monthToEndContract por redundancia.  
 2. **Variables de Peso:** age, lifetime y avgClassFrequency se perfilan como los predictores más potentes.  

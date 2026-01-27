@@ -1,4 +1,14 @@
-# **04 \- Entrenamiento y Selección del Modelo (Gym Churn)**
+
+![ORACLE + Alura Latam](../../docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
+
+***Desafío intensivo de innovación para participantes de todo Latam.***
+
+powered by ![NoCountry](../../docs/assets/nocountry-logo.png)
+
+----
+
+# **Entrenamiento y Selección del Modelo (Gym Churn)**
 
 ## **📋 Descripción**
 
@@ -200,7 +210,7 @@ Se realizó una optimización de cada uno de los modelos. Basado en los resultad
 
   El proceso de optimización se centró en mejorar el desempeño del modelo a partir de tres ejes: <strong>relevancia de variables, estabilidad estadística y ajuste fino de hiperparámetros.</strong>
 
-  ### 1. Selección de Variables por Importancia
+  ### **Selección de Variables por Importancia**
 
   Mediante `permutation_importance` con métrica `recall`, se identificaron variables cuyo aporte al modelo era nulo o negativo:
 
@@ -212,7 +222,7 @@ Se realizó una optimización de cada uno de los modelos. Basado en los resultad
 
   Estas variables fueron eliminadas al no contribuir a la detección de churn.
 
-  ### 2. *Análisis de Multicolinealidad*
+  ### **Análisis de Multicolinealidad**
 
   Se evaluó la multicolinealidad mediante el Factor de Inflación de Varianza (VIF), detectando valores elevados en:
 
@@ -223,7 +233,7 @@ Se realizó una optimización de cada uno de los modelos. Basado en los resultad
 
   Para evitar redundancia y ruido estadístico, se eliminó `contractPeriod`, conservando `monthToEndContract`.
 
-  ### 3. *Reentrenamiento con Variables Reducidas*
+  ### **Reentrenamiento con Variables Reducidas**
 
   El modelo fue reentrenado con 9 variables. El desempeño resultante mostró una mejora ligera pero consistente:
 
@@ -237,7 +247,7 @@ Se realizó una optimización de cada uno de los modelos. Basado en los resultad
 
   Esto confirma que la reducción de variables no solo preserva el rendimiento, sino que mejora la capacidad de detección de la clase minoritaria.
 
-  ### 4. *Optimización de Hiperparámetros*
+  ### **4\.Optimización de Hiperparámetros**
 
   Se aplicó `GridSearchCV` priorizando la métrica `roc_auc`, buscando un equilibrio entre *precision* y *recall*.  
   El mejor conjunto de parámetros fue:
@@ -325,7 +335,7 @@ Se realizó una optimización de cada uno de los modelos. Basado en los resultad
   La optimización permitió mejorar ligeramente el recall de churn y estabilizar el comportamiento del modelo, pero sin generar una ventaja clara frente a la configuración inicial ni frente a la regresión logística.
 </details>
 
-## 📊 Resultados: Selección del Modelo Final
+## **4\.Resultados: Selección del Modelo Final**
 
 Aunque los modelos basados en árboles suelen ofrecer un alto poder predictivo, en este problema la **Regresión Logística Optimizada** logró un mejor equilibrio entre complejidad y capacidad de generalización. El modelo alcanzó el mayor *Recall* para la clase de churn, manteniendo al mismo tiempo un desempeño global superior.
 
@@ -341,7 +351,7 @@ La Regresión Logística optimizada fue seleccionada como modelo final al ofrece
 Este resultado confirma que, para este dominio, un modelo lineal bien regularizado supera a enfoques más complejos, proporcionando una solución más robusta, transparente y alineada al impacto de negocio.
 
 
-## **📂 Archivos Generados**
+## **5\.Archivos Generados**
 
 * 💹 **Modelo base de entremiento**
         [dummy_baseline.joblib](../models/dummy_baseline.joblib) 
@@ -358,7 +368,7 @@ Este resultado confirma que, para este dominio, un modelo lineal bien regulariza
     
 
 
-## **🏁 Uso del Modelo**
+## **6\.Uso del Modelo**
 
 ```python
 

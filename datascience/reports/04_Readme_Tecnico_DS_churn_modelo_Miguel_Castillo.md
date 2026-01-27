@@ -1,7 +1,16 @@
 
-# Reporte Técnico – Modelo de Predicción de Churn
+![ORACLE + Alura Latam](../../docs/assets/oraclealura-logo.svg)
+## Hackathon Oracle Next Education II - Latam
 
-## Contexto del Dataset
+***Desafío intensivo de innovación para participantes de todo Latam.***
+
+powered by ![NoCountry](../../docs/assets/nocountry-logo.png)
+
+----
+
+# **Reporte Técnico – Modelo de Predicción de Churn**
+
+## **1\.Contexto del Dataset**
 - Registros: 4000  
 - Variables predictoras: 14  
 - Variable objetivo: churn  
@@ -10,12 +19,12 @@ Distribución:
 - No Churn (0): 73.47%
 - Churn (1): 26.53%
 
-## Split de Datos
+## **2\.Split de Datos**
 - 80/20 estratificado (random_state=42)
 - Proporción de churn conservada en Train y Test
 - Test set completamente virgen
 
-## Modelo Baseline – DummyClassifier
+## **3\.Modelo Baseline – DummyClassifier**
 
 **Matriz de Confusión**
 [[588, 0],
@@ -31,11 +40,11 @@ Distribución:
 
 Conclusión: no detecta churn.
 
-## Balanceo de Clases
+## **4\.Balanceo de Clases**
 - SMOTE aplicado solo al Train
 - Distribución balanceada: 2351 / 2351
 
-## Modelo Entrenado – Logistic Regression
+## ** 5\.Modelo Entrenado – Logistic Regression**
 
 **Matriz de Confusión**
 [[558, 30],
@@ -49,18 +58,18 @@ Conclusión: no detecta churn.
 | Recall | 0.87264 |
 | F1 | 0.86651 |
 
-## Validación Cruzada (5-Fold)
+## **6\.Validación Cruzada (5-Fold)**
 - Recall medio: ~0.91
 - Desviación estándar baja (~0.02)
 
-## Comparación Dummy vs Modelo
+## **7\.Comparación Dummy vs Modelo**
 
 | Modelo | Accuracy | Precision | Recall | F1 |
 |------|---------|----------|-------|----|
 | Dummy | 0.735 | 0.000 | 0.000 | 0.000 |
 | Logistic Regression | 0.92875 | 0.86047 | 0.87264 | 0.86651 |
 
-## Smoke Test
+## **8\.Smoke Test**
 
 Predicción individual:
 - Clase: No Churn
@@ -78,5 +87,5 @@ Predicción individual:
 ✔ Serialización (.joblib)  
 ✔ Smoke tests  
 
-## Estado Final
+## **9\.Estado Final**
 Modelo listo para optimización, tuning, feature selection y despliegue en API.
