@@ -8,7 +8,15 @@ powered by ![NoCountry](../docs/assets/nocountry-logo.png)
 
 ----
 
-# 🏛️ChurnCheck: Ecosistema de Data Science (2026)
+# ChurnCheck - Data Science
+## Predicción de Cancelación de Clientes
+
+* Proyecto ChurnInsight
+* **Equipo: H12-25-L-Equipo 14-Data Science**
+
+-----
+
+# 🏛️Ecosistema de Data Science (2026)
 
 > **Declaración de Autoridad:** Este repositorio constituye el núcleo analítico y predictivo del proyecto *ChurnCheck*. Ha sido reestructurado bajo estándares de ingeniería de datos de alto nivel para garantizar la integridad, trazabilidad y escalabilidad de los modelos destinados a la prevención de fuga de clientes.
 
@@ -25,23 +33,24 @@ Nuestra misión es transformar datos brutos en inteligencia accionable. El equip
 Ejecutar el ciclo de vida completo de ciencia de datos —desde la ingesta cruda hasta la validación de alto rigor— para el despliegue de modelos de predicción de churn. Nuestra prioridad es la entrega de artefactos analíticos escalables, reproducibles y listos para producción, garantizando una integración fluida con la arquitectura de backend y la infraestructura en la nube.
 
 
-## 🛠️ Flujo de Trabajo (Estructura 2026)
+## 🛠️ Flujo de Trabajo
 
 ### 1. Ingesta y Gestión de Datos
-- **Raw Data**: Datasets originales en `data/raw/`.
-- **Processed Data**: Versiones limpias en `data/processed/`.
-- **Documentación**: Fuentes y diccionarios de datos en `reports/`.
+- **Raw Data**: [Dataset original](data/raw/gym_churn_us.csv)
+- **Processed Data**: [Versiones limpias](data/processed)
+- **Documentación**: [Fuentes y diccionarios de datos](reports/)
 
 ### 2. Desarrollo y Experimentación
-- **Preprocesamiento**: Notebooks de limpieza en `notebooks/preprocessing/`.
-- **Análisis (EDA)**: Exploración en `notebooks/exploration/`.
-- **Modelado**: Entrenamiento y validación en `notebooks/training/`.
-- **Scripts**: Lógica definitiva en `src/`.
+- **Preprocesamiento**: [Notebook de limpieza](notebooks/01.-%20gym_churn_ETL.ipynb)
+- **Análisis (EDA)**: [Análisis de Exploración](notebooks/02.-%20gym_churn_EDA.ipynb)
+-**Renombramiento de las columnas** [Estandarización de las columnas](notebooks/03.-rename_columns_camelcase.ipynb)
+- **Modelado**: [Entrenamiento y validación](notebooks/04.-%20gym_churn_camelcase_train.ipynb)
+- **Optimización**: [Evaluación de hiperparámetros y optimización](05.-%20Optimización_de_gym_churn_camelcase_train.ipynb)
 
 ### 3. Versionado y Entrega
-- **Modelos**: Archivos `.joblib` finales en `models/`.
-- **Integración**: Definición de endpoints y payloads JSON en `deliverables_for_back/` para coordinación con el equipo de Backend.
-- **Histórico**: El legado del proyecto se mantiene en `oldmess/`.
+- **Modelos**: [Archivos .joblib finales](models/)
+- **Integración**: [Definición de endpoints y payloads JSON para coordinación con el equipo de Backend.](/deliverables_for_back)
+- **Histórico**: [El legado del proyecto se mantiene](/oldmess).
 
 ---
 
@@ -57,8 +66,4 @@ Ejecutar el ciclo de vida completo de ciencia de datos —desde la ingesta cruda
 ```bash
 pip install -r requirements.txt
 
----
-
-##  Equipo de Data Science
-
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/22040dfd-06a4-4e00-bc55-dcfb39d862c6" />
+```

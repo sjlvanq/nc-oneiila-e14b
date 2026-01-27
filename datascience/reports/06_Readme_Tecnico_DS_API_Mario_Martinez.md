@@ -8,15 +8,15 @@ powered by ![NoCountry](../../docs/assets/nocountry-logo.png)
 
 ----
 
-# API ChurnInsight Gym
+# **API ChurnInsight Gym**
 
 Una API basada en FastAPI para predicción de deserción de clientes en servicios de membresía de gimnasio.
 
-## Descripción General del Proyecto
+## **1\.Descripción General del Proyecto**
 
 Esta API proporciona predicción en tiempo real de deserción de miembros de gimnasio utilizando un modelo de aprendizaje automático pre-entrenado. Aprovecha XGBoost con pipelines de scikit-learn para predicciones precisas e incluye capacidades de procesamiento por lotes.
 
-## Características
+## **2\.Características**
 
 - Endpoint de predicción única con umbral de decisión personalizable
 - Procesamiento de predicciones por lotes
@@ -27,7 +27,7 @@ Esta API proporciona predicción en tiempo real de deserción de miembros de gim
 - Coerción de tipos automática para características de entrada
 - Marcas de tiempo ISO 8601 en todas las respuestas
 
-## Estructura del Proyecto
+## **3\.Estructura del Proyecto**
 
 ```
 churn_api_project/
@@ -41,7 +41,7 @@ churn_api_project/
 └── README.md              # Este archivo
 ```
 
-## Requisitos
+## **4\.Requisitos**
 
 - Python 3.9+
 - FastAPI 0.109.0
@@ -51,9 +51,9 @@ churn_api_project/
 - Pandas 2.2.0
 - NumPy 1.26.3
 
-Consulta `requirements.txt` para la lista completa de dependencias.
+Consulta [requirements.txt](../requirements.txt) para la lista completa de dependencias.
 
-## Instalación
+## **5\.Instalación**
 
 ### Configuración Local
 
@@ -86,7 +86,7 @@ La API estará disponible en `http://localhost:8000`
    docker run -p 8000:8000 churn-api
    ```
 
-## Documentación de API
+## **6\.Documentación de API**
 
 ### Verificación de Salud
 - **Endpoint:** GET `/health`
@@ -187,7 +187,7 @@ La API estará disponible en `http://localhost:8000`
   }
   ```
 
-## Configuración
+## **7\.Configuración**
 
 ### Variables de Entorno
 
@@ -209,7 +209,7 @@ La API utiliza un umbral predeterminado de 0.5 para clasificación. Puedes:
 - Especificar un umbral óptimo en metadata.json
 - Anular por solicitud mediante el parámetro threshold en el payload del endpoint
 
-## Características del Modelo
+## **8\.Características del Modelo**
 
 El modelo procesa las siguientes características clave:
 
@@ -223,7 +223,7 @@ El modelo procesa las siguientes características clave:
 - lifetime
 - age (y otros atributos del cliente)
 
-## Ejemplos de Uso
+## **9\.Ejemplos de Uso**
 
 ### Cliente Python
 
@@ -277,7 +277,7 @@ curl -X POST "http://localhost:8000/predict" \
 curl http://localhost:8000/health
 ```
 
-## Manejo de Errores
+## **10\.Manejo de Errores**
 
 - **400 Bad Request:** Faltan campos obligatorios en los datos de entrada
 - **500 Internal Server Error:** Error en la inferencia del modelo o error inesperado
@@ -290,14 +290,14 @@ Las respuestas de error incluyen detalles sobre lo que salió mal:
 }
 ```
 
-## Consideraciones de Rendimiento
+## **11\.Consideraciones de Rendimiento**
 
 - Las predicciones únicas se procesan de forma sincrónica
 - Las predicciones por lotes permiten el procesamiento eficiente de múltiples clientes
 - El modelo se carga una sola vez al iniciar para un rendimiento óptimo
 - Las estadísticas se rastrean en memoria durante el tiempo de ejecución
 
-## Resolución de Problemas
+## **12\.Resolución de Problemas**
 
 ### Modelo No Se Carga
 - Verifica que las variables de entorno MODEL_PATH y METADATA_PATH sean correctas
@@ -313,11 +313,11 @@ Las respuestas de error incluyen detalles sobre lo que salió mal:
 - Cambia el puerto usando: `uvicorn src.main:app --port 8001`
 - O modifica la instrucción CMD en el Dockerfile para implementaciones en contenedor
 
-## Licencia
+## **13\.Licencia**
 
 Este proyecto se proporciona tal cual para predicción de deserción de membresía de gimnasio.
 
-## Soporte
+## **14\.Soporte**
 
 Para problemas, asegúrate de:
 1. Que todas las dependencias estén instaladas correctamente

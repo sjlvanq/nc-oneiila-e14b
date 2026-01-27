@@ -8,9 +8,7 @@ powered by ![NoCountry](../../docs/assets/nocountry-logo.png)
 
 ----
 
-# ---
-
-**03 \- Renombrar columnas a camelCase**
+# **Renombrar columnas a camelCase**
 
 ## **📋 Descripción**
 
