@@ -1,6 +1,4 @@
 -- Seed dataset generated (1000 clients + related tables)
-SET FOREIGN_KEY_CHECKS=0;
-START TRANSACTION;
 
 -- USERS
 INSERT INTO users (id,email,password_hash,name,active,created_at) VALUES
@@ -21027,5 +21025,3 @@ INSERT INTO group_activity_attendance (id,client_id,group_activity_id,attendance
 (2805,1000,7,'2026-01-16 14:15:00'),
 (2806,1000,8,'2026-01-24 09:00:00');
 
-COMMIT;
-SET FOREIGN_KEY_CHECKS=1;
